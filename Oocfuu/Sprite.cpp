@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <glut.h>
 
+Sprite g_sprite;
+
 int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 {
 	FILE* pFile;
@@ -67,7 +69,7 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 			*pPixel1 = temp;
 		}
 
-	for (int i = 0; i < 256; i++) {
+	for (int i = 0; i < SPRITE_SIZE; i++) {
 		RGBA sprit[64] = { 0 };
 		int t = 0;
 		int sx = 8 * i, sy = 8 * (i * 8 / bi.biWidth) - (i * 8 / bi.biWidth);
@@ -94,6 +96,19 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 	free(pixels);
 	fclose(pFile);
 	return 0;
+}
+
+int Sprite::loadBMPFile(const char* _fileName,
+	unsigned char _colorKeyR,
+	unsigned char _colorKeyG,
+	unsigned char _colorKeyB)
+{
+	unsigned char colorKey[] = {
+	_colorKeyR,
+	_colorKeyG,
+	_colorKeyB,
+	};
+	return loadBMPFile(_fileName, colorKey);
 }
 
 void Sprite::bindTexture(int _width, int _heihgt, void* _pixels)

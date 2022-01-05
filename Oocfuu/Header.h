@@ -12,6 +12,9 @@
 #include "Keyboard.h"
 #include "Rect.h"
 #include "Sprite.h"
+#include "Part.h"
+#include "Course.h"
+#include "Texture.h"
 
 #include <glut.h>
 

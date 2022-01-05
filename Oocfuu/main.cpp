@@ -1,8 +1,8 @@
 #include "Header.h"
 #include <time.h>
+#include <string.h>
 
 ivec2 windowSize;
-Sprite sprite;
 
 void display(void)
 {
@@ -22,17 +22,29 @@ void display(void)
 		GL_SRC_ALPHA,			//GLenum sfactor
 		GL_ONE_MINUS_SRC_ALPHA);//GLenum dfactor
 
-	{
-		float f = (float)windowSize.x / SCREEN_WIDTH;
-		glLineWidth(f);// GLfloat width
-		glPointSize(f);// GLfloat size
-	}
+	g_course.draw();
 
-	glBindTexture(
-		GL_TEXTURE_2D,
-		sprite.m_textures['A']
-	);
-	Rect(8, 8).draw();
+	fontBegin();
+	{
+		fontPosition(24, 16);
+		fontDraw("OOCFUU");
+		fontPosition(24, 24);
+		fontDraw("%06d", 0);
+		fontPosition(96, 24);
+		fontDraw("x%02d", 0);
+		fontPosition(144, 16);
+		fontDraw("WORDL");
+		fontPosition(152, 24);
+		fontDraw("1-1");
+		fontPosition(200, 16);
+		fontDraw("TIME");
+		fontPosition(40, 64);
+		fontDraw("HAPPY BIRTHDAY OOCFUU!\n\n");
+		fontDraw("HOPE YOU HAVE AN AMAZING\n\n");
+		fontDraw("YEAR AHEAD!\n\n");
+		fontDraw("FROM OSHU-FUJIWARA-SHI");
+	}
+	fontEnd();
 
 	glutSwapBuffers();
 }
@@ -74,8 +86,8 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
 	{
-		windowSize.y = 720 - 32;
-		windowSize.x = windowSize.y * 4 / 3;
+		windowSize.y = SCREEN_HEIGHT * 3;
+		windowSize.x = SCREEN_WIDTH * 3;
 		glutInitWindowPosition(640, 200);
 		glutInitWindowSize(windowSize.x, windowSize.y);
 	}
@@ -83,11 +95,10 @@ int main(int argc, char* argv[])
 
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Keyboard::init();
-	unsigned char alpha[3];
-	alpha[0] = 0;
-	alpha[1] = 57;
-	alpha[2] = 115;
-	sprite.loadBMPFile("CHR000.bmp", alpha);
+
+	g_sprite.loadBMPFile("resource\\CHR001.bmp", 0, 64, 128);
+	g_parts->initAll();
+	g_course.load("resource\\course.txt");
 
 	glutDisplayFunc(display);
 	glutTimerFunc(0, timer, 0);
