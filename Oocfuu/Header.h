@@ -15,6 +15,8 @@
 #include "Part.h"
 #include "Course.h"
 #include "Texture.h"
+#include "Music.h"
+#include "Channel.h"
 
 #include <glut.h>
 

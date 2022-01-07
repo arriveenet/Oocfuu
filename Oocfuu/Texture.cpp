@@ -5,31 +5,16 @@
 #include <glut.h>
 
 Texture g_textures[TEXTURE_MAX] = {
-	{"Player\\BigMario_Brake.bmp"},
-	{"Player\\BigMario_Crouch.bmp"},
-	{"Player\\BigMario_Die.bmp"},
-	{"Player\\BigMario_Flagpole_1.bmp"},
-	{"Player\\BigMario_Flagpole_2.bmp"},
-	{"Player\\BigMario_Idle.bmp"},
-	{"Player\\BigMario_Jump.bmp"},
-	{"Player\\BigMario_Run_1.bmp"},
-	{"Player\\BigMario_Run_2.bmp"},
-	{"Player\\BigMario_Run_3.bmp"},
-	{"Player\\SmallMario_Brake.bmp"},
-	{"Player\\SmallMario_Die.bmp"},
-	{"Player\\SmallMario_Flagpole_1.bmp"},
-	{"Player\\SmallMario_Flagpole_2.bmp"},
-	{"Player\\SmallMario_Idle.bmp"},
-	{"Player\\SmallMario_Jump.bmp"},
-	{"Player\\SmallMario_Run_1.bmp"},
-	{"Player\\SmallMario_Run_2.bmp"},
-	{"Player\\SmallMario_Run_3.bmp"},
-	{"Enemies\\Kuribo_Run.bmp"},
-	{"Enemies\\Kuribo_Squish.bmp"},
-	{"Enemies\\Nokonoko_Run_1.bmp"},
-	{"Enemies\\Nokonoko_Run_2.bmp"},
-	{"Enemies\\Nokonoko_Squish.bmp"},
-	{"Enemies\\Nokonoko_Return.bmp"},
+	{"player\\SmallMario_Brake.bmp"},
+	{"player\\SmallMario_Die.bmp"},
+	{"player\\SmallMario_Flagpole_1.bmp"},
+	{"player\\SmallMario_Flagpole_2.bmp"},
+	{"player\\SmallMario_Idle.bmp"},
+	{"player\\SmallMario_Jump.bmp"},
+	{"player\\SmallMario_Run_1.bmp"},
+	{"player\\SmallMario_Run_2.bmp"},
+	{"player\\SmallMario_Run_3.bmp"},
+	{"cake.bmp"},
 };
 
 int Texture::init()
@@ -41,7 +26,7 @@ int Texture::init()
 	glBindTexture(
 		GL_TEXTURE_2D,	// GLenum target
 		m_texture);	// GLuint texture
-	char fileName[256] = "Textures\\";
+	char fileName[256] = "resource\\textures\\";
 	sprintf_s(fileName, "%s%s", fileName, m_fileName);
 	//printf("%s\n", fileName);
 	texFromBMP(fileName, 0xff, 0x00, 0xff);
