@@ -15,8 +15,13 @@
 #include "Part.h"
 #include "Course.h"
 #include "Texture.h"
+#include "Sound.h"
 #include "Music.h"
 #include "Channel.h"
+#include "Game.h"
+#include "Animation.h"
+#include "AnimationController.h"
+#include "Player.h"
 
 #include <glut.h>
 

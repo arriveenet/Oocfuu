@@ -24,6 +24,7 @@ struct Music {
 	char m_title[32];
 	bool m_play;
 	int m_playCount;
+	bool m_end;
 	Channel m_pulse0;
 	Channel m_pulse1;
 	Channel m_triangle;

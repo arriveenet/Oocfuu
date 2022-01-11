@@ -11,6 +11,7 @@ class Channel {
 	float m_gain;
 	int m_channel;
 	int m_waveform;
+	bool m_end;
 
 public:
 	Channel();
@@ -23,4 +24,5 @@ public:
 	void resetScore();
 	virtual void update();
 	void draw(float _x, float _y);
+	bool isEnd();
 };

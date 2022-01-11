@@ -129,6 +129,7 @@ bool Course::intersect(vec2 const& _point) {
 	//case PART_NONE:
 	case PART_GROUND:
 	case PART_HARD_BLOCK:
+	case PART_HARD_BLOCK_2:
 	case PART_SOFT_BLOCK:
 	case PART_PIPE_UP_LEFT:
 	case PART_PIPE_UP_RIGHT:
@@ -188,6 +189,10 @@ bool Course::intersect(glm::vec2 const& _point, int* _parts)
 		break;
 	case PART_HARD_BLOCK:
 		*_parts = PART_HARD_BLOCK;
+		result = true;
+		break;
+	case PART_HARD_BLOCK_2:
+		*_parts = PART_HARD_BLOCK_2;
 		result = true;
 		break;
 	case PART_SOFT_BLOCK:

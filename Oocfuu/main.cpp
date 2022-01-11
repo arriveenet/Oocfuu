@@ -4,10 +4,36 @@
 #include <time.h>
 #include <string.h>
 
-ivec2 windowSize;
-struct tm currentTime;
+enum {
+	PHASE_HBD,
+	PHASE_TP,
+	PHASE_MAX
+};
 
-/* I NEED YOU */
+ivec2 windowSize;
+int phase = PHASE_HBD;
+
+typedef struct {
+	char str[32];
+	vec2 position;
+	int startCount;
+}MESSAGE;
+
+static MESSAGE messages[] = {
+	{"FEBRUARY,4,2022",vec2(120, 64)},
+	{"HAPPY BIRTHDAY OOCFUU!",vec2(40, 88)},
+	{"HOPE YOU HAVE AN AMAZING",vec2(40,112)},
+	{"YEAR AHEAD!",vec2(40, 128)},
+	{"GOOD LUCK HAVE FUN.",vec2(40, 144)},
+	{"FROM OSHU-FUJIWARA",vec2(40, 160)}
+};
+
+#define MESSAGE_MAX (sizeof(messages) / sizeof(MESSAGE))
+
+float getCenter(int _len)
+{
+	return (float)(SCREEN_WIDTH / 2) - ((_len * 8) / 2);
+}
 
 void display(void)
 {
@@ -27,37 +53,32 @@ void display(void)
 		GL_SRC_ALPHA,			//GLenum sfactor
 		GL_ONE_MINUS_SRC_ALPHA);//GLenum dfactor
 
-	g_course.draw();
-
+	// Draw cake
 	glBindTexture(
 		GL_TEXTURE_2D,
 		g_textures[TEXTURE_CAKE].m_texture);
 	Rect(vec2(32,32), vec2(16*7, 16*11)).draw();
 
-	fontBegin();
-	{
-		fontPosition(24, 16);
-		fontDraw("OOCFUU");
-		fontPosition(24, 24);
-		fontDraw("%06d", currentTime.tm_year+1900);
-		fontPosition(96, 24);
-		fontDraw("X%02d", currentTime.tm_sec);
-		fontPosition(144, 16);
-		fontDraw("WORDLD");
-		fontPosition(152, 24);
-		fontDraw("%d-%d", currentTime.tm_mon+1, currentTime.tm_mday);
-		fontPosition(200, 16);
-		fontDraw("TIME");
-		fontPosition(200, 24);
-		fontDraw("%02d:%02d", currentTime.tm_hour, currentTime.tm_min);
-		fontPosition(40, 64);
-		fontDraw("HAPPY BIRTHDAY OOCFUU!\n\n");
-		fontDraw("HOPE YOU HAVE AN AMAZING\n\n");
-		fontDraw("YEAR AHEAD!\n\n");
-		fontDraw("2022/02/04\n\n");
-		fontDraw("FROM OSHU_FUJIWARA-SHI");
+	switch (phase) {
+	case PHASE_HBD:
+		break;
+	case PHASE_TP:
+		fontBegin();
+		{
+			for (int i = 0; i < MESSAGE_MAX; i++) {
+				if (g_game.m_count < messages[i].startCount)
+					break;
+				fontPosition(messages[i].position.x, messages[i].position.y);
+				fontDraw(messages[i].str);
+			}
+		}
+		fontEnd();
+		break;
 	}
-	fontEnd();
+
+	g_course.draw();
+	g_player.draw();
+	g_game.drawHUD();
 
 	glutSwapBuffers();
 }
@@ -66,13 +87,34 @@ void update()
 {
 	time_t t = time(NULL);
 	localtime_s(&currentTime, &t);
-	if (Keyboard::m_nowPressed['r']) {
-		g_music.reset();
+
+	switch (phase) {
+	case PHASE_HBD:
+		if (g_music.m_end) {
+			g_music.reset();
+			g_music.setScore(AUDIO_CHANNEL_PULSE0, tpP0, 331);
+			g_music.setScore(AUDIO_CHANNEL_PULSE1, tpP1, 430);
+			g_music.setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, 37);
+			g_music.setScore(AUDIO_CHANNEL_NOISE, tpNoise, 4);
+			g_music.play();
+			phase = PHASE_TP;
+		}
+		break;
+	case PHASE_TP:
+		g_game.update();
+		if (Keyboard::m_nowPressed['r']) {
+			g_music.reset();
+			g_music.play();
+			g_game.m_count = 0;
+		}
+		if (Keyboard::m_nowPressed['k']) {
+			g_music.m_play ? g_music.stop() : g_music.play();
+		}
+		break;
 	}
-	if (Keyboard::m_nowPressed[' ']) {
-		g_music.m_play ? g_music.stop() : g_music.play();
-	}
+
 	g_music.update();
+	g_player.update();
 }
 
 void timer(int value)
@@ -104,6 +146,8 @@ int main(int argc, char* argv[])
 	if (audioInit() != 0)
 		return 1;
 
+	srand((unsigned int)time(NULL));
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
 	{
@@ -118,23 +162,25 @@ int main(int argc, char* argv[])
 	}
 	glutCreateWindow("Happy Birthday to oocfuu!");
 
+	// Initialize
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Keyboard::init();
-
-	g_music.init();
-	int p0Len = sizeof(tpP0) / sizeof(tpP0[0]);
-	int p1Len = sizeof(tpP1) / sizeof(tpP1[0]);
-	int triLen = sizeof(tpTri) / sizeof(tpTri[0]);
-	int noiseLen = sizeof(tpNoise) / sizeof(tpNoise[0]);
-	g_music.setScore(AUDIO_CHANNEL_PULSE0, tpP0, p0Len);
-	g_music.setScore(AUDIO_CHANNEL_PULSE1, tpP1, p1Len);
-	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, triLen);
-	//g_music.setScore(AUDIO_CHANNEL_NOISE, tpNoise, noiseLen);
-	g_music.play();
 	g_sprite.loadBMPFile("resource\\CHR001.bmp", 0, 64, 128);
 	g_parts->initAll();
 	g_course.load("resource\\course.txt");
 	g_textures->initAll();
+	g_player.init();
+	g_animations->initAll();
+	g_sound->initAll();
+	g_music.init();
+	g_music.setScore(AUDIO_CHANNEL_PULSE0, HBTY_Pulse0, 33);
+	int total = 96;
+	for (int i = 0; i < MESSAGE_MAX; i++) {
+		messages[i].startCount = total;
+		total += 96;
+	}
+
+	g_music.play();
 
 	errno_t err;
 	time_t t = time(NULL);

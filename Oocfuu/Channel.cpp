@@ -20,6 +20,7 @@ Channel::Channel()
 	, m_gain(AUDIO_DEFAULT_GAIN)
 	, m_channel(0)
 	, m_waveform(0)
+	, m_end(false)
 {
 }
 
@@ -31,6 +32,7 @@ Channel::Channel(int _channel, int _waveform)
 	, m_gain(AUDIO_DEFAULT_GAIN)
 	, m_channel(_channel)
 	, m_waveform(_waveform)
+	, m_end(false)
 {
 }
 
@@ -75,12 +77,14 @@ void Channel::start()
 	audioDecay(m_channel, m_score[0].decay);
 	audioGain(m_channel, m_gain);
 	audioPlay(m_channel);
+	m_end = false;
 }
 
 void Channel::reset()
 {
 	m_phase = 0;
 	m_length = 0;
+	m_end = false;
 }
 
 void Channel::resetScore()
@@ -90,8 +94,10 @@ void Channel::resetScore()
 
 void Channel::update()
 {
-	if (m_phase >= m_count)
+	if (m_phase >= m_count) {
+		m_end = true;
 		return;
+	}
 
 	m_length++;
 
@@ -129,4 +135,9 @@ void Channel::draw(float _x, float _y)
 	fontDraw("%d", m_score[m_phase].length);
 	fontPosition(_x + 8 * 1, 100 +_y);
 	fontEnd();
+}
+
+bool Channel::isEnd()
+{
+	return m_end;
 }

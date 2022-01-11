@@ -14,6 +14,7 @@ int Music::init()
 	strcpy_s(m_title, " ");
 	m_play = false;
 	m_playCount = 0;
+	m_end = false;
 	m_pulse0.setChannel(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_25);
 	m_pulse1.setChannel(AUDIO_CHANNEL_PULSE1, AUDIO_WAVEFORM_PULSE_50);
 	m_triangle.setChannel(AUDIO_CHANNEL_TRIANGLE, AUDIO_WAVEFORM_TRIANGLE);
@@ -30,6 +31,7 @@ void Music::reset()
 	m_triangle.reset();
 	m_noise.reset();
 	m_playCount = 0;
+	m_end = false;
 }
 
 void Music::resetScore()
@@ -80,6 +82,15 @@ void Music::update()
 	m_pulse1.update();
 	m_triangle.update();
 	m_noise.update();
+
+	if (
+		(m_pulse0.isEnd())
+		&& (m_pulse1.isEnd())
+		&& (m_triangle.isEnd())
+		&& (m_noise.isEnd())
+		) {
+		m_end = true;
+	}
 }
 
 
@@ -125,6 +136,7 @@ void Music::play()
 
 	m_playCount++;
 	m_play = true;
+	m_end = false;
 }
 
 void Music::stop()

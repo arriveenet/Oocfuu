@@ -15,6 +15,9 @@ Texture g_textures[TEXTURE_MAX] = {
 	{"player\\SmallMario_Run_2.bmp"},
 	{"player\\SmallMario_Run_3.bmp"},
 	{"cake.bmp"},
+	{"coin_1.bmp"},
+	{"coin_2.bmp"},
+	{"coin_3.bmp"},
 };
 
 int Texture::init()
