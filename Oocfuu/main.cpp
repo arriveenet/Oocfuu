@@ -16,23 +16,49 @@ int phase = PHASE_HBD;
 typedef struct {
 	char str[32];
 	vec2 position;
-	int startCount;
+	unsigned int startCount;
 }MESSAGE;
-
-static MESSAGE messages[] = {
-	{"FEBRUARY,4,2022",vec2(120, 64)},
-	{"HAPPY BIRTHDAY OOCFUU!",vec2(40, 88)},
-	{"HOPE YOU HAVE AN AMAZING",vec2(40,112)},
-	{"YEAR AHEAD!",vec2(40, 128)},
-	{"GOOD LUCK HAVE FUN.",vec2(40, 144)},
-	{"FROM OSHU-FUJIWARA",vec2(40, 160)}
-};
-
-#define MESSAGE_MAX (sizeof(messages) / sizeof(MESSAGE))
 
 float getCenter(int _len)
 {
 	return (float)(SCREEN_WIDTH / 2) - ((_len * 8) / 2);
+}
+
+static MESSAGE messages[] = {
+	{"HAPPY BIRTHDAY OOCFUU!",vec2(getCenter(22), 64)},
+	{"FEBRUARY,4,2022",vec2(120, 88)},
+	{"THANK YOU FOR A FUN TIME.",vec2(getCenter(25),104)},
+	{"HOPE YOU HAVE AN AMAZING",vec2(getCenter(24), 120)},
+	{"YEAR AHEAD!",vec2(getCenter(24), 136)},
+	{"FROM OSHU-FUJIWARA",vec2(96, 160)}
+};
+
+#define MESSAGE_MAX (sizeof(messages) / sizeof(MESSAGE))
+
+void init()
+{
+	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
+	Keyboard::init();
+	g_sprite.loadBMPFile("resource\\CHR001.bmp", 0, 64, 128);
+	g_parts->initAll();
+	g_course.load("resource\\course.txt");
+	g_textures->initAll();
+	g_player.init();
+	g_animations->initAll();
+	g_sound->initAll();
+	g_music.init();
+	g_music.setScore(AUDIO_CHANNEL_PULSE0, HBTY_Pulse0, 33);
+	int total = 96;
+	for (int i = 0; i < MESSAGE_MAX; i++) {
+		messages[i].startCount = total;
+		if (i == 3)
+			continue;
+		total += 96;
+	}
+
+	errno_t err;
+	time_t t = time(NULL);
+	err = localtime_s(&currentTime, &t);
 }
 
 void display(void)
@@ -163,28 +189,9 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Happy Birthday to oocfuu!");
 
 	// Initialize
-	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Keyboard::init();
-	g_sprite.loadBMPFile("resource\\CHR001.bmp", 0, 64, 128);
-	g_parts->initAll();
-	g_course.load("resource\\course.txt");
-	g_textures->initAll();
-	g_player.init();
-	g_animations->initAll();
-	g_sound->initAll();
-	g_music.init();
-	g_music.setScore(AUDIO_CHANNEL_PULSE0, HBTY_Pulse0, 33);
-	int total = 96;
-	for (int i = 0; i < MESSAGE_MAX; i++) {
-		messages[i].startCount = total;
-		total += 96;
-	}
+	init();
 
 	g_music.play();
-
-	errno_t err;
-	time_t t = time(NULL);
-	err = localtime_s(&currentTime, &t);
 
 	glutDisplayFunc(display);
 	glutTimerFunc(0, timer, 0);

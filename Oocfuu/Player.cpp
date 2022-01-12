@@ -84,14 +84,14 @@ void Player::update()
 	// Don't go off screen
 	if (m_position.x < 0) {
 		m_position.x = 0;
-		m_speed.x = 0;
+		//m_speed.x = 0;
 	}
 
 	{
 		float right = PART_SIZE * COURSE_WIDTH - PLAYER_SIZE;
 		if (m_position.x > right) {
 			m_position.x = right;
-			m_speed.x = 0;
+			//m_speed.x = 0;
 		}
 	}
 
