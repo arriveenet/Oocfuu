@@ -59,6 +59,8 @@ void init()
 	errno_t err;
 	time_t t = time(NULL);
 	err = localtime_s(&currentTime, &t);
+
+	srand((unsigned int)time(NULL));
 }
 
 void display(void)
@@ -171,8 +173,6 @@ int main(int argc, char* argv[])
 {
 	if (audioInit() != 0)
 		return 1;
-
-	srand((unsigned int)time(NULL));
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);

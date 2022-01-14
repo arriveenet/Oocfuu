@@ -23,7 +23,7 @@
 #include "AnimationController.h"
 #include "Player.h"
 
-#include <glut.h>
+#include <freeglut.h>
 
 #define SCREEN_WIDTH	256
 #define SCREEN_HEIGHT	240
