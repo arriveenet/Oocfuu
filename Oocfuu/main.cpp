@@ -39,7 +39,7 @@ void init()
 {
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Keyboard::init();
-	g_sprite.loadBMPFile("resource\\CHR001.bmp", 0, 64, 128);
+	g_sprite.loadBMPFile("resource\\CHR000.bmp", 0, 64, 128);
 	g_parts->initAll();
 	g_course.load("resource\\course.txt");
 	g_textures->initAll();
