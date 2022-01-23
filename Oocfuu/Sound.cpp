@@ -5,6 +5,7 @@
 Sound g_sound[SOUND_MAX] = {
 	{"sound\\yo.wav"},
 	{"sound\\hoi.wav"},
+	{"sound\\firework.wav"}
 };
 
 Sound::~Sound()

@@ -1,9 +1,22 @@
 #pragma once
-class Game {
-public:
-	unsigned int m_count;
+#include "Screen.h"
 
-	void update();
+enum {
+	GAME_SCREEN_HBD,
+	GAME_SCREEN_TP,
+	GAME_SCREEN_GO,
+	GAME_SCREEN_MAX
+};
+
+class Game {
+	int m_screen;
+	Screen* m_pScreens[GAME_SCREEN_MAX];
+
+public:
+	Screen* m_pCurrentScreen;
+
+	int init();
+	void setScreen(int _screen);
 	void drawHUD();
 };
 

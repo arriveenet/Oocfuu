@@ -18,6 +18,12 @@ Texture g_textures[TEXTURE_MAX] = {
 	{"coin_1.bmp"},
 	{"coin_2.bmp"},
 	{"coin_3.bmp"},
+	{"oocfuuHoi.bmp"},
+	{"oocfuuGG.bmp"},
+	{"oocfuuHi.bmp"},
+	{"firework_1.bmp"},
+	{"firework_2.bmp"},
+	{"firework_3.bmp"},
 };
 
 int Texture::init()

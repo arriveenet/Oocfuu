@@ -35,5 +35,11 @@ int Animation::initAll()
 	g_animations[ANIMATION_PLAYER_BRAKE].m_rate = 15;
 	g_animations[ANIMATION_PLAYER_BRAKE].m_next = ANIMATION_NONE;
 
+	for (int i = TEXTURE_FIREWORK_1; i <= TEXTURE_FIREWORK_3; i++) {
+		g_animations[ANIMATION_FIREWORK].m_keys.push_back(i);
+		g_animations[ANIMATION_FIREWORK].m_rate = 8;
+		g_animations[ANIMATION_FIREWORK].m_next = ANIMATION_NONE;
+	}
+
 	return 0;
 }

@@ -22,6 +22,9 @@
 #include "Animation.h"
 #include "AnimationController.h"
 #include "Player.h"
+#include "Firework.h"
+
+
 
 #include <freeglut.h>
 

@@ -53,7 +53,7 @@ void Player::update()
 
 	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]
 		&& (!m_falling)) {
-		int r = rand() % SOUND_MAX;
+		int r = rand() % 2;
 		alSourcePlay(g_sound[r].m_sid);
 
 		m_jumping = m_falling = true;

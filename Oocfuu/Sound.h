@@ -6,6 +6,7 @@
 enum {
 	SOUND_SE_YO,
 	SOUND_SE_HOI,
+	SOUND_FIREWORK,
 	SOUND_MAX
 };
 

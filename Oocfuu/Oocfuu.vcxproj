@@ -148,8 +148,11 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="Channel.cpp" />
     <ClCompile Include="Course.cpp" />
+    <ClCompile Include="Firework.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GoodbyeOocfuuScreen.cpp" />
+    <ClCompile Include="HbdScreen.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Music.cpp" />
@@ -160,6 +163,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tex.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TpScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -167,9 +171,12 @@
     <ClInclude Include="audio.h" />
     <ClInclude Include="Channel.h" />
     <ClInclude Include="Course.h" />
+    <ClInclude Include="Firework.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GoodbyeOocfuuScreen.h" />
     <ClInclude Include="HappyBirthdayToYou.h" />
+    <ClInclude Include="HbdScreen.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Music.h" />
@@ -180,11 +187,14 @@
     <ClInclude Include="resource1.h" />
     <ClInclude Include="resource2.h" />
     <ClInclude Include="score.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="tex.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TpScreen.h" />
     <ClInclude Include="TyphoonParade.h" />
+    <ClInclude Include="Voyager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico" />

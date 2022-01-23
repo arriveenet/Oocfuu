@@ -2,15 +2,33 @@
 #include "font.h"
 #include "Rect.h"
 #include "Texture.h"
+#include "HbdScreen.h"
+#include "TpScreen.h"
+#include "GoodbyeOocfuuScreen.h"
 
 #include <freeglut.h>
 
 struct tm currentTime;
 Game g_game;
 
-void Game::update()
+int Game::init()
 {
-	m_count++;
+	m_pScreens[GAME_SCREEN_HBD] = new HbdScreen();
+	m_pScreens[GAME_SCREEN_TP] = new TpScreen();
+	m_pScreens[GAME_SCREEN_GO] = new GoodbyeOocfuuScreen();
+
+	for (int i = 0; i < GAME_SCREEN_MAX; i++)
+		m_pScreens[i]->init();
+
+	m_screen = GAME_SCREEN_HBD;
+	m_pCurrentScreen = m_pScreens[m_screen];
+
+	return 0;
+}
+
+void Game::setScreen(int _screen) {
+	m_pCurrentScreen = m_pScreens[m_screen = _screen];
+	m_pCurrentScreen->reset();
 }
 
 void Game::drawHUD()
