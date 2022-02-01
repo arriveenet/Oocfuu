@@ -9,9 +9,9 @@ void init()
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
 	Keyboard::init();
 	g_game.init();
-	g_sprite.loadBMPFile("resource\\CHR000.bmp", 0, 64, 128);
+	g_sprite.loadBMPFile("resource\\textures\\sprite\\CHR000.bmp", 0, 64, 128);
 	g_parts->initAll();
-	g_course.load("resource\\course.txt");
+	g_course.load("resource\\course\\course.txt");
 	g_textures->initAll();
 	g_player.init();
 	g_firework.init();
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
 		windowSize.x = windowSize.y * 4 / 3;
 		glutInitWindowPosition(
 			(windowWidth / 2) - (windowSize.x / 2),		// int x
-			(windowHeight / 2) - (windowSize.x / 2));	// int y
+			(windowHeight / 2) - (windowSize.y / 2));	// int y
 		glutInitWindowSize(windowSize.x, windowSize.y);
 	}
 	glutCreateWindow("Happy Birthday to oocfuu!");

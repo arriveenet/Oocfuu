@@ -184,8 +184,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="resource2.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Sound.h" />

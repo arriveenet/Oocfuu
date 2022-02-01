@@ -9,14 +9,21 @@
 #include "glut.h"
 
 Music g_music;
+
+Music::Music()
+	: m_play(false)
+	, m_playCount(0)
+	, m_title("NO TITLE")
+{}
+
 int Music::init()
 {
 	strcpy_s(m_title, " ");
 	m_play = false;
 	m_playCount = 0;
 	m_end = false;
-	m_pulse0.setChannel(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_25);
-	m_pulse1.setChannel(AUDIO_CHANNEL_PULSE1, AUDIO_WAVEFORM_PULSE_50);
+	m_pulse0.setChannel(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_50);
+	m_pulse1.setChannel(AUDIO_CHANNEL_PULSE1, AUDIO_WAVEFORM_PULSE_75);
 	m_triangle.setChannel(AUDIO_CHANNEL_TRIANGLE, AUDIO_WAVEFORM_TRIANGLE);
 	m_noise.setChannel(AUDIO_CHANNEL_NOISE, AUDIO_WAVEFORM_NOISE_LONG);
 

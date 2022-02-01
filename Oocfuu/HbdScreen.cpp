@@ -44,10 +44,10 @@ void HbdScreen::update()
 	
 	if (g_music.m_end) {
 		g_music.reset();
-		g_music.setScore(AUDIO_CHANNEL_PULSE0, tpP0, 331);
-		g_music.setScore(AUDIO_CHANNEL_PULSE1, tpP1, 430);
-		g_music.setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, 37);
-		g_music.setScore(AUDIO_CHANNEL_NOISE, tpNoise, 4);
+		g_music.setScore(AUDIO_CHANNEL_PULSE0, tpP0, TP_PULSE0_COUNT);
+		g_music.setScore(AUDIO_CHANNEL_PULSE1, tpP1, TP_PULSE1_COUNT);
+		g_music.setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, TP_TRI_COUNT);
+		g_music.setScore(AUDIO_CHANNEL_NOISE, tpNoise, TP_NOISE_COUNT);
 		g_music.play();
 
 		g_game.setScreen(GAME_SCREEN_TP);
@@ -61,7 +61,7 @@ void HbdScreen::draw()
 	g_game.drawHUD();
 
 	fontBegin();
-	fontPosition(68, 128);
+	fontPosition(72, 128);
 	fontDraw("HAPPY BIRTHDAY");
 	fontEnd();
 	// Draw cake

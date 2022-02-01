@@ -94,7 +94,7 @@ void Channel::resetScore()
 
 void Channel::update()
 {
-	if (m_phase >= m_count) {
+	if ((m_phase >= m_count) || (m_score == NULL)) {
 		m_end = true;
 		return;
 	}

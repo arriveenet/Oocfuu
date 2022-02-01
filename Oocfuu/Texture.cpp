@@ -5,25 +5,18 @@
 #include <glut.h>
 
 Texture g_textures[TEXTURE_MAX] = {
-	{"player\\SmallMario_Brake.bmp"},
-	{"player\\SmallMario_Die.bmp"},
-	{"player\\SmallMario_Flagpole_1.bmp"},
-	{"player\\SmallMario_Flagpole_2.bmp"},
-	{"player\\SmallMario_Idle.bmp"},
-	{"player\\SmallMario_Jump.bmp"},
-	{"player\\SmallMario_Run_1.bmp"},
-	{"player\\SmallMario_Run_2.bmp"},
-	{"player\\SmallMario_Run_3.bmp"},
-	{"cake.bmp"},
-	{"coin_1.bmp"},
-	{"coin_2.bmp"},
-	{"coin_3.bmp"},
-	{"oocfuuHoi.bmp"},
-	{"oocfuuGG.bmp"},
-	{"oocfuuHi.bmp"},
-	{"firework_1.bmp"},
-	{"firework_2.bmp"},
-	{"firework_3.bmp"},
+	{"player\\Player_Idle.bmp"},
+	{"player\\Player_Jump.bmp"},
+	{"player\\Player_Run.bmp"},
+	{"player\\Player_Idle.bmp"},
+	{"item\\cake.bmp"},
+	{"item\\coin_1.bmp"},
+	{"item\\oocfuuHoi.bmp"},
+	{"item\\oocfuuGG.bmp"},
+	{"item\\oocfuuHi.bmp"},
+	{"item\\firework_1.bmp"},
+	{"item\\firework_2.bmp"},
+	{"item\\firework_3.bmp"},
 };
 
 int Texture::init()

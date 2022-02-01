@@ -30,6 +30,7 @@ struct Music {
 	Channel m_triangle;
 	Channel m_noise;
 
+	Music();
 	int init();
 	void reset();
 	void resetScore();

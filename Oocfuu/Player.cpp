@@ -117,20 +117,6 @@ void Player::update()
 		if (length(m_speed) <= 0)
 			ac.setAnimation(ANIMATION_PLAYER_IDLE);
 		break;
-	case ANIMATION_PLAYER_BRAKE:
-		if (
-			(Keyboard::m_pressed[PLAYER_KEY_LEFT]) && (m_speed.x < 0)
-			|| (Keyboard::m_pressed[PLAYER_KEY_RIGHT]) && (m_speed.x > 0)
-			) {
-			ac.setAnimation(ANIMATION_PLAYER_RUN);
-			m_flip = Keyboard::m_pressed[PLAYER_KEY_LEFT]
-				? RECT_FLIP_HORIZONTAL
-				: RECT_FLIP_NONE;
-		} else if (length(m_speed) <= 0) {
-			m_flip ^= 1;
-			ac.setAnimation(ANIMATION_PLAYER_IDLE);
-		}
-		break;
 	case ANIMATION_PLAYER_JUMP:
 		if (!m_falling) 
 			ac.setAnimation(ANIMATION_PLAYER_IDLE);
@@ -213,7 +199,7 @@ void Player::draw()
 	texture.m_texture);
 
 	Rect::draw();
-
+	/*
 	{
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
 		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
@@ -275,6 +261,7 @@ void Player::draw()
 		glPopAttrib();
 		glPopClientAttrib();
 	}
+	*/
 }
 
 void Player::draw(vec2 _position)

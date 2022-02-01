@@ -12,6 +12,14 @@
 
 #define SCREEN_WIDTH	256
 #define SCREEN_HEIGHT	240
+#define FIREWORK_COUNT_MAX	3
+
+static int count = FIREWORK_COUNT_MAX;
+static const vec2 fireworkPosition[FIREWORK_COUNT_MAX] = {
+	{vec2(16*8,16*10.5)},
+	{vec2(16*13,16*8)},
+	{vec2(16*5,16*10.5)},
+};
 
 typedef struct {
 	char str[32];
@@ -19,17 +27,12 @@ typedef struct {
 	unsigned int startCount;
 }MESSAGE;
 
-static float getCenter(int _len)
-{
-	return (float)(SCREEN_WIDTH / 2) - ((_len * 8) / 2);
-}
-
 static MESSAGE messages[] = {
-	{"HAPPY BIRTHDAY OOCFUU!",vec2(getCenter(22), 64)},
+	{"HAPPY BIRTHDAY OOCFUU!",vec2(40, 64)},
 	{"FEBRUARY,4,2022",vec2(120, 88)},
-	{"THANK YOU FOR A FUN TIME.",vec2(getCenter(25),104)},
-	{"HOPE YOU HAVE AN AMAZING",vec2(getCenter(24), 120)},
-	{"YEAR AHEAD!",vec2(getCenter(24), 136)},
+	{"THANK YOU FOR A FUN",vec2(56,104)},
+	{"LIVESTREAMING ALWAYS.",vec2(48, 120)},
+	{"HOPE YOU HAVE A GREAT YEAR!",vec2(24, 136)},
 	{"FROM OSHU-FUJIWARA",vec2(96, 160)}
 };
 
@@ -41,7 +44,7 @@ void TpScreen::init()
 	int total = 96;
 	for (int i = 0; i < MESSAGE_MAX; i++) {
 		messages[i].startCount = total;
-		if (i == 3)
+		if (i == 2)
 			continue;
 		total += 96;
 	}
@@ -57,19 +60,23 @@ void TpScreen::update()
 	g_firework.update();
 	g_player.update();
 
-	m_count++;
+	if (g_music.m_play)
+		m_count++;
+
 	if (g_music.m_end) {
-		if (!g_firework.m_explosion) {
-			int x = rand() % SCREEN_WIDTH;
-			int y = rand() % SCREEN_HEIGHT;
-			printf("x=%d, y=%d\n", x, y);
-			g_firework.start(vec2(x, y));
+		if (
+			(!g_firework.m_explosion)
+			&& (count > 0)
+			) {
+			g_firework.start(fireworkPosition[count-1]);
+			count--;
 		}
 	}
 	if (Keyboard::m_nowPressed['r']) {
 		g_music.reset();
 		g_music.play();
 		m_count = 0;
+		count = FIREWORK_COUNT_MAX;
 	}
 	if (Keyboard::m_nowPressed['k']) {
 		g_music.m_play ? g_music.stop() : g_music.play();

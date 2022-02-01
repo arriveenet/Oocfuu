@@ -24,8 +24,6 @@
 #include "Player.h"
 #include "Firework.h"
 
-
-
 #include <freeglut.h>
 
 #define SCREEN_WIDTH	256

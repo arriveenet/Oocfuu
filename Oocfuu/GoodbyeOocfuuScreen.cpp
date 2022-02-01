@@ -1,3 +1,5 @@
+// Ç≥ÇÊÇ§Ç»ÇÁÅAÇ®Ç≠Ç”ÅB
+
 #include "GoodbyeOocfuuScreen.h"
 #include "Keyboard.h"
 #include "Music.h"
