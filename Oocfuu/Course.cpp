@@ -127,10 +127,7 @@ bool Course::intersect(vec2 const& _point) {
 
 	switch (m_parts[cellPoint.y][cellPoint.x]) {
 	//case PART_NONE:
-	case PART_GROUND:
 	case PART_HARD_BLOCK:
-	case PART_HARD_BLOCK_2:
-	case PART_SOFT_BLOCK:
 		return true;
 	}
 	return false;
@@ -151,20 +148,8 @@ bool Course::intersect(glm::vec2 const& _point, int* _parts)
 	}
 
 	switch (m_parts[cellPoint.y][cellPoint.x]) {
-	case PART_GROUND:
-		*_parts = PART_GROUND;
-		result = true;
-		break;
 	case PART_HARD_BLOCK:
 		*_parts = PART_HARD_BLOCK;
-		result = true;
-		break;
-	case PART_HARD_BLOCK_2:
-		*_parts = PART_HARD_BLOCK_2;
-		result = true;
-		break;
-	case PART_SOFT_BLOCK:
-		*_parts = PART_SOFT_BLOCK;
 		result = true;
 		break;
 	}

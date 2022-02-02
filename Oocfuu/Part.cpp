@@ -6,10 +6,7 @@
 
 Part g_parts[PART_MAX] = {
 	 {nullptr,}, // PART_NONE
-	 {"b0.bmp",},// PART_GROUND
-	 {"b1.bmp",},// PART_HARD_BLOCK
 	 {"b3.bmp",},// PART_HARD_BLOCK_2
-	 {"b2.bmp",},// PART_SOFT_BLOCK
 };
 
 int Part::init() {
