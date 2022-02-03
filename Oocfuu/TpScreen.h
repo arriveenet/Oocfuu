@@ -4,7 +4,7 @@
 class TpScreen :
     public Screen
 {
-    unsigned int m_count;
+    unsigned int m_count = 0;
 public:
     virtual void init();
     virtual void reset();
