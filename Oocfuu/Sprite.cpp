@@ -35,7 +35,12 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 	typedef struct {
 		unsigned char r, g, b, a;
 	}RGBA;
-	RGBA* pixels = (RGBA*)malloc(sizeof RGBA * bi.biWidth * bi.biHeight);
+	size_t allocateSize = sizeof RGBA * bi.biWidth * bi.biHeight;
+	RGBA* pixels = (RGBA*)malloc(allocateSize);
+	if (pixels == NULL) {
+		printf("Failed to allocate memory.");
+		return 1;
+	}
 
 	for (int y = 0; y < bi.biHeight; y++) {
 		for (int x = 0; x < bi.biWidth; x++) {
@@ -70,17 +75,16 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 		}
 
 	for (int i = 0; i < SPRITE_SIZE; i++) {
-		RGBA sprit[64] = { 0 };
+		RGBA sprite[SPRITE_WIDTH * SPRITE_HEIGHT] = { 0 };
 		int t = 0;
 		int sx = 8 * i, sy = 8 * (i * 8 / bi.biWidth) - (i * 8 / bi.biWidth);
-		//printf("%d\n", sy);
 		for (int y = sy; y < sy + 8; y++) {
 			for (int x = sx; x < sx + 8; x++) {
 				int p = bi.biWidth * y + x;
-				sprit[t] = pixels[p];
-				//printf("%d\n", _width * y + x);
+				if (p < allocateSize) {
+					sprite[t] = pixels[p];// ‚±‚ÌŒx‚Ç‚¤‚â‚Á‚½‚ç‚¯‚¹‚ñ‚Ë‚ñ
+				}
 				t++;
-
 			}
 		}
 
@@ -90,7 +94,7 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 		glBindTexture(
 			GL_TEXTURE_2D,	// GLenum target
 			m_textures[i]);		// GLuint texture
-		bindTexture(8, 8, sprit);
+		bindTexture(SPRITE_WIDTH, SPRITE_HEIGHT, sprite);
 	}
 
 	free(pixels);

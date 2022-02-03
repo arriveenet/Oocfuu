@@ -3,6 +3,8 @@
 #include <glm/vec2.hpp>
 
 #define SPRITE_SIZE		256
+#define SPRITE_WIDTH	8
+#define SPRITE_HEIGHT	8
 
 class Sprite {
 public:
