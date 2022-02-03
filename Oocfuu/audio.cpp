@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include <alc.h>
@@ -108,9 +109,15 @@ int audioInit() {
 			sizeof triangle);				// ALsizei freq
 	}
 
+	/* Long noise */
 	{
 		const int len = 32767;
-		unsigned char noise[len];
+		unsigned char* noise;
+		noise = (unsigned char*)calloc(len, sizeof(unsigned char));
+		if (noise == NULL) {
+			printf("audio: Failed to allocate memory.\n");
+			return 1;
+		}
 		int shiftReg = 1 << 14;
 		for (int i = 0; i < len; i++) {
 			int result = (shiftReg ^ (shiftReg >> 1)) & 1;
@@ -122,13 +129,20 @@ int audioInit() {
 			buffers[AUDIO_WAVEFORM_NOISE_LONG],	// ALuint bid
 			AL_FORMAT_MONO8,					// ALenum format
 			noise,								// const ALvoid* data
-			sizeof noise,						// ALsizei size
+			len,								// ALsizei size
 			1);									// ALsizei freq
+		free(noise);
 	}
 
+	/* Short noise */
 	{
 		const int len = 93;
-		unsigned char noise[len];
+		unsigned char* noise;
+		noise = (unsigned char*)calloc(len, sizeof(unsigned char));
+		if (noise == NULL) {
+			printf("audio: Failed to allocate memory.\n");
+			return 1;
+		}
 		int shiftReg = 1 << 14;
 		for (int i = 0; i < len; i++) {
 			int result = (shiftReg ^ (shiftReg >> 6)) & 1;
@@ -138,10 +152,11 @@ int audioInit() {
 		}
 		alBufferData(
 			buffers[AUDIO_WAVEFORM_NOISE_SHORT],	// ALuint bid
-			AL_FORMAT_MONO8,					// ALenum format
-			noise,								// const ALvoid* data
-			sizeof noise,						// ALsizei size
-			1);									// ALsizei freq
+			AL_FORMAT_MONO8,						// ALenum format
+			noise,									// const ALvoid* data
+			len,									// ALsizei size
+			1);										// ALsizei freq
+		free(noise);
 	}
 
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++) {
