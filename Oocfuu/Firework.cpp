@@ -10,6 +10,14 @@
 
 Firework g_firework;
 
+Firework::Firework()
+	: m_ac()
+	, m_textures{0}
+	, m_texture(0)
+	, m_countLeft(0)
+	, m_explosion(false)
+{}
+
 int Firework::init()
 {
 	m_position = {0, 0};

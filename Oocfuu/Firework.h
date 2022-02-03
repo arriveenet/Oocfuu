@@ -10,6 +10,7 @@ class Firework : Rect{
 public:
 	bool m_explosion;
 
+	Firework();
 	int init();
 	void start(vec2 const& _position);
 	void update();
