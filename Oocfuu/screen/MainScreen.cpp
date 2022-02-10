@@ -1,5 +1,5 @@
 #include "MainScreen.h"
-#include "Header.h"
+#include "../Header.h"
 
 void MainScreen::init()
 {
@@ -20,7 +20,7 @@ void MainScreen::reset()
 
 	audioPlay(g_sound[SOUND_BGM_GROUND].m_sid);
 	*/
-	glClearColor({ 80 / 255.f }, { 128 / 255.f }, { 255 / 255.f }, { 1 });
+	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
 }
 

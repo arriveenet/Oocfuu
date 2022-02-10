@@ -43,7 +43,7 @@ void TitleScreen::reset()
 {
 	g_player.reset();
 	g_player.m_left = 3;
-	glClearColor({ 80 / 255.f }, { 128 / 255.f }, { 255 / 255.f }, { 1 });
+	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 }
 void TitleScreen::update()
 {
@@ -63,6 +63,9 @@ void TitleScreen::update()
 			break;
 		}
 
+	if (Keyboard::m_nowPressed[0x1b])
+		exit(0);
+
 }
 
 void TitleScreen::draw()
@@ -76,9 +79,11 @@ void TitleScreen::draw()
 	Rect rect(vec2(174, 88), vec2(40,32));
 	rect.draw();
 
+	g_player.draw(vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y));
+
 	fontBegin();
-	fontPosition(112, 120);
-	fontDraw("b2022 ARRIVEE");
+	fontPosition(120, 120);
+	fontDraw("b2022 OOCFUU");
 	fontPosition(72, 144);
 	for (int i = 0; i < MODE_MAX; i++) {
 		fontDraw("%s ", (i == m_mode) ? "a" : " ");
