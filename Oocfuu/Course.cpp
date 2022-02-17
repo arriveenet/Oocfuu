@@ -8,18 +8,18 @@
 
 using namespace glm;
 
-Course g_course{COURSE_WIDTH, COURSE_HEIGHT};
+Course g_course{ COURSE_WIDTH, COURSE_HEIGHT };
 
 Course::Course(int _width, int _height)
 	: m_width(_width)
 	, m_height(_height)
 	, m_scroll(0.f)
 {
-	m_parts = new int*[m_height];
+	m_parts = new int* [m_height];
 	for (int i = 0; i < m_height; i++) {
 		m_parts[i] = new int[m_width];
 	}
-	
+
 }
 
 Course::~Course()
@@ -36,10 +36,10 @@ int Course::load(const char* _fileName) {
 
 	error = fopen_s(&pFile, _fileName, "r");
 	if (error != 0) {
-		printf("%s open failed!\n", _fileName);
+		printf("The file %s was open failed!\n", _fileName);
 		return 1;
 	}
-	printf("%s opened!\n", _fileName);
+	printf("The file %s was opened!\n", _fileName);
 
 	for (int i = 0; i < m_height; i++) {
 		for (int j = 0; j < m_width; j++) {
@@ -50,7 +50,7 @@ int Course::load(const char* _fileName) {
 				m_parts[i][j] = PART_NONE;
 			}
 			else
-				for (int k = PART_NONE+1; k < PART_MAX; k++) {
+				for (int k = PART_NONE + 1; k < PART_MAX; k++) {
 					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
 						m_parts[i][j] = k;
 						break;
@@ -64,6 +64,25 @@ int Course::load(const char* _fileName) {
 	return 0;
 }
 
+int Course::reload(const char* _fileName, int _width, int _height)
+{
+	for (int i = 0; i < m_height; ++i) {
+		delete m_parts[i];
+	}
+	delete[] m_parts;
+
+	m_width = _width;
+	m_height = _height;
+
+	m_parts = new int* [m_height];
+	for (int i = 0; i < m_height; i++) {
+		m_parts[i] = new int[m_width];
+	}
+
+	m_scroll = 0.0f;
+	return load(_fileName);
+}
+
 void Course::draw() {
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
 	for (int i = 0; i < m_height; i++)
@@ -75,12 +94,18 @@ void Course::draw() {
 				continue;
 
 			int part = m_parts[i][j];
-			switch (part){
+			switch (part) {
 			case PART_NONE:
 				break;
 			default:
 			{
 				int textureIndex = part;
+				if (part == PART_QUESTION0) {
+					int animationTable[] = { 0,1,2,2,1,0 };
+					int animationTableLength = sizeof(animationTable) / sizeof(int);
+					textureIndex += animationTable[(g_game.m_count / 8) % animationTableLength];
+				}
+
 				GLuint texture = g_parts[textureIndex].m_texture;
 
 				glBindTexture(
@@ -88,7 +113,7 @@ void Course::draw() {
 					texture);		// GLuint 
 				Rect(vec2(PART_SIZE, PART_SIZE), vec2(j, i) * (float)PART_SIZE).draw();
 			}
-				break;
+			break;
 			}
 		}
 }
@@ -126,8 +151,43 @@ bool Course::intersect(vec2 const& _point) {
 		return false;
 
 	switch (m_parts[cellPoint.y][cellPoint.x]) {
-	//case PART_NONE:
+		//case PART_NONE:
+	case PART_GROUND:
+	case PART_GROUND_2:
 	case PART_HARD_BLOCK:
+	case PART_SOFT_BLOCK:
+	case PART_PIPE_UP_LEFT:
+	case PART_PIPE_UP_RIGHT:
+	case PART_PIPE_DOWN_LEFT:
+	case PART_PIPE_DOWN_RIGHT:
+	case PART_QUESTION0:
+	case PART_QUESTION1:
+	case PART_QUESTION2:
+	case PART_QUESTION3:
+		//case PART_CLOUD_UP_LEFT:
+		//case PART_CLOUD_UP:
+		//case PART_CLOUD_UP_RIGHT:
+		//case PART_CLOUD_DOWN_LEFT:
+		//case PART_CLOUD_DOWN:
+		//case PART_CLOUD_DOWN_RIGHT:
+		//case PART_TREE_LEFT:
+		//case PART_TREE_CENTER:
+		//case PART_TREE_RIGHT:
+		//case PART_MOUNTAIN_TOP:
+		//case PART_MOUNTAIN_LEFT:
+		//case PART_MOUNTAIN_CENTER0:
+		//case PART_MOUNTAIN_RIGHT:
+		//case PART_MOUNTAIN_PLANE:
+		//case PART_MOUNTAIN_CENTER1:
+		//case PART_GOAL_TOP:
+		//case PART_GOAL_POLE:
+		//case PART_FORT_TOP:
+		//case PART_FORT_LEFT:
+		//case PART_FORT_WALL:
+		//case PART_FORT_RIGHT:
+		//case PART_FORT_MIDDLE:
+		//case PART_FORT_GATE_UP:
+		//case PART_FORT_GATE_DOWN:
 		return true;
 	}
 	return false;
@@ -148,11 +208,65 @@ bool Course::intersect(glm::vec2 const& _point, int* _parts)
 	}
 
 	switch (m_parts[cellPoint.y][cellPoint.x]) {
+	case PART_GROUND:
+		*_parts = PART_GROUND;
+		result = true;
+		break;
+	case PART_GROUND_2:
+		*_parts = PART_GROUND_2;
+		result = true;
+		break;
 	case PART_HARD_BLOCK:
 		*_parts = PART_HARD_BLOCK;
+		result = true;
+		break;
+	case PART_SOFT_BLOCK:
+		*_parts = PART_SOFT_BLOCK;
+		result = true;
+		break;
+	case PART_PIPE_UP_LEFT:
+		*_parts = PART_PIPE_UP_LEFT;
+		result = true;
+		break;
+	case PART_PIPE_UP_RIGHT:
+		*_parts = PART_PIPE_UP_RIGHT;
+		result = true;
+		break;
+	case PART_PIPE_DOWN_LEFT:
+		*_parts = PART_PIPE_DOWN_LEFT;
+		result = true;
+		break;
+	case PART_PIPE_DOWN_RIGHT:
+		*_parts = PART_PIPE_DOWN_RIGHT;
+		result = true;
+		break;
+	case PART_QUESTION0:
+		*_parts = PART_QUESTION0;
+		result = true;
+		break;
+	case PART_QUESTION1:
+		*_parts = PART_QUESTION1;
+		result = true;
+		break;
+	case PART_QUESTION2:
+		*_parts = PART_QUESTION2;
+		result = true;
+		break;
+	case PART_QUESTION3:
+		*_parts = PART_QUESTION3;
 		result = true;
 		break;
 	}
 
 	return result;
+}
+
+int Course::getWidth()
+{
+	return m_width;
+}
+
+int Course::getHeight()
+{
+	return m_height;
 }
