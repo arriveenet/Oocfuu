@@ -236,7 +236,7 @@ static int parseFile(const char* _fileName, LPWAVEFILEINFO pWaveInfo)
 
 	fopen_s(&pWaveInfo->pFile, _fileName, "rb");
 	if (pWaveInfo->pFile) {
-		printf("The file %s was opened\n", _fileName);
+		//printf("The file %s was opened\n", _fileName);
 		// Read Wave file header
 		fread(&waveFileHeader, 1, sizeof(WAVEFILEHEADER), pWaveInfo->pFile);
 		if (
@@ -336,6 +336,8 @@ int audioLoadWaveFile(const char* _fileName, unsigned int* _bid)
 				}
 			}
 			fclose(pWaveInfo->pFile);
+		} else {
+			return 1;
 		}
 	}
 	return 0;

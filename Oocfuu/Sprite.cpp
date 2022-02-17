@@ -15,7 +15,7 @@ int Sprite::loadBMPFile(const char* _fileName, unsigned char* _colorKey)
 		return 1;
 	}
 
-	printf("%s opened!\n", _fileName);
+	printf("The file %s was opened!\n", _fileName);
 
 	BITMAPFILEHEADER bf;
 	fread(&bf, sizeof BITMAPFILEHEADER, 1, pFile);

@@ -68,7 +68,7 @@ void Channel::setGain(float _gain)
 void Channel::start()
 {
 	if (m_score == NULL) {
-		printf("%s channel is not set score!\n", channelNames[m_channel]);
+		//printf("%s channel is not set score!\n", channelNames[m_channel]);
 		return;
 	}
 	audioStop(m_channel);

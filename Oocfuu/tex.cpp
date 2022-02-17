@@ -8,11 +8,14 @@ int texFromBMP(const char* _fileName, unsigned char* _colorKey, Rect* _pBound) {
 	FILE* pFile;
 	fopen_s(&pFile, _fileName, "rb");
 	if (pFile == nullptr) {
-		printf("%s open failed!\n", _fileName);
+#if _DEBUG
+		printf("The file %s was open failed!\n", _fileName);
+#endif // _DEBUG
 		return 1;
 	}
-
-	printf("%s opened!\n", _fileName);
+#if _DEBUG
+	printf("The file %s was opened!\n", _fileName);
+#endif
 
 	BITMAPFILEHEADER bf;
 	fread(&bf, sizeof BITMAPFILEHEADER, 1, pFile);
