@@ -20,7 +20,8 @@ int Sound::init()
 	char fileName[256] = "resource\\";
 	sprintf_s(fileName, "%s%s", fileName, m_fileName);
 	//printf("%s\n", fileName);
-	audioLoadWaveFile(fileName, &m_bid);
+	if (audioLoadWaveFile(fileName, &m_bid) != 0)
+		return 1;
 
 	alGenSources(
 		1,			// ALsizei n
@@ -35,8 +36,13 @@ int Sound::init()
 
 int Sound::initAll()
 {
+	int failedCount = 0;
 	for (int i = 0; i < SOUND_MAX; i++) {
-		g_sound[i].init();
+		if (g_sound[i].init() != 0)
+			failedCount++;
 	}
+	if (failedCount > 0)
+		return 1;
+
 	return 0;
 }
