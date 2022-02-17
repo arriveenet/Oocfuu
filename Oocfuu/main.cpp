@@ -3,25 +3,42 @@
 #include <string.h>
 
 ivec2 windowSize;
+clock_t startTime;
+int FPS;
+int FPSCount;
+
+void printInit(int result, const char* _str)
+{
+	if (result == 0) {
+		printf("[  OK  ] %s\n", _str);
+	} else {
+		printf("[FAILED] %s\n", _str);
+	}
+}
 
 void init()
 {
+	HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);// DWORD nStdHandle
+
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
-	Keyboard::init();
-	g_game.init();
+	printInit(audioInit(), "Audio init");
+	printInit(Keyboard::init(), "Keyboard init");
+	printInit(g_game.init(), "Game init");
+	printInit(g_parts->initAll(), "Part initAll");
+	printInit(g_textures->initAll(), "Texture initAll");
+	printInit(g_player.init(), "Player init");
+	printInit(g_firework.init(), "Firework init");
+	printInit(g_animations->initAll(), "Animation init");
+	printInit(g_sound->initAll(), "Sound init");
+	printInit(g_music.init(), "Music init");
+
 	g_sprite.loadBMPFile("resource\\textures\\sprite\\CHR000.bmp", 0, 64, 128);
-	g_parts->initAll();
-	g_course.load("resource\\course\\course.txt");
-	g_textures->initAll();
-	g_player.init();
-	g_firework.init();
-	g_animations->initAll();
-	g_sound->initAll();
-	g_music.init();
+	g_course.load("resource\\course\\course1-1.txt");
 
 	errno_t err;
 	time_t t = time(NULL);
 	err = localtime_s(&currentTime, &t);
+	startTime = clock();
 
 	srand((unsigned int)time(NULL));
 }
@@ -33,7 +50,7 @@ void display(void)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(
-		0, SCREEN_WIDTH,
+		g_course.m_scroll, g_course.m_scroll + SCREEN_WIDTH,
 		SCREEN_HEIGHT, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -48,6 +65,14 @@ void display(void)
 
 	g_game.m_pCurrentScreen->draw();
 
+	fontBegin();
+	{
+		glColor3ub(0x00, 0xff, 0x00);
+		fontPosition(0, 0);
+		fontDraw("FPS:%d", FPS);
+	}
+	fontEnd();
+	
 	glutSwapBuffers();
 }
 
@@ -56,6 +81,7 @@ void update()
 	time_t t = time(NULL);
 	localtime_s(&currentTime, &t);
 	g_music.update();
+	g_game.update();
 	g_game.m_pCurrentScreen->update();
 
 }
@@ -63,6 +89,12 @@ void update()
 void timer(int value)
 {
 	audioUpdate();
+	if (clock() - startTime >= 1000) {
+		startTime = clock();
+		FPS = FPSCount;
+		FPSCount = 0;
+	}
+	FPSCount++;
 	Keyboard::begin();
 	update();
 	Keyboard::end();
@@ -86,9 +118,6 @@ void reshape(int width, int height)
 
 int main(int argc, char* argv[])
 {
-	if (audioInit() != 0)
-		return 1;
-
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
 	{
@@ -110,5 +139,7 @@ int main(int argc, char* argv[])
 	glutTimerFunc(0, timer, 0);
 	glutReshapeFunc(reshape);
 	glutIgnoreKeyRepeat(GL_TRUE); //int ignore
+
+	// MainLoop
 	glutMainLoop();
 }

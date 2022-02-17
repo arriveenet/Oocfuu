@@ -151,19 +151,22 @@
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GoodbyeOocfuuScreen.cpp" />
-    <ClCompile Include="HbdScreen.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp" />
+    <ClCompile Include="screen\HbdScreen.cpp" />
+    <ClCompile Include="screen\IntroScreen.cpp" />
+    <ClCompile Include="screen\MainScreen.cpp" />
+    <ClCompile Include="screen\TitleScreen.cpp" />
+    <ClCompile Include="screen\TpScreen.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tex.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TpScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -174,9 +177,7 @@
     <ClInclude Include="Firework.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GoodbyeOocfuuScreen.h" />
     <ClInclude Include="HappyBirthdayToYou.h" />
-    <ClInclude Include="HbdScreen.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Music.h" />
@@ -185,12 +186,17 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="score.h" />
-    <ClInclude Include="Screen.h" />
+    <ClInclude Include="screen\GoodbyeOocfuuScreen.h" />
+    <ClInclude Include="screen\HbdScreen.h" />
+    <ClInclude Include="screen\IntroScreen.h" />
+    <ClInclude Include="screen\MainScreen.h" />
+    <ClInclude Include="screen\Screen.h" />
+    <ClInclude Include="screen\TitleScreen.h" />
+    <ClInclude Include="screen\TpScreen.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="tex.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TpScreen.h" />
     <ClInclude Include="TyphoonParade.h" />
     <ClInclude Include="Voyager.h" />
   </ItemGroup>
@@ -199,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="title.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -69,13 +69,22 @@
     <ClCompile Include="Firework.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="HbdScreen.cpp">
+    <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="TpScreen.cpp">
+    <ClCompile Include="screen\HbdScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GoodbyeOocfuuScreen.cpp">
+    <ClCompile Include="screen\IntroScreen.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\MainScreen.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\TitleScreen.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\TpScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,16 +158,25 @@
     <ClInclude Include="Firework.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Screen.h">
+    <ClInclude Include="screen\GoodbyeOocfuuScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="HbdScreen.h">
+    <ClInclude Include="screen\HbdScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="TpScreen.h">
+    <ClInclude Include="screen\IntroScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GoodbyeOocfuuScreen.h">
+    <ClInclude Include="screen\MainScreen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\Screen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\TitleScreen.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\TpScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -171,5 +189,8 @@
     <ResourceCompile Include="Resource.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="title.txt" />
   </ItemGroup>
 </Project>
