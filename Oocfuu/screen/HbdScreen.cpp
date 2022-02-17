@@ -14,9 +14,7 @@
 #include <freeglut.h> 
 
 HbdScreen::HbdScreen()
-	: m_course(16,15)
 {
-	m_course.load("course.txt");
 }
 
 void HbdScreen::init()

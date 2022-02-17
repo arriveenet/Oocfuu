@@ -6,7 +6,6 @@ class HbdScreen :
     public Screen
 {
 public:
-    Course m_course;
 
     HbdScreen();
     virtual void init();
