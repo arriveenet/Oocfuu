@@ -2,9 +2,12 @@
 #include "font.h"
 #include "Rect.h"
 #include "Texture.h"
-#include "HbdScreen.h"
-#include "TpScreen.h"
-#include "GoodbyeOocfuuScreen.h"
+#include "screen/TitleScreen.h"
+#include "screen/IntroScreen.h"
+#include "screen/MainScreen.h"
+#include "screen/HbdScreen.h"
+#include "screen/TpScreen.h"
+#include "screen/GoodbyeOocfuuScreen.h"
 
 #include <freeglut.h>
 
@@ -13,6 +16,9 @@ Game g_game;
 
 int Game::init()
 {
+	m_pScreens[GAME_SCREEN_TITLE] = new TitleScreen();
+	m_pScreens[GAME_SCREEN_INTRO] = new IntroScreen();
+	m_pScreens[GAME_SCREEN_MAIN] = new MainScreen();
 	m_pScreens[GAME_SCREEN_HBD] = new HbdScreen();
 	m_pScreens[GAME_SCREEN_TP] = new TpScreen();
 	m_pScreens[GAME_SCREEN_GO] = new GoodbyeOocfuuScreen();
@@ -20,10 +26,16 @@ int Game::init()
 	for (int i = 0; i < GAME_SCREEN_MAX; i++)
 		m_pScreens[i]->init();
 
-	m_screen = GAME_SCREEN_HBD;
+	m_screen = GAME_SCREEN_TITLE;
 	m_pCurrentScreen = m_pScreens[m_screen];
+	m_count = 0;
 
 	return 0;
+}
+
+void Game::update()
+{
+	m_count++;
 }
 
 void Game::setScreen(int _screen) {
@@ -37,7 +49,7 @@ void Game::drawHUD()
 	glBindTexture(
 		GL_TEXTURE_2D,	// GLenum target
 		texture);		// GLuint texture
-	Rect rect(vec2(8, 8), vec2(88, 24));
+	Rect rect(vec2(8, 8), vec2(g_course.m_scroll + 88, 24));
 	rect.draw();
 
 	fontBegin();

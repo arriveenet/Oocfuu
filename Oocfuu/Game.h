@@ -1,7 +1,10 @@
 #pragma once
-#include "Screen.h"
+#include "screen/Screen.h"
 
 enum {
+	GAME_SCREEN_TITLE,
+	GAME_SCREEN_INTRO,
+	GAME_SCREEN_MAIN,
 	GAME_SCREEN_HBD,
 	GAME_SCREEN_TP,
 	GAME_SCREEN_GO,
@@ -14,8 +17,10 @@ class Game {
 
 public:
 	Screen* m_pCurrentScreen;
+	unsigned int m_count;
 
 	int init();
+	void update();
 	void setScreen(int _screen);
 	void drawHUD();
 };
