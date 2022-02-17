@@ -13,6 +13,9 @@
 
 #define PLAYER_JUMP_COUNT_MAX	15
 
+#define PLAYER_DEFAULT_X		40
+#define PLAYER_DEFAULT_Y		192
+
 struct Player :Rect {
 	AnimationController m_animationController;
 	vec2 m_speed;

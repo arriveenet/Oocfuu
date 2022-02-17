@@ -20,7 +20,7 @@ Player::Player()
 int Player::init()
 {
 	m_size = vec2(16,16);
-	m_position = vec2(16 * 2.5, 16 * 12);
+	m_position = vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
 	g_course.m_scroll = 0.f;
 	m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
 
@@ -81,19 +81,37 @@ void Player::update()
 	}
 	m_position += m_speed;
 
+	// Player fall
+	if (m_position.y > SCREEN_HEIGHT) {
+		m_speed = vec2(0, 0);
+		m_position = vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
+		g_course.m_scroll = 0;
+	}
+
 	// Don't go off screen
-	if (m_position.x < 0) {
-		m_position.x = 0;
-		//m_speed.x = 0;
+	{
+		float left = g_course.m_scroll - PLAYER_SIZE * 3 / 8;
+		if (m_position.x < left) {
+			m_position.x = left;
+			m_speed.x = 0;
+		}
 	}
 
 	{
-		float right = PART_SIZE * COURSE_WIDTH - PLAYER_SIZE;
+		float right = (float)g_course.getWidth() * PART_SIZE - PLAYER_SIZE * 5 / 8;
 		if (m_position.x > right) {
 			m_position.x = right;
-			//m_speed.x = 0;
+			m_speed.x = 0;
 		}
 	}
+
+	if (
+		(m_speed.x > 0)
+		&& (m_position.x > g_course.m_scroll + SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)
+		)
+		g_course.m_scroll += m_speed.x;
+
+	g_course.m_scroll = std::min(g_course.m_scroll, (float)(g_course.getWidth() * PART_SIZE - SCREEN_WIDTH));
 
 	// Animation settings
 	switch (ac.m_animation) {
@@ -197,8 +215,8 @@ void Player::draw()
 	glBindTexture(
 	GL_TEXTURE_2D,
 	texture.m_texture);
-
 	Rect::draw();
+	
 	/*
 	{
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
