@@ -7,7 +7,6 @@ class TitleScreen : public Screen {
 	int m_mode;
 
 public:
-	Course m_course;
 
 	TitleScreen();
 	virtual void init();

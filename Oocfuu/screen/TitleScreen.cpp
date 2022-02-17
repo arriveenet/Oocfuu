@@ -1,5 +1,6 @@
 #include "TitleScreen.h"
 #include "../Header.h"
+#include <Windows.h>
 #include <gl/glut.h>
 
 #define TITLE_SCREEN_WIDTH	16
@@ -17,12 +18,9 @@ static const char* modeNames[] = {
 };
 
 TitleScreen::TitleScreen()
-	: m_course(TITLE_SCREEN_WIDTH, TITLE_SCREEN_HEIGHT)
-	, m_texture(0)
+	: m_texture(0)
 	, m_mode(MODE_1P)
 {
-	m_course.load("resource\\course\\title.txt");
-
 	glGenTextures(
 		1,				// GLsizei n
 		&m_texture);	// GLuint *textures
@@ -44,6 +42,7 @@ void TitleScreen::reset()
 	g_player.reset();
 	g_player.m_left = 3;
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
+	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
 }
 void TitleScreen::update()
 {
@@ -63,14 +62,23 @@ void TitleScreen::update()
 			break;
 		}
 
-	if (Keyboard::m_nowPressed[0x1b])
-		exit(0);
+	if (Keyboard::m_nowPressed[0x1b]) {
+		int onButton;
+		onButton = MessageBox(
+			NULL,
+			TEXT("èIóπÇµÇƒÇ‡Ç¢Ç¢Ç≈Ç∑Ç©ÅH"),
+			TEXT("Confirmation"),
+			MB_YESNO | MB_ICONQUESTION);
+		if (onButton == IDYES) {
+			exit(0);
+		}
+	}
 
 }
 
 void TitleScreen::draw()
 {
-	m_course.draw();
+	g_course.draw();
 	g_game.drawHUD();
 
 	glBindTexture(

@@ -30,12 +30,6 @@ void MainScreen::update()
 		g_game.setScreen(GAME_SCREEN_TITLE);
 
 	g_player.update();
-	/*
-	g_playerDie.update();
-	g_playerGoal.update();
-	Kuribo::updateAll();
-	g_Nokonoko.update();
-	*/
 }
 
 void MainScreen::draw()
@@ -43,17 +37,13 @@ void MainScreen::draw()
 	g_game.drawHUD();
 	g_course.draw();
 	g_player.draw();
-	/*
-	g_playerDie.draw();
-	g_playerGoal.draw();
-	Kuribo::drawAll();
-	g_Nokonoko.draw();
 
+	glColor3ub(0x00, 0xff, 0x00);
 	fontBegin();
-	{
-		fontPosition(0, 0);
-		fontDraw("Posision:%.1f, %.1f\n", g_player.m_position.x, g_player.m_position.y);
-	}
+	fontPosition(0, 8 * 4);
+	fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+	fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+	fontDraw("JUMPING :%d\n", g_player.m_jumping);
+	fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
 	fontEnd();
-	*/
 }

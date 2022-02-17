@@ -14,14 +14,8 @@ void IntroScreen::reset()
 
 void IntroScreen::update()
 {
-	
-	if (++m_counter > 60 * 4)
-		/*
-		if (g_game.isGameOver()) {
-			g_game.setScreen(GAME_SCREEN_TITLE);
-		} else
-		*/
-			g_game.setScreen(GAME_SCREEN_MAIN);
+	if (++m_counter > 60 * 3)
+		g_game.setScreen(GAME_SCREEN_MAIN);
 			
 }
 
