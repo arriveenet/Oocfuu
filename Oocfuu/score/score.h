@@ -1,5 +1,5 @@
 #pragma once
-#include "audio.h"
+#include "..\sound\audio.h"
 
 enum Key {
 	A,

@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Rect.h"
-#include "AnimationController.h"
+#include "animation\AnimationController.h"
 
 #define PLAYER_SIZE	16
 

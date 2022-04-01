@@ -1,5 +1,5 @@
 #include "TpScreen.h"
-#include "../Music.h"
+#include "../sound/Music.h"
 #include "../font.h"
 #include "../Keyboard.h"
 #include "../Game.h"

@@ -18,8 +18,6 @@ void printInit(int result, const char* _str)
 
 void init()
 {
-	HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);// DWORD nStdHandle
-
 	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
 	printInit(audioInit(), "Audio init");
 	printInit(Keyboard::init(), "Keyboard init");

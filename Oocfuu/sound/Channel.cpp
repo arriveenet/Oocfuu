@@ -1,5 +1,5 @@
 #include "Channel.h"
-#include "font.h"
+#include "../font.h"
 
 #include <math.h>
 #include <stdio.h>

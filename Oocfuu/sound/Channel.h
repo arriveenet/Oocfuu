@@ -1,6 +1,6 @@
 #pragma once
 
-#include "score.h"
+#include "../score/score.h"
 #include "audio.h"
 
 class Channel {

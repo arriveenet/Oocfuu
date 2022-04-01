@@ -2,7 +2,7 @@
 
 #include "GoodbyeOocfuuScreen.h"
 #include "../Keyboard.h"
-#include "../Music.h"
+#include "../sound/Music.h"
 #include "../Game.h"
 #include "../font.h"
 #include "../Texture.h"

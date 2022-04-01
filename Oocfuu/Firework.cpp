@@ -1,7 +1,7 @@
 #include "Firework.h"
-#include "Animation.h"
+#include "animation/Animation.h"
 #include "Texture.h"
-#include "Sound.h"
+#include "sound/Sound.h"
 
 #include <freeglut.h>
 #include <al.h>

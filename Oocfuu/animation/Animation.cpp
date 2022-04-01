@@ -1,5 +1,5 @@
 #include "Animation.h"
-#include "Texture.h"
+#include "../Texture.h"
 
 using namespace std;
 

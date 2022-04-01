@@ -1,9 +1,9 @@
 #pragma once
 #include "HbdScreen.h"
-#include "../HappyBirthdayToYou.h"
-#include "../TyphoonParade.h"
-#include "../Voyager.h"
-#include "../Music.h"
+#include "../score/HappyBirthdayToYou.h"
+#include "../score/TyphoonParade.h"
+#include "../score/Voyager.h"
+#include "../sound/Music.h"
 #include "../font.h"
 #include "../Game.h"
 #include "../Keyboard.h"
