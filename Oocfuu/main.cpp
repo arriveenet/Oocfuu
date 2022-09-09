@@ -18,7 +18,7 @@ void printInit(int result, const char* _str)
 
 void init()
 {
-	fontInit(SCREEN_WIDTH, SCREEN_HEIGHT);
+	fontInit();
 	printInit(audioInit(), "Audio init");
 	printInit(Keyboard::init(), "Keyboard init");
 	printInit(g_game.init(), "Game init");
@@ -62,7 +62,7 @@ void display(void)
 	glColor3ub(0xff, 0xff, 0xff);
 
 	g_game.m_pCurrentScreen->draw();
-
+	/*
 	fontBegin();
 	{
 		glColor3ub(0x00, 0xff, 0x00);
@@ -70,7 +70,7 @@ void display(void)
 		fontDraw("FPS:%d", FPS);
 	}
 	fontEnd();
-	
+	*/
 	glutSwapBuffers();
 }
 
@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
 	glutTimerFunc(0, timer, 0);
 	glutReshapeFunc(reshape);
 	glutIgnoreKeyRepeat(GL_TRUE); //int ignore
-
+	printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
 	// MainLoop
 	glutMainLoop();
 }

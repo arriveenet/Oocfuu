@@ -94,9 +94,7 @@ void TitleScreen::draw()
 	fontDraw("b2022 OOCFUU");
 	fontPosition(72, 144);
 	for (int i = 0; i < MODE_MAX; i++) {
-		fontDraw("%s ", (i == m_mode) ? "a" : " ");
-		fontDraw("%s\n", modeNames[i]);
-		fontDraw("\n");
+		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);
 	}
 	fontPosition(96, 184);
 	fontDraw("TOP-%07d\n", 0);

@@ -1,15 +1,17 @@
 #pragma once
+#ifndef _FONT_H_
+#define _FONT_H_
 
-#include "glm/glm.hpp"
+#include <gl/glut.h>
 
-#define FONT_DEFAULT_WIDTH		8
-#define FONT_DEFAULT_HEIGHT		8
+int fontInit();
+void fontRelease();
 
-void fontInit(float _width, float _height);
-void fontScreenSize(float _width, float _height);
 void fontBegin();
 void fontEnd();
 void fontPosition(float _x, float _y);
-void fontPosition(glm::vec2 const& _position);
+void fontScale(float _scale);
 
-void fontDraw(const char* _format, ...);
+void fontDraw(const char* format, ...);
+
+#endif // !_FONT_H_

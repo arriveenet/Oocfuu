@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+//#define FREEGLUT_STATIC
+#include <freeglut.h>
+
 #include "glm\glm.hpp"
 
 #include "font.h"
@@ -23,8 +26,6 @@
 #include "animation\AnimationController.h"
 #include "Player.h"
 #include "Firework.h"
-
-#include <freeglut.h>
 
 #define SCREEN_WIDTH	256
 #define SCREEN_HEIGHT	240
