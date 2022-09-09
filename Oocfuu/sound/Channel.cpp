@@ -52,7 +52,7 @@ void Channel::setScore(SCORE _score[], int _count)
 			m_score[i].decay = .98f;
 		int oct = m_score[i].key >= 3 && m_score[i].key < 12 ? m_score[i].oct - 1 : m_score[i].oct;
 		if(m_channel != AUDIO_CHANNEL_NOISE)
-			m_score[i].freq = octave[oct] * powf(2, m_score[i].key / 12.f);
+			m_score[i].freq = score_octave[oct] * powf(2, m_score[i].key / 12.f);
 		else
 			m_score[i].freq = audioIndexToFreq(m_score[i].oct);
 	}
@@ -126,7 +126,7 @@ void Channel::draw(float _x, float _y)
 	fontPosition(_x + 8 * 1, _y);
 	fontDraw("%s", channelNames[m_channel]);
 	fontPosition(_x + 8 * 10, _y);
-	fontDraw("%s", scale[m_score[m_phase].key]);
+	fontDraw("%s", score_scale[m_score[m_phase].key]);
 	fontPosition(_x + 8 * 14, _y);
 	fontDraw("%d", m_score[m_phase].oct);
 	fontPosition(_x + 8 * 18, _y);
