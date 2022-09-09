@@ -30,7 +30,6 @@ void init()
 	printInit(g_sound->initAll(), "Sound init");
 	printInit(g_music.init(), "Music init");
 
-	g_sprite.loadBMPFile("resource\\textures\\sprite\\CHR000.bmp", 0, 64, 128);
 	g_course.load("resource\\course\\course1-1.txt");
 
 	errno_t err;

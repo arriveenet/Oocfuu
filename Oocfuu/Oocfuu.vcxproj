@@ -164,7 +164,6 @@
     <ClCompile Include="sound\Channel.cpp" />
     <ClCompile Include="sound\Music.cpp" />
     <ClCompile Include="sound\Sound.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="tex.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
@@ -196,7 +195,6 @@
     <ClInclude Include="sound\Channel.h" />
     <ClInclude Include="sound\Music.h" />
     <ClInclude Include="sound\Sound.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="tex.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
