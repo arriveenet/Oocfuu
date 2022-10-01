@@ -25,10 +25,7 @@ struct Music {
 	bool m_play;
 	int m_playCount;
 	bool m_end;
-	Channel m_pulse0;
-	Channel m_pulse1;
-	Channel m_triangle;
-	Channel m_noise;
+	Channel m_channels[AUDIO_CHANNEL_MAX];
 
 	Music();
 	int init();
