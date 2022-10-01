@@ -14,6 +14,7 @@ Texture g_textures[TEXTURE_MAX] = {
 	{"item\\firework_1.bmp"},
 	{"item\\firework_2.bmp"},
 	{"item\\firework_3.bmp"},
+	{"parts\\part.bmp"},
 };
 
 int Texture::init()
