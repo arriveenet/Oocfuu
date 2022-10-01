@@ -78,7 +78,7 @@ bool App::init()
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
-	g_course.load("resource\\course\\course1-1.txt");
+	//g_course.load("resource\\course\\course1-1.txt");
 
 
 	return true;

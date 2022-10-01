@@ -25,5 +25,4 @@ public:
 	void drawHUD();
 };
 
-extern struct tm currentTime;
 extern Game g_game;

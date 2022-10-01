@@ -1,4 +1,6 @@
 #include "Game.h"
+
+#include "App.h"
 #include "font.h"
 #include "Rect.h"
 #include "Texture.h"
@@ -11,7 +13,6 @@
 
 #include <freeglut.h>
 
-struct tm currentTime;
 Game g_game;
 
 int Game::init()
@@ -56,22 +57,27 @@ void Game::drawHUD()
 	{
 		fontPosition(24, 16);
 		fontDraw("OOCFUU");
+
 		fontPosition(24, 24);
-		fontDraw("%06d", currentTime.tm_year + 1900);
+		fontDraw("%06d", g_app.m_currentTime.tm_year + 1900);
+
 		fontPosition(96, 24);
-		//fontDraw("x%02d", currentTime.tm_sec);
-		fontDraw("x00");
+		fontDraw("x%02d", g_app.m_currentTime.tm_sec);
+		//fontDraw("x00");
+
 		fontPosition(144, 16);
 		fontDraw("WORLD");
+
 		fontPosition(152, 24);
-		//fontDraw("%d-%d", currentTime.tm_mon + 1, currentTime.tm_mday);
-		fontDraw("2-4");
+		fontDraw("%d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
+		//fontDraw("2-4");
+
 		fontPosition(200, 16);
 		fontDraw("TIME");
+
 		fontPosition(200, 24);
-		//fontDraw("%02d:%02d", currentTime.tm_hour, currentTime.tm_min);
-		fontDraw("00:00");
-		fontPosition(40, 64);
+		fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
+		//fontDraw("00:00");
 	}
 	fontEnd();
 }

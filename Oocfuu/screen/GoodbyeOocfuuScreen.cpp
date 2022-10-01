@@ -18,7 +18,7 @@ void GoodbyeOocfuuScreen::init()
 
 void GoodbyeOocfuuScreen::reset()
 {
-
+	g_course.reload("resource\\course\\oocfuu.txt", 16, 15);
 }
 
 void GoodbyeOocfuuScreen::update()
@@ -43,7 +43,8 @@ void GoodbyeOocfuuScreen::draw()
 	g_game.drawHUD();
 
 	fontBegin();
-	fontPosition(68, 128);
+	fontPosition(8*9, 8*12);
+	glColor3ub(0xfe, 0xfe, 0xfe);
 	fontDraw("GOODBYE OOCFUU.");
 	fontEnd();
 /*
@@ -60,5 +61,5 @@ void GoodbyeOocfuuScreen::draw()
 	}
 	*/
 
-	g_player.draw();
+	//g_player.draw();
 }

@@ -1,11 +1,12 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #define PART_SIZE	16
 
 enum {
 	PART_NONE,
 	PART_GROUND,
-	PART_GROUND_2,
 	PART_HARD_BLOCK,
 	PART_SOFT_BLOCK,
 	PART_PIPE_UP_LEFT,
@@ -40,12 +41,34 @@ enum {
 	PART_FORT_MIDDLE,
 	PART_FORT_GATE_UP,
 	PART_FORT_GATE_DOWN,
+	PART_GROUND_2,
+	PART_SEA_0,
+	PART_SEA_1,
+	PART_SEA_2,
+	PART_SEA_3,
+	PART_SEA_4,
+	PART_SEA_5,
+	PART_SEA_6,
+	PART_SEA_7,
+	PART_DESERT_0,
+	PART_DESERT_1,
+	PART_DESERT_2,
+	PART_DESERT_3,
+	PART_DESERT_4,
+	PART_DESERT_5,
+	PART_DESERT_6,
+	PART_DESERT_7,
+	PART_DESERT_8,
 	PART_MAX
 };
 
 struct Part {
 	const char* m_fileName;
 	unsigned int m_texture;
+	unsigned short m_uvX;
+	unsigned short m_uvY;
+	unsigned short m_sizeX;
+	unsigned short m_sizeY;
 
 	int init();
 	static int initAll();

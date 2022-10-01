@@ -35,6 +35,7 @@ TitleScreen::TitleScreen()
 
 void TitleScreen::init()
 {
+	g_course.load("resource\\course\\course1-1.txt");
 }
 
 void TitleScreen::reset()
@@ -46,6 +47,8 @@ void TitleScreen::reset()
 }
 void TitleScreen::update()
 {
+	g_course.update();
+
 	if (Keyboard::m_nowPressed['w'])
 		m_mode--;
 	if (Keyboard::m_nowPressed['s'])
@@ -63,15 +66,7 @@ void TitleScreen::update()
 		}
 
 	if (Keyboard::m_nowPressed[0x1b]) {
-		int onButton;
-		onButton = MessageBox(
-			NULL,
-			TEXT("èIóπÇµÇƒÇ‡Ç¢Ç¢Ç≈Ç∑Ç©ÅH"),
-			TEXT("Confirmation"),
-			MB_YESNO | MB_ICONQUESTION);
-		if (onButton == IDYES) {
-			exit(0);
-		}
+		glutLeaveMainLoop();
 	}
 
 }
@@ -97,6 +92,6 @@ void TitleScreen::draw()
 		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);
 	}
 	fontPosition(96, 184);
-	fontDraw("TOP-%07d\n", 0);
+	fontDraw("TOP-%07d", 0);
 	fontEnd();
 }

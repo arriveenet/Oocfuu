@@ -1,99 +1,22 @@
 #include "Header.h"
-#include <time.h>
-#include <string.h>
+#include "App.h"
 
 ivec2 windowSize;
-clock_t startTime;
-int FPS;
-int FPSCount;
-
-void printInit(int result, const char* _str)
-{
-	if (result == 0) {
-		printf("[  OK  ] %s\n", _str);
-	} else {
-		printf("[FAILED] %s\n", _str);
-	}
-}
-
-void init()
-{
-	fontInit();
-	printInit(audioInit(), "Audio init");
-	printInit(Keyboard::init(), "Keyboard init");
-	printInit(g_game.init(), "Game init");
-	printInit(g_parts->initAll(), "Part initAll");
-	printInit(g_textures->initAll(), "Texture initAll");
-	printInit(g_player.init(), "Player init");
-	printInit(g_firework.init(), "Firework init");
-	printInit(g_animations->initAll(), "Animation init");
-	printInit(g_sound->initAll(), "Sound init");
-	printInit(g_music.init(), "Music init");
-
-	g_course.load("resource\\course\\course1-1.txt");
-
-	errno_t err;
-	time_t t = time(NULL);
-	err = localtime_s(&currentTime, &t);
-	startTime = clock();
-
-	srand((unsigned int)time(NULL));
-}
 
 void display(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	g_app.draw();
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(
-		g_course.m_scroll, g_course.m_scroll + SCREEN_WIDTH,
-		SCREEN_HEIGHT, 0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glEnable(GL_TEXTURE_2D);//GLenum cap
-	glEnable(GL_BLEND);
-	glBlendFunc(
-		GL_SRC_ALPHA,			//GLenum sfactor
-		GL_ONE_MINUS_SRC_ALPHA);//GLenum dfactor
-
-	glColor3ub(0xff, 0xff, 0xff);
-
-	g_game.m_pCurrentScreen->draw();
-	/*
-	fontBegin();
-	{
-		glColor3ub(0x00, 0xff, 0x00);
-		fontPosition(0, 0);
-		fontDraw("FPS:%d", FPS);
-	}
-	fontEnd();
-	*/
 	glutSwapBuffers();
-}
-
-void update()
-{
-	time_t t = time(NULL);
-	localtime_s(&currentTime, &t);
-	g_music.update();
-	g_game.update();
-	g_game.m_pCurrentScreen->update();
-
 }
 
 void timer(int value)
 {
 	audioUpdate();
-	if (clock() - startTime >= 1000) {
-		startTime = clock();
-		FPS = FPSCount;
-		FPSCount = 0;
-	}
-	FPSCount++;
 	Keyboard::begin();
-	update();
+
+	g_app.update();
+
 	Keyboard::end();
 	glutPostRedisplay();
 
@@ -101,6 +24,11 @@ void timer(int value)
 		1000 / 60,// unsigned int time
 		timer,	//void (* callback)( int )
 		0);		// int value
+}
+
+void release()
+{
+	fontRelease();
 }
 
 void reshape(int width, int height)
@@ -115,8 +43,11 @@ void reshape(int width, int height)
 
 int main(int argc, char* argv[])
 {
+	int result = EXIT_SUCCESS;
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE);
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 	{
 		int windowWidth = GetSystemMetrics(SM_CXSCREEN);
 		int windowHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -130,13 +61,18 @@ int main(int argc, char* argv[])
 	glutCreateWindow("Happy Birthday to oocfuu!");
 
 	// Initialize
-	init();
+	if (!g_app.init())
+		result = EXIT_FAILURE;
+	else {
+		glutDisplayFunc(display);
+		glutTimerFunc(0, timer, 0);
+		glutReshapeFunc(reshape);
+		glutIgnoreKeyRepeat(GL_TRUE); //int ignore
+		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
+		// MainLoop
+		glutMainLoop();
+	}
+	release();
 
-	glutDisplayFunc(display);
-	glutTimerFunc(0, timer, 0);
-	glutReshapeFunc(reshape);
-	glutIgnoreKeyRepeat(GL_TRUE); //int ignore
-	printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
-	// MainLoop
-	glutMainLoop();
+	return result;
 }

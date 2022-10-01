@@ -29,6 +29,7 @@ void MainScreen::update()
 	if (Keyboard::m_nowPressed[0x1b])
 		g_game.setScreen(GAME_SCREEN_TITLE);
 
+	g_course.update();
 	g_player.update();
 }
 
@@ -38,12 +39,12 @@ void MainScreen::draw()
 	g_course.draw();
 	g_player.draw();
 
-	glColor3ub(0x00, 0xff, 0x00);
-	fontBegin();
-	fontPosition(0, 8 * 4);
-	fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-	fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-	fontDraw("JUMPING :%d\n", g_player.m_jumping);
-	fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
-	fontEnd();
+	//glColor3ub(0x00, 0xff, 0x00);
+	//fontBegin();
+	//fontPosition(0, 8 * 4);
+	//fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+	//fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+	//fontDraw("JUMPING :%d\n", g_player.m_jumping);
+	//fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
+	//fontEnd();
 }

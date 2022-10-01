@@ -88,6 +88,10 @@ void Player::update()
 		g_course.m_scroll = 0;
 	}
 
+	// Player is goal
+	if (m_position.x > 3160.f)
+		printf("Player is goal\n");
+
 	// Don't go off screen
 	{
 		float left = g_course.m_scroll - PLAYER_SIZE * 3 / 8;
