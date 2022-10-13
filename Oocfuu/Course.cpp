@@ -15,7 +15,6 @@ Course::Course(int _width, int _height)
 	: m_width(_width)
 	, m_height(_height)
 	, m_scroll(0.0f)
-	, m_lastScroll(0.0f)
 	, m_texture(0)
 {
 	m_parts = new int* [m_height];
@@ -91,9 +90,6 @@ int Course::reload(const char* _fileName, int _width, int _height)
 
 void Course::update()
 {
-	//if ((m_scroll == m_lastScroll) && (m_scroll != 0.0f))
-	//	return;
-
 	m_quads.clear();
 
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
@@ -124,11 +120,12 @@ void Course::update()
 				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
 			}
 			break;
-			case PART_DESERT_0:
+			case PART_DESERT_1:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
 				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+				
 			}
 			break;
 			}
@@ -154,8 +151,6 @@ void Course::update()
 			m_quads.push_back(quad);
 		}
 	}
-
-	m_lastScroll = m_scroll;
 }
 
 void Course::draw() {

@@ -20,7 +20,6 @@ struct Course {
 private:
 	int m_width;
 	int m_height;
-	float m_lastScroll;
 	std::vector<QUAD> m_quads;
 	GLuint m_texture;
 
