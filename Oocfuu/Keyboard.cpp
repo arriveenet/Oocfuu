@@ -21,11 +21,25 @@ void keyboard(unsigned char key, int x, int y) {
 void keyboardUp(unsigned char key, int x, int y) {
 	//printf("keybordUp:\'%c\' (%#x)\n", key, key);
 	Keyboard::m_pressed[key] = false;
-};
+}
+
+void special(int key, int x, int y)
+{
+	Keyboard::m_pressed[KEYBOARD_SPECIAL_KEY_BOUND + key] = true;
+}
+
+void specialUp(int key, int x, int y)
+{
+	Keyboard::m_pressed[KEYBOARD_SPECIAL_KEY_BOUND + key] = false;
+}
 
 int Keyboard::init() {
-	glutKeyboardFunc(keyboard);		//void (GLUTCALLBACK *func)(unsigned char key, int x, int y)
-	glutKeyboardUpFunc(keyboardUp);	//void (GLUTCALLBACK *func)(unsigned char key, int x, int y));
+	glutKeyboardFunc(keyboard);		// void (GLUTCALLBACK *func)(unsigned char key, int x, int y)
+	glutKeyboardUpFunc(keyboardUp);	// void (GLUTCALLBACK *func)(unsigned char key, int x, int y))
+	glutSpecialFunc(special);		// void (* callback)( int, int, int )
+	glutSpecialUpFunc(specialUp);	// void (* callback)( int, int, int )
+
+	glutIgnoreKeyRepeat(GL_TRUE); //int ignore
 
 	return 0;
 }
