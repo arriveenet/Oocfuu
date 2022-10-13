@@ -31,7 +31,7 @@ void HbdScreen::reset()
 	g_music.setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
 	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
 	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
-	g_course.reload("resource\\course\\course.txt", 16, 15);
+	g_course.reload("resource\\course\\happy_birthday.txt", 16, 15);
 }
 
 void HbdScreen::update()
@@ -47,7 +47,6 @@ void HbdScreen::update()
 	}
 
 	if (Keyboard::m_nowPressed['o']) {
-		printf("Ç®Ç≠Ç”ÇøÇ·ÇÒÇ∆íáó«Ç≠Ç»ÇËÇΩÇ©Ç¡ÇΩÇ»ÇüÅB\n");
 		g_music.reset();
 		g_music.resetScore();
 		g_music.setScore(AUDIO_CHANNEL_PULSE0, voyPulse0, VOY_PULSE0_COUNT);

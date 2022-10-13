@@ -51,9 +51,6 @@ bool App::init()
 	if (!printInit(audioInit(), "Audio init"))
 		return false;
 
-	if (!printInit(Keyboard::init(), "Keyboard init"))
-		return false;
-
 	if (!printInit(g_game.init(), "Game init"))
 		return false;
 

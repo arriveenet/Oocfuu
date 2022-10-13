@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 	{
 		int windowWidth = GetSystemMetrics(SM_CXSCREEN);
 		int windowHeight = GetSystemMetrics(SM_CYSCREEN);
-		windowSize.y = 720 - 32;
+		windowSize.y = 720;
 		windowSize.x = windowSize.y * 4 / 3;
 		glutInitWindowPosition(
 			(windowWidth / 2) - (windowSize.x / 2),		// int x
@@ -67,7 +67,7 @@ int main(int argc, char* argv[])
 		glutDisplayFunc(display);
 		glutTimerFunc(0, timer, 0);
 		glutReshapeFunc(reshape);
-		glutIgnoreKeyRepeat(GL_TRUE); //int ignore
+		Keyboard::init();
 		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
 		// MainLoop
 		glutMainLoop();

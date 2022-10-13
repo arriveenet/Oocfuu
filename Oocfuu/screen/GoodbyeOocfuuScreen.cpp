@@ -1,4 +1,6 @@
-// Ç≥ÇÊÇ§Ç»ÇÁÅAÇ®Ç≠Ç”ÅB
+/*
+* Ç≥ÇÊÇ§Ç»ÇÁÅAÇ®Ç≠Ç”
+*/
 
 #include "GoodbyeOocfuuScreen.h"
 #include "../Keyboard.h"
@@ -23,6 +25,7 @@ void GoodbyeOocfuuScreen::reset()
 
 void GoodbyeOocfuuScreen::update()
 {
+	g_course.update();
 	g_player.update();
 
 	if (Keyboard::m_nowPressed['r']) {
