@@ -2,6 +2,8 @@
 #include "Screen.h"
 
 class MainScreen : public Screen {
+	bool m_debugDisplay;
+
 public:
 	virtual void init();
 	virtual void reset();
