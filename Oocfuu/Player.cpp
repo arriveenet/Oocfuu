@@ -1,5 +1,11 @@
 #include "Player.h"
-#include "Header.h"
+#include "App.h"
+#include "Keyboard.h"
+#include "Part.h"
+#include "Course.h"
+#include "Texture.h"
+#include "sound/Sound.h"
+#include "animation/Animation.h"
 
 #include <al.h>
 

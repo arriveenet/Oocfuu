@@ -1,5 +1,11 @@
+#include <gl/glut.h>
+
 #include "MainScreen.h"
-#include "../Header.h"
+#include "../Game.h"
+#include "../Keyboard.h"
+#include "../font.h"
+#include "../Player.h"
+#include "../Course.h"
 #include "../FrameCounter.h"
 
 void MainScreen::init()

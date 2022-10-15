@@ -1,5 +1,12 @@
-#include "Header.h"
+#include <gl/freeglut.h>
+#include <glm/glm.hpp>
+
 #include "App.h"
+#include "sound/audio.h"
+#include "Keyboard.h"
+#include "font.h"
+
+using namespace glm;
 
 ivec2 windowSize;
 

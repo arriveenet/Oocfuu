@@ -32,7 +32,7 @@ int fontInit()
 
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	texFromBMP("resource\\textures\\sprite\\CHR000.bmp", 0, 64, 128);
+	texFromBMP("resource\\textures\\font\\CHR000.bmp", 0, 64, 128);
 	//m_texture.loadBitmapFile("font/sprite.bmp", 0, 64, 128);
 	glBindTexture(GL_TEXTURE_2D, 0);
 

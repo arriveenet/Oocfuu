@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "App.h"
+#include "Game.h"
 #include "Course.h"
 #include "Part.h"
 #include "Rect.h"
-#include "Header.h"
+#include "Texture.h"
 
 using namespace glm;
 using std::vector;
@@ -158,6 +160,8 @@ void Course::draw() {
 		return;
 
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -170,6 +174,7 @@ void Course::draw() {
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisable(GL_CULL_FACE);
 }
 
 void Course::setParts(ivec2 const& _point, int _parts) {

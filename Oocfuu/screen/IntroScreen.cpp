@@ -1,5 +1,9 @@
 #include "IntroScreen.h"
-#include "../Header.h"
+#include "../Game.h"
+#include "../Keyboard.h"
+#include "../font.h"
+#include "../Player.h"
+#include "../Course.h"
 
 void IntroScreen::init()
 {

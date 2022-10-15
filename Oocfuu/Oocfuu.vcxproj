@@ -178,7 +178,6 @@
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Part.h" />
     <ClInclude Include="Player.h" />

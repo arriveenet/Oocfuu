@@ -1,7 +1,13 @@
-#include "TitleScreen.h"
-#include "../Header.h"
 #include <Windows.h>
-#include <gl/glut.h>
+#include <gl/freeglut.h>
+
+#include "TitleScreen.h"
+#include "../Game.h"
+#include "../Keyboard.h"
+#include "../font.h"
+#include "../Player.h"
+#include "../Course.h"
+#include "../tex.h"
 
 #define TITLE_SCREEN_WIDTH	16
 #define TITLE_SCREEN_HEIGHT	15

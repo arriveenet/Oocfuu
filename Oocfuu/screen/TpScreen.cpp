@@ -7,6 +7,7 @@
 #include "../Texture.h"
 #include "../Player.h"
 #include "../Course.h"
+#include "../FrameCounter.h"
 
 #include <freeglut.h>
 
@@ -101,6 +102,8 @@ void TpScreen::draw()
 	Rect(vec2(32, 32), vec2(16 * 7, 16 * 11)).draw();
 	fontBegin();
 	{
+		fontPosition(0, 0);
+		//fontDraw("FPS:%d", g_frameCounter.getFrameCount());
 		for (int i = 0; i < MESSAGE_MAX; i++) {
 			if (m_count < messages[i].startCount)
 				break;
