@@ -20,6 +20,7 @@ public:
 	unsigned int m_count;
 
 	int init();
+	void release();
 	void update();
 	void setScreen(int _screen);
 	void drawHUD();

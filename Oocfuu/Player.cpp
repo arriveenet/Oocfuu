@@ -48,7 +48,7 @@ void Player::update()
 	ac.update();	// Animation update
 
 	// Keyborad input
-	static float acceleration = .2f;
+	static float acceleration = 0.2f;
 	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT]) {
 		m_speed.x += acceleration;
 	}
@@ -96,7 +96,7 @@ void Player::update()
 
 	// Player is goal
 	if (m_position.x > 3160.f)
-		printf("Player is goal\n");
+		//printf("Player is goal\n");
 
 	// Don't go off screen
 	{

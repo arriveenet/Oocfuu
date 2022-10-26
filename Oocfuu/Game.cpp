@@ -34,6 +34,14 @@ int Game::init()
 	return 0;
 }
 
+void Game::release()
+{
+	for (int i = 0; i < GAME_SCREEN_MAX; i++) {
+		delete m_pScreens[i];
+		m_pScreens[i] = NULL;
+	}
+}
+
 void Game::update()
 {
 	m_count++;
@@ -46,12 +54,12 @@ void Game::setScreen(int _screen) {
 
 void Game::drawHUD()
 {
-	GLuint texture = g_textures[TEXTURE_COIN_1].m_texture;
-	glBindTexture(
-		GL_TEXTURE_2D,	// GLenum target
-		texture);		// GLuint texture
-	Rect rect(vec2(8, 8), vec2(g_course.m_scroll + 88, 24));
-	rect.draw();
+	//GLuint texture = g_textures[TEXTURE_COIN_1].m_texture;
+	//glBindTexture(
+	//	GL_TEXTURE_2D,	// GLenum target
+	//	texture);		// GLuint texture
+	//Rect rect(vec2(8, 8), vec2(g_course.m_scroll + 88, 24));
+	//rect.draw();
 
 	fontBegin();
 	{
@@ -61,16 +69,21 @@ void Game::drawHUD()
 		fontPosition(24, 24);
 		fontDraw("%06d", g_app.m_currentTime.tm_year + 1900);
 
-		fontPosition(96, 24);
-		fontDraw("x%02d", g_app.m_currentTime.tm_sec);
+		unsigned char hudCoin = 'c';
+		const int len = 6;
+		unsigned char table[len] = { 0,1,2,2,1,0 };
+		hudCoin += table[(m_count / 8) % len];
+
+		fontPosition(88, 24);
+		fontDraw("%cx%02d", hudCoin, g_app.m_currentTime.tm_sec);
 		//fontDraw("x00");
 
 		fontPosition(144, 16);
 		fontDraw("WORLD");
 
-		fontPosition(152, 24);
-		fontDraw("%d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
-		//fontDraw("2-4");
+		fontPosition(144, 24);
+		fontDraw("%2d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
+		//fontDraw("%2d-%d", 2, 4);
 
 		fontPosition(200, 16);
 		fontDraw("TIME");

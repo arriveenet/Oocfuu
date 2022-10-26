@@ -41,7 +41,10 @@ App::App()
 }
 
 App::~App()
-{}
+{
+	fontRelease();
+	g_game.release();
+}
 
 bool App::init()
 {

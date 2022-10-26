@@ -1,5 +1,7 @@
 #include "font.h"
-#include "Header.h"
+#include "App.h"
+#include "Course.h"
+#include "tex.h"
 
 #include <stdio.h>
 #include <stdlib.h>

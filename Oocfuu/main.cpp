@@ -1,5 +1,10 @@
+#define FREEGLUT_STATIC
 #include <gl/freeglut.h>
+
 #include <glm/glm.hpp>
+
+#include <crtdbg.h>
+
 
 #include "App.h"
 #include "sound/audio.h"
@@ -35,7 +40,7 @@ void timer(int value)
 
 void release()
 {
-	fontRelease();
+	g_app.~App();
 }
 
 void reshape(int width, int height)
@@ -50,6 +55,7 @@ void reshape(int width, int height)
 
 int main(int argc, char* argv[])
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	int result = EXIT_SUCCESS;
 
 	glutInit(&argc, argv);
@@ -80,6 +86,8 @@ int main(int argc, char* argv[])
 		glutMainLoop();
 	}
 	release();
+
+	_CrtDumpMemoryLeaks();
 
 	return result;
 }

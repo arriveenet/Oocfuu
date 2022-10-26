@@ -41,11 +41,14 @@ int Course::load(const char* _fileName) {
 
 	error = fopen_s(&pFile, _fileName, "r");
 	if (error != 0) {
+#if _DEBUG
 		printf("The file %s was open failed!\n", _fileName);
+#endif
 		return 1;
 	}
+#if _DEBUG
 	printf("The file %s was opened!\n", _fileName);
-
+#endif
 	for (int i = 0; i < m_height; i++) {
 		for (int j = 0; j < m_width; j++) {
 			char buf[2];
