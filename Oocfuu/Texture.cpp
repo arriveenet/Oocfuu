@@ -29,15 +29,22 @@ int Texture::init()
 	char fileName[256] = "resource\\textures\\";
 	sprintf_s(fileName, "%s%s", fileName, m_fileName);
 	//printf("%s\n", fileName);
-	texFromBMP(fileName, 0xff, 0x00, 0xff);
+	if (texFromBMP(fileName, 0xff, 0x00, 0xff) != 0)
+		return 1;
 
 	return 0;
 }
 
 int Texture::initAll()
 {
-	for (int i = 0; i < TEXTURE_MAX; i++)
-		g_textures[i].init();
+	int failedCount = 0;
+	for (int i = 0; i < TEXTURE_MAX; i++) {
+		if (g_textures[i].init() != 0)
+			failedCount++;
+	}
+
+	if (failedCount > 0)
+		return 1;
 
 	return 0;
 }
