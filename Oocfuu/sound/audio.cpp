@@ -7,8 +7,6 @@
 
 #include "audio.h"
 
-#pragma comment(lib,"OpenAL32.lib")
-
 #define WAVE_FORMAT_PCM			0x0001
 #define WAVE_FORMAT_IEEE_FLOAT	0x0003
 #define WAVE_FORMAT_ALAW		0x0006
@@ -63,17 +61,17 @@ CHANNEL channels[AUDIO_CHANNEL_MAX];
 
 int audioInit() {
 
-	ALCdevice* device = alcOpenDevice(NULL);// const ALCchar *devicename
-	if (device == NULL)
-		return 1;
+	//ALCdevice* device = alcOpenDevice(NULL);// const ALCchar *devicename
+	//if (device == NULL)
+	//	return 1;
 
-	ALCcontext* context = alcCreateContext(
-		device,	//ALCdevice *device
-		NULL);	//const ALCint* attrlist
-	if (context == NULL)
-		return 1;
+	//ALCcontext* context = alcCreateContext(
+	//	device,	//ALCdevice *device
+	//	NULL);	//const ALCint* attrlist
+	//if (context == NULL)
+	//	return 1;
 
-	alcMakeContextCurrent(context);// ALCcontext *context
+	//alcMakeContextCurrent(context);// ALCcontext *context
 
 	alGenBuffers(
 		AUDIO_WAVEFORM_MAX,		// ALsizei n
@@ -226,158 +224,6 @@ float audioIndexToFreq(int _index) {
 	int divisorTable[] = { 4, 8, 16, 32, 64, 96, 128, 160,
 		202, 254, 380, 508, 762, 1016, 2034, 4068 };
 	return 1789772.5f / divisorTable[_index];
-}
-
-static int parseFile(const char* _fileName, LPWAVEFILEINFO pWaveInfo)
-{
-	WAVEFILEHEADER	waveFileHeader;
-	RIFFCHUNK		riffChunk;
-	WAVEFMT			waveFmt;
-
-	fopen_s(&pWaveInfo->pFile, _fileName, "rb");
-	if (pWaveInfo->pFile) {
-		//printf("The file %s was opened\n", _fileName);
-		// Read Wave file header
-		fread(&waveFileHeader, 1, sizeof(WAVEFILEHEADER), pWaveInfo->pFile);
-		if (
-			(!_strnicmp(waveFileHeader.szRIFF, "RIFF", 4))
-			&& (!_strnicmp(waveFileHeader.szWAVE, "WAVE", 4))
-			) {
-			while (fread(&riffChunk, 1, sizeof(RIFFCHUNK), pWaveInfo->pFile) == sizeof(RIFFCHUNK)) {
-				if (!_strnicmp(riffChunk.szChunkName, "fmt ", 4)) {
-					if (riffChunk.ulChunkSize <= sizeof(WAVEFMT)) {
-						fread(&waveFmt, 1, riffChunk.ulChunkSize, pWaveInfo->pFile);
-						/*
-						printf("fmtChunkSize:%d\n", riffChunk.ulChunkSize);
-						printf("format:%d\n", waveFmt.usFormatTag);
-						printf("channls:%d\n", waveFmt.usChannels);
-						printf("samplesPerSec:%d\n", waveFmt.ulSamplesPerSec);
-						printf("avgBytesPerSec:%d\n", waveFmt.ulAvgBytesPerSec);
-						printf("blockAlign:%d\n", waveFmt.usBlockAlign);
-						printf("bitsPerSample:%d\n", waveFmt.usBitsPerSample);
-						printf("cbSize:%d\n", waveFmt.usSize);
-						*/
-						unsigned int format;
-						if (audioGetFormat(waveFmt.usChannels, waveFmt.usBitsPerSample, &format)) {
-							//printf("f=%#x\n", format);
-							pWaveInfo->format = format;
-						}
-						pWaveInfo->freq = waveFmt.ulSamplesPerSec;
-						// Determine if this is a WAVEFORMATEX or WAVEFORMATEXTENSIBLE wave file
-						if (waveFmt.usFormatTag == WAVE_FORMAT_PCM) {
-							//printf("format pcm\n");
-							//pWaveInfo->wfType = WF_EX;
-							//memcpy(&pWaveInfo->wfEXT.Format, &waveFmt, sizeof(PCMWAVEFORMAT));
-						}
-						else if (waveFmt.usFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-							//printf("format extensible\n");
-							//pWaveInfo->wfType = WF_EXT;
-							//memcpy(&pWaveInfo->wfEXT, &waveFmt, sizeof(WAVEFORMATEXTENSIBLE));
-						}
-					}
-					else {
-						fseek(pWaveInfo->pFile, riffChunk.ulChunkSize, SEEK_CUR);
-					}
-				}
-				else if (!_strnicmp(riffChunk.szChunkName, "data", 4)) {
-					//printf("dataSize=%s\n", riffChunk.szChunkName);
-					//printf("dataSize=%d\n", riffChunk.ulChunkSize);
-					pWaveInfo->dataSize = riffChunk.ulChunkSize;
-					pWaveInfo->dataOffset = ftell(pWaveInfo->pFile);
-					fseek(pWaveInfo->pFile, riffChunk.ulChunkSize, SEEK_CUR);
-				}
-				else {
-					fseek(pWaveInfo->pFile, riffChunk.ulChunkSize, SEEK_CUR);
-				}
-
-				// Ensure that we are correctly aligned for next chunk
-				if (riffChunk.ulChunkSize & 1)
-					fseek(pWaveInfo->pFile, 1, SEEK_CUR);
-			}
-
-		}
-		else {
-			printf("Read faild wave file header.\n");
-			return 1;
-		}
-	}
-	else {
-		printf("The file %s was not opened\n", _fileName);
-		return 1;
-	}
-
-	return 0;
-}
-
-int audioLoadWaveFile(const char* _fileName, unsigned int* _bid)
-{
-	LPWAVEFILEINFO pWaveInfo;
-	pWaveInfo = new WAVEFILEINFO;
-	if (pWaveInfo) {
-		if (parseFile(_fileName, pWaveInfo) == 0) {
-			// Allocate memory for sample data
-			pWaveInfo->pData = new short[pWaveInfo->dataSize / 2];
-			if (pWaveInfo->pData) {
-				// Seek to start of audio data
-				fseek(pWaveInfo->pFile, pWaveInfo->dataOffset, SEEK_SET);
-				if (fread(pWaveInfo->pData, sizeof(short), pWaveInfo->dataSize / 2, pWaveInfo->pFile) == pWaveInfo->dataSize / 2) {
-					//printf("succsess\n");
-
-					alBufferData(
-						*_bid,// ALuint bid
-						pWaveInfo->format,// ALenum format
-						pWaveInfo->pData,// const ALvoid * data
-						pWaveInfo->dataSize,// ALsizei size
-						pWaveInfo->freq);// ALsizei freq
-					ALenum error = alGetError();
-					const ALchar* errorString = alGetString(error);
-					//printf("%s\n", errorString);
-					delete pWaveInfo->pData;
-				}
-			}
-			fclose(pWaveInfo->pFile);
-		} else {
-			return 1;
-		}
-	}
-	return 0;
-}
-
-bool audioGetFormat(int _channel, int _bitPerSample, unsigned int* _format)
-{
-	bool result = false;
-
-	if (_format) {
-		*_format = 0;
-
-		if (_channel == 1) {
-			switch (_bitPerSample) {
-			case 8:
-				*_format = AL_FORMAT_MONO8;
-				break;
-			case 16:
-				*_format = AL_FORMAT_MONO16;
-				break;
-			}
-		}
-		else if (_channel == 2) {
-			switch (_bitPerSample) {
-			case 8:
-				*_format = AL_FORMAT_STEREO8;
-				break;
-			case 16:
-				*_format = AL_FORMAT_STEREO16;
-				break;
-			}
-		}
-		if (*_format == 0)
-			result = false;
-		else
-			result = true;
-	}
-	else
-		result = false;
-	return result;
 }
 
 void audioPlay(int _channel) {

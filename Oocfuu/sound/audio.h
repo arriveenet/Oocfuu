@@ -40,7 +40,6 @@ void audioDecay(int _channel, float _decay);
 void audioSweep(int _channel, float _sweep, float _freqEnd = 0);
 void audioFreq(int _channel, float _freq);
 float audioIndexToFreq(int _index);
-int audioLoadWaveFile(const char* _fileName, unsigned int* _bid);
 bool audioGetFormat(int _channel, int _bitPerSample, unsigned int* _format);
 void audioPlay(int _channel);
 void audioStop(int _channel);
