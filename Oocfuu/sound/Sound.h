@@ -1,7 +1,5 @@
 #pragma once
-
 #include <al.h>
-#include <alc.h>
 
 enum {
 	SOUND_SE_YO,
@@ -10,15 +8,25 @@ enum {
 	SOUND_MAX
 };
 
-class Sound{
-public:
-	const char* m_fileName;
-	unsigned int m_bid;
-	unsigned int m_sid;
+class Sound {
+	ALuint* m_bids;
+	ALuint* m_sids;
 
+	Sound();
+	Sound(const Sound& _sound);
 	~Sound();
-	int init();
-	static int initAll();
+
+public:
+	static Sound* getInstance();
+
+	bool init();
+	void release();
+
+	void play(int _sid);
+	void stop(int _sid);
+
+private:
+	bool loadWaveToBuffer(const char* _fileName, ALuint _bid);
 };
 
-extern Sound g_sound[SOUND_MAX];
+extern Sound* g_pSound;
