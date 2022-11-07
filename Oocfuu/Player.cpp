@@ -3,7 +3,7 @@
 #include "Keyboard.h"
 #include "Part.h"
 #include "Course.h"
-#include "Texture.h"
+#include "TextureManager.h"
 #include "sound/Sound.h"
 #include "animation/Animation.h"
 
@@ -60,7 +60,7 @@ void Player::update()
 	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]
 		&& (!m_falling)) {
 		int r = rand() % 2;
-		alSourcePlay(g_sound[r].m_sid);
+		//alSourcePlay(g_soundManager[r].m_sid);
 
 		m_jumping = m_falling = true;
 		m_jumpCount = 0;
@@ -221,10 +221,11 @@ void Player::update()
 void Player::draw()
 {
 	AnimationController& ac = m_animationController;
-	Texture texture = g_textures[g_animations[ac.m_animation].m_keys[ac.m_time]];
-	glBindTexture(
-	GL_TEXTURE_2D,
-	texture.m_texture);
+	// Texture texture = g_textures[g_animations[ac.m_animation].m_keys[ac.m_time]];
+	g_textureManager.setTexture((TEXTURE)g_animations[ac.m_animation].m_keys[ac.m_time]);
+	//glBindTexture(
+	//GL_TEXTURE_2D,
+	//texture.m_texture);
 	Rect::draw();
 	
 	/*
@@ -294,10 +295,7 @@ void Player::draw()
 
 void Player::draw(vec2 _position)
 {
-	Texture texture = g_textures[TEXTURE_PLAYER_IDLE];
-	glBindTexture(
-		GL_TEXTURE_2D,				// GLenum target
-		texture.m_texture);	// GLuint texture
+	g_textureManager.setTexture(TEXTURE_PLAYER_IDLE);
 	Rect rect(m_size, _position);
 	rect.draw();
 }

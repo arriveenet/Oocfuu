@@ -12,6 +12,7 @@ public:
 	~App();
 
 	bool init();
+	void release();
 	void update();
 	void draw();
 };

@@ -1,28 +1,28 @@
 #pragma once
 
-#include "Rect.h"  
+class Texture
+{
+	int m_width;
+	int m_height;
+	unsigned char* m_bitmapPixels;
+	unsigned char* m_pixels;
 
-enum {
-	TEXTURE_PLAYER_IDLE,
-	TEXTURE_PLAYER_JUMP,
-	TEXTURE_PLAYER_RUN_1,
-	TEXTURE_PLAYER_RUN_2,
-	TEXTURE_CAKE,
-	TEXTURE_COIN_1,
-	TEXTURE_FIREWORK_1,
-	TEXTURE_FIREWORK_2,
-	TEXTURE_FIREWORK_3,
-	TEXTURE_PARTS,
-	TEXTURE_MAX
+public:
+	Texture();
+	~Texture();
+
+	int getWidth() const;
+	int getHeight() const;
+
+	const unsigned char* getTexImage() const;
+	void deleteTexImage();
+
+	int loadBitmapFile(const char* _fileName, unsigned char* _colorKey = nullptr);
+	int loadBitmapFile(const char* _fileName,
+		unsigned char _colorKeyR,
+		unsigned char _colorKeyG,
+		unsigned char _colorKeyB);
+private:
+	int openBitmapFile(const char* _fileName);
+	int createTexImage(unsigned char* _colorKey = nullptr);
 };
-
-struct Texture {
-	const char* m_fileName;
-	unsigned int m_texture;
-	Rect m_bound;
-
-	int init();
-	static int initAll();
-};
-
-extern Texture g_textures[TEXTURE_MAX];

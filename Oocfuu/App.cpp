@@ -7,7 +7,7 @@
 #include "Rect.h"
 #include "Part.h"
 #include "Course.h"
-#include "Texture.h"
+#include "TextureManager.h"
 #include "sound\Sound.h"
 #include "sound\Music.h"
 #include "sound\Channel.h"
@@ -42,13 +42,17 @@ App::App()
 
 App::~App()
 {
-	fontRelease();
-	g_game.release();
+	release();
 }
 
 bool App::init()
 {
+	g_pSound = Sound::getInstance();
+
 	if (!printInit(fontInit(), "Font init"))
+		return false;
+
+	if (printInit(g_pSound->init(), "Sound init"))
 		return false;
 
 	if (!printInit(audioInit(), "Audio init"))
@@ -60,7 +64,7 @@ bool App::init()
 	if (!printInit(g_parts->initAll(), "Part initAll"))
 		return false;
 
-	if (!printInit(g_textures->initAll(), "Texture initAll"))
+	if (printInit(g_textureManager.init(), "Texture initAll"))
 		return false;
 
 	if (!printInit(g_player.init(), "Player init"))
@@ -72,16 +76,24 @@ bool App::init()
 	if (!printInit(g_animations->initAll(), "Animation init"))
 		return false;
 
-	if (!printInit(g_sound->initAll(), "Sound init"))
-		return false;
+	//if (!printInit(g_sound->initAll(), "Sound init"))
+	//	return false;
 
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
-	//g_course.load("resource\\course\\course1-1.txt");
+	g_course.load("resource\\course\\course1-1.txt");
 
 
 	return true;
+}
+
+void App::release()
+{
+	fontRelease();
+	g_textureManager.release();
+	g_pSound->release();
+	g_game.release();
 }
 
 void App::update()

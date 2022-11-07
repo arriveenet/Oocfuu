@@ -7,7 +7,7 @@
 #include "../font.h"
 #include "../Game.h"
 #include "../Keyboard.h"
-#include "../Texture.h"
+#include "../TextureManager.h"
 #include "../Player.h"
 #include "../Course.h"
 
@@ -81,9 +81,7 @@ void HbdScreen::draw()
 	fontDraw("HAPPY BIRTHDAY");
 	fontEnd();
 	// Draw cake
-	glBindTexture(
-		GL_TEXTURE_2D,
-		g_textures[TEXTURE_CAKE].m_texture);
+	g_textureManager.setTexture(TEXTURE_CAKE);
 	Rect(vec2(32, 32), vec2(16 * 7, 16 * 11)).draw();
 
 	g_player.draw();

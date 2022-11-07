@@ -6,7 +6,7 @@
 #include "Course.h"
 #include "Part.h"
 #include "Rect.h"
-#include "Texture.h"
+#include "TextureManager.h"
 
 using namespace glm;
 using std::vector;
@@ -171,9 +171,10 @@ void Course::draw() {
 	glVertexPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].position);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].texCoord);
 
-	glBindTexture(GL_TEXTURE_2D, g_textures[TEXTURE_PARTS].m_texture);
+	g_textureManager.setTexture(TEXTURE_PARTS);
 	glDrawArrays(GL_QUADS, 0, GLsizei(m_quads.size() * 4));
-	glBindTexture(GL_TEXTURE_2D, 0);
+	g_textureManager.unbindTexture();
+
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);

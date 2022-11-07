@@ -40,7 +40,7 @@ void timer(int value)
 
 void release()
 {
-	g_app.~App();
+	g_app.release();
 }
 
 void reshape(int width, int height)

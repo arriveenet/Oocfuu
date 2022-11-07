@@ -3,7 +3,7 @@
 #include "App.h"
 #include "font.h"
 #include "Rect.h"
-#include "Texture.h"
+#include "TextureManager.h"
 #include "screen/TitleScreen.h"
 #include "screen/IntroScreen.h"
 #include "screen/MainScreen.h"

@@ -147,6 +147,7 @@
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Course.cpp" />
+    <ClCompile Include="enemy\Kuribo.cpp" />
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameCounter.cpp" />
@@ -166,14 +167,19 @@
     <ClCompile Include="sound\Channel.cpp" />
     <ClCompile Include="sound\Music.cpp" />
     <ClCompile Include="sound\Sound.cpp" />
+    <ClCompile Include="sound\Wave.cpp" />
     <ClCompile Include="tex.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Course.h" />
+    <ClInclude Include="enemy\Enemy.h" />
+    <ClInclude Include="enemy\Kuribo.h" />
+    <ClInclude Include="enemy\KuriboState.h" />
     <ClInclude Include="Firework.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
@@ -198,8 +204,10 @@
     <ClInclude Include="sound\Channel.h" />
     <ClInclude Include="sound\Music.h" />
     <ClInclude Include="sound\Sound.h" />
+    <ClInclude Include="sound\Wave.h" />
     <ClInclude Include="tex.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico" />
