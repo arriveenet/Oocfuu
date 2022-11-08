@@ -7,38 +7,6 @@
 
 #include "audio.h"
 
-#define WAVE_FORMAT_PCM			0x0001
-#define WAVE_FORMAT_IEEE_FLOAT	0x0003
-#define WAVE_FORMAT_ALAW		0x0006
-#define WAVE_FORMAT_MULAW		0x0007
-#define WAVE_FORMAT_EXTENSIBLE	0xFFFE
-
-typedef struct
-{
-	char			szRIFF[4];
-	unsigned long	ulRIFFSize;
-	char			szWAVE[4];
-} WAVEFILEHEADER;
-
-typedef struct
-{
-	char			szChunkName[4];
-	unsigned long	ulChunkSize;
-} RIFFCHUNK;
-
-typedef struct
-{
-	unsigned short	usFormatTag;
-	unsigned short	usChannels;
-	unsigned long	ulSamplesPerSec;
-	unsigned long	ulAvgBytesPerSec;
-	unsigned short	usBlockAlign;
-	unsigned short	usBitsPerSample;
-	unsigned short	usSize;
-	unsigned short  usReserved;
-	unsigned long	ulChannelMask;
-} WAVEFMT;
-
 static 	ALuint buffers[AUDIO_WAVEFORM_MAX];
 
 //static float freqStart = DEFAULT_FREQ;

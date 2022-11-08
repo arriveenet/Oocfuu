@@ -10,20 +10,23 @@ static Wave* g_pWaveLoader = NULL;
 Sound* g_pSound = NULL;
 
 static const char* fileNames[SOUND_MAX] = {
-	"yo.wav", //SOUND_SE_YO
-	"hoi.wav", //SOUND_SE_HOI
-	"firework.wav", //SOUND_FIREWORK
+	"resource\\sound\\yo.wav", //SOUND_SE_YO
+	"resource\\sound\\hoi.wav", //SOUND_SE_HOI
+	"resource\\sound\\firework.wav", //SOUND_FIREWORK
 };
 
 Sound::Sound()
-	: m_bids(new ALuint[SOUND_MAX])
-	, m_sids(new ALuint[SOUND_MAX])
+	: m_bids(NULL)
+	, m_sids(NULL)
 {
 }
 
 Sound::~Sound()
 {
-	release();
+	if (g_pWaveLoader) {
+		delete g_pWaveLoader;
+		g_pWaveLoader = NULL;
+	}
 }
 
 Sound* Sound::getInstance()
@@ -54,6 +57,9 @@ bool Sound::init()
 		}
 	}
 
+	m_bids = new ALuint[SOUND_MAX];
+	m_sids = new ALuint[SOUND_MAX];
+
 	alGenBuffers(SOUND_MAX, m_bids);
 	alGenSources(SOUND_MAX, m_sids);
 
@@ -64,7 +70,7 @@ bool Sound::init()
 			alSourcef(
 				m_sids[i],		// ALuint source
 				AL_GAIN,	// ALenum param
-				0.2f);		// ALfloat value
+				1.0f);		// ALfloat value
 
 			alSourcei(
 				m_sids[i],			// ALuint sid
@@ -93,14 +99,15 @@ void Sound::release()
 	alcDestroyContext(pContext);
 	alcCloseDevice(pDevice);
 
-	if (g_pWaveLoader)
-		delete g_pWaveLoader;
-
-	if (m_bids)
+	if (m_bids) {
 		delete[] m_bids;
+		m_bids = NULL;
+	}
 
-	if (m_sids)
+	if (m_sids) {
 		delete[] m_sids;
+		m_sids = NULL;
+	}
 }
 
 void Sound::play(int _sid)
@@ -129,12 +136,11 @@ bool Sound::loadWaveToBuffer(const char* _fileName, ALuint _bid)
 				&& (g_pWaveLoader->getWaveFormat(&format))
 				)
 			{
-				/*
-				printf("size=%d\n", size);
+				/*printf("size=%d\n", size);
 				printf("pData=%p\n", pData);
 				printf("freq=%d\n", freq);
-				printf("format=%#d\n", format);
-				*/
+				printf("format=%#d\n", format);*/
+				
 				alBufferData(
 					_bid,	// ALuint bid
 					format,	// ALenum format

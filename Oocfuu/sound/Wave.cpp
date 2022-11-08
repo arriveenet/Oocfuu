@@ -1,3 +1,8 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
 #include "Wave.h"
 
 #include <stdio.h>
@@ -58,7 +63,9 @@ Wave::~Wave()
 
 int Wave::loadWaveFile(const char* _fileName)
 {
+	int result = 1;
 	LPWAVEFILEINFO pWaveInfo;
+
 	pWaveInfo = new WAVEFILEINFO;
 	if (pWaveInfo) {
 		if (parseFile(_fileName, pWaveInfo) == 0) {
@@ -67,17 +74,25 @@ int Wave::loadWaveFile(const char* _fileName)
 			if (pWaveInfo->pData) {
 				// Seek to start of audio data
 				fseek(pWaveInfo->pFile, pWaveInfo->dataOffset, SEEK_SET);
+				// Read Sample Data
 				if (fread(pWaveInfo->pData, sizeof(short), pWaveInfo->dataSize / 2, pWaveInfo->pFile) == pWaveInfo->dataSize / 2) {
 					m_wave = pWaveInfo;
 					m_isWave = true;
+					result = 0;
+				} else {
+					delete pWaveInfo->pData;
+					result = 1;
 				}
+			} else {
+				result = 1;
 			}
+
 			fclose(pWaveInfo->pFile);
-		} else {
-			return 1;
+			pWaveInfo->pFile = 0;
 		}
 	}
-	return 0;
+
+	return result;
 }
 
 bool Wave::getWaveData(void** _data)
