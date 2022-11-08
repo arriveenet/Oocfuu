@@ -7,7 +7,7 @@
 #include "../font.h"
 #include "../Player.h"
 #include "../Course.h"
-#include "../tex.h"
+#include "../TextureManager.h"
 
 #define TITLE_SCREEN_WIDTH	16
 #define TITLE_SCREEN_HEIGHT	15
@@ -24,18 +24,8 @@ static const char* modeNames[] = {
 };
 
 TitleScreen::TitleScreen()
-	: m_texture(0)
-	, m_mode(MODE_1P)
+	: m_mode(MODE_1P)
 {
-	glGenTextures(
-		1,				// GLsizei n
-		&m_texture);	// GLuint *textures
-
-	glBindTexture(
-		GL_TEXTURE_2D,	// GLenum target
-		m_texture);	// GLuint texture
-	texFromBMP("resource\\textures\\item\\title_2.bmp", 0xff, 0x00, 0xff);
-
 	glClearColor({ 80 / 255.f }, { 128 / 255.f }, { 255 / 255.f }, { 1 });
 }
 
@@ -82,11 +72,10 @@ void TitleScreen::draw()
 	g_course.draw();
 	g_game.drawHUD();
 
-	glBindTexture(
-		GL_TEXTURE_2D,				// GLenum target
-		m_texture);	// GLuint texture
+	g_textureManager.setTexture(TEXTURE_TITLE);
 	Rect rect(vec2(174, 88), vec2(40,32));
 	rect.draw();
+	g_textureManager.unbindTexture();
 
 	g_player.draw(vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y));
 

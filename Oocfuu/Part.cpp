@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "Part.h"
-#include "tex.h"
 
 #include "glut.h"
 
@@ -64,24 +63,24 @@ Part g_parts[PART_MAX] = {
 };
 
 int Part::init() {
-	if (m_fileName != nullptr) {
-		glGenTextures(
-			1,				// GLsizei n
-			&m_texture);	// GLuint * textures
-
-		glBindTexture(
-			GL_TEXTURE_2D,	// GLenum target
-			m_texture);		// GLuint texture
-		char fileName[256] = "resource\\textures\\parts\\";
-		sprintf_s(fileName, "%s%s", fileName, m_fileName);
-		//printf("%s\n", fileName);
-		if (texFromBMP(fileName, 0xff, 0x00, 0xff) != 0) {
-#if _DEBUG
-			printf("The file %s was open failed\n", fileName);
-#endif // _DEBUG
-			return 1;
-		}
-	}
+//	if (m_fileName != nullptr) {
+//		glGenTextures(
+//			1,				// GLsizei n
+//			&m_texture);	// GLuint * textures
+//
+//		glBindTexture(
+//			GL_TEXTURE_2D,	// GLenum target
+//			m_texture);		// GLuint texture
+//		char fileName[256] = "resource\\textures\\parts\\";
+//		sprintf_s(fileName, "%s%s", fileName, m_fileName);
+//		//printf("%s\n", fileName);
+//		if (texFromBMP(fileName, 0xff, 0x00, 0xff) != 0) {
+//#if _DEBUG
+//			printf("The file %s was open failed\n", fileName);
+//#endif // _DEBUG
+//			return 1;
+//		}
+//	}
 	return 0;
 }
 

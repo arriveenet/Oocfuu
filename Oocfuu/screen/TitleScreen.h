@@ -3,7 +3,6 @@
 #include "../Course.h"
 
 class TitleScreen : public Screen {
-	unsigned int m_texture;
 	int m_mode;
 
 public:

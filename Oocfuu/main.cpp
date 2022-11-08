@@ -3,8 +3,9 @@
 
 #include <glm/glm.hpp>
 
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
 #include <crtdbg.h>
-
 
 #include "App.h"
 #include "sound/audio.h"

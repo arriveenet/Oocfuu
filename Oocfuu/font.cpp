@@ -1,7 +1,7 @@
 #include "font.h"
 #include "App.h"
 #include "Course.h"
-#include "tex.h"
+#include "TextureManager.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,8 +13,6 @@
 using namespace glm;
 
 // Font texture
-//static Texture m_texture;
-static GLuint texture;
 static vec2 textureSize;
 
 // Font Internal variables
@@ -32,18 +30,12 @@ int fontInit()
 	scale = 1.0f;
 	size = { 8,8 };
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	texFromBMP("resource\\textures\\font\\CHR000.bmp", 0, 64, 128);
-	//m_texture.loadBitmapFile("font/sprite.bmp", 0, 64, 128);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	return 0;
 }
 
 void fontRelease()
 {
-	glDeleteTextures(1, &texture); // GLsizei n, const GLuint *textures
+
 }
 
 void fontBegin()
@@ -77,17 +69,12 @@ void fontBegin()
 	glBlendFunc(
 		GL_SRC_ALPHA,			//GLenum sfactor
 		GL_ONE_MINUS_SRC_ALPHA);//GLenum dfactor
-
-	glBindTexture(
-		GL_TEXTURE_2D,	// GLenum target
-		texture);			// GLuint texture
+	g_textureManager.setTexture(TEXTURE_FONT);
 }
 
 void fontEnd()
 {
-	glBindTexture(
-		GL_TEXTURE_2D,	// GLenum target
-		0);				// GLuint texture
+	g_textureManager.unbindTexture();
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glMatrixMode(GL_MODELVIEW);

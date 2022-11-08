@@ -18,7 +18,9 @@ static const char* fileNames[] =
 	{"item\\firework_1.bmp"},
 	{"item\\firework_2.bmp"},
 	{"item\\firework_3.bmp"},
+	{"item\\title_2.bmp"},
 	{"parts\\part.bmp"},
+	{"font\\CHR000.bmp"},
 };
 
 TextureManager::TextureManager()

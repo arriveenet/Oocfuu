@@ -1,7 +1,6 @@
 #include "App.h"
 
 #include "font.h"
-#include "tex.h"
 #include "sound\audio.h"
 #include "Keyboard.h"
 #include "Rect.h"
