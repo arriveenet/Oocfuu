@@ -18,6 +18,17 @@ enum TEXTURE
 	TEXTURE_MAX
 };
 
+typedef struct tagRGB {
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+} RGB;
+
+typedef struct tagTEX {
+	char fileName[64];
+	RGB colorKey;
+} TEX;
+
 class TextureManager
 {
 	GLuint m_textures[TEXTURE_MAX];
