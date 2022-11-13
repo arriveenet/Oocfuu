@@ -5,6 +5,8 @@
 #include "../Player.h"
 #include "../Course.h"
 
+using namespace glm;
+
 void IntroScreen::init()
 {
 	m_counter = 0;

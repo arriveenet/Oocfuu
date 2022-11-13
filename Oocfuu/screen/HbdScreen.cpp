@@ -13,6 +13,8 @@
 
 #include <freeglut.h> 
 
+using namespace glm;
+
 HbdScreen::HbdScreen()
 {
 }
@@ -83,6 +85,7 @@ void HbdScreen::draw()
 	// Draw cake
 	g_textureManager.setTexture(TEXTURE_CAKE);
 	Rect(vec2(32, 32), vec2(16 * 7, 16 * 11)).draw();
+	g_textureManager.unbindTexture();
 
 	g_player.draw();
 }

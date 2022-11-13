@@ -3,7 +3,7 @@
 #include "../font.h"
 #include "../Keyboard.h"
 #include "../Game.h"
-#include "../Firework.h"
+//#include "../Firework.h"
 #include "../TextureManager.h"
 #include "../Player.h"
 #include "../Course.h"
@@ -14,6 +14,8 @@
 #define SCREEN_WIDTH	256
 #define SCREEN_HEIGHT	240
 #define FIREWORK_COUNT_MAX	3
+
+using namespace glm;
 
 static int count = FIREWORK_COUNT_MAX;
 static const vec2 fireworkPosition[FIREWORK_COUNT_MAX] = {
@@ -58,21 +60,21 @@ void TpScreen::reset()
 
 void TpScreen::update()
 {
-	g_firework.update();
+	//g_firework.update();
 	g_player.update();
 
 	if (g_music.m_play)
 		m_count++;
 
-	if (g_music.m_end) {
-		if (
-			(!g_firework.m_explosion)
-			&& (count > 0)
-			) {
-			g_firework.start(fireworkPosition[count-1]);
-			count--;
-		}
-	}
+	//if (g_music.m_end) {
+	//	if (
+	//		(!g_firework.m_explosion)
+	//		&& (count > 0)
+	//		) {
+	//		g_firework.start(fireworkPosition[count-1]);
+	//		count--;
+	//	}
+	//}
 	if (Keyboard::m_nowPressed['r']) {
 		g_music.reset();
 		g_music.play();
@@ -93,7 +95,7 @@ void TpScreen::draw()
 {
 	g_course.draw();
 	g_game.drawHUD();
-	g_firework.draw();
+	//g_firework.draw();
 
 	// Draw cake
 	g_textureManager.setTexture(TEXTURE_CAKE);

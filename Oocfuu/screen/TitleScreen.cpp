@@ -12,6 +12,8 @@
 #define TITLE_SCREEN_WIDTH	16
 #define TITLE_SCREEN_HEIGHT	15
 
+using namespace glm;
+
 enum {
 	MODE_1P,
 	MODE_HBD,
