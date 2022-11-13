@@ -151,6 +151,14 @@ int audioInit() {
 	return 0;
 }
 
+void audioRelease()
+{
+	alDeleteBuffers(AUDIO_WAVEFORM_MAX, buffers);
+	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++) {
+		alDeleteSources(1, &channels[i].sid);
+	}
+}
+
 void audioWaveform(int _channel, int _waveform) {
 	channels[_channel].waveform = _waveform;
 	alSourcei(

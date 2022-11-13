@@ -33,6 +33,7 @@ typedef struct {
 }WAVEFILEINFO, * LPWAVEFILEINFO;
 
 int audioInit();
+void audioRelease();
 void audioWaveform(int _channel, int _waveform);
 void audioGain(int _channel, float _gain);
 void audioLength(int _channel, unsigned int _millis);
