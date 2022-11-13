@@ -43,7 +43,7 @@ typedef struct
 } WAVEFMT;
 
 Wave::Wave()
-	:m_wave(0)
+	:m_pWave(NULL)
 	,m_isWave(false)
 {
 }
@@ -51,44 +51,46 @@ Wave::Wave()
 Wave::~Wave()
 {
 	if (m_isWave) {
-		if(m_wave->pFile)
-			delete m_wave->pData;
+		if (m_pWave->pData)
+			delete m_pWave->pData;
 
-		if (m_wave->pFile)
-			fclose(m_wave->pFile);
+		if (m_pWave->pFile)
+			fclose(m_pWave->pFile);
 
-		m_wave = 0;
+		if (m_pWave)
+			delete m_pWave;
+
+		m_pWave = NULL;
+		m_isWave = false;
 	}
 }
 
 int Wave::loadWaveFile(const char* _fileName)
 {
 	int result = 1;
-	LPWAVEFILEINFO pWaveInfo;
 
-	pWaveInfo = new WAVEFILEINFO;
-	if (pWaveInfo) {
-		if (parseFile(_fileName, pWaveInfo) == 0) {
+	m_pWave = new WAVEFILEINFO;
+	if (m_pWave) {
+		if (parseFile(_fileName, m_pWave) == 0) {
 			// Allocate memory for sample data
-			pWaveInfo->pData = new short[pWaveInfo->dataSize / 2];
-			if (pWaveInfo->pData) {
+			m_pWave->pData = new short[m_pWave->dataSize / 2];
+			if (m_pWave->pData) {
 				// Seek to start of audio data
-				fseek(pWaveInfo->pFile, pWaveInfo->dataOffset, SEEK_SET);
+				fseek(m_pWave->pFile, m_pWave->dataOffset, SEEK_SET);
 				// Read Sample Data
-				if (fread(pWaveInfo->pData, sizeof(short), pWaveInfo->dataSize / 2, pWaveInfo->pFile) == pWaveInfo->dataSize / 2) {
-					m_wave = pWaveInfo;
+				if (fread(m_pWave->pData, sizeof(short), m_pWave->dataSize / 2, m_pWave->pFile) == m_pWave->dataSize / 2) {
 					m_isWave = true;
 					result = 0;
 				} else {
-					delete pWaveInfo->pData;
+					delete m_pWave->pData;
 					result = 1;
 				}
 			} else {
 				result = 1;
 			}
 
-			fclose(pWaveInfo->pFile);
-			pWaveInfo->pFile = 0;
+			fclose(m_pWave->pFile);
+			m_pWave->pFile = 0;
 		}
 	}
 
@@ -103,7 +105,7 @@ bool Wave::getWaveData(void** _data)
 	if (!_data)
 		return false;
 
-	*_data = m_wave->pData;
+	*_data = m_pWave->pData;
 
 	return true;
 }
@@ -116,7 +118,7 @@ bool Wave::getWaveSize(unsigned long* _size)
 	if (!_size)
 		return false;
 
-	*_size = m_wave->dataSize;
+	*_size = m_pWave->dataSize;
 
 	return true;
 }
@@ -129,7 +131,7 @@ bool Wave::getWaveFrequency(unsigned int* _freq)
 	if (!_freq)
 		return false;
 
-	*_freq = m_wave->freq;
+	*_freq = m_pWave->freq;
 
 	return true;
 }
@@ -142,7 +144,7 @@ bool Wave::getWaveFormat(unsigned int* _format)
 	if (!_format)
 		return false;
 
-	*_format = m_wave->format;
+	*_format = m_pWave->format;
 
 	return true;
 }
@@ -152,13 +154,16 @@ bool Wave::deleteWaveFile()
 	bool result = true;
 
 	if (m_isWave) {
-		if (m_wave->pData)
-			delete m_wave->pData;
+		if (m_pWave->pData)
+			delete m_pWave->pData;
 
-		if (m_wave->pFile)
-			fclose(m_wave->pFile);
+		if (m_pWave->pFile)
+			fclose(m_pWave->pFile);
 
-		m_wave = 0;
+		if (m_pWave)
+			delete m_pWave;
+
+		m_pWave = NULL;
 		m_isWave = false;
 	} else {
 		result = false;

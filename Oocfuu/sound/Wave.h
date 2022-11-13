@@ -11,8 +11,7 @@ typedef struct {
 	unsigned int freq;
 }WAVEFILEINFO, * LPWAVEFILEINFO;
 
-class Wave
-{
+class Wave {
 public:
 	Wave();
 	~Wave();
@@ -27,7 +26,7 @@ public:
 private:
 	int parseFile(const char* _fileName, LPWAVEFILEINFO pWaveInfo);
 	bool getWaveALBufferFormat(int _channel, int _bitPerSample, unsigned int* _format);
-	LPWAVEFILEINFO m_wave;
+	LPWAVEFILEINFO m_pWave;
 	bool m_isWave;
 };
 
