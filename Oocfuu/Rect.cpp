@@ -1,6 +1,8 @@
 #include "Rect.h"
 
-#include "glut.h"
+#include <gl/glut.h>
+
+using namespace glm;
 
 Rect::Rect()
 	:m_size(0)
