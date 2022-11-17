@@ -99,6 +99,11 @@ void Sound::release()
 	alcDestroyContext(pContext);
 	alcCloseDevice(pDevice);
 
+	if (g_pWaveLoader) {
+		delete g_pWaveLoader;
+		g_pWaveLoader = NULL;
+	}
+
 	if (m_bids) {
 		delete[] m_bids;
 		m_bids = NULL;
