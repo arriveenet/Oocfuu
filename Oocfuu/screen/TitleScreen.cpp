@@ -5,7 +5,7 @@
 #include "../Game.h"
 #include "../Keyboard.h"
 #include "../font.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Course.h"
 #include "../TextureManager.h"
 
@@ -39,7 +39,6 @@ void TitleScreen::init()
 void TitleScreen::reset()
 {
 	g_player.reset();
-	g_player.m_left = 3;
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
 }
@@ -79,7 +78,7 @@ void TitleScreen::draw()
 	rect.draw();
 	g_textureManager.unbindTexture();
 
-	g_player.draw(vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y));
+//	g_player.draw(vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y));
 
 	fontBegin();
 	fontPosition(120, 120);

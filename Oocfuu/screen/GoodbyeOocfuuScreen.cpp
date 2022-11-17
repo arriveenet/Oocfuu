@@ -8,7 +8,7 @@
 #include "../Game.h"
 #include "../font.h"
 #include "../Texture.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Course.h"
 
 #include <freeglut.h>

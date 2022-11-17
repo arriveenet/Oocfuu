@@ -153,7 +153,10 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Part.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="player\Player.cpp" />
+    <ClCompile Include="player\PlayerStateContext.cpp" />
+    <ClCompile Include="player\PlayerStateJump.cpp" />
+    <ClCompile Include="player\PlayerStateRun.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp" />
     <ClCompile Include="screen\HbdScreen.cpp" />
@@ -166,6 +169,7 @@
     <ClCompile Include="sound\Music.cpp" />
     <ClCompile Include="sound\Sound.cpp" />
     <ClCompile Include="sound\Wave.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
@@ -178,7 +182,11 @@
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Part.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="player\Player.h" />
+    <ClInclude Include="player\PlayerState.h" />
+    <ClInclude Include="player\PlayerStateContext.h" />
+    <ClInclude Include="player\PlayerStateJump.h" />
+    <ClInclude Include="player\PlayerStateRun.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="screen\GoodbyeOocfuuScreen.h" />
@@ -193,6 +201,7 @@
     <ClInclude Include="sound\Music.h" />
     <ClInclude Include="sound\Sound.h" />
     <ClInclude Include="sound\Wave.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include "../Game.h"
 #include "../Keyboard.h"
 #include "../font.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Course.h"
 #include "../FrameCounter.h"
 
@@ -56,10 +56,10 @@ void MainScreen::draw()
 		fontPosition(0, 0);
 		fontDraw("FPS: %d", g_frameCounter.getFrameCount());
 		fontPosition(0, 8 * 4);
-		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-		fontDraw("JUMPING :%d\n", g_player.m_jumping);
-		fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
+		//fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+		//fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+		//fontDraw("JUMPING :%d\n", g_player.m_jumping);
+		//fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
 		fontEnd();
 	}
 }

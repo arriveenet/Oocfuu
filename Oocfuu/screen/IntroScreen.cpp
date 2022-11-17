@@ -2,7 +2,7 @@
 #include "../Game.h"
 #include "../Keyboard.h"
 #include "../font.h"
-#include "../Player.h"
+#include "../Player/Player.h"
 #include "../Course.h"
 
 using namespace glm;
@@ -52,7 +52,7 @@ void IntroScreen::draw()
 	fontPosition(120, 112);
 	fontDraw("x");
 	fontPosition(144, 112);
-	fontDraw("%d", g_player.m_left);
+	//fontDraw("%d", g_player.m_left);
 	fontEnd();
-	g_player.draw(vec2(96, 105));
+	//g_player.draw(vec2(96, 105));
 }
