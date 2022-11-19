@@ -155,6 +155,7 @@
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="player\Player.cpp" />
     <ClCompile Include="player\PlayerStateContext.cpp" />
+    <ClCompile Include="player\PlayerStateIdle.cpp" />
     <ClCompile Include="player\PlayerStateJump.cpp" />
     <ClCompile Include="player\PlayerStateRun.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="player\Player.h" />
     <ClInclude Include="player\PlayerState.h" />
     <ClInclude Include="player\PlayerStateContext.h" />
+    <ClInclude Include="player\PlayerStateIdle.h" />
     <ClInclude Include="player\PlayerStateJump.h" />
     <ClInclude Include="player\PlayerStateRun.h" />
     <ClInclude Include="Rect.h" />
