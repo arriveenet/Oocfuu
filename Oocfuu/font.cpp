@@ -118,6 +118,10 @@ void fontDraw(const char* format, ...)
 			x = (int)m_position.x;
 			y += size.y;
 			p++;
+			if (!(*p)) {
+				m_position.y = (float)y;
+				break;
+			}
 			continue;
 		}
 
