@@ -147,6 +147,7 @@
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Course.cpp" />
+    <ClCompile Include="enemy\Kuribo.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameCounter.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -179,6 +180,8 @@
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Course.h" />
+    <ClInclude Include="enemy\Enemy.h" />
+    <ClInclude Include="enemy\Kuribo.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />

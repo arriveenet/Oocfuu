@@ -1,14 +1,21 @@
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
-
 #include "Wave.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <al.h>
 #include <alc.h>
+
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
 
 #define WAVE_FORMAT_PCM			0x0001
 #define WAVE_FORMAT_IEEE_FLOAT	0x0003
