@@ -2,40 +2,61 @@
 #include <string.h>
 
 #include "App.h"
-#include "Game.h"
+//#include "Game.h"
 #include "Course.h"
 #include "Part.h"
-#include "Rect.h"
 #include "TextureManager.h"
 
 using namespace glm;
 using std::vector;
 
-Course g_course{ COURSE_WIDTH, COURSE_HEIGHT };
+Course g_course;
 
-Course::Course(int _width, int _height)
-	: m_width(_width)
-	, m_height(_height)
-	, m_scroll(0.0f)
-	, m_texture(0)
+Course::Course()
+	: m_scroll(0.0f)
+	, m_width(0)
+	, m_height(0)
+	, m_pParts(NULL)
 {
-	m_parts = new int* [m_height];
-	for (int i = 0; i < m_height; i++) {
-		m_parts[i] = new int[m_width];
-	}
 }
 
 Course::~Course()
 {
-	for (int i = 0; i < m_height; ++i) {
-		delete m_parts[i];
-	}
-	delete[] m_parts;
-
-	glDeleteTextures(1, &m_texture);
+	release();
 }
 
-int Course::load(const char* _fileName) {
+bool Course::init(int _width, int _height)
+{
+	m_width = _width;
+	m_height = _height;
+	m_pParts = NULL;
+
+	m_pParts = new int* [m_height];
+	for (int i = 0; i < m_height; i++) {
+		m_pParts[i] = new int[m_width];
+	}
+
+	if (m_pParts)
+		return true;
+
+	return false;
+}
+
+void Course::release()
+{
+	if (m_pParts) {
+		for (int i = 0; i < m_height; ++i) {
+			delete m_pParts[i];
+		}
+		delete[] m_pParts;
+	}
+
+	m_pParts = NULL;
+	m_quads.~vector();
+}
+
+bool Course::load(const char* _fileName)
+{
 	FILE* pFile;
 	errno_t error;
 
@@ -44,7 +65,7 @@ int Course::load(const char* _fileName) {
 #if _DEBUG
 		printf("The file %s was open failed!\n", _fileName);
 #endif
-		return 1;
+		return false;
 	}
 #if _DEBUG
 	printf("The file %s was opened!\n", _fileName);
@@ -55,12 +76,11 @@ int Course::load(const char* _fileName) {
 			fread(buf, sizeof(char), 2, pFile);
 			//printf("%d-%d %c%c", i, j, buf[0], buf[1]);
 			if (buf[0] == 0x20) {
-				m_parts[i][j] = PART_NONE;
-			}
-			else
+				m_pParts[i][j] = PART_NONE;
+			} else
 				for (int k = PART_NONE + 1; k < PART_MAX; k++) {
 					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
-						m_parts[i][j] = k;
+						m_pParts[i][j] = k;
 						break;
 					}
 				}
@@ -71,25 +91,20 @@ int Course::load(const char* _fileName) {
 
 	update();
 
-	return 0;
+	return true;
 }
 
-int Course::reload(const char* _fileName, int _width, int _height)
+bool Course::reload(const char* _fileName, int _width, int _height)
 {
-	for (int i = 0; i < m_height; ++i) {
-		delete m_parts[i];
-	}
-	delete[] m_parts;
-
-	m_width = _width;
-	m_height = _height;
-
-	m_parts = new int* [m_height];
-	for (int i = 0; i < m_height; i++) {
-		m_parts[i] = new int[m_width];
+	if (m_pParts) {
+		for (int i = 0; i < m_height; ++i) {
+			delete m_pParts[i];
+		}
+		delete[] m_pParts;
 	}
 
-	m_scroll = 0.0f;
+	m_pParts = NULL;
+	init(_width, _height);
 	return load(_fileName);
 }
 
@@ -101,7 +116,7 @@ void Course::update()
 	//printf("scrolleColumn=%d\n", scrolleColumn);
 	for (int y = 0; y < m_height; y++) {
 		for (int x = 0; x < m_width; x++) {
-			int part = m_parts[y][x];
+			int part = m_pParts[y][x];
 			if (
 				(x < scrolleColumn)
 				|| (x > scrolleColumn + (SCREEN_WIDTH / PART_SIZE))
@@ -110,30 +125,30 @@ void Course::update()
 				continue;
 
 			int textureIndex = part;
-			switch (part) {
-			case PART_QUESTION0:
-			{
-				int animationTable[] = { 0,1,2,2,1,0 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 8) % animationTableLength];
-			}
-			break;
-			case PART_SEA_0:
-			{
-				int animationTable[] = { 0,1,2,3,4,5,6,7 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
-			}
-			break;
-			case PART_DESERT_1:
-			{
-				int animationTable[] = { 0,1,2,3,4,5,6,7 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
-				
-			}
-			break;
-			}
+			//switch (part) {
+			//case PART_QUESTION0:
+			//{
+			//	int animationTable[] = { 0,1,2,2,1,0 };
+			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
+			//	textureIndex += animationTable[(g_game.m_count / 8) % animationTableLength];
+			//}
+			//break;
+			//case PART_SEA_0:
+			//{
+			//	int animationTable[] = { 0,1,2,3,4,5,6,7 };
+			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
+			//	textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+			//}
+			//break;
+			//case PART_DESERT_1:
+			//{
+			//	int animationTable[] = { 0,1,2,3,4,5,6,7 };
+			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
+			//	textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+
+			//}
+			//break;
+			//}
 			textureIndex--;
 
 			float x2 = (float)x * PART_SIZE;
@@ -158,7 +173,8 @@ void Course::update()
 	}
 }
 
-void Course::draw() {
+void Course::draw()
+{
 	if (m_quads.empty())
 		return;
 
@@ -190,7 +206,7 @@ void Course::setParts(ivec2 const& _point, int _parts) {
 		)
 		return;
 
-	m_parts[_point.y][_point.x] = _parts;
+	m_pParts[_point.y][_point.x] = _parts;
 }
 
 int Course::getParts(int _x, int _y) {
@@ -200,7 +216,7 @@ int Course::getParts(int _x, int _y) {
 		|| _y >= m_height)
 		return PART_NONE;
 
-	return m_parts[_y][_x];
+	return m_pParts[_y][_x];
 }
 
 bool Course::intersect(vec2 const& _point) {
@@ -213,7 +229,7 @@ bool Course::intersect(vec2 const& _point) {
 		)
 		return false;
 
-	switch (m_parts[cellPoint.y][cellPoint.x]) {
+	switch (m_pParts[cellPoint.y][cellPoint.x]) {
 		//case PART_NONE:
 	case PART_GROUND:
 	case PART_HARD_BLOCK:
@@ -270,7 +286,7 @@ bool Course::intersect(glm::vec2 const& _point, int* _parts)
 		return false;
 	}
 
-	switch (m_parts[cellPoint.y][cellPoint.x]) {
+	switch (m_pParts[cellPoint.y][cellPoint.x]) {
 	case PART_GROUND:
 		*_parts = PART_GROUND;
 		result = true;

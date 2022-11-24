@@ -16,21 +16,22 @@ typedef struct {
 	VERTEX vertices[4];
 }QUAD;
 
-struct Course {
-private:
+class Course {
 	int m_width;
 	int m_height;
+	int** m_pParts;
 	std::vector<QUAD> m_quads;
-	GLuint m_texture;
 
 public:
-	int **m_parts;
 	float m_scroll;
 
-	Course(int _width, int _height);
+	Course();
 	~Course();
-	int load(const char* _fileName);
-	int reload(const char* _fileName, int _width, int _height);
+
+	bool init(int _width, int _height);
+	void release();
+	bool load(const char* _fileName);
+	bool reload(const char* _fileName, int _width, int _height);
 	void update();
 	void draw();
 	void setParts(glm::ivec2 const& _point, int _parts);
