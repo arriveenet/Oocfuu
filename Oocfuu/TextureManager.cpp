@@ -9,18 +9,20 @@ static const char* filePath = "resource\\textures\\";
 
 static TEX texs[] =
 {
-	{{"player\\Player_Idle.bmp"}, {0xff, 0x00, 0xff}},
-	{{"player\\Player_Jump.bmp"}, {0xff, 0x00, 0xff}},
-	{{"player\\Player_Run.bmp"}, {0xff, 0x00, 0xff}},
-	{{"player\\Player_Idle.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\cake.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\coin_1.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\firework_1.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\firework_2.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\firework_3.bmp"}, {0xff, 0x00, 0xff}},
-	{{"item\\title_2.bmp"}, {0xff, 0x00, 0xff}},
-	{{"parts\\part.bmp"}, {0xff, 0x00, 0xff}},
-	{{"font\\CHR000.bmp"}, {0, 64, 128}},
+	{{"player\\Player_Idle.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_PLAYER_IDLE
+	{{"player\\Player_Jump.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_PLAYER_JUMP
+	{{"player\\Player_Run.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_PLAYER_RUN_1
+	{{"player\\Player_Idle.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_PLAYER_RUN_2
+	{{"enemy\\Kuribo_Run.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_PLAYER_RUN_1
+	{{"enemy\\Kuribo_Squish.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_KURIBO_SQUISH
+	{{"item\\cake.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_CAKE
+	{{"item\\coin_1.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_COIN_1
+	{{"item\\firework_1.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_FIREWORK_1
+	{{"item\\firework_2.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_FIREWORK_2
+	{{"item\\firework_3.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_FIREWORK_3
+	{{"item\\title_2.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_TITLE
+	{{"parts\\part.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_PARTS
+	{{"font\\CHR000.bmp"}, {0, 64, 128}},				// TEXTURE_FONT
 };
 
 TextureManager::TextureManager()
