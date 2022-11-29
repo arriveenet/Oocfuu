@@ -12,7 +12,7 @@ public:
 
 	Firework();
 	int init();
-	void start(vec2 const& _position);
+	void start(glm::vec2 const& _position);
 	void update();
 	void draw();
 };

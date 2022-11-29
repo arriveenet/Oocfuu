@@ -13,6 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\animation">
+      <UniqueIdentifier>{2489da15-30c9-4d5e-a3c5-e6b3aaa96676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\animation">
+      <UniqueIdentifier>{0ea54555-0a1a-4e7d-ad8c-0eaeaf384a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\sound">
+      <UniqueIdentifier>{22190294-16bf-4843-8ff6-4ae2d5c7ce26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\sound">
+      <UniqueIdentifier>{79eee1bf-06ab-4b7e-87ce-bcac95de2f98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\screen">
+      <UniqueIdentifier>{086e7d7e-fda4-4a73-a196-63707437447d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\screen">
+      <UniqueIdentifier>{29114613-926f-4e72-b17e-c30869f9502c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\enemy">
+      <UniqueIdentifier>{eb03490b-43fd-4c0a-91db-39f03d0e9099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\enemy">
+      <UniqueIdentifier>{9cd77d68-d3af-4113-a274-3bcdb893a190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\player">
+      <UniqueIdentifier>{516127fd-c203-4d3b-a665-6bcc9d9257fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\player">
+      <UniqueIdentifier>{96257de9-cc17-4e23-8296-afb7edb862a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\score">
+      <UniqueIdentifier>{3826b363-8431-4ab7-b8fb-5edb71585544}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,68 +78,71 @@
     <ClCompile Include="Course.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="sound\audio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound\Channel.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound\Music.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound\Sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound\Wave.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="animation\Animation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="animation\AnimationController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\HbdScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\IntroScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\MainScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\TitleScreen.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="screen\TpScreen.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="player\PlayerStateContext.cpp">
+    <ClCompile Include="Mouse.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="player\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="animation\Animation.cpp">
+      <Filter>ソース ファイル\animation</Filter>
     </ClCompile>
-    <ClCompile Include="player\PlayerStateRun.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="animation\AnimationController.cpp">
+      <Filter>ソース ファイル\animation</Filter>
     </ClCompile>
-    <ClCompile Include="player\PlayerStateJump.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="sound\audio.cpp">
+      <Filter>ソース ファイル\sound</Filter>
     </ClCompile>
-    <ClCompile Include="player\PlayerStateIdle.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="sound\Channel.cpp">
+      <Filter>ソース ファイル\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\Wave.cpp">
+      <Filter>ソース ファイル\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\Sound.cpp">
+      <Filter>ソース ファイル\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="sound\Music.cpp">
+      <Filter>ソース ファイル\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\TpScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\TitleScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\MainScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
     </ClCompile>
     <ClCompile Include="enemy\Kuribo.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\HbdScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="screen\IntroScreen.cpp">
+      <Filter>ソース ファイル\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="player\Player.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="player\PlayerStateContext.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="player\PlayerStateIdle.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="player\PlayerStateJump.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="player\PlayerStateRun.cpp">
+      <Filter>ソース ファイル\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,80 +170,98 @@
     <ClInclude Include="Course.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="sound\audio.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound\Channel.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound\Music.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound\Sound.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="sound\Wave.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="animation\Animation.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="animation\AnimationController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\GoodbyeOocfuuScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\HbdScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\IntroScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\MainScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\Screen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\TitleScreen.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="screen\TpScreen.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="player\PlayerState.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="player\PlayerStateContext.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="player\Player.h">
+    <ClInclude Include="Mouse.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="player\PlayerStateRun.h">
+    <ClInclude Include="Keyboard.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="player\PlayerStateJump.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="animation\Animation.h">
+      <Filter>ヘッダー ファイル\animation</Filter>
     </ClInclude>
-    <ClInclude Include="player\PlayerStateIdle.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="animation\AnimationController.h">
+      <Filter>ヘッダー ファイル\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\audio.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\Channel.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\Wave.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\Sound.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\Music.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\TpScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\TitleScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\MainScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\GoodbyeOocfuuScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
     </ClInclude>
     <ClInclude Include="enemy\Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\enemy</Filter>
     </ClInclude>
     <ClInclude Include="enemy\Kuribo.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\HbdScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\IntroScreen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateRun.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateJump.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateIdle.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateContext.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerState.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="player\Player.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="screen\Screen.h">
+      <Filter>ヘッダー ファイル\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="score\Voyager.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
+    <ClInclude Include="score\TyphoonParade.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
+    <ClInclude Include="score\score.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
+    <ClInclude Include="score\HappyBirthdayToYou.h">
+      <Filter>ヘッダー ファイル\score</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

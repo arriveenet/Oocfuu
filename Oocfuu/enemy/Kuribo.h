@@ -4,8 +4,11 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+#define KURIBO_WIDTH		16
+#define KURIBO_HEIGHT		16
+
 #define KURIBO_SPEED		0.5f
-#define KUROBO_FALL_SPEED	0.3f;
+#define KUROBO_FALL_SPEED	0.3f
 
 enum {
 	KURIBO_STATE_MOVE,
@@ -27,7 +30,6 @@ class Kuribo : public Sprite{
 
 public:
 	Kuribo();
-	~Kuribo();
 
 	void update() override;
 	void draw() override;

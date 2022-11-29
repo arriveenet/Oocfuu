@@ -13,6 +13,18 @@
 
 #include <freeglut.h>
 
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
 Game g_game;
 
 int Game::init()
@@ -27,7 +39,7 @@ int Game::init()
 	for (int i = 0; i < GAME_SCREEN_MAX; i++)
 		m_pScreens[i]->init();
 
-	m_screen = GAME_SCREEN_TITLE;
+	m_screen = GAME_SCREEN_MAIN;
 	m_pCurrentScreen = m_pScreens[m_screen];
 	m_count = 0;
 

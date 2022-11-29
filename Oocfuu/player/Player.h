@@ -2,15 +2,17 @@
 #include "../Sprite.h"
 #include "PlayerStateContext.h"
 #include "PlayerState.h"
-
+#include <vector>
 #include <glm/glm.hpp>
 
-#define PLAYER_KEY_DOWN		's'
-#define PLAYER_KEY_LEFT		'a'
-#define PLAYER_KEY_RIGHT	'd'
-#define PLAYER_KEY_JUMP		' '
+#define PLAYER_SIZE			16
 
-#define PLAYER_JUMP_COUNT_MAX	15
+#define PLAYER_START_LEFT	3
+
+#define PLAYER_KEY_DOWN		0x73
+#define PLAYER_KEY_LEFT		0x61
+#define PLAYER_KEY_RIGHT	0x64
+#define PLAYER_KEY_JUMP		0x20
 
 #define PLAYER_DEFAULT_X		40
 #define PLAYER_DEFAULT_Y		192
@@ -22,6 +24,15 @@ class Player : public Sprite{
 	PlayerStateContext* m_pStateContext;
 
 public:
+	glm::vec2 m_speed;
+	bool m_jumping;
+	bool m_falling;
+	std::vector<glm::vec2>m_leftPoints;
+	std::vector<glm::vec2>m_rightPoints;
+	std::vector<glm::vec2>m_bottomPoints;
+	std::vector<glm::vec2>m_topPoints;
+	char m_left;
+
 	Player();
 	~Player();
 

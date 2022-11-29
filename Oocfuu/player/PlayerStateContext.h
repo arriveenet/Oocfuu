@@ -1,13 +1,17 @@
 #pragma once
 #include "PlayerState.h"
 #include "Player.h"
+#include <string>
 
 class PlayerState;
 class Player;
 
+enum PLAYER_STATE;
+
 class PlayerStateContext
 {
 	PlayerState* m_pState;
+	PLAYER_STATE m_currentState;
 
 public:
 	PlayerStateContext();
@@ -15,5 +19,7 @@ public:
 
 	void setStete(PlayerState* _pState);
 	void update(Player* _pPlayer);
+	std::string getString();
+	PLAYER_STATE getStateEnum();
 };
 

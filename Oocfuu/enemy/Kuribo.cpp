@@ -21,13 +21,8 @@ Kuribo::Kuribo()
 	, m_leftPoint(0, 0)
 	, m_topPoint(0, 0)
 {
-	m_size = { 16, 16 };
+	m_size = { KURIBO_WIDTH, KURIBO_HEIGHT };
 	m_position = { PART_SIZE * 35, PART_SIZE * 12 };
-}
-
-Kuribo::~Kuribo()
-{
-
 }
 
 void Kuribo::update()

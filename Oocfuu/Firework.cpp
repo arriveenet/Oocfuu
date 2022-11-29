@@ -8,6 +8,8 @@
 
 #define FIREWORK_COUNT_MAX	60
 
+using namespace glm;
+
 Firework g_firework;
 
 Firework::Firework()

@@ -7,9 +7,18 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
 #include "App.h"
 #include "sound/audio.h"
 #include "Keyboard.h"
+#include "Mouse.h"
 #include "font.h"
 
 using namespace glm;
@@ -81,7 +90,9 @@ int main(int argc, char* argv[])
 		glutDisplayFunc(display);
 		glutTimerFunc(0, timer, 0);
 		glutReshapeFunc(reshape);
+		//glutCloseFunc(release);
 		Keyboard::init();
+		Mouse::init();
 		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
 		// MainLoop
 		glutMainLoop();

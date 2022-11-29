@@ -52,7 +52,7 @@ void IntroScreen::draw()
 	fontPosition(120, 112);
 	fontDraw("x");
 	fontPosition(144, 112);
-	//fontDraw("%d", g_player.m_left);
+	fontDraw("%d", g_player.m_left);
 	fontEnd();
 	//g_player.draw(vec2(96, 105));
 }

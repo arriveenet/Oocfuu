@@ -41,6 +41,7 @@ void TitleScreen::reset()
 	g_player.reset();
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
+	g_course.m_scroll = 0.0f;
 }
 void TitleScreen::update()
 {
@@ -78,7 +79,7 @@ void TitleScreen::draw()
 	rect.draw();
 	g_textureManager.unbindTexture();
 
-//	g_player.draw(vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y));
+	g_player.draw();
 
 	fontBegin();
 	fontPosition(120, 120);

@@ -153,6 +153,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="player\Player.cpp" />
     <ClCompile Include="player\PlayerStateContext.cpp" />
@@ -185,6 +186,8 @@
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Part.h" />
     <ClInclude Include="player\Player.h" />
     <ClInclude Include="player\PlayerState.h" />
@@ -194,6 +197,10 @@
     <ClInclude Include="player\PlayerStateRun.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="score\HappyBirthdayToYou.h" />
+    <ClInclude Include="score\score.h" />
+    <ClInclude Include="score\TyphoonParade.h" />
+    <ClInclude Include="score\Voyager.h" />
     <ClInclude Include="screen\GoodbyeOocfuuScreen.h" />
     <ClInclude Include="screen\HbdScreen.h" />
     <ClInclude Include="screen\IntroScreen.h" />
