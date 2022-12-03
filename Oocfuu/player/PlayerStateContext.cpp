@@ -59,6 +59,12 @@ std::string PlayerStateContext::getString()
 	case PLAYER_STATE_JUMP:
 		str = "PLAYER_STATE_JUMP";
 		break;
+	case PLAYER_STATE_DIE:
+		str = "PLAYER_STATE_DIE";
+		break;
+	case PLAYER_STATE_GOAL:
+		str = "PLAYER_STATE_GOAL";
+		break;
 	}
 
 	return str;

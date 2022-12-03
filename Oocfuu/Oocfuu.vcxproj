@@ -157,6 +157,7 @@
     <ClCompile Include="Part.cpp" />
     <ClCompile Include="player\Player.cpp" />
     <ClCompile Include="player\PlayerStateContext.cpp" />
+    <ClCompile Include="player\PlayerStateDie.cpp" />
     <ClCompile Include="player\PlayerStateIdle.cpp" />
     <ClCompile Include="player\PlayerStateJump.cpp" />
     <ClCompile Include="player\PlayerStateRun.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="player\Player.h" />
     <ClInclude Include="player\PlayerState.h" />
     <ClInclude Include="player\PlayerStateContext.h" />
+    <ClInclude Include="player\PlayerStateDie.h" />
     <ClInclude Include="player\PlayerStateIdle.h" />
     <ClInclude Include="player\PlayerStateJump.h" />
     <ClInclude Include="player\PlayerStateRun.h" />

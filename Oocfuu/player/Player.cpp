@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateDie.h"
 #include "../TextureManager.h"
 #include "../font.h"
 #include "../animation/Animation.h"
@@ -8,6 +9,8 @@
 #include "../Mouse.h"
 #include "../Part.h"
 #include "../Course.h"
+#include "../App.h"
+#include "../sound/Sound.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <cstdlib>
@@ -27,11 +30,13 @@ using std::vector;
 Player g_player;
 
 Player::Player()
-	: m_speed(1.0f, 1.0f)
+	: m_speed(0.0f, 0.0f)
+	, m_acceleration(0.24f)
 	, m_jumping(false)
 	, m_falling(false)
 	, m_pStateContext(new PlayerStateContext)
 	, m_left(PLAYER_START_LEFT)
+	, m_dead(false)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
 	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
@@ -63,77 +68,126 @@ void Player::reset()
 	m_pStateContext->setStete(new PlayerStateIdle);
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_left = PLAYER_START_LEFT;
+	m_dead = false;
+}
+
+void Player::respawn(float _x, float _y)
+{
+	m_flip = RECT_FLIP_NONE;
+	m_speed = { 0.0f, 0.0f };
+	m_jumping = false;
+	m_falling = false;
+	m_size = { PLAYER_SIZE, PLAYER_SIZE };
+	m_position = { _x, _y };
+	m_pStateContext->setStete(new PlayerStateIdle);
+	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
+	m_dead = false;
 }
 
 void Player::update()
 {
 	m_animeCtr.update();
-	m_pStateContext->update(this);
+	//m_pStateContext->update(this);
+
+	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT]) {
+		m_speed.x += m_acceleration;
+		m_flip = RECT_FLIP_NONE;
+	}
+
+	if (Keyboard::m_pressed[PLAYER_KEY_LEFT]) {
+		m_speed.x -= m_acceleration;
+		m_flip = RECT_FLIP_HORIZONTAL;
+	}
+
+	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]) {
+		m_animeCtr.setAnimation(ANIMATION_PLAYER_JUMP);
+		return;
+	}
+
+	// ‘¬“x‚É–€ŽC‚Ì‰e‹¿‚ð—^‚¦‚é(ŒÅ’è¬”“_)
+	{
+		static int one = 0x100;
+		ivec2 fixed = m_speed * (float)one;
+		fixed = fixed * 0xe8 / one;
+		m_speed = (vec2)fixed / (float)one;
+	}
+
+	// ‘¬“x‚Ì‰e‹¿‚ðÀ•W‚É—^‚¦‚é
+	m_position += m_speed;
+
+
+	// —Ž‰ºŽ€”»’è
+	if ((m_position.y >= SCREEN_HEIGHT)
+		&& (!m_dead)) {
+		//g_pSound->play(SOUND_SE_DIE);
+		m_dead = true;
+		m_pStateContext->setStete(new PlayerStateDie);
+	}
 
 	// “–‚½‚è”»’è
 	m_leftPoints.clear();
 	m_rightPoints.clear();
-	m_bottomPoints.clear();
-	m_topPoints.clear();
+	//m_bottomPoints.clear();
+	//m_topPoints.clear();
 
 	m_leftPoints.push_back(m_position);
 	m_rightPoints.push_back(m_position + m_size + vec2(0, -PART_SIZE));
 
-	m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
-	m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
+	//m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
+	//m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
 
-	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
+	//m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
 
-	bool topHit = false;
-	static int parts;
-	for (vector<vec2>::iterator iter = m_topPoints.begin();
-		iter != m_topPoints.end();
-		iter++) {
-		if (g_course.intersect(*iter, &parts)) {
-			m_jumping = false;
-			topHit = true;
-			break;
-		}
-	}
+	//bool topHit = false;
+	//static int parts;
+	//for (vector<vec2>::iterator iter = m_topPoints.begin();
+	//	iter != m_topPoints.end();
+	//	iter++) {
+	//	if (g_course.intersect(*iter, &parts)) {
+	//		m_jumping = false;
+	//		topHit = true;
+	//		break;
+	//	}
+	//}
 
-	if (!topHit) {
-		for (vector<vec2>::iterator iter = m_rightPoints.begin();
-			iter != m_rightPoints.end();
-			iter++) {
-			if (g_course.intersect(*iter)) {
-				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = right.x - PLAYER_SIZE;
-				m_speed.x = 0;
-				m_falling = true;
-				break;
-			}
-		}
+	//if (!topHit) {
+	//	for (vector<vec2>::iterator iter = m_rightPoints.begin();
+	//		iter != m_rightPoints.end();
+	//		iter++) {
+	//		if (g_course.intersect(*iter)) {
+	//			vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+	//			m_position.x = right.x - PLAYER_SIZE;
+	//			m_speed.x = 0;
+	//			m_falling = true;
+	//			break;
+	//		}
+	//	}
 
-		for (vector<vec2>::iterator iter = m_leftPoints.begin();
-			iter != m_leftPoints.end();
-			iter++) {
-			if (g_course.intersect(*iter)) {
-				vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = left.x + PLAYER_SIZE;
-				m_speed.x = 0;
-				break;
-			}
-		}
-	}
-	// ’n–Ê‚Æ‚Ì“–‚½‚è”»’è
+	//	for (vector<vec2>::iterator iter = m_leftPoints.begin();
+	//		iter != m_leftPoints.end();
+	//		iter++) {
+	//		if (g_course.intersect(*iter)) {
+	//			vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
+	//			m_position.x = left.x + PLAYER_SIZE;
+	//			m_speed.x = 0;
+	//			break;
+	//		}
+	//	}
+	//}
 
-	if (m_speed.y >= 0)
-		for (vector<vec2>::iterator iter = m_bottomPoints.begin();
-			iter != m_bottomPoints.end();
-			iter++) {
-		if (g_course.intersect(*iter)) {
-			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-			m_position.y = bottom.y - PLAYER_SIZE;
-			m_jumping = false;
-			m_falling = false;
-			break;
-		}
-	}
+	//// ’n–Ê‚Æ‚Ì“–‚½‚è”»’è
+	//if (m_speed.y >= 0)
+	//	for (vector<vec2>::iterator iter = m_bottomPoints.begin();
+	//		iter != m_bottomPoints.end();
+	//		iter++) {
+	//	if (g_course.intersect(*iter)) {
+	//		vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
+	//		m_position.y = bottom.y - PLAYER_SIZE;
+	//		m_jumping = false;
+	//		m_falling = false;
+	//		break;
+	//	}
+	//}
 }
 
 void Player::draw()
@@ -152,6 +206,7 @@ void Player::draw()
 	fontDraw("ANIMATION:%d\n", m_animeCtr.m_animation);
 	fontDraw("JUMPING :%d\n", g_player.m_jumping);
 	fontDraw("FALLING :%d\n", g_player.m_falling);
+	fontDraw("DEAD    :%d\n", g_player.m_dead);
 	fontEnd();
 	glColor3ub(0xff, 0xff, 0xff);
 

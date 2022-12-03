@@ -18,6 +18,9 @@ class Game {
 public:
 	Screen* m_pCurrentScreen;
 	unsigned int m_count;
+	unsigned int m_score;
+	unsigned char m_coin;
+	bool m_isGameOver;
 
 	int init();
 	void release();

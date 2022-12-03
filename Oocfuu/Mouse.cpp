@@ -23,6 +23,9 @@ void mouse(int button, int state, int x, int y)
 //	printf("button:%d\n", button);
 //	printf("state:%d\n", state);
 //	printf("xy:%d,%d\n", x, y);
+	
+	g_pMouse->m_x = x;
+	g_pMouse->m_y = y;
 
 	switch (button) {
 	case GLUT_LEFT_BUTTON :
@@ -48,12 +51,16 @@ void mouse(int button, int state, int x, int y)
 Mouse::Mouse()
 	: m_leftButton(false)
 	, m_rightButton(false)
+	, m_x(0)
+	, m_y(0)
 {
 }
 
 Mouse::Mouse(const Mouse& _mouse)
 	: m_leftButton(false)
 	, m_rightButton(false)
+	, m_x(0)
+	, m_y(0)
 {
 }
 
@@ -78,5 +85,3 @@ void Mouse::release()
 		s_pMouse = NULL;
 	}
 }
-
-

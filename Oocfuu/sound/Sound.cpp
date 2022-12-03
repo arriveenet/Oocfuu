@@ -22,9 +22,10 @@ static Wave* g_pWaveLoader = NULL;
 Sound* g_pSound = NULL;
 
 static const char* fileNames[SOUND_MAX] = {
-	"resource\\sound\\yo.wav", //SOUND_SE_YO
-	"resource\\sound\\hoi.wav", //SOUND_SE_HOI
-	"resource\\sound\\firework.wav", //SOUND_FIREWORK
+	"resource\\sound\\Yo.wav", //SOUND_SE_YO
+	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
+	"resource\\sound\\Die.wav", // SOUND_SE_DIE
+	"resource\\sound\\Firework.wav", //SOUND_FIREWORK
 };
 
 Sound::Sound()
@@ -60,7 +61,7 @@ bool Sound::init()
 			NULL);		// const ALCint * attrlist
 
 		if (pContext) {
-			printf("Opened %s Device\n", alcGetString(pDevice, ALC_DEVICE_SPECIFIER));
+			//printf("Opened %s Device\n", alcGetString(pDevice, ALC_DEVICE_SPECIFIER));
 			alcMakeContextCurrent(pContext);// ALCcontext *context
 			g_pWaveLoader = new Wave();
 			result = true;

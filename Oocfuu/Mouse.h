@@ -11,6 +11,8 @@ private:
 public:
 	bool m_leftButton;
 	bool m_rightButton;
+	int m_x;
+	int m_y;
 
 	static void init();
 	static Mouse* create();

@@ -42,6 +42,7 @@ int Game::init()
 	m_screen = GAME_SCREEN_MAIN;
 	m_pCurrentScreen = m_pScreens[m_screen];
 	m_count = 0;
+	m_isGameOver = false;
 
 	return 0;
 }

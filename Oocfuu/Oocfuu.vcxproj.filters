@@ -144,6 +144,9 @@
     <ClCompile Include="player\PlayerStateRun.cpp">
       <Filter>ソース ファイル\player</Filter>
     </ClCompile>
+    <ClCompile Include="player\PlayerStateDie.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="score\HappyBirthdayToYou.h">
       <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateDie.h">
+      <Filter>ヘッダー ファイル\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
