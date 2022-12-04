@@ -39,7 +39,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 		fixed = fixed * 0xe8 / one;
 		_pPlayer->m_speed = (vec2)fixed / (float)one;
 	}
-	_pPlayer->m_position += _pPlayer->m_speed;
+	//_pPlayer->m_position += _pPlayer->m_speed;
 
 	if (glm::length(_pPlayer->m_speed.x) <= 0) {
 		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);

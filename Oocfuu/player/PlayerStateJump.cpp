@@ -73,8 +73,8 @@ void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 	}
 
 	//VerticalPosition += VerticalSpeed + cy;
-	_pPlayer->m_position.x += _pPlayer->m_speed.x;
-	_pPlayer->m_position.y += _pPlayer->m_speed.y + cy;
+	/*_pPlayer->m_position.x += _pPlayer->m_speed.x;
+	_pPlayer->m_position.y += _pPlayer->m_speed.y + cy;*/
 
 	VerticalForceDecimalPart += VerticalForce;
 	if (VerticalForceDecimalPart >= 0x100) {

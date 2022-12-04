@@ -18,6 +18,7 @@
 #define PLAYER_DEFAULT_Y	192
 
 #define PLAYER_SPEED_MAX	2.5f
+#define PLAYER_GRAVITY		0.4f
 
 class Player;
 class PlayerStateContext;

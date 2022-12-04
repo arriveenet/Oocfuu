@@ -87,39 +87,23 @@ void Player::respawn(float _x, float _y)
 void Player::update()
 {
 	m_animeCtr.update();
-	//m_pStateContext->update(this);
+	m_pStateContext->update(this);
 
-	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT]) {
-		m_speed.x += m_acceleration;
-		m_flip = RECT_FLIP_NONE;
-	}
-
-	if (Keyboard::m_pressed[PLAYER_KEY_LEFT]) {
-		m_speed.x -= m_acceleration;
-		m_flip = RECT_FLIP_HORIZONTAL;
-	}
-
-	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]) {
-		m_animeCtr.setAnimation(ANIMATION_PLAYER_JUMP);
-		return;
-	}
-
-	// ‘¬“x‚É–€ŽC‚Ì‰e‹¿‚ð—^‚¦‚é(ŒÅ’è¬”“_)
-	{
-		static int one = 0x100;
-		ivec2 fixed = m_speed * (float)one;
-		fixed = fixed * 0xe8 / one;
-		m_speed = (vec2)fixed / (float)one;
+	// ƒWƒƒƒ“ƒv’†‚©‚Â—Ž‰ºƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚ê‚Îd—Í‚Ì‰e‹¿‚ð—^‚¦‚é
+	if (m_falling 
+		&& (!m_dead)
+		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_JUMP)) {
+		m_speed.y += PLAYER_GRAVITY;
 	}
 
 	// ‘¬“x‚Ì‰e‹¿‚ðÀ•W‚É—^‚¦‚é
 	m_position += m_speed;
 
-
 	// —Ž‰ºŽ€”»’è
 	if ((m_position.y >= SCREEN_HEIGHT)
 		&& (!m_dead)) {
 		//g_pSound->play(SOUND_SE_DIE);
+		m_speed = { 0.0f, 0.0f };
 		m_dead = true;
 		m_pStateContext->setStete(new PlayerStateDie);
 	}
@@ -127,67 +111,68 @@ void Player::update()
 	// “–‚½‚è”»’è
 	m_leftPoints.clear();
 	m_rightPoints.clear();
-	//m_bottomPoints.clear();
-	//m_topPoints.clear();
+	m_bottomPoints.clear();
+	m_topPoints.clear();
 
 	m_leftPoints.push_back(m_position);
 	m_rightPoints.push_back(m_position + m_size + vec2(0, -PART_SIZE));
 
-	//m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
-	//m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
+	m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
+	m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
 
-	//m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
+	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
 
-	//bool topHit = false;
-	//static int parts;
-	//for (vector<vec2>::iterator iter = m_topPoints.begin();
-	//	iter != m_topPoints.end();
-	//	iter++) {
-	//	if (g_course.intersect(*iter, &parts)) {
-	//		m_jumping = false;
-	//		topHit = true;
-	//		break;
-	//	}
-	//}
+	bool topHit = false;
+	static int parts;
+	for (vector<vec2>::iterator iter = m_topPoints.begin();
+		iter != m_topPoints.end();
+		iter++) {
+		if (g_course.intersect(*iter, &parts)) {
+			m_jumping = false;
+			topHit = true;
+			break;
+		}
+	}
 
-	//if (!topHit) {
-	//	for (vector<vec2>::iterator iter = m_rightPoints.begin();
-	//		iter != m_rightPoints.end();
-	//		iter++) {
-	//		if (g_course.intersect(*iter)) {
-	//			vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-	//			m_position.x = right.x - PLAYER_SIZE;
-	//			m_speed.x = 0;
-	//			m_falling = true;
-	//			break;
-	//		}
-	//	}
+	if (!topHit) {
+		for (vector<vec2>::iterator iter = m_rightPoints.begin();
+			iter != m_rightPoints.end();
+			iter++) {
+			if (g_course.intersect(*iter)) {
+				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+				m_position.x = right.x - PLAYER_SIZE;
+				m_speed.x = 0;
+				m_falling = true;
+				break;
+			}
+		}
 
-	//	for (vector<vec2>::iterator iter = m_leftPoints.begin();
-	//		iter != m_leftPoints.end();
-	//		iter++) {
-	//		if (g_course.intersect(*iter)) {
-	//			vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
-	//			m_position.x = left.x + PLAYER_SIZE;
-	//			m_speed.x = 0;
-	//			break;
-	//		}
-	//	}
-	//}
+		for (vector<vec2>::iterator iter = m_leftPoints.begin();
+			iter != m_leftPoints.end();
+			iter++) {
+			if (g_course.intersect(*iter)) {
+				vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
+				m_position.x = left.x + PLAYER_SIZE;
+				m_speed.x = 0;
+				break;
+			}
+		}
+	}
 
-	//// ’n–Ê‚Æ‚Ì“–‚½‚è”»’è
-	//if (m_speed.y >= 0)
-	//	for (vector<vec2>::iterator iter = m_bottomPoints.begin();
-	//		iter != m_bottomPoints.end();
-	//		iter++) {
-	//	if (g_course.intersect(*iter)) {
-	//		vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-	//		m_position.y = bottom.y - PLAYER_SIZE;
-	//		m_jumping = false;
-	//		m_falling = false;
-	//		break;
-	//	}
-	//}
+	// ’n–Ê‚Æ‚Ì“–‚½‚è”»’è
+	m_falling = true;
+	if (m_speed.y >= 0)
+		for (vector<vec2>::iterator iter = m_bottomPoints.begin();
+			iter != m_bottomPoints.end();
+			iter++) {
+		if (g_course.intersect(*iter)) {
+			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
+			m_position.y = bottom.y - PLAYER_SIZE;
+			m_jumping = false;
+			m_falling = false;
+			break;
+		}
+	}
 }
 
 void Player::draw()
