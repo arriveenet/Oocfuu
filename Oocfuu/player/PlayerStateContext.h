@@ -12,13 +12,14 @@ class PlayerStateContext
 {
 	PlayerState* m_pState;
 	PLAYER_STATE m_currentState;
+	Player* m_pPlayer;
 
 public:
-	PlayerStateContext();
+	PlayerStateContext(Player* _pPlayer);
 	virtual ~PlayerStateContext();
 
 	void setStete(PlayerState* _pState);
-	void update(Player* _pPlayer);
+	void update();
 	std::string getString();
 	PLAYER_STATE getStateEnum();
 };

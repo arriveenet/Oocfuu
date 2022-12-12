@@ -147,6 +147,12 @@
     <ClCompile Include="player\PlayerStateDie.cpp">
       <Filter>ソース ファイル\player</Filter>
     </ClCompile>
+    <ClCompile Include="enemy\EnemyManager.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="player\PlayerStateGoal.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -267,6 +273,12 @@
       <Filter>ヘッダー ファイル\score</Filter>
     </ClInclude>
     <ClInclude Include="player\PlayerStateDie.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\EnemyManager.h">
+      <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateGoal.h">
       <Filter>ヘッダー ファイル\player</Filter>
     </ClInclude>
   </ItemGroup>

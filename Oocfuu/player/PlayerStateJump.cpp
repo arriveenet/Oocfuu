@@ -23,10 +23,13 @@ PlayerStateJump::PlayerStateJump()
 {
 }
 
+void PlayerStateJump::start(Player* _pPlayer)
+{
+}
+
 void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
 	if (!_pPlayer->m_jumping && lastJumping) {
-		//printf("’…’n\n");
 		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_RUN);
 		_pStateContext->setStete(new PlayerStateRun);
 		return;
@@ -53,6 +56,16 @@ void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 
 		g_pSound->play(SOUND_SE_HOI);
 	}
+
+	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT])
+		_pPlayer->m_speed.x += 0.04f;
+	if (_pPlayer->m_speed.x >= 2.0f)
+		_pPlayer->m_speed.x = 2.0f;
+	
+	if (Keyboard::m_pressed[PLAYER_KEY_LEFT])
+		_pPlayer->m_speed.x -= 0.04f;
+	if (_pPlayer->m_speed.x <= -2.0f)
+		_pPlayer->m_speed.x = -2.0f;
 
 	if (_pPlayer->m_speed.y >= 0) {
 		VerticalForce = VerticalForceFall;

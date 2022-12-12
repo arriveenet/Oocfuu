@@ -5,5 +5,6 @@ class PlayerStateRun : public PlayerState {
 public:
 	PlayerStateRun();
 
-	void update(PlayerStateContext* _pStateContext, Player* _pPlayer);
+	void start(Player* _pPlayer) override;
+	void update(PlayerStateContext* _pStateContext, Player* _pPlayer) override;
 };

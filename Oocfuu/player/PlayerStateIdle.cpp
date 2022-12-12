@@ -16,6 +16,10 @@ PlayerStateIdle::PlayerStateIdle()
 {
 }
 
+void PlayerStateIdle::start(Player* _pPlayer)
+{
+}
+
 void PlayerStateIdle::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
 #ifndef PLAYER_DEBUG_MODE

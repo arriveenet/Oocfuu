@@ -3,6 +3,7 @@
 #include "PlayerStateIdle.h"
 #include "Player.h"
 #include "../Keyboard.h"
+#include "../Mouse.h"
 #include "../animation/Animation.h"
 
 #include <glm/glm.hpp>
@@ -14,16 +15,27 @@ PlayerStateRun::PlayerStateRun()
 {
 }
 
+void PlayerStateRun::start(Player* _pPlayer)
+{
+}
+
 void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
-	static float acceleration = 0.2f;
 	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT]) {
-		_pPlayer->m_speed.x += acceleration;
+		if (g_pMouse->m_rightButton)
+			_pPlayer->m_acceleration = 0.4f;
+		else
+			_pPlayer->m_acceleration = 0.2f;
+		_pPlayer->m_speed.x += _pPlayer->m_acceleration;
 		_pPlayer->m_flip = RECT_FLIP_NONE;
 	}
 
 	if (Keyboard::m_pressed[PLAYER_KEY_LEFT]) {
-		_pPlayer->m_speed.x -= acceleration;
+		if (g_pMouse->m_rightButton)
+			_pPlayer->m_acceleration = 0.4f;
+		else
+			_pPlayer->m_acceleration = 0.2f;
+		_pPlayer->m_speed.x -= _pPlayer->m_acceleration;
 		_pPlayer->m_flip = RECT_FLIP_HORIZONTAL;
 	}
 

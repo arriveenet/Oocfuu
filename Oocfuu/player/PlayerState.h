@@ -22,6 +22,7 @@ public:
 		: m_state(_state)
 		{};
 
+	virtual void start(Player* _pPlayer) = 0;
 	virtual void update(PlayerStateContext* _pStateContext, Player* _pPlayer) = 0;
 	PLAYER_STATE getState() const { return m_state; };
 };

@@ -2,6 +2,7 @@
 #include "PlayerStateRun.h"
 #include "PlayerStateIdle.h"
 #include "PlayerStateDie.h"
+#include "PlayerStateGoal.h"
 #include "../TextureManager.h"
 #include "../font.h"
 #include "../animation/Animation.h"
@@ -34,9 +35,10 @@ Player::Player()
 	, m_acceleration(0.24f)
 	, m_jumping(false)
 	, m_falling(false)
-	, m_pStateContext(new PlayerStateContext)
+	, m_pStateContext(new PlayerStateContext(this))
 	, m_left(PLAYER_START_LEFT)
 	, m_dead(false)
+	, m_goal(false)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
 	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
@@ -69,6 +71,7 @@ void Player::reset()
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_left = PLAYER_START_LEFT;
 	m_dead = false;
+	m_goal = false;
 }
 
 void Player::respawn(float _x, float _y)
@@ -82,17 +85,19 @@ void Player::respawn(float _x, float _y)
 	m_pStateContext->setStete(new PlayerStateIdle);
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_dead = false;
+	m_goal = false;
 }
 
 void Player::update()
 {
 	m_animeCtr.update();
-	m_pStateContext->update(this);
+	m_pStateContext->update();
 
 	// ジャンプ中かつ落下フラグが立っていれば重力の影響を与える
 	if (m_falling 
 		&& (!m_dead)
-		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_JUMP)) {
+		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_JUMP)
+		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_GOAL)) {
 		m_speed.y += PLAYER_GRAVITY;
 	}
 
@@ -134,15 +139,22 @@ void Player::update()
 		}
 	}
 
-	if (!topHit) {
+	if (!topHit && !m_goal) {
 		for (vector<vec2>::iterator iter = m_rightPoints.begin();
 			iter != m_rightPoints.end();
 			iter++) {
-			if (g_course.intersect(*iter)) {
+			int parts = PART_NONE;
+			if (g_course.intersect(*iter, &parts)) {
 				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
 				m_position.x = right.x - PLAYER_SIZE;
 				m_speed.x = 0;
 				m_falling = true;
+				if ((parts == PART_GOAL_POLE) && (!m_goal)) {
+					printf("Player is goal\n");
+					m_goal = true;
+					m_pStateContext->setStete(new PlayerStateGoal);
+					break;
+				}
 				break;
 			}
 		}
@@ -244,16 +256,16 @@ void Player::draw()
 			0,						// GLint first
 			(GLsizei)m_topPoints.size());	// GLsizei count
 
-		glColor3ub(0xff, 0x00, 0xff);
-		glVertexPointer(
-			2,						// GLint size
-			GL_FLOAT,				// GLenum type
-			0,						// GLsizei stride
-			&m_position);	// const GLvoid * pointer
-		glDrawArrays(
-			GL_POINTS,				// GLenum mode
-			0,						// GLint first
-			1);	// GLsizei count
+		//glColor3ub(0xff, 0x00, 0xff);
+		//glVertexPointer(
+		//	2,						// GLint size
+		//	GL_FLOAT,				// GLenum type
+		//	0,						// GLsizei stride
+		//	&m_position);	// const GLvoid * pointer
+		//glDrawArrays(
+		//	GL_POINTS,				// GLenum mode
+		//	0,						// GLint first
+		//	1);	// GLsizei count
 		glPopAttrib();
 		glPopClientAttrib();
 	}

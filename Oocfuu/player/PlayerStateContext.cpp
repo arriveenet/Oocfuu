@@ -14,9 +14,10 @@
 #define DBG_NEW new
 #endif
 
-PlayerStateContext::PlayerStateContext()
+PlayerStateContext::PlayerStateContext(Player* _pPlayer)
 	: m_pState(NULL)
 	, m_currentState(PLAYER_STATE_IDLE)
+	, m_pPlayer(_pPlayer)
 {
 }
 
@@ -37,12 +38,13 @@ void PlayerStateContext::setStete(PlayerState* _pState)
 
 	m_pState = _pState;
 	m_currentState = _pState->getState();
+	m_pState->start(m_pPlayer);
 	//printf("state=%s\n", getString().c_str());
 }
 
-void PlayerStateContext::update(Player* _pPlayer)
+void PlayerStateContext::update()
 {
-	m_pState->update(this, _pPlayer);
+	m_pState->update(this, m_pPlayer);
 }
 
 std::string PlayerStateContext::getString()

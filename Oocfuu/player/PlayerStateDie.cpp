@@ -7,6 +7,10 @@ PlayerStateDie::PlayerStateDie()
 {
 }
 
+void PlayerStateDie::start(Player* _pPlayer)
+{
+}
+
 void PlayerStateDie::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
 	m_counter++;

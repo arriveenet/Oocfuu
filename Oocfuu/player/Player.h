@@ -37,6 +37,7 @@ public:
 	std::vector<glm::vec2>m_topPoints;
 	char m_left;
 	bool m_dead;
+	bool m_goal;
 
 	Player();
 	~Player();
