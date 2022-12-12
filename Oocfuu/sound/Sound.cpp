@@ -26,6 +26,8 @@ static const char* fileNames[SOUND_MAX] = {
 	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
 	"resource\\sound\\Die.wav", // SOUND_SE_DIE
 	"resource\\sound\\Firework.wav", //SOUND_FIREWORK
+	"resource\\sound\\Flagpole.wav", //SOUND_FLAGPOLE
+	"resource\\sound\\Fanfare.wav",//SOUND_FANFARE
 };
 
 Sound::Sound()
@@ -128,16 +130,24 @@ void Sound::release()
 	}
 }
 
-void Sound::play(int _sid)
+void Sound::play(SOUNDTYPE _sid)
 {
 	if(m_sids)
 		alSourcePlay(m_sids[_sid]);
 }
 
-void Sound::stop(int _sid)
+void Sound::stop(SOUNDTYPE _sid)
 {
 	if (m_sids)
 		alSourceStop(m_sids[_sid]);
+}
+
+void Sound::setGain(SOUNDTYPE _source, float _gain)
+{
+	alSourcef(
+		m_sids[_source],	// ALuint source
+		AL_GAIN,			// ALenum param
+		_gain);				// ALfloat value
 }
 
 bool Sound::loadWaveToBuffer(const char* _fileName, ALuint _bid)
