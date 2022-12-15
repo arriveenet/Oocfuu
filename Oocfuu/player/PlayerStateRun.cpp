@@ -2,9 +2,9 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateIdle.h"
 #include "Player.h"
-#include "../Keyboard.h"
-#include "../Mouse.h"
-#include "../animation/Animation.h"
+#include "input/Keyboard.h"
+#include "input/Mouse.h"
+#include "animation/Animation.h"
 
 #include <glm/glm.hpp>
 

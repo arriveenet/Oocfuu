@@ -1,7 +1,7 @@
 #include "TpScreen.h"
 #include "../sound/Music.h"
 #include "../font.h"
-#include "../Keyboard.h"
+#include "input/Keyboard.h"
 #include "../Game.h"
 //#include "../Firework.h"
 #include "../TextureManager.h"

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <Windows.h>
+
 #include <gl/glut.h>
 #include <glm/glm.hpp>
 
@@ -16,7 +18,15 @@ typedef struct {
 	VERTEX vertices[4];
 }QUAD;
 
-class Course {
+typedef struct _COURSEHEADER {
+	unsigned short width;		// コースの幅
+	unsigned short height;		// コースの高さ
+	COLORREF clearColor;		// バッファのクリアカラー
+	unsigned short startX;		// プレイヤーのスタートX座標
+	unsigned short startY;		// プレイヤーのスタートY座標
+} COURSEHEADER;
+
+class CourseManager {
 	int m_width;
 	int m_height;
 	int** m_pParts;
@@ -25,8 +35,8 @@ class Course {
 public:
 	float m_scroll;
 
-	Course();
-	~Course();
+	CourseManager();
+	~CourseManager();
 
 	bool init(int _width, int _height);
 	void release();
@@ -42,4 +52,4 @@ public:
 	int getHeight();
 };
 
-extern Course g_course;
+extern CourseManager g_course;

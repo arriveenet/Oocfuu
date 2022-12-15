@@ -3,7 +3,7 @@
 */
 
 #include "GoodbyeOocfuuScreen.h"
-#include "../Keyboard.h"
+#include "input/Keyboard.h"
 #include "../sound/Music.h"
 #include "../Game.h"
 #include "../font.h"

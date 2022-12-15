@@ -3,7 +3,7 @@
 
 #include "TitleScreen.h"
 #include "../Game.h"
-#include "../Keyboard.h"
+#include "input/Keyboard.h"
 #include "../font.h"
 #include "../Player/Player.h"
 #include "../Course.h"

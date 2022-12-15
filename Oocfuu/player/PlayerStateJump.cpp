@@ -1,9 +1,10 @@
 #include "PlayerStateJump.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateIdle.h"
-#include "../Keyboard.h"
-#include "../animation/Animation.h"
-#include "../sound/Sound.h"
+#include "input/Keyboard.h"
+#include "animation/Animation.h"
+#include "sound/Sound.h"
+
 #include <stdio.h>
 
 static const unsigned char VerticalForceDecimalPartData[] = { 0x20, 0x20, 0x1e, 0x28, 0x28 };

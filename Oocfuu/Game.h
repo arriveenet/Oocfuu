@@ -1,6 +1,11 @@
 #pragma once
 #include "screen/Screen.h"
 
+typedef struct tagWORLD {
+	unsigned char major;
+	unsigned char miner;
+} WORLD;
+
 enum {
 	GAME_SCREEN_TITLE,
 	GAME_SCREEN_INTRO,
@@ -17,9 +22,10 @@ class Game {
 
 public:
 	Screen* m_pCurrentScreen;
-	unsigned int m_count;
+	static unsigned int m_count;
 	unsigned int m_score;
 	unsigned char m_coin;
+	WORLD m_world;
 	bool m_isGameOver;
 
 	int init();

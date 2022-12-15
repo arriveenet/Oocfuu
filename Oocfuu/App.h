@@ -9,7 +9,7 @@ public:
 	tm m_currentTime;
 
 	App();
-	~App();
+	virtual ~App();
 
 	bool init();
 	void release();

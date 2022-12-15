@@ -22,9 +22,9 @@
 using namespace glm;
 using std::vector;
 
-Course g_course;
+CourseManager g_course;
 
-Course::Course()
+CourseManager::CourseManager()
 	: m_scroll(0.0f)
 	, m_width(0)
 	, m_height(0)
@@ -32,12 +32,12 @@ Course::Course()
 {
 }
 
-Course::~Course()
+CourseManager::~CourseManager()
 {
 	release();
 }
 
-bool Course::init(int _width, int _height)
+bool CourseManager::init(int _width, int _height)
 {
 	m_width = _width;
 	m_height = _height;
@@ -54,7 +54,7 @@ bool Course::init(int _width, int _height)
 	return false;
 }
 
-void Course::release()
+void CourseManager::release()
 {
 	if (m_pParts) {
 		for (int i = 0; i < m_height; ++i) {
@@ -67,7 +67,7 @@ void Course::release()
 	m_quads.~vector();
 }
 
-bool Course::load(const char* _fileName)
+bool CourseManager::load(const char* _fileName)
 {
 	FILE* pFile;
 	errno_t error;
@@ -106,7 +106,7 @@ bool Course::load(const char* _fileName)
 	return true;
 }
 
-bool Course::reload(const char* _fileName, int _width, int _height)
+bool CourseManager::reload(const char* _fileName, int _width, int _height)
 {
 	if (m_pParts) {
 		for (int i = 0; i < m_height; ++i) {
@@ -120,7 +120,7 @@ bool Course::reload(const char* _fileName, int _width, int _height)
 	return load(_fileName);
 }
 
-void Course::update()
+void CourseManager::update()
 {
 	m_quads.clear();
 
@@ -185,7 +185,7 @@ void Course::update()
 	}
 }
 
-void Course::draw()
+void CourseManager::draw()
 {
 	if (m_quads.empty())
 		return;
@@ -209,7 +209,7 @@ void Course::draw()
 	glDisable(GL_CULL_FACE);
 }
 
-void Course::setParts(ivec2 const& _point, int _parts) {
+void CourseManager::setParts(ivec2 const& _point, int _parts) {
 	if (
 		(_point.x < 0)
 		|| (_point.x >= m_width)
@@ -221,7 +221,7 @@ void Course::setParts(ivec2 const& _point, int _parts) {
 	m_pParts[_point.y][_point.x] = _parts;
 }
 
-int Course::getParts(int _x, int _y) {
+int CourseManager::getParts(int _x, int _y) {
 	if (_x < 0
 		|| _x >= m_width
 		|| _y < 0
@@ -231,7 +231,7 @@ int Course::getParts(int _x, int _y) {
 	return m_pParts[_y][_x];
 }
 
-bool Course::intersect(vec2 const& _point) {
+bool CourseManager::intersect(vec2 const& _point) {
 	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
 	if (
 		(cellPoint.x < 0)
@@ -284,7 +284,7 @@ bool Course::intersect(vec2 const& _point) {
 	return false;
 }
 
-bool Course::intersect(glm::vec2 const& _point, int* _parts)
+bool CourseManager::intersect(glm::vec2 const& _point, int* _parts)
 {
 	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
 	*_parts = PART_NONE;
@@ -347,17 +347,21 @@ bool Course::intersect(glm::vec2 const& _point, int* _parts)
 		*_parts = PART_GROUND_2;
 		result = true;
 		break;
+	case PART_GOAL_POLE:
+		*_parts = PART_GOAL_POLE;
+		result = true;
+		break;
 	}
 
 	return result;
 }
 
-int Course::getWidth()
+int CourseManager::getWidth()
 {
 	return m_width;
 }
 
-int Course::getHeight()
+int CourseManager::getHeight()
 {
 	return m_height;
 }

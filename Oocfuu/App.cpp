@@ -2,8 +2,8 @@
 
 #include "font.h"
 #include "sound\audio.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include "input/Keyboard.h"
+#include "input/Mouse.h"
 #include "Part.h"
 #include "Course.h"
 #include "TextureManager.h"
@@ -52,7 +52,6 @@ App::App()
 
 App::~App()
 {
-	release();
 }
 
 bool App::init()

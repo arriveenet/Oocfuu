@@ -26,6 +26,7 @@
 #endif
 
 Game g_game;
+unsigned int Game::m_count;
 
 int Game::init()
 {
@@ -43,6 +44,9 @@ int Game::init()
 	m_pCurrentScreen = m_pScreens[m_screen];
 	m_count = 0;
 	m_isGameOver = false;
+	m_score = 0;
+	m_coin = 0;
+	m_world = { 1,1 };
 
 	return 0;
 }
@@ -80,7 +84,8 @@ void Game::drawHUD()
 		fontDraw("OOCFUU");
 
 		fontPosition(24, 24);
-		fontDraw("%06d", g_app.m_currentTime.tm_year + 1900);
+		fontDraw("%06d", m_score);
+		//fontDraw("%06d", g_app.m_currentTime.tm_year + 1900);
 
 		unsigned char hudCoin = 'c';
 		const int len = 6;
@@ -88,14 +93,15 @@ void Game::drawHUD()
 		hudCoin += table[(m_count / 8) % len];
 
 		fontPosition(88, 24);
-		fontDraw("%cx%02d", hudCoin, g_app.m_currentTime.tm_sec);
-		//fontDraw("x00");
+		//fontDraw("%cx%02d", hudCoin, g_app.m_currentTime.tm_sec);
+		fontDraw("%cx%02d", hudCoin, m_coin);
 
 		fontPosition(144, 16);
 		fontDraw("WORLD");
 
 		fontPosition(144, 24);
-		fontDraw("%2d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
+		fontDraw("%2d-%d", m_world.major, m_world.miner);
+		//fontDraw("%2d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
 		//fontDraw("%2d-%d", 2, 4);
 
 		fontPosition(200, 16);

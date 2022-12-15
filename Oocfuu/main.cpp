@@ -17,8 +17,8 @@
 
 #include "App.h"
 #include "sound/audio.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include "input/Keyboard.h"
+#include "input/Mouse.h"
 #include "font.h"
 
 using namespace glm;

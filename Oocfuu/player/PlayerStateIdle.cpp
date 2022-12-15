@@ -1,9 +1,9 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateJump.h"
-#include "../Keyboard.h"
-#include "../animation/Animation.h"
-#include "../sound/Sound.h"
+#include "input/Keyboard.h"
+#include "animation/Animation.h"
+#include "sound/Sound.h"
 
 #include <glm/glm.hpp>
 

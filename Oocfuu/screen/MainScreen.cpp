@@ -3,15 +3,12 @@
 #include "MainScreen.h"
 #include "../App.h"
 #include "../Game.h"
-#include "../Keyboard.h"
+#include "input/Keyboard.h"
 #include "../font.h"
 #include "../Player/Player.h"
 #include "../Part.h"
 #include "../Course.h"
 #include "../FrameCounter.h"
-#include "../enemy/Kuribo.h"
-
-Kuribo kuribo;
 
 void MainScreen::init()
 {
@@ -22,6 +19,7 @@ void MainScreen::reset()
 {
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
+	m_enemyManager.load("");
 }
 
 void MainScreen::update()
@@ -34,8 +32,7 @@ void MainScreen::update()
 
 	g_course.update();
 	g_player.update();
-
-	kuribo.update();
+	m_enemyManager.update();
 
 	if ((g_player.m_speed.x > 0)
 		&& (g_player.m_position.x > g_course.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
@@ -49,8 +46,7 @@ void MainScreen::draw()
 	g_game.drawHUD();
 	g_course.draw();
 	g_player.draw();
-
-	kuribo.draw();
+	m_enemyManager.draw();
 
 	if (m_debugDisplay) {
 		//glColor3ub(0x00, 0xff, 0x00);

@@ -6,7 +6,7 @@
 #include "../sound/Music.h"
 #include "../font.h"
 #include "../Game.h"
-#include "../Keyboard.h"
+#include "input/Keyboard.h"
 #include "../TextureManager.h"
 #include "../Player/Player.h"
 #include "../Course.h"
