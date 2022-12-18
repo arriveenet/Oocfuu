@@ -42,7 +42,7 @@ Part g_parts[PART_MAX] = {
 	 {"f4.bmp",},// PART_FORT_MIDDLE
 	 {"f5.bmp",},// PART_FORT_GATE_UP
 	 {"f6.bmp",},// PART_FORT_GATE_DOWN
-	 {"b3.bmp",}, // PART_BLOCK,
+	 {"b3.bmp",},// PART_BLOCK,
 	 {"s0.bmp",},// PART_SEA_0
 	 {"s1.bmp",},// PART_SEA_1
 	 {"s2.bmp",},// PART_SEA_2
@@ -60,6 +60,11 @@ Part g_parts[PART_MAX] = {
 	 {"d6.bmp",}, // PART_DESERT_6,
 	 {"d7.bmp",}, // PART_DESERT_7,
 	 {"d8.bmp",}, // PART_DESERT_8,
+	 {"w0.bmp",},// PART_WOOD_0
+	 {"w1.bmp",},// PART_WOOD_1
+	 {"w2.bmp",},// PART_WOOD_2
+	 {"w3.bmp,",},// PART_WOOD_3
+	 {"br.bmp,",},// PART_BRIDGE
 };
 
 int Part::init() {
