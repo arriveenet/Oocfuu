@@ -30,6 +30,8 @@ class Kuribo : public Sprite{
 
 public:
 	Kuribo();
+	Kuribo(glm::vec2 _position);
+	Kuribo(float _x, float _y);
 
 	void update() override;
 	void draw() override;

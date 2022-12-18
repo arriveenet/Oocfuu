@@ -12,6 +12,16 @@ using namespace glm;
 using namespace std;
 
 Kuribo::Kuribo()
+	: Kuribo(0, 0)
+{
+}
+
+Kuribo::Kuribo(glm::vec2 _position)
+	: Kuribo(_position.x, _position.y)
+{
+}
+
+Kuribo::Kuribo(float _x, float _y)
 	: m_dead(false)
 	, m_falling(false)
 	, m_state(KURIBO_STATE_MOVE)
@@ -22,15 +32,15 @@ Kuribo::Kuribo()
 	, m_topPoint(0, 0)
 {
 	m_size = { KURIBO_WIDTH, KURIBO_HEIGHT };
-	m_position = { PART_SIZE * 35, PART_SIZE * 12 };
+	m_position = { _x, _y };
 }
 
 void Kuribo::update()
 {
 	if (
 		(m_dead)
-		|| (g_course.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
-		|| (g_course.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+		|| (g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
+		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 
@@ -67,11 +77,11 @@ void Kuribo::update()
 		if (m_position.y > SCREEN_HEIGHT)
 			m_state = KURIBO_STATE_DEAD;
 
-		if (g_course.intersect(m_rightPoint)) {
+		if (g_courseManager.intersect(m_rightPoint)) {
 			m_speed.x = -KURIBO_SPEED;
 		}
 
-		if (g_course.intersect(m_leftPoint)) {
+		if (g_courseManager.intersect(m_leftPoint)) {
 			m_speed.x = KURIBO_SPEED;
 		}
 
@@ -80,7 +90,7 @@ void Kuribo::update()
 			for (vector<vec2>::iterator iter = m_bottomPoints.begin();
 				iter != m_bottomPoints.end();
 				iter++) {
-			if (g_course.intersect(*iter)) {
+			if (g_courseManager.intersect(*iter)) {
 				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 				m_position.y = bottom.y - PLAYER_SIZE;
 				m_speed.y = 0;
@@ -106,8 +116,8 @@ void Kuribo::draw()
 {
 	if (
 		(m_dead)
-		|| (g_course.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
-		|| (g_course.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+		|| (g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
+		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 
