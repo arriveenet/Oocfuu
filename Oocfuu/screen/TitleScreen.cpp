@@ -33,19 +33,19 @@ TitleScreen::TitleScreen()
 
 void TitleScreen::init()
 {
-	g_course.load("resource\\course\\course1-1.txt");
+	g_courseManager.load("resource\\course\\course1-1.txt");
 }
 
 void TitleScreen::reset()
 {
 	g_player.reset();
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
-	g_course.m_scroll = 0.0f;
+	g_courseManager.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
+	g_courseManager.m_scroll = 0.0f;
 }
 void TitleScreen::update()
 {
-	g_course.update();
+	g_courseManager.update();
 
 	if (Keyboard::m_nowPressed['w'])
 		m_mode--;
@@ -71,7 +71,7 @@ void TitleScreen::update()
 
 void TitleScreen::draw()
 {
-	g_course.draw();
+	g_courseManager.draw();
 	g_game.drawHUD();
 
 	g_textureManager.setTexture(TEXTURE_TITLE);

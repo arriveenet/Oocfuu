@@ -64,7 +64,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 	for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
 		iter != _pPlayer->m_rightPoints.end();
 		iter++) {
-		if (g_course.intersect(*iter)) {
+		if (g_courseManager.intersect(*iter)) {
 			vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
 			_pPlayer->m_position.x = right.x - PLAYER_SIZE;
 			_pPlayer->m_speed.x = 0;

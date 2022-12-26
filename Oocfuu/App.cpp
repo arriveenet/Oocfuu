@@ -73,9 +73,9 @@ bool App::init()
 	if (!printInit(g_parts->initAll(), "Part initAll"))
 		return false;
 
-	if (g_course.init(COURSE_WIDTH, COURSE_HEIGHT)) {
+	if (g_courseManager.init(COURSE_WIDTH, COURSE_HEIGHT)) {
 		printf("[  OK  ] Course init\n");
-		g_course.load("resource\\course\\course1-1.txt");
+		g_courseManager.load("resource\\course\\course1-1.txt");
 	}
 
 	if (!printInit(g_textureManager.init(), "Texture initAll"))
@@ -101,7 +101,7 @@ void App::release()
 	g_player.~Player();
 	fontRelease();
 	audioRelease();
-	g_course.release();
+	g_courseManager.release();
 	g_textureManager.release();
 	g_pSound->release();
 	g_game.release();
@@ -114,7 +114,7 @@ void App::update()
 	localtime_s(&m_currentTime, &t);
 
 	g_frameCounter.update();
-	g_course.update();
+	g_courseManager.update();
 	g_music.update();
 	g_game.update();
 	g_game.m_pCurrentScreen->update();
@@ -127,7 +127,7 @@ void App::draw()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(
-		g_course.m_scroll, g_course.m_scroll + SCREEN_WIDTH,
+		g_courseManager.m_scroll, g_courseManager.m_scroll + SCREEN_WIDTH,
 		SCREEN_HEIGHT, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

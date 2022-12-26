@@ -32,7 +32,7 @@ void IntroScreen::update()
 		switch (m_intro) {
 		case INTRO_LOAD:
 			g_player.respawn(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
-			g_course.m_scroll = 0.0f;
+			g_courseManager.m_scroll = 0.0f;
 			g_game.setScreen(GAME_SCREEN_MAIN);
 			break;
 		case INTRO_GAMEOVER:

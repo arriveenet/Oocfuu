@@ -22,7 +22,7 @@
 using namespace glm;
 using std::vector;
 
-CourseManager g_course;
+CourseManager g_courseManager;
 
 CourseManager::CourseManager()
 	: m_scroll(0.0f)

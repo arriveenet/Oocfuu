@@ -18,8 +18,7 @@ void MainScreen::init()
 void MainScreen::reset()
 {
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_course.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
-	m_enemyManager.load("");
+	g_courseManager.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
 }
 
 void MainScreen::update()
@@ -30,21 +29,21 @@ void MainScreen::update()
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
 		m_debugDisplay = m_debugDisplay ? false : true;
 
-	g_course.update();
+	g_courseManager.update();
 	g_player.update();
 	m_enemyManager.update();
 
 	if ((g_player.m_speed.x > 0)
-		&& (g_player.m_position.x > g_course.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
-		g_course.m_scroll += g_player.m_speed.x;
+		&& (g_player.m_position.x > g_courseManager.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
+		g_courseManager.m_scroll += g_player.m_speed.x;
 	}
-	g_course.m_scroll = std::min(g_course.m_scroll, (float)(COURSE_WIDTH * PART_SIZE - SCREEN_WIDTH));
+	g_courseManager.m_scroll = std::min(g_courseManager.m_scroll, (float)(COURSE_WIDTH * PART_SIZE - SCREEN_WIDTH));
 }
 
 void MainScreen::draw()
 {
 	g_game.drawHUD();
-	g_course.draw();
+	g_courseManager.draw();
 	g_player.draw();
 	m_enemyManager.draw();
 

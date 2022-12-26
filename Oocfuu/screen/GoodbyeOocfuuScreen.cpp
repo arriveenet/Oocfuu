@@ -20,12 +20,12 @@ void GoodbyeOocfuuScreen::init()
 
 void GoodbyeOocfuuScreen::reset()
 {
-	g_course.reload("resource\\course\\oocfuu.txt", 16, 15);
+	g_courseManager.reload("resource\\course\\oocfuu.txt", 16, 15);
 }
 
 void GoodbyeOocfuuScreen::update()
 {
-	g_course.update();
+	g_courseManager.update();
 	g_player.update();
 
 	if (Keyboard::m_nowPressed['r']) {
@@ -42,7 +42,7 @@ void GoodbyeOocfuuScreen::update()
 
 void GoodbyeOocfuuScreen::draw()
 {
-	g_course.draw();
+	g_courseManager.draw();
 	g_game.drawHUD();
 
 	fontBegin();

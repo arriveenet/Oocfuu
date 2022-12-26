@@ -33,7 +33,7 @@ void HbdScreen::reset()
 	g_music.setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
 	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
 	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
-	g_course.reload("resource\\course\\happy_birthday.txt", 16, 15);
+	g_courseManager.reload("resource\\course\\happy_birthday.txt", 16, 15);
 }
 
 void HbdScreen::update()
@@ -75,7 +75,7 @@ void HbdScreen::update()
 
 void HbdScreen::draw()
 {
-	g_course.draw();
+	g_courseManager.draw();
 	g_game.drawHUD();
 
 	fontBegin();

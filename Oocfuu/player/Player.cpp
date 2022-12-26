@@ -132,7 +132,7 @@ void Player::update()
 	for (vector<vec2>::iterator iter = m_topPoints.begin();
 		iter != m_topPoints.end();
 		iter++) {
-		if (g_course.intersect(*iter, &parts)) {
+		if (g_courseManager.intersect(*iter, &parts)) {
 			m_jumping = false;
 			topHit = true;
 			break;
@@ -144,7 +144,7 @@ void Player::update()
 			iter != m_rightPoints.end();
 			iter++) {
 			int parts = PART_NONE;
-			if (g_course.intersect(*iter, &parts)) {
+			if (g_courseManager.intersect(*iter, &parts)) {
 				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
 				m_position.x = right.x - PLAYER_SIZE;
 				m_speed.x = 0;
@@ -162,7 +162,7 @@ void Player::update()
 		for (vector<vec2>::iterator iter = m_leftPoints.begin();
 			iter != m_leftPoints.end();
 			iter++) {
-			if (g_course.intersect(*iter)) {
+			if (g_courseManager.intersect(*iter)) {
 				vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
 				m_position.x = left.x + PLAYER_SIZE;
 				m_speed.x = 0;
@@ -177,7 +177,7 @@ void Player::update()
 		for (vector<vec2>::iterator iter = m_bottomPoints.begin();
 			iter != m_bottomPoints.end();
 			iter++) {
-		if (g_course.intersect(*iter)) {
+		if (g_courseManager.intersect(*iter)) {
 			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 			m_position.y = bottom.y - PLAYER_SIZE;
 			m_jumping = false;

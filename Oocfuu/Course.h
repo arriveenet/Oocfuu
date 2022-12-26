@@ -52,4 +52,4 @@ public:
 	int getHeight();
 };
 
-extern CourseManager g_course;
+extern CourseManager g_courseManager;

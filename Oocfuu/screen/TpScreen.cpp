@@ -93,7 +93,7 @@ void TpScreen::update()
 
 void TpScreen::draw()
 {
-	g_course.draw();
+	g_courseManager.draw();
 	g_game.drawHUD();
 	//g_firework.draw();
 
