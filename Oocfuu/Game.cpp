@@ -40,7 +40,7 @@ int Game::init()
 	for (int i = 0; i < GAME_SCREEN_MAX; i++)
 		m_pScreens[i]->init();
 
-	m_screen = GAME_SCREEN_MAIN;
+	m_screen = GAME_SCREEN_TITLE;
 	m_pCurrentScreen = m_pScreens[m_screen];
 	m_count = 0;
 	m_isGameOver = false;
