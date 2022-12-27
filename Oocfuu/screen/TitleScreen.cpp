@@ -40,7 +40,7 @@ void TitleScreen::reset()
 {
 	g_player.reset();
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_courseManager.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
+	g_courseManager.load("resource\\course\\course1-1.txt");
 	g_courseManager.m_scroll = 0.0f;
 }
 void TitleScreen::update()

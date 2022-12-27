@@ -18,7 +18,7 @@ void MainScreen::init()
 void MainScreen::reset()
 {
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_courseManager.reload("resource\\course\\course1-1.txt", COURSE_WIDTH, COURSE_HEIGHT);
+	g_courseManager.load("resource\\course\\course1-1.txt");
 }
 
 void MainScreen::update()
@@ -37,7 +37,7 @@ void MainScreen::update()
 		&& (g_player.m_position.x > g_courseManager.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
 		g_courseManager.m_scroll += g_player.m_speed.x;
 	}
-	g_courseManager.m_scroll = std::min(g_courseManager.m_scroll, (float)(COURSE_WIDTH * PART_SIZE - SCREEN_WIDTH));
+	g_courseManager.m_scroll = std::min(g_courseManager.m_scroll, (float)(g_courseManager.getWidth() * PART_SIZE - SCREEN_WIDTH));
 }
 
 void MainScreen::draw()

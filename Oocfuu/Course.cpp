@@ -106,20 +106,6 @@ bool CourseManager::load(const char* _fileName)
 	return true;
 }
 
-bool CourseManager::reload(const char* _fileName, int _width, int _height)
-{
-	if (m_pParts) {
-		for (int i = 0; i < m_height; ++i) {
-			delete m_pParts[i];
-		}
-		delete[] m_pParts;
-	}
-
-	m_pParts = NULL;
-	init(_width, _height);
-	return load(_fileName);
-}
-
 void CourseManager::update()
 {
 	m_quads.clear();

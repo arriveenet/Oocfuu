@@ -6,9 +6,6 @@
 #include <gl/glut.h>
 #include <glm/glm.hpp>
 
-#define COURSE_WIDTH	211
-#define COURSE_HEIGHT	15
-
 typedef struct {
 	glm::vec2 position;
 	glm::vec2 texCoord;
@@ -41,7 +38,6 @@ public:
 	bool init(int _width, int _height);
 	void release();
 	bool load(const char* _fileName);
-	bool reload(const char* _fileName, int _width, int _height);
 	void update();
 	void draw();
 	void setParts(glm::ivec2 const& _point, int _parts);

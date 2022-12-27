@@ -20,7 +20,7 @@ void GoodbyeOocfuuScreen::init()
 
 void GoodbyeOocfuuScreen::reset()
 {
-	g_courseManager.reload("resource\\course\\oocfuu.txt", 16, 15);
+	g_courseManager.load("resource\\course\\oocfuu.txt");
 }
 
 void GoodbyeOocfuuScreen::update()
