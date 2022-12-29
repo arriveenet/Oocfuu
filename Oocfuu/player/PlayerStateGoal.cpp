@@ -57,19 +57,27 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		_pPlayer->m_speed.x = PLAYER_GOAL_MOVE_SPEED;
 		break;
 	case PLAYERSTATEGOAL_WAIT:
+		if (m_counter > 60 * 3) {
+			g_game.m_world = g_courseManager.getNextWorld();
+			g_game.setScreen(GAME_SCREEN_INTRO);
+		}
 		break;
 	}
 
 	// ‰E‚Ì“–‚½‚è”»’è
-	for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
-		iter != _pPlayer->m_rightPoints.end();
-		iter++) {
-		if (g_courseManager.intersect(*iter)) {
-			vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-			_pPlayer->m_position.x = right.x - PLAYER_SIZE;
-			_pPlayer->m_speed.x = 0;
-			_pPlayer->m_falling = true;
-			break;
+	if (m_state != PLAYERSTATEGOAL_WAIT) {
+		for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
+			iter != _pPlayer->m_rightPoints.end();
+			iter++) {
+			if (g_courseManager.intersect(*iter)) {
+				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+				_pPlayer->m_position.x = right.x - PLAYER_SIZE;
+				_pPlayer->m_speed.x = 0;
+				_pPlayer->m_falling = true;
+				m_state = PLAYERSTATEGOAL_WAIT;
+				m_counter = 0;
+				break;
+			}
 		}
 	}
 }

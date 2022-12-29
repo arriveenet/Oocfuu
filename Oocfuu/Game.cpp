@@ -100,7 +100,7 @@ void Game::drawHUD()
 		fontDraw("WORLD");
 
 		fontPosition(144, 24);
-		fontDraw("%2d-%d", m_world.major, m_world.miner);
+		fontDraw("%2d-%d", m_world.world, m_world.stage);
 		//fontDraw("%2d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
 		//fontDraw("%2d-%d", 2, 4);
 

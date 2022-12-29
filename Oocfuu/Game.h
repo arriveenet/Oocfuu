@@ -2,8 +2,8 @@
 #include "screen/Screen.h"
 
 typedef struct tagWORLD {
-	unsigned char major;
-	unsigned char miner;
+	unsigned char world;
+	unsigned char stage;
 } WORLD;
 
 enum {

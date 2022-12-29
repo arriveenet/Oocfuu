@@ -73,11 +73,6 @@ bool App::init()
 	if (!printInit(g_parts->initAll(), "Part initAll"))
 		return false;
 
-	if (g_courseManager.init(0,0)) {
-		printf("[  OK  ] Course init\n");
-		g_courseManager.load("resource\\course\\course1-1.txt");
-	}
-
 	if (!printInit(g_textureManager.init(), "Texture initAll"))
 		return false;
 

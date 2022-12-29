@@ -1,11 +1,11 @@
 #include "IntroScreen.h"
-#include "../Game.h"
+#include "Game.h"
 #include "input/Keyboard.h"
-#include "../font.h"
-#include "../Player/Player.h"
-#include "../Course.h"
-#include "../Rect.h"
-#include "../TextureManager.h"
+#include "font.h"
+#include "Player/Player.h"
+#include "Course.h"
+#include "Rect.h"
+#include "TextureManager.h"
 
 using namespace glm;
 
@@ -31,8 +31,11 @@ void IntroScreen::update()
 	if (++m_counter > 60 * 3) {
 		switch (m_intro) {
 		case INTRO_LOAD:
-			g_player.respawn(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
+			char filePath[64];
+			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt",g_game.m_world.world, g_game.m_world.stage);
+			g_courseManager.load(filePath);
 			g_courseManager.m_scroll = 0.0f;
+			g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
 			g_game.setScreen(GAME_SCREEN_MAIN);
 			break;
 		case INTRO_GAMEOVER:

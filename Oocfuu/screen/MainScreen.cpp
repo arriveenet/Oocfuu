@@ -1,14 +1,14 @@
 #include <gl/glut.h>
 
 #include "MainScreen.h"
-#include "../App.h"
-#include "../Game.h"
+#include "App.h"
+#include "Game.h"
 #include "input/Keyboard.h"
-#include "../font.h"
-#include "../Player/Player.h"
-#include "../Part.h"
-#include "../Course.h"
-#include "../FrameCounter.h"
+#include "font.h"
+#include "Player/Player.h"
+#include "Part.h"
+#include "Course.h"
+#include "FrameCounter.h"
 
 void MainScreen::init()
 {
@@ -17,8 +17,8 @@ void MainScreen::init()
 
 void MainScreen::reset()
 {
-	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_courseManager.load("resource\\course\\course1-1.txt");
+	COLORREF clearColor = g_courseManager.getClearColor();
+	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
 }
 
 void MainScreen::update()
