@@ -149,9 +149,11 @@ void Player::update()
 				m_position.x = right.x - PLAYER_SIZE;
 				m_speed.x = 0;
 				m_falling = true;
+				// プレイヤーがゴール
 				if ((parts == PART_GOAL_POLE) && (!m_goal)) {
-					printf("Player is goal\n");
+					//printf("Player is goal\n");
 					m_goal = true;
+					g_game.stopTimer();
 					m_pStateContext->setStete(new PlayerStateGoal);
 					break;
 				}

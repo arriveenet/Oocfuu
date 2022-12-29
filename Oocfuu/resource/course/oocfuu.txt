@@ -1,3 +1,4 @@
+width=16 height=15 color=0 startX=40 startY=96 nextWorld=1 nextStage=1
 s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0
 s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0
 s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0

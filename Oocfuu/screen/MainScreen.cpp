@@ -19,6 +19,9 @@ void MainScreen::reset()
 {
 	COLORREF clearColor = g_courseManager.getClearColor();
 	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
+	g_game.resetTimer();
+	g_game.startTimer();
+	g_game.visibleTimer(true);
 }
 
 void MainScreen::update()

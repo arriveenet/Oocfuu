@@ -13,18 +13,6 @@
 
 #include <freeglut.h>
 
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 Game g_game;
 unsigned int Game::m_count;
 
@@ -47,6 +35,9 @@ int Game::init()
 	m_score = 0;
 	m_coin = 0;
 	m_world = { 1,1 };
+	m_time = GAME_START_TIME;
+	m_isTimerUpdate = false;
+	m_visibleTimer = false;
 
 	return 0;
 }
@@ -62,6 +53,17 @@ void Game::release()
 void Game::update()
 {
 	m_count++;
+
+	// タイマーをカウントダウンさせる
+	if (m_isTimerUpdate) {
+		static int lastTime;
+		int time = m_count / GAME_TIMER_LATE;
+		if (time != lastTime) {
+			//printf("time=%d\n", time);
+			m_time--;
+		}
+		lastTime = time;
+	}
 }
 
 void Game::setScreen(int _screen) {
@@ -71,13 +73,6 @@ void Game::setScreen(int _screen) {
 
 void Game::drawHUD()
 {
-	//GLuint texture = g_textures[TEXTURE_COIN_1].m_texture;
-	//glBindTexture(
-	//	GL_TEXTURE_2D,	// GLenum target
-	//	texture);		// GLuint texture
-	//Rect rect(vec2(8, 8), vec2(g_course.m_scroll + 88, 24));
-	//rect.draw();
-
 	fontBegin();
 	{
 		fontPosition(24, 16);
@@ -106,10 +101,12 @@ void Game::drawHUD()
 
 		fontPosition(200, 16);
 		fontDraw("TIME");
-
-		fontPosition(200, 24);
-		fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
-		//fontDraw("00:00");
+		// タイム表示を表示する
+		if (m_visibleTimer) {
+			fontPosition(200, 24);
+			//fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
+			fontDraw("%4d", m_time);
+		}
 	}
 	fontEnd();
 }

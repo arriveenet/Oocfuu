@@ -147,21 +147,21 @@ void CourseManager::update()
 			{
 				int animationTable[] = { 0,1,2,2,1,0 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 8) % animationTableLength];
+				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
 			}
 			break;
 			case PART_SEA_0:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 			}
 			break;
 			case PART_DESERT_1:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 
 			}
 			break;
