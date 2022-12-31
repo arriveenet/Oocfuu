@@ -183,6 +183,10 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="world\Firebar.cpp" />
+    <ClCompile Include="world\Firework.cpp" />
+    <ClCompile Include="world\GimmickPart.cpp" />
+    <ClCompile Include="world\Lift.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation\Animation.h" />
@@ -228,6 +232,10 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="world\Firebar.h" />
+    <ClInclude Include="world\Firework.h" />
+    <ClInclude Include="world\GimmickPart.h" />
+    <ClInclude Include="world\Lift.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico" />

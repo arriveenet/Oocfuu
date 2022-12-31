@@ -3,15 +3,17 @@
 #include "PlayerStateIdle.h"
 #include "PlayerStateDie.h"
 #include "PlayerStateGoal.h"
-#include "../TextureManager.h"
-#include "../font.h"
-#include "../animation/Animation.h"
+
+#include "App.h"
+#include "font.h"
+#include "Part.h"
+#include "Course.h"
+#include "TextureManager.h"
 #include "input/Keyboard.h"
 #include "input//Mouse.h"
-#include "../Part.h"
-#include "../Course.h"
-#include "../App.h"
-#include "../sound/Sound.h"
+#include "animation/Animation.h"
+#include "sound/Sound.h"
+#include "world/GimmickPart.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <cstdlib>
@@ -180,6 +182,12 @@ void Player::update()
 			iter != m_bottomPoints.end();
 			iter++) {
 		if (g_courseManager.intersect(*iter)) {
+			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
+			m_position.y = bottom.y - PLAYER_SIZE;
+			m_jumping = false;
+			m_falling = false;
+			break;
+		} else if (g_gmmickPart.intersectLift(*iter)) {
 			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 			m_position.y = bottom.y - PLAYER_SIZE;
 			m_jumping = false;

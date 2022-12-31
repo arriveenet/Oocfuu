@@ -103,9 +103,9 @@ void Game::drawHUD()
 		fontDraw("TIME");
 		// タイム表示を表示する
 		if (m_visibleTimer) {
-			fontPosition(200, 24);
+			fontPosition(208, 24);
 			//fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
-			fontDraw("%4d", m_time);
+			fontDraw("%03d", m_time);
 		}
 	}
 	fontEnd();

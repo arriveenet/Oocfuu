@@ -42,6 +42,7 @@ void IntroScreen::update()
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
 			g_game.m_isGameOver = false;
+			g_game.m_world = { 1, 1 };
 			g_game.setScreen(GAME_SCREEN_TITLE);
 			break;
 		case INTRO_TIMEUP:
@@ -62,7 +63,7 @@ void IntroScreen::draw()
 
 		fontBegin();
 		fontPosition(88, 80);
-		fontDraw("WORLD 1-1");
+		fontDraw("WORLD %d-%d", g_game.m_world.world, g_game.m_world.stage);
 		fontPosition(120, 112);
 		fontDraw("x");
 		fontPosition(144, 112);

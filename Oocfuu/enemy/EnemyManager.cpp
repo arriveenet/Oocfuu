@@ -35,8 +35,8 @@ void EnemyManager::update()
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
 			itr++) {
-			Kuribo* kuribo = &(*itr);
-			kuribo->update();
+			Kuribo* pKuribo = &(*itr);
+			pKuribo->update();
 		}
 	}
 
@@ -50,8 +50,8 @@ void EnemyManager::draw()
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
 			itr++) {
-			Kuribo* kuribo = &(*itr);
-			kuribo->draw();
+			Kuribo* pKuribo = &(*itr);
+			pKuribo->draw();
 		}
 	}
 

@@ -7,12 +7,15 @@
 #include "font.h"
 #include "Player/Player.h"
 #include "Part.h"
+#include "world/GimmickPart.h"
 #include "Course.h"
 #include "FrameCounter.h"
 
 void MainScreen::init()
 {
 	m_debugDisplay = true;
+	Lift lift(100, 192, 4, LIFTMODE_LEFTANDRIGHT);
+	g_gmmickPart.addLift(lift);
 }
 
 void MainScreen::reset()
@@ -33,6 +36,7 @@ void MainScreen::update()
 		m_debugDisplay = m_debugDisplay ? false : true;
 
 	g_courseManager.update();
+	g_gmmickPart.update();
 	g_player.update();
 	m_enemyManager.update();
 
@@ -47,6 +51,7 @@ void MainScreen::draw()
 {
 	g_game.drawHUD();
 	g_courseManager.draw();
+	g_gmmickPart.draw();
 	g_player.draw();
 	m_enemyManager.draw();
 
