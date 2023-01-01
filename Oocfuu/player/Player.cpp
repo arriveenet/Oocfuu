@@ -203,21 +203,21 @@ void Player::draw()
 	Rect::draw();
 	g_textureManager.unbindTexture();
 
-	glColor3ub(0x00, 0xff, 0x00);
-	fontBegin();
-	fontPosition(0, 0);
-	fontPosition(0, 8 * 4);
-	fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-	fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-	fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
-	fontDraw("ANIMATION:%d\n", m_animeCtr.m_animation);
-	fontDraw("JUMPING :%d\n", g_player.m_jumping);
-	fontDraw("FALLING :%d\n", g_player.m_falling);
-	fontDraw("DEAD    :%d\n", g_player.m_dead);
-	fontEnd();
-	glColor3ub(0xff, 0xff, 0xff);
+	if (Game::m_debugInfo) {
+		glColor3ub(0x00, 0xff, 0x00);
+		fontBegin();
+		fontPosition(0, 0);
+		fontPosition(0, 8 * 4);
+		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+		fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
+		fontDraw("ANIMATION:%d\n", m_animeCtr.m_animation);
+		fontDraw("JUMPING :%d\n", g_player.m_jumping);
+		fontDraw("FALLING :%d\n", g_player.m_falling);
+		fontDraw("DEAD    :%d\n", g_player.m_dead);
+		fontEnd();
+		glColor3ub(0xff, 0xff, 0xff);
 
-	{
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
 		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
 		glDisable(GL_TEXTURE_2D);// GLenum cap
@@ -266,16 +266,6 @@ void Player::draw()
 			0,						// GLint first
 			(GLsizei)m_topPoints.size());	// GLsizei count
 
-		//glColor3ub(0xff, 0x00, 0xff);
-		//glVertexPointer(
-		//	2,						// GLint size
-		//	GL_FLOAT,				// GLenum type
-		//	0,						// GLsizei stride
-		//	&m_position);	// const GLvoid * pointer
-		//glDrawArrays(
-		//	GL_POINTS,				// GLenum mode
-		//	0,						// GLint first
-		//	1);	// GLsizei count
 		glPopAttrib();
 		glPopClientAttrib();
 	}

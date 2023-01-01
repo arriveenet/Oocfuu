@@ -22,6 +22,7 @@ static TEX texs[] =
 	{{"item\\firework_3.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_FIREWORK_3
 	{{"item\\title_2.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_TITLE
 	{{"parts\\part.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_PARTS
+	{{"parts\\fireball.bmp"}, {0xff, 0x00, 0xff}},		// TEXTURE_FIREBALL
 	{{"parts\\lift.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_LIFT
 	{{"font\\CHR000.bmp"}, {0, 64, 128}},				// TEXTURE_FONT
 	{{"enemy\\Koopa_Idle_1.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_KOOPA_IDLE_1

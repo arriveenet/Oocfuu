@@ -24,15 +24,16 @@ class Game {
 	Screen* m_pScreens[GAME_SCREEN_MAX];
 	short m_time;
 	bool m_isTimerUpdate;
+	bool m_visibleTimer;
 
 public:
 	Screen* m_pCurrentScreen;
 	static unsigned int m_count;
+	static bool m_debugInfo;
 	unsigned int m_score;
 	unsigned char m_coin;
 	WORLD m_world;
 	bool m_isGameOver;
-	bool m_visibleTimer;
 
 	int init();
 	void release();

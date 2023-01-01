@@ -15,6 +15,7 @@
 
 Game g_game;
 unsigned int Game::m_count;
+bool Game::m_debugInfo;
 
 int Game::init()
 {
@@ -38,6 +39,7 @@ int Game::init()
 	m_time = GAME_START_TIME;
 	m_isTimerUpdate = false;
 	m_visibleTimer = false;
+	m_debugInfo = false; 
 
 	return 0;
 }
@@ -58,7 +60,7 @@ void Game::update()
 	if (m_isTimerUpdate) {
 		static int lastTime;
 		int time = m_count / GAME_TIMER_LATE;
-		if (time != lastTime) {
+		if ((time != lastTime) && (m_time > 0)) {
 			//printf("time=%d\n", time);
 			m_time--;
 		}

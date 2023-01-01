@@ -6,6 +6,7 @@
 #include "Course.h"
 #include "Rect.h"
 #include "TextureManager.h"
+#include "world/GimmickPart.h"
 
 using namespace glm;
 
@@ -19,7 +20,7 @@ void IntroScreen::reset()
 {
 	g_game.visibleTimer(false);
 	m_counter = 0;
-	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
+	glClearColor(0, 0, 0, 1);
 
 	if (g_game.m_isGameOver)
 		m_intro = INTRO_GAMEOVER;

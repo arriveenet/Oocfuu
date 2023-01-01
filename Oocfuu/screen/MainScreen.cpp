@@ -3,19 +3,20 @@
 #include "MainScreen.h"
 #include "App.h"
 #include "Game.h"
-#include "input/Keyboard.h"
 #include "font.h"
-#include "Player/Player.h"
 #include "Part.h"
-#include "world/GimmickPart.h"
 #include "Course.h"
+#include "Player/Player.h"
 #include "FrameCounter.h"
+#include "input/Keyboard.h"
+#include "world/GimmickPart.h"
 
 void MainScreen::init()
 {
-	m_debugDisplay = true;
-	Lift lift(100, 192, 4, LIFTMODE_LEFTANDRIGHT);
-	g_gmmickPart.addLift(lift);
+	Lift lift(100, 192, 4, LIFT_LEFT_AND_RIGHT);
+	Firebar firebar(150, 150, FIREBAR_ANTICLOCKWISE);
+	//g_gmmickPart.addLift(lift);
+	//g_gmmickPart.addFirebar(firebar);
 }
 
 void MainScreen::reset()
@@ -33,12 +34,12 @@ void MainScreen::update()
 		g_game.setScreen(GAME_SCREEN_TITLE);
 
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
-		m_debugDisplay = m_debugDisplay ? false : true;
+		Game::m_debugInfo = Game::m_debugInfo ? false : true;
 
 	g_courseManager.update();
 	g_gmmickPart.update();
 	g_player.update();
-	m_enemyManager.update();
+	g_enemyManager.update();
 
 	if ((g_player.m_speed.x > 0)
 		&& (g_player.m_position.x > g_courseManager.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
@@ -53,18 +54,13 @@ void MainScreen::draw()
 	g_courseManager.draw();
 	g_gmmickPart.draw();
 	g_player.draw();
-	m_enemyManager.draw();
+	g_enemyManager.draw();
 
-	if (m_debugDisplay) {
-		//glColor3ub(0x00, 0xff, 0x00);
-		//fontBegin();
-		//fontPosition(0, 0);
-		//fontDraw("FPS: %d", g_frameCounter.getFrameCount());
-		//fontPosition(0, 8 * 4);
-		//fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-		//fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-		//fontDraw("JUMPING :%d\n", g_player.m_jumping);
-		//fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
-		//fontEnd();
+	if (Game::m_debugInfo) {
+		fontBegin();
+		glColor3ub(0x00, 0xff, 0x00);
+		fontPosition(0, 0);
+		fontDraw("FPS:%d", g_frameCounter.getFrameCount());
+		fontEnd();
 	}
 }

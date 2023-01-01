@@ -9,7 +9,7 @@
 
 using namespace glm;
 
-Lift::Lift(float _x, float _y, int _width, LIFTMODE _mode)
+Lift::Lift(float _x, float _y, int _width, LIFT_MOVEMENT _mode)
 	: m_width(_width)
 	, m_mode(_mode)
 	, m_speed(0, 0)
@@ -17,10 +17,10 @@ Lift::Lift(float _x, float _y, int _width, LIFTMODE _mode)
 	, Rect(vec2(LIFT_SIZE * _width, LIFT_SIZE), vec2(_x, _y))
 {
 	switch (_mode) {
-	case LIFTMODE_LEFTANDRIGHT:
+	case LIFT_LEFT_AND_RIGHT:
 		m_speed = {LIFT_SPEED, 0};
 		break;
-	case LIFTMODE_UPANDDOWN:
+	case LIFT_UP_AND_DOWN:
 		m_speed = { 0, LIFT_SPEED };
 		break;
 	}
@@ -38,10 +38,10 @@ void Lift::update()
 		|| m_position.y > m_startPosition.y + LIFT_DISTANCE
 		|| m_position.y < m_startPosition.y) {
 		switch (m_mode) {
-		case LIFTMODE_LEFTANDRIGHT:
+		case LIFT_LEFT_AND_RIGHT:
 			m_speed.x = m_speed.x > 0 ? -LIFT_SPEED : LIFT_SPEED;
 			break;
-		case LIFTMODE_UPANDDOWN:
+		case LIFT_UP_AND_DOWN:
 			m_speed.y = m_speed.y > 0 ? -LIFT_SPEED : LIFT_SPEED;
 			break;
 		}

@@ -136,12 +136,4 @@ void App::draw()
 	glColor3ub(0xff, 0xff, 0xff);
 
 	g_game.m_pCurrentScreen->draw();
-
-	fontBegin();
-	{
-		glColor3ub(0x00, 0xff, 0x00);
-		fontPosition(0, 0);
-		fontDraw("FPS:%d", g_frameCounter.getFrameCount());
-	}
-	fontEnd();
 }

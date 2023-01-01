@@ -6,6 +6,7 @@
 #include "Course.h"
 #include "Part.h"
 #include "TextureManager.h"
+#include "world/GimmickPart.h"
 
 using namespace glm;
 using std::vector;
@@ -92,7 +93,7 @@ bool CourseManager::load(const char* _fileName)
 	for (int i = 0; i < m_height; i++) {
 		m_pParts[i] = new int[m_width];
 	}
-	m_isLoaded = true;
+
 
 	/*
 	* fscanf_sで読み込むとなぜかファイルポインタの位置がずれるので位置を調整する
@@ -118,8 +119,25 @@ bool CourseManager::load(const char* _fileName)
 		}
 		fseek(pFile, 2, SEEK_CUR);
 	}
+
+	// 仕掛けパーツをクリアする
+	g_gmmickPart.clear();
+
+	int firebarCount = 0;
+	if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
+		printf("firebaCount=%d\n", firebarCount);
+		for (int i = 0; i < firebarCount; i++) {
+			int x, y, rotate;
+			fscanf_s(pFile, "x=%d y=%d rotate=%d\n", &x, &y, &rotate);
+			printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
+			g_gmmickPart.addFirebar(Firebar((float)x, (float)y, (FIREBAR_ROTATE)rotate));
+		}
+	}
+
+
 	fclose(pFile);
 
+	m_isLoaded = true;
 	update();
 
 	return true;

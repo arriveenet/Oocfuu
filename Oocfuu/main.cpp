@@ -16,10 +16,10 @@
 #endif
 
 #include "App.h"
+#include "font.h"
 #include "sound/audio.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
-#include "font.h"
 
 using namespace glm;
 
@@ -51,6 +51,7 @@ void timer(int value)
 void release()
 {
 	g_app.release();
+	exit(0);
 }
 
 void reshape(int width, int height)
@@ -90,7 +91,7 @@ int main(int argc, char* argv[])
 		glutDisplayFunc(display);
 		glutTimerFunc(0, timer, 0);
 		glutReshapeFunc(reshape);
-		//glutCloseFunc(release);
+		glutCloseFunc(release);
 		Keyboard::init();
 		Mouse::init();
 		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name

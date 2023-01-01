@@ -5,20 +5,19 @@
 #define LIFT_DISTANCE		40
 #define LIFT_SPEED			0.8f
 
-enum LIFTMODE {
-	LIFTMODE_LEFTANDRIGHT,
-	LIFTMODE_UPANDDOWN,
-	LIFTMODE_MAX
+enum LIFT_MOVEMENT {
+	LIFT_LEFT_AND_RIGHT,
+	LIFT_UP_AND_DOWN,
 };
 
 class Lift : public Rect{
 	int m_width;
-	LIFTMODE m_mode;
+	LIFT_MOVEMENT m_mode;
 	glm::vec2 m_speed;
 	glm::vec2 m_startPosition;
 
 public:
-	Lift(float _x, float _y, int _width, LIFTMODE _mode);
+	Lift(float _x, float _y, int _width, LIFT_MOVEMENT _mode);
 
 	void update();
 	void draw();
