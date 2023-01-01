@@ -19,6 +19,7 @@
 Texture::Texture()
 	:m_width(0)
 	, m_height(0)
+	, m_padding(0)
 	, m_bitmapPixels(NULL)
 	, m_pixels(NULL)
 {
@@ -36,6 +37,7 @@ Texture::~Texture()
 	m_bitmapPixels = NULL;
 	m_width = 0;
 	m_height = 0;
+	m_padding = 0;
 }
 
 int Texture::getWidth() const
@@ -107,8 +109,9 @@ int Texture::openBitmapFile(const char* _fileName)
 		m_width = bi.biWidth;
 		m_height = bi.biHeight;
 
-		int padding = ((4 - (3 * m_width) % 4)) % 4;
-		long imageSize = (3 * m_width + padding) * m_height;
+		m_padding = (4 - bi.biWidth * (bi.biBitCount / 8) % 4) % 4;
+		//printf("padding=%d\n", m_padding);
+		long imageSize = (3 * m_width + m_padding) * m_height;
 
 		m_bitmapPixels = new unsigned char[imageSize];
 
@@ -140,10 +143,12 @@ int Texture::createTexImage(unsigned char* _colorKey)
 		return 1;
 
 	// RGBA
+	int pixelIndex = 0;
+	int index = 0;
 	for (int y = 0; y < m_height; y++) {
 		for (int x = 0; x < m_width; x++) {
-			int index = 4 * (m_width * y + x);
-			int pixelIndex = 3 * (m_width * y + x);
+			//int index = 4 * (m_width * y + x);
+			//int pixelIndex = 3 * (m_width * y + x);
 
 			// BGR -> RBG
 			m_pixels[index] = m_bitmapPixels[pixelIndex + 2];
@@ -157,7 +162,13 @@ int Texture::createTexImage(unsigned char* _colorKey)
 				&& (m_pixels[index + 2] == _colorKey[2]))	// b
 				? 0x00
 				: 0xff;
+
+			// 読み込んだピクセル分インデックスを進める
+			index += 4;
+			pixelIndex += 3;
 		}
+		// パディング分インデックスを進める
+		pixelIndex += m_padding;
 	}
 
 	// Swap
