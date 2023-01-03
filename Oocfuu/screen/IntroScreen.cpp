@@ -30,11 +30,12 @@ void IntroScreen::reset()
 
 void IntroScreen::update()
 {
-	if (++m_counter > 60 * 3) {
+	if (++m_counter > 60 * 2) {
 		switch (m_intro) {
 		case INTRO_LOAD:
 			char filePath[64];
 			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt",g_game.m_world.world, g_game.m_world.stage);
+			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt", 1, 4);
 			g_courseManager.load(filePath);
 			g_courseManager.m_scroll = 0.0f;
 			g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);

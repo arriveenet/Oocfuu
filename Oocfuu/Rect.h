@@ -16,6 +16,7 @@ struct Rect {
 	Rect(glm::vec2 const& _size);
 	Rect(glm::vec2 const& _size, glm::vec2 const& _position);
 	void draw();
+	void drawWire();
 	bool intersect(glm::vec2 const& _point);
 	bool intersect(Rect const& _rect);
 };

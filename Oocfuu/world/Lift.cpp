@@ -63,6 +63,10 @@ void Lift::draw()
 		Rect(vec2(LIFT_SIZE, LIFT_SIZE), vec2(m_position.x + (i * LIFT_SIZE), m_position.y)).draw();
 	}
 	g_textureManager.unbindTexture();
+
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
+	}
 }
 
 bool Lift::intersect(glm::vec2 const& _point)

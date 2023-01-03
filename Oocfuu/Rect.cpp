@@ -66,6 +66,19 @@ void Rect::draw() {
 	glEnd();
 }
 
+void Rect::drawWire()
+{
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glDisable(GL_TEXTURE_2D);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glRectf(
+		m_position.x,				// GLfloat x1
+		m_position.y,				// GLfloat y1
+		m_position.x + m_size.x,	// GLfloat x2
+		m_position.y + m_size.y);	// GLfloat y2
+	glPopAttrib();
+}
+
 bool Rect::intersect(vec2 const& _point) {
 	if (
 		(_point.x >= m_position.x)

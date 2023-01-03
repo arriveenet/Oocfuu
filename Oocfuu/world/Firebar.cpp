@@ -55,10 +55,7 @@ void Firebar::draw()
 	}
 	g_textureManager.unbindTexture();
 
-	//glPushMatrix();
-	//glTranslatef(pos.x, pos.y, 0);
-	//glRotatef(m_angle, 0, 0, 1);
-
-	//Rect::draw();
-	//glPopMatrix();
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
+	}
 }

@@ -7,6 +7,7 @@
 #include "Part.h"
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
+#include "enemy/EnemyManager.h"
 
 using namespace glm;
 using std::vector;
@@ -134,6 +135,34 @@ bool CourseManager::load(const char* _fileName)
 		}
 	}
 
+	int liftCount = 0;
+	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
+		printf("liftCount=%d\n", liftCount);
+		for (int i = 0; i < liftCount; i++) {
+			int x, y, width, mode;
+			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
+			printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
+			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
+		}
+	}
+
+	// 敵キャラクターの読み込み
+	g_enemyManager.reset();
+	int enemyCount = 0;
+	int enemyFlag = 0;
+	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
+		printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
+		g_enemyManager.m_enemyFlag = enemyFlag;
+		for (int i = 0; i < enemyCount; i++) {
+			int type, x, y;
+			fscanf_s(pFile, "type=%d x=%d y=%d\n", &type, &x, &y);
+			printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
+			ENEMYINFO enemy;
+			enemy.type = (ENEMYTYPE)type;
+			enemy.position = ivec2(x, y);
+			g_enemyManager.addEnemy(enemy);
+		}
+	}
 
 	fclose(pFile);
 

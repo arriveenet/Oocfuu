@@ -125,23 +125,26 @@ void Kuribo::draw()
 	Rect::draw();
 	g_textureManager.unbindTexture();
 
-	//{
-	//	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
-	//	glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
-	//	glDisable(GL_TEXTURE_2D);// GLenum cap
-	//	glColor3ub(0xff, 0x00, 0x00);
-	//	glEnableClientState(GL_VERTEX_ARRAY);// GLenum array
-	//	glVertexPointer(
-	//		2,						// GLint size
-	//		GL_FLOAT,				// GLenum type
-	//		0,						// GLsizei stride
-	//		&m_position);	// const GLvoid * pointer
-	//	glDrawArrays(
-	//		GL_POINTS,				// GLenum mode
-	//		0,						// GLint first
-	//		1);	// GLsizei count
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
 
-	//	glPopAttrib();
-	//	glPopClientAttrib();
-	//}
+		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
+		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
+		glDisable(GL_TEXTURE_2D);// GLenum cap
+		glColor3ub(0xff, 0x00, 0x00);
+		glEnableClientState(GL_VERTEX_ARRAY);// GLenum array
+		glVertexPointer(
+			2,						// GLint size
+			GL_FLOAT,				// GLenum type
+			0,						// GLsizei stride
+			&m_position);	// const GLvoid * pointer
+		glDrawArrays(
+			GL_POINTS,				// GLenum mode
+			0,						// GLint first
+			1);	// GLsizei count
+
+		glPopAttrib();
+		glPopClientAttrib();
+
+	}
 }

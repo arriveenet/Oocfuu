@@ -4,9 +4,10 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#define KOOPA_WIDTH			32
-#define KOOPA_HEIGHT		32
-#define KOOPA_FALL_SPEED	0.3f
+#define KOOPA_WIDTH				32
+#define KOOPA_HEIGHT			32
+#define KOOPA_FALL_SPEED		0.3f
+#define KOOPA_JUMP_COUNT_MAX	8
 
 enum KOOPAP_STATE {
 	KOOPAP_STATE_IDLE,
@@ -18,7 +19,10 @@ enum KOOPAP_STATE {
 
 class Koopa : public Sprite {
 	bool m_dead;
+	bool m_jumping;
+	int m_jumpCount;
 	bool m_falling;
+	bool m_lastFalling;
 	KOOPAP_STATE m_state;
 	int m_counter;
 	glm::vec2 m_speed;
@@ -32,4 +36,7 @@ public:
 
 	void update() override;
 	void draw() override;
+
+protected:
+	void jump();
 };

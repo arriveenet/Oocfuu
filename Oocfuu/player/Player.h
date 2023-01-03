@@ -1,5 +1,5 @@
 #pragma once
-#include "../Sprite.h"
+#include "Sprite.h"
 #include "PlayerStateContext.h"
 #include "PlayerState.h"
 #include <vector>
@@ -38,6 +38,7 @@ public:
 	char m_left;
 	bool m_dead;
 	bool m_goal;
+	bool m_visible;
 
 	Player();
 	~Player();
@@ -47,6 +48,7 @@ public:
 	void respawn(float _x, float _y);
 	void update();
 	void draw();
+	void kill();
 };
 
 extern Player g_player;

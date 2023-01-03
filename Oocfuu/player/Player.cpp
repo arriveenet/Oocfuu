@@ -15,18 +15,6 @@
 #include "sound/Sound.h"
 #include "world/GimmickPart.h"
 
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 using namespace glm;
 using std::vector;
 
@@ -41,6 +29,7 @@ Player::Player()
 	, m_left(PLAYER_START_LEFT)
 	, m_dead(false)
 	, m_goal(false)
+	, m_visible(true)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
 	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
@@ -74,6 +63,7 @@ void Player::reset()
 	m_left = PLAYER_START_LEFT;
 	m_dead = false;
 	m_goal = false;
+	m_visible = true;
 }
 
 void Player::respawn(float _x, float _y)
@@ -88,6 +78,7 @@ void Player::respawn(float _x, float _y)
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_dead = false;
 	m_goal = false;
+	m_visible = true;
 }
 
 void Player::update()
@@ -199,6 +190,9 @@ void Player::update()
 
 void Player::draw()
 {
+	if (!m_visible)
+		return;
+
 	g_textureManager.setTexture((TEXTURE)g_animations[m_animeCtr.m_animation].m_keys[m_animeCtr.m_time]);
 	Rect::draw();
 	g_textureManager.unbindTexture();
@@ -268,5 +262,13 @@ void Player::draw()
 
 		glPopAttrib();
 		glPopClientAttrib();
+
+		Rect::drawWire();
 	}
+}
+
+void Player::kill()
+{
+	m_dead = true;
+	m_pStateContext->setStete(new PlayerStateDie);
 }

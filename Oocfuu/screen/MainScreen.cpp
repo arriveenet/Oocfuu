@@ -13,10 +13,6 @@
 
 void MainScreen::init()
 {
-	Lift lift(100, 192, 4, LIFT_LEFT_AND_RIGHT);
-	Firebar firebar(150, 150, FIREBAR_ANTICLOCKWISE);
-	//g_gmmickPart.addLift(lift);
-	//g_gmmickPart.addFirebar(firebar);
 }
 
 void MainScreen::reset()

@@ -18,6 +18,9 @@
 #include "FrameCounter.h"
 
 #include <stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <psapi.h>
 #include <gl/freeglut.h>
 
 App g_app;

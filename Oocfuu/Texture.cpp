@@ -98,7 +98,7 @@ int Texture::openBitmapFile(const char* _fileName)
 	BITMAPINFOHEADER bi;
 
 	if (fopen_s(&pFile, _fileName, "rb") == 0) {
-		printf("The file was %s opened.\n", _fileName);
+		//printf("The file was %s opened.\n", _fileName);
 
 		fread(&bf, sizeof BITMAPFILEHEADER, 1, pFile);
 		//printf("bfSize: %d\n", bf.bfSize);
@@ -126,7 +126,7 @@ int Texture::openBitmapFile(const char* _fileName)
 
 		fclose(pFile);
 	} else {
-		printf("The file was %s open failed.\n", _fileName);
+		//printf("The file was %s open failed.\n", _fileName);
 		return 1;
 	}
 

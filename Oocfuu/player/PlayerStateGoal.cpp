@@ -76,6 +76,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 				_pPlayer->m_falling = true;
 				m_state = PLAYERSTATEGOAL_WAIT;
 				m_counter = 0;
+				_pPlayer->m_visible = false;
 				break;
 			}
 		}
