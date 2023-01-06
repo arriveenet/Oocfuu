@@ -81,9 +81,9 @@ void TitleScreen::draw()
 
 	fontBegin();
 	fontPosition(120, 120);
-	glColor3ub(252, 188, 176);
+	fontColor(252, 188, 176);
 	fontDraw("b2022 OOCFUU");
-	glColor3ub(0xff, 0xff, 0xff);
+	fontColor(0xff, 0xff, 0xff);
 	fontPosition(72, 144);
 	for (int i = 0; i < MODE_MAX; i++) {
 		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);

@@ -54,9 +54,12 @@ void MainScreen::draw()
 
 	if (Game::m_debugInfo) {
 		fontBegin();
-		glColor3ub(0x00, 0xff, 0x00);
+		fontColor(0x00, 0xff, 0x00);
+		fontBackgroundColor(true);
 		fontPosition(0, 0);
 		fontDraw("FPS:%d", g_frameCounter.getFrameCount());
+		fontBackgroundColor(false);
+		fontColor(0xff, 0xff, 0xff);
 		fontEnd();
 	}
 }

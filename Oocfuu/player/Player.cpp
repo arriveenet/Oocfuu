@@ -190,15 +190,15 @@ void Player::update()
 
 void Player::draw()
 {
-	if (!m_visible)
-		return;
-
-	g_textureManager.setTexture((TEXTURE)g_animations[m_animeCtr.m_animation].m_keys[m_animeCtr.m_time]);
-	Rect::draw();
-	g_textureManager.unbindTexture();
+	if (m_visible) {
+		g_textureManager.setTexture((TEXTURE)g_animations[m_animeCtr.m_animation].m_keys[m_animeCtr.m_time]);
+		Rect::draw();
+		g_textureManager.unbindTexture();
+	}
 
 	if (Game::m_debugInfo) {
-		glColor3ub(0x00, 0xff, 0x00);
+		fontColor(0x00, 0xff, 0x00);
+		fontBackgroundColor(true);
 		fontBegin();
 		fontPosition(0, 0);
 		fontPosition(0, 8 * 4);
@@ -210,7 +210,8 @@ void Player::draw()
 		fontDraw("FALLING :%d\n", g_player.m_falling);
 		fontDraw("DEAD    :%d\n", g_player.m_dead);
 		fontEnd();
-		glColor3ub(0xff, 0xff, 0xff);
+		fontBackgroundColor(false);
+		fontColor(0xff, 0xff, 0xff);
 
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
 		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
