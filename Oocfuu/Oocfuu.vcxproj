@@ -154,6 +154,7 @@
     <ClCompile Include="enemy\EnemyManager.cpp" />
     <ClCompile Include="enemy\Koopa.cpp" />
     <ClCompile Include="enemy\Kuribo.cpp" />
+    <ClCompile Include="enemy\Nokonoko.cpp" />
     <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameCounter.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -197,6 +198,7 @@
     <ClInclude Include="enemy\EnemyManager.h" />
     <ClInclude Include="enemy\Koopa.h" />
     <ClInclude Include="enemy\Kuribo.h" />
+    <ClInclude Include="enemy\Nokonoko.h" />
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />
