@@ -16,6 +16,7 @@ void EnemyManager::addEnemy(const ENEMYINFO& _info)
 		m_kuribos.push_back(Kuribo(_info.position));
 		break;
 	case ENEMYTYPE_NOKONIKO:
+		m_nokonokos.push_back(Nokonoko(_info.position));
 		break;
 	case ENEMYTYPE_KOOPA:
 		m_koopa.m_position = _info.position;
@@ -26,6 +27,7 @@ void EnemyManager::addEnemy(const ENEMYINFO& _info)
 void EnemyManager::reset()
 {
 	m_kuribos.clear();
+	m_nokonokos.clear();
 	m_enemyFlag = 0;
 }
 
@@ -35,8 +37,15 @@ void EnemyManager::update()
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
 			itr++) {
-			Kuribo* pKuribo = &(*itr);
-			pKuribo->update();
+			itr->update();
+		}
+	}
+
+	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
+		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
+			itr != m_nokonokos.end();
+			itr++) {
+			itr->update();
 		}
 	}
 
@@ -50,8 +59,15 @@ void EnemyManager::draw()
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
 			itr++) {
-			Kuribo* pKuribo = &(*itr);
-			pKuribo->draw();
+			itr->draw();
+		}
+	}
+
+	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
+		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
+			itr != m_nokonokos.end();
+			itr++) {
+			itr->draw();
 		}
 	}
 

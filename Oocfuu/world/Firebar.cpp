@@ -15,13 +15,13 @@ using namespace glm;
 Firebar::Firebar(float _x, float _y, FIREBAR_ROTATE _rotate)
 	: m_angle(0.0f)
 	, m_rotate(_rotate)
-	, Rect(vec2(FIREBALL_SIZE* FIREBAR_WIDTH, FIREBALL_SIZE), vec2(_x, _y))
+	, m_position(_x, _y)
 {
 }
 
 void Firebar::upadte()
 {
-	if ((g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
+	if ((g_courseManager.m_scroll > m_position.x + (PART_SIZE * 4))
 		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
@@ -40,7 +40,7 @@ void Firebar::upadte()
 
 void Firebar::draw()
 {
-	if ((g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
+	if ((g_courseManager.m_scroll > m_position.x + (PART_SIZE * 4))
 		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
@@ -51,11 +51,10 @@ void Firebar::draw()
 			{ m_position.x + cosf(radians(m_angle)) * (FIREBALL_SIZE * i),
 			m_position.y + sinf(radians(m_angle)) * (FIREBALL_SIZE * i) };
 
-		Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position).draw();
+		Rect fireball = Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position);
+		fireball.draw();
+		if (Game::m_debugInfo)
+			fireball.drawWire();
 	}
 	g_textureManager.unbindTexture();
-
-	if (Game::m_debugInfo) {
-		Rect::drawWire();
-	}
 }
