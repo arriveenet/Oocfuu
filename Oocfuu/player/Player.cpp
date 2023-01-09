@@ -126,7 +126,10 @@ void Player::update()
 		iter != m_topPoints.end();
 		iter++) {
 		if (g_courseManager.intersect(*iter, &parts)) {
+			vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
+			m_position.y = top.y + PLAYER_SIZE;
 			m_jumping = false;
+			//m_falling = true;
 			topHit = true;
 			break;
 		}
