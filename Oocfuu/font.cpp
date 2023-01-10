@@ -177,7 +177,7 @@ void fontDraw(const char* format, ...)
 	// Draw background color
 	if (background) {
 		glDisable(GL_TEXTURE_2D);
-		glColor4ub(0x40, 0x40, 0x40, 0xc0);
+		glColor4ub(0x40, 0x40, 0x40, 0x80);
 		glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
 		glEnable(GL_TEXTURE_2D);
 	}
