@@ -150,6 +150,7 @@
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="enemy\EnemyManager.cpp" />
     <ClCompile Include="enemy\Koopa.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="enemy\Enemy.h" />
     <ClInclude Include="enemy\EnemyManager.h" />
