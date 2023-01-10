@@ -112,13 +112,15 @@ void Player::update()
 	m_bottomPoints.clear();
 	m_topPoints.clear();
 
+	// 左の当たり判定ポイント
 	m_leftPoints.push_back(m_position);
+	// 右の当たり判定ポイント
 	m_rightPoints.push_back(m_position + m_size + vec2(0, -PART_SIZE));
-
+	// 下の当たり判定ポイント
 	m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
 	m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
-
-	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
+	// 上の当たり判定ポイント
+	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, 0));
 
 	bool topHit = false;
 	static int parts;
@@ -128,6 +130,7 @@ void Player::update()
 		if (g_courseManager.intersect(*iter, &parts)) {
 			vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
 			m_position.y = top.y + PLAYER_SIZE;
+			m_speed.y = 0;
 			m_jumping = false;
 			//m_falling = true;
 			topHit = true;
@@ -178,6 +181,7 @@ void Player::update()
 		if (g_courseManager.intersect(*iter)) {
 			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 			m_position.y = bottom.y - PLAYER_SIZE;
+			m_speed.y = 0;
 			m_jumping = false;
 			m_falling = false;
 			break;
