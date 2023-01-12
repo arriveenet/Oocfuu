@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Collision.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -19,10 +20,7 @@ class Nokonoko : public Sprite{
 	NOKONOKO_STATE m_state;
 	int m_counter;
 	glm::vec2 m_speed;
-	glm::vec2 m_rightPoint;
-	glm::vec2 m_leftPoint;
-	glm::vec2 m_topPoint;
-	std::vector<glm::vec2> m_bottomPoints;
+	Collision m_collision;
 
 public:
 	Nokonoko();

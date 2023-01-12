@@ -33,6 +33,7 @@ void EnemyManager::reset()
 
 void EnemyManager::update()
 {
+	// クリボーを更新
 	if (m_enemyFlag & ENEMYFLAG_KURIBO) {
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
@@ -41,6 +42,7 @@ void EnemyManager::update()
 		}
 	}
 
+	// ノコノコを更新
 	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
 		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
 			itr != m_nokonokos.end();
@@ -49,6 +51,7 @@ void EnemyManager::update()
 		}
 	}
 
+	// クッパを更新
 	if(m_enemyFlag & ENEMYFLAG_KOOPA)
 		m_koopa.update();
 }
