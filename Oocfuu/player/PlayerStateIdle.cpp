@@ -28,7 +28,7 @@ void PlayerStateIdle::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		_pStateContext->setStete(new PlayerStateRun);
 	}
 
-	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]) {
+	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP] && !_pPlayer->m_falling) {
 		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_JUMP);
 		_pStateContext->setStete(new PlayerStateJump);
 	}
