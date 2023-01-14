@@ -65,6 +65,8 @@ Part g_parts[PART_MAX] = {
 	 {"w2.bmp",},// PART_WOOD_2
 	 {"w3.bmp,",},// PART_WOOD_3
 	 {"br.bmp,",},// PART_BRIDGE
+	 {"mg.bmp,",},//PART_MAGMA_0
+	 {"mh.bmp,",},	//PART_MAGMA_1
 };
 
 int Part::init() {
