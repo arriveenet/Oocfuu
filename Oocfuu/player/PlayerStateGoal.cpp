@@ -55,6 +55,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		break;
 	case PLAYERSTATEGOAL_MOVE:
 		_pPlayer->m_speed.x = PLAYER_GOAL_MOVE_SPEED;
+		_pPlayer->m_speed.y += PLAYER_GRAVITY;
 		break;
 	case PLAYERSTATEGOAL_WAIT:
 		if (m_counter > 60 * 3) {
