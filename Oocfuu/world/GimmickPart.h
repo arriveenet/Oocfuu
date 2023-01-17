@@ -24,7 +24,7 @@ public:
 	void clear();
 	void addFirebar(const Firebar& _firebar);
 	void addLift(const Lift& _lift);
-	bool intersectLift(const glm::vec2& _point);
+	bool intersectLift(const glm::vec2& _point, glm::vec2& _liftPosition, glm::vec2& _liftSpeed);
 };
 
 extern GimmickPart g_gmmickPart;

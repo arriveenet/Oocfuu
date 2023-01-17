@@ -15,6 +15,7 @@ class Firebar{
 	glm::vec2 m_position;
 	float m_angle;
 	FIREBAR_ROTATE m_rotate;
+	Rect m_fireballs[FIREBAR_WIDTH];
 
 public:
 	Firebar(float _x, float _y, FIREBAR_ROTATE _rotate);

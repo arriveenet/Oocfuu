@@ -1,6 +1,7 @@
 #include "GimmickPart.h"
 
 using namespace std;
+using namespace glm;
 
 GimmickPart g_gmmickPart;
 
@@ -63,14 +64,15 @@ void GimmickPart::addLift(const Lift& _lift)
 	m_lifts.push_back(_lift);
 }
 
-bool GimmickPart::intersectLift(const glm::vec2& _point)
+bool GimmickPart::intersectLift(const vec2& _point, vec2& _liftPosition, vec2& _liftSpeed)
 {
-	for (vector<Lift>::iterator itr = m_lifts.begin();
-		itr != m_lifts.end();
-		itr++) {
-		Lift* pLift = &(*itr);
-		if (pLift->intersect(_point))
+	vector<Lift>::iterator itr = m_lifts.begin();
+	for (; itr != m_lifts.end(); itr++) {
+		if (itr->intersect(_point)) {
+			_liftPosition = itr->m_position;
+			_liftSpeed = itr->getSpeed();
 			return true;
+		}
 	}
 	return false;
 }

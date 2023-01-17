@@ -22,5 +22,6 @@ public:
 	void update();
 	void draw();
 	bool intersect(glm::vec2 const& _point);
+	glm::vec2 getSpeed() const { return m_speed; };
 };
 

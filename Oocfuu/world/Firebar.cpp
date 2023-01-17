@@ -51,10 +51,10 @@ void Firebar::draw()
 			{ m_position.x + cosf(radians(m_angle)) * (FIREBALL_SIZE * i),
 			m_position.y + sinf(radians(m_angle)) * (FIREBALL_SIZE * i) };
 
-		Rect fireball = Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position);
-		fireball.draw();
+		m_fireballs[i] = Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position);
+		m_fireballs[i].draw();
 		if (Game::m_debugInfo)
-			fireball.drawWire();
+			m_fireballs[i].drawWire();
 	}
 	g_textureManager.unbindTexture();
 }
