@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateJump.h"
 #include "PlayerStateDie.h"
 #include "PlayerStateGoal.h"
 
@@ -14,6 +15,8 @@
 #include "animation/Animation.h"
 #include "sound/Sound.h"
 #include "world/GimmickPart.h"
+#include "sound/Music.h"
+#include "score/Komm_susser_Tod.h"
 
 using namespace glm;
 using std::vector;
@@ -29,6 +32,7 @@ Player::Player()
 	, m_left(PLAYER_START_LEFT)
 	, m_dead(false)
 	, m_goal(false)
+	, m_clear(false)
 	, m_visible(true)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
@@ -63,6 +67,7 @@ void Player::reset()
 	m_left = PLAYER_START_LEFT;
 	m_dead = false;
 	m_goal = false;
+	m_clear = false;
 	m_visible = true;
 }
 
@@ -78,6 +83,7 @@ void Player::respawn(float _x, float _y)
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_dead = false;
 	m_goal = false;
+	m_clear = false;
 	m_visible = true;
 }
 
@@ -156,6 +162,14 @@ void Player::update()
 						g_game.stopTimer();
 						m_pStateContext->setStete(new PlayerStateGoal);
 						break;
+					} else if (parts == PART_AXE && (!m_clear)) {
+						m_clear = true;
+						printf("clear\n");
+						g_game.stopTimer();
+						g_music.resetScore();
+						g_music.setScore(AUDIO_CHANNEL_PULSE0, komm::pulse0, komm::PULSE0_COUNT);
+						g_music.setScore(AUDIO_CHANNEL_PULSE1, komm::triangle, komm::TRIANGLE_COUNT);
+						g_music.play();
 					}
 					break;
 				}
@@ -284,4 +298,9 @@ void Player::kill()
 	//printf("Player::kill()\n");
 	m_dead = true;
 	m_pStateContext->setStete(new PlayerStateDie);
+}
+
+void Player::jump()
+{
+	m_pStateContext->setStete(new PlayerStateJump);
 }

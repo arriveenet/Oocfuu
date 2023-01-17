@@ -38,6 +38,7 @@ public:
 	char m_left;
 	bool m_dead;
 	bool m_goal;
+	bool m_clear;
 	bool m_visible;
 
 	Player();
@@ -49,6 +50,7 @@ public:
 	void update();
 	void draw();
 	void kill();
+	void jump();
 };
 
 extern Player g_player;
