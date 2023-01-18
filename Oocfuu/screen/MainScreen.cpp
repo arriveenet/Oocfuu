@@ -14,10 +14,7 @@
 
 void MainScreen::init()
 {
-<<<<<<< HEAD
-=======
 	m_pause = false;
->>>>>>> master
 }
 
 void MainScreen::reset()
