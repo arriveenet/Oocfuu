@@ -335,6 +335,9 @@
     <ClInclude Include="Collision.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="score\Komm_susser_Tod.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico">

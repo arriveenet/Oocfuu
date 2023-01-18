@@ -66,6 +66,7 @@ enum {
 	PART_BRIDGE,
 	PART_MAGMA_0,
 	PART_MAGMA_1,
+	PART_AXE,
 	PART_MAX
 };
 
