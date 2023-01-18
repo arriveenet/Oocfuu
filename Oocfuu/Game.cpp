@@ -13,20 +13,9 @@
 
 #include <freeglut.h>
 
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 Game g_game;
 unsigned int Game::m_count;
+bool Game::m_debugInfo;
 
 int Game::init()
 {
@@ -66,6 +55,17 @@ void Game::release()
 void Game::update()
 {
 	m_count++;
+
+	// タイマーをカウントダウンさせる
+	if (m_isTimerUpdate) {
+		static int lastTime;
+		int time = m_count / GAME_TIMER_LATE;
+		if ((time != lastTime) && (m_time > 0)) {
+			//printf("time=%d\n", time);
+			m_time--;
+		}
+		lastTime = time;
+	}
 }
 
 void Game::setScreen(int _screen) {

@@ -2,15 +2,12 @@
 #include <gl/freeglut.h>
 
 #include "TitleScreen.h"
-#include "../Game.h"
+#include "Game.h"
 #include "input/Keyboard.h"
-#include "../font.h"
-#include "../Player/Player.h"
-#include "../Course.h"
-#include "../TextureManager.h"
-
-#define TITLE_SCREEN_WIDTH	16
-#define TITLE_SCREEN_HEIGHT	15
+#include "font.h"
+#include "Player/Player.h"
+#include "Course.h"
+#include "TextureManager.h"
 
 using namespace glm;
 
@@ -39,6 +36,7 @@ void TitleScreen::init()
 void TitleScreen::reset()
 {
 	g_player.reset();
+	g_game.visibleTimer(false);
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_courseManager.load("resource\\course\\course1-1.txt");
 	g_courseManager.m_scroll = 0.0f;
@@ -83,7 +81,9 @@ void TitleScreen::draw()
 
 	fontBegin();
 	fontPosition(120, 120);
+	fontColor(252, 188, 176);
 	fontDraw("b2022 OOCFUU");
+	fontColor(0xff, 0xff, 0xff);
 	fontPosition(72, 144);
 	for (int i = 0; i < MODE_MAX; i++) {
 		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);

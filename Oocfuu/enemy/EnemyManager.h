@@ -1,5 +1,6 @@
 #pragma once
 #include "Kuribo.h"
+#include "Nokonoko.h"
 #include "Koopa.h"
 
 #include <vector>
@@ -24,6 +25,7 @@ typedef struct tagENEMYINFO {
 
 class EnemyManager {
 	std::vector<Kuribo> m_kuribos;
+	std::vector<Nokonoko> m_nokonokos;
 	Koopa m_koopa;
 
 public:

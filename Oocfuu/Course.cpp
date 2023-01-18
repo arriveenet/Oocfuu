@@ -2,22 +2,12 @@
 #include <string.h>
 
 #include "App.h"
-//#include "Game.h"
+#include "Game.h"
 #include "Course.h"
 #include "Part.h"
 #include "TextureManager.h"
-
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
+#include "world/GimmickPart.h"
+#include "enemy/EnemyManager.h"
 
 using namespace glm;
 using std::vector;
@@ -28,30 +18,17 @@ CourseManager::CourseManager()
 	: m_scroll(0.0f)
 	, m_width(0)
 	, m_height(0)
+	, m_clearColor(0)
+	, m_startPosition(0, 0)
+	, m_nextWorld{1, 1}
 	, m_pParts(NULL)
+	, m_isLoaded(false)
 {
 }
 
 CourseManager::~CourseManager()
 {
-	release();
-}
 
-bool CourseManager::init(int _width, int _height)
-{
-	m_width = _width;
-	m_height = _height;
-	m_pParts = NULL;
-
-	m_pParts = new int* [m_height];
-	for (int i = 0; i < m_height; i++) {
-		m_pParts[i] = new int[m_width];
-	}
-
-	if (m_pParts)
-		return true;
-
-	return false;
 }
 
 void CourseManager::release()
@@ -71,22 +48,66 @@ bool CourseManager::load(const char* _fileName)
 {
 	FILE* pFile;
 	errno_t error;
+	int width = 0, height = 0, color, startX, startY, nextWorld, nextStage;
 
 	error = fopen_s(&pFile, _fileName, "r");
 	if (error != 0) {
-#if _DEBUG
 		printf("The file %s was open failed!\n", _fileName);
-#endif
 		return false;
 	}
-#if _DEBUG
+
 	printf("The file %s was opened!\n", _fileName);
-#endif
+
+	// コースファイルのヘッダを読み込む
+	fscanf_s(pFile, "width=%d height=%d color=%d startX=%d startY=%d nextWorld=%d nextStage=%d",
+		&width, &height, &color, &startX, &startY, &nextWorld, &nextStage);
+
+	printf("/---------------COURSE INFO----------------/\n");
+	printf("width height : %d, %d\n", width, height);
+	printf("clear color : %d, %d, %d\n", GetRValue(color), GetGValue(color), GetBValue(color));
+	printf("start position : %d, %d\n", startX, startY);
+	printf("next world : %d-%d\n", nextWorld, nextStage);
+	printf("/-----------------------------------------/\n");
+
+	if (width <= 0 || height <= 0)
+		return false;
+
+	// すでにコースが読み込まれていた場合メモリを開放する
+	if (m_isLoaded) {
+		if (m_pParts) {
+			for (int i = 0; i < m_height; ++i) {
+				delete m_pParts[i];
+			}
+			delete[] m_pParts;
+		}
+		m_pParts = NULL;
+	}
+
+	// メンバ変数に代入する
+	m_width = width;
+	m_height = height;
+	m_clearColor = color;
+	m_startPosition = ivec2(startX, startY);
+	m_nextWorld = { (unsigned char)nextWorld, (unsigned char)nextStage };
+
+	m_pParts = new int* [m_height];
+	for (int i = 0; i < m_height; i++) {
+		m_pParts[i] = new int[m_width];
+	}
+
+
+	/*
+	* fscanf_sで読み込むとなぜかファイルポインタの位置がずれるので位置を調整する
+	*/
+	rewind(pFile);	// ファイルポインタを最初に戻す
+	char str[256];
+	fgets(str, sizeof str, pFile);	// 一行ファイルポインタを読み込む
+
 	for (int i = 0; i < m_height; i++) {
 		for (int j = 0; j < m_width; j++) {
 			char buf[2];
 			fread(buf, sizeof(char), 2, pFile);
-			//printf("%d-%d %c%c", i, j, buf[0], buf[1]);
+			//printf("[%d-%d] %c%c\n", i, j, buf[0], buf[1]);
 			if (buf[0] == 0x20) {
 				m_pParts[i][j] = PART_NONE;
 			} else
@@ -99,8 +120,53 @@ bool CourseManager::load(const char* _fileName)
 		}
 		fseek(pFile, 2, SEEK_CUR);
 	}
+
+	// 仕掛けパーツをクリアする
+	g_gmmickPart.clear();
+
+	int firebarCount = 0;
+	if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
+		printf("firebaCount=%d\n", firebarCount);
+		for (int i = 0; i < firebarCount; i++) {
+			int x, y, rotate;
+			fscanf_s(pFile, "x=%d y=%d rotate=%d\n", &x, &y, &rotate);
+			printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
+			g_gmmickPart.addFirebar(Firebar((float)x, (float)y, (FIREBAR_ROTATE)rotate));
+		}
+	}
+
+	int liftCount = 0;
+	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
+		printf("liftCount=%d\n", liftCount);
+		for (int i = 0; i < liftCount; i++) {
+			int x, y, width, mode;
+			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
+			printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
+			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
+		}
+	}
+
+	// 敵キャラクターの読み込み
+	g_enemyManager.reset();
+	int enemyCount = 0;
+	int enemyFlag = 0;
+	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
+		printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
+		g_enemyManager.m_enemyFlag = enemyFlag;
+		for (int i = 0; i < enemyCount; i++) {
+			int type, x, y;
+			fscanf_s(pFile, "type=%d x=%d y=%d\n", &type, &x, &y);
+			printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
+			ENEMYINFO enemy;
+			enemy.type = (ENEMYTYPE)type;
+			enemy.position = ivec2(x, y);
+			g_enemyManager.addEnemy(enemy);
+		}
+	}
+
 	fclose(pFile);
 
+	m_isLoaded = true;
 	update();
 
 	return true;
@@ -126,30 +192,30 @@ void CourseManager::update()
 				continue;
 
 			int textureIndex = part;
-			//switch (part) {
-			//case PART_QUESTION0:
-			//{
-			//	int animationTable[] = { 0,1,2,2,1,0 };
-			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
-			//	textureIndex += animationTable[(g_game.m_count / 8) % animationTableLength];
-			//}
-			//break;
-			//case PART_SEA_0:
-			//{
-			//	int animationTable[] = { 0,1,2,3,4,5,6,7 };
-			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
-			//	textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
-			//}
-			//break;
-			//case PART_DESERT_1:
-			//{
-			//	int animationTable[] = { 0,1,2,3,4,5,6,7 };
-			//	int animationTableLength = sizeof(animationTable) / sizeof(int);
-			//	textureIndex += animationTable[(g_game.m_count / 16) % animationTableLength];
+			switch (part) {
+			case PART_QUESTION0:
+			{
+				int animationTable[] = { 0,1,2,2,1,0 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
+			}
+			break;
+			case PART_SEA_0:
+			{
+				int animationTable[] = { 0,1,2,3,4,5,6,7 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
+			}
+			break;
+			case PART_DESERT_1:
+			{
+				int animationTable[] = { 0,1,2,3,4,5,6,7 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 
-			//}
-			//break;
-			//}
+			}
+			break;
+			}
 			textureIndex--;
 
 			float x2 = (float)x * PART_SIZE;
@@ -244,30 +310,10 @@ bool CourseManager::intersect(vec2 const& _point) {
 	case PART_QUESTION2:
 	case PART_QUESTION3:
 	case PART_GROUND_2:
-		//case PART_CLOUD_UP_LEFT:
-		//case PART_CLOUD_UP:
-		//case PART_CLOUD_UP_RIGHT:
-		//case PART_CLOUD_DOWN_LEFT:
-		//case PART_CLOUD_DOWN:
-		//case PART_CLOUD_DOWN_RIGHT:
-		//case PART_TREE_LEFT:
-		//case PART_TREE_CENTER:
-		//case PART_TREE_RIGHT:
-		//case PART_MOUNTAIN_TOP:
-		//case PART_MOUNTAIN_LEFT:
-		//case PART_MOUNTAIN_CENTER0:
-		//case PART_MOUNTAIN_RIGHT:
-		//case PART_MOUNTAIN_PLANE:
-		//case PART_MOUNTAIN_CENTER1:
-		//case PART_GOAL_TOP:
-		//case PART_GOAL_POLE:
-		//case PART_FORT_TOP:
-		//case PART_FORT_LEFT:
-		//case PART_FORT_WALL:
-		//case PART_FORT_RIGHT:
-		//case PART_FORT_MIDDLE:
-		//case PART_FORT_GATE_UP:
-		//case PART_FORT_GATE_DOWN:
+	case PART_WOOD_0:
+	case PART_WOOD_1:
+	case PART_WOOD_2:
+	case PART_BRIDGE:
 		return true;
 	}
 	return false;

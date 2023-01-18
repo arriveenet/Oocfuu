@@ -52,6 +52,12 @@
     <Filter Include="ヘッダー ファイル\input">
       <UniqueIdentifier>{5b74ed34-c032-4889-bba9-2bb44ece5250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\world">
+      <UniqueIdentifier>{69ac3b0a-0667-4602-9644-86d527961683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\world">
+      <UniqueIdentifier>{dd264be4-1401-4e14-a03f-390465c58db2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,6 +167,24 @@
     </ClCompile>
     <ClCompile Include="input\Mouse.cpp">
       <Filter>ソース ファイル\input</Filter>
+    </ClCompile>
+    <ClCompile Include="world\GimmickPart.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
+    <ClCompile Include="world\Lift.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
+    <ClCompile Include="world\Firebar.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
+    <ClCompile Include="world\Firework.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\Nokonoko.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

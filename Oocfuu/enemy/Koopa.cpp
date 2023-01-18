@@ -1,6 +1,8 @@
 #include "Koopa.h"
+
 #include "Course.h"
 #include "Part.h"
+#include "font.h"
 #include "player/Player.h"
 #include "TextureManager.h"
 
@@ -19,7 +21,10 @@ Koopa::Koopa(glm::vec2 _position)
 
 Koopa::Koopa(float _x, float _y)
 	: m_dead(false)
+	, m_jumping(false)
+	, m_jumpCount(0)
 	, m_falling(false)
+	, m_lastFalling(false)
 	, m_counter(0)
 	, m_state(KOOPAP_STATE_IDLE)
 	, m_speed(0, 0)
@@ -38,8 +43,17 @@ void Koopa::update()
 
 	switch (m_state) {
 	case KOOPAP_STATE_IDLE:
+		if (m_counter > 60 * 2)
+			jump();
 		break;
 	case KOOPAP_STATE_FRONTJUMP:
+		//printf("m_falling=%d\n", m_falling);
+		//printf("m_lastFalling=%d\n\n", m_lastFalling);
+		if (m_lastFalling != m_falling) {
+			m_state = KOOPAP_STATE_IDLE;
+			m_counter = 0;
+		}
+		m_lastFalling = m_falling;
 		break;
 	case KOOPAP_STATE_BACKJUMP:
 		break;
@@ -51,8 +65,14 @@ void Koopa::update()
 		break;
 	}
 
-	if (m_falling)
-		m_speed.y += KOOPA_FALL_SPEED;
+	if (m_falling) {
+		if (m_jumping) {
+			m_speed.y = -4.5f;
+			if (++m_jumpCount >= KOOPA_JUMP_COUNT_MAX)
+				m_jumping = false;
+		}
+		m_speed.y += .4f;
+	}
 
 	m_position += m_speed;
 
@@ -81,4 +101,19 @@ void Koopa::draw()
 	g_textureManager.setTexture(TEXTURE_KOOPA_IDLE_1);
 	Rect::draw();
 	g_textureManager.unbindTexture();
+
+	fontBegin();
+	fontDraw("KOOPA_STATE:%d\n", m_state);
+	fontEnd();
+
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
+	}
+}
+
+void Koopa::jump()
+{
+	m_jumping = m_falling =  true;
+	m_jumpCount = 0;
+	m_state = KOOPAP_STATE_FRONTJUMP;
 }

@@ -1,29 +1,22 @@
 #include "Player.h"
 #include "PlayerStateRun.h"
 #include "PlayerStateIdle.h"
+#include "PlayerStateJump.h"
 #include "PlayerStateDie.h"
 #include "PlayerStateGoal.h"
-#include "../TextureManager.h"
-#include "../font.h"
-#include "../animation/Animation.h"
+
+#include "App.h"
+#include "font.h"
+#include "Part.h"
+#include "Course.h"
+#include "TextureManager.h"
 #include "input/Keyboard.h"
 #include "input//Mouse.h"
-#include "../Part.h"
-#include "../Course.h"
-#include "../App.h"
-#include "../sound/Sound.h"
-
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
+#include "animation/Animation.h"
+#include "sound/Sound.h"
+#include "world/GimmickPart.h"
+#include "sound/Music.h"
+#include "score/Komm_susser_Tod.h"
 
 using namespace glm;
 using std::vector;
@@ -39,6 +32,8 @@ Player::Player()
 	, m_left(PLAYER_START_LEFT)
 	, m_dead(false)
 	, m_goal(false)
+	, m_clear(false)
+	, m_visible(true)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
 	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
@@ -72,6 +67,8 @@ void Player::reset()
 	m_left = PLAYER_START_LEFT;
 	m_dead = false;
 	m_goal = false;
+	m_clear = false;
+	m_visible = true;
 }
 
 void Player::respawn(float _x, float _y)
@@ -86,6 +83,8 @@ void Player::respawn(float _x, float _y)
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_dead = false;
 	m_goal = false;
+	m_clear = false;
+	m_visible = true;
 }
 
 void Player::update()
@@ -145,6 +144,7 @@ void Player::update()
 				//m_falling = true;
 				topHit = true;
 				break;
+<<<<<<< HEAD
 			}
 		}
 
@@ -181,36 +181,86 @@ void Player::update()
 		for (vector<vec2>::iterator iter = m_leftPoints.begin();
 			iter != m_leftPoints.end();
 			iter++) {
-			if (g_courseManager.intersect(*iter)) {
-				vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = left.x + PLAYER_SIZE;
-				m_speed.x = 0;
-				break;
+=======
 			}
 		}
-	}
 
-	// 地面との当たり判定
-	m_falling = true;
-	if (m_speed.y >= 0)
-		for (vector<vec2>::iterator iter = m_bottomPoints.begin();
-			iter != m_bottomPoints.end();
-			iter++) {
-		if (g_courseManager.intersect(*iter)) {
-			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-			m_position.y = bottom.y - PLAYER_SIZE;
-			m_jumping = false;
-			m_falling = false;
-			break;
+		if (!topHit && !m_goal) {
+			for (vector<vec2>::iterator iter = m_rightPoints.begin();
+				iter != m_rightPoints.end();
+				iter++) {
+				int parts = PART_NONE;
+				if (g_courseManager.intersect(*iter, &parts)) {
+					vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = right.x - PLAYER_SIZE;
+					m_speed.x = 0;
+					m_falling = true;
+					// プレイヤーがゴール
+					if ((parts == PART_GOAL_POLE) && (!m_goal)) {
+						//printf("Player is goal\n");
+						m_goal = true;
+						g_game.stopTimer();
+						m_pStateContext->setStete(new PlayerStateGoal);
+						break;
+					} else if (parts == PART_AXE && (!m_clear)) {
+						m_clear = true;
+						printf("clear\n");
+						g_game.stopTimer();
+						g_music.resetScore();
+						g_music.setScore(AUDIO_CHANNEL_PULSE0, komm::pulse0, komm::PULSE0_COUNT);
+						g_music.setScore(AUDIO_CHANNEL_PULSE1, komm::triangle, komm::TRIANGLE_COUNT);
+						g_music.play();
+					}
+					break;
+				}
+			}
+
+			for (vector<vec2>::iterator iter = m_leftPoints.begin();
+				iter != m_leftPoints.end();
+				iter++) {
+				if (g_courseManager.intersect(*iter)) {
+					vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = left.x + PLAYER_SIZE;
+					m_speed.x = 0;
+					break;
+				}
+			}
+		}
+
+		// 地面との当たり判定
+		m_falling = true;
+		vec2 liftPosition;
+		vec2 liftSpeed;
+		if (m_speed.y >= 0)
+			for (vector<vec2>::iterator iter = m_bottomPoints.begin();
+				iter != m_bottomPoints.end();
+				iter++) {
+>>>>>>> master
+			if (g_courseManager.intersect(*iter)) {
+				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
+				m_position.y = bottom.y - PLAYER_SIZE;
+				m_speed.y = 0;
+				m_jumping = false;
+				m_falling = false;
+				break;
+			} else if (g_gmmickPart.intersectLift(*iter, liftPosition, liftSpeed)) {	// リフトの当たり判定
+				m_position.y = liftPosition.y - PLAYER_SIZE;
+				//m_speed = liftSpeed;
+				m_jumping = false;
+				m_falling = false;
+				break;
+			}
 		}
 	}
 }
 
 void Player::draw()
 {
-	g_textureManager.setTexture((TEXTURE)g_animations[m_animeCtr.m_animation].m_keys[m_animeCtr.m_time]);
-	Rect::draw();
-	g_textureManager.unbindTexture();
+	if (m_visible) {
+		g_textureManager.setTexture((TEXTURE)g_animations[m_animeCtr.m_animation].m_keys[m_animeCtr.m_time]);
+		Rect::draw();
+		g_textureManager.unbindTexture();
+	}
 
 	if (Game::m_debugInfo) {
 		fontColor(0x00, 0xff, 0x00);
@@ -229,7 +279,6 @@ void Player::draw()
 		fontBackgroundColor(false);
 		fontColor(0xff, 0xff, 0xff);
 
-	{
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
 		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
 		glDisable(GL_TEXTURE_2D);// GLenum cap
@@ -278,16 +327,6 @@ void Player::draw()
 			0,						// GLint first
 			(GLsizei)m_topPoints.size());	// GLsizei count
 
-		//glColor3ub(0xff, 0x00, 0xff);
-		//glVertexPointer(
-		//	2,						// GLint size
-		//	GL_FLOAT,				// GLenum type
-		//	0,						// GLsizei stride
-		//	&m_position);	// const GLvoid * pointer
-		//glDrawArrays(
-		//	GL_POINTS,				// GLenum mode
-		//	0,						// GLint first
-		//	1);	// GLsizei count
 		glPopAttrib();
 		glPopClientAttrib();
 
@@ -304,5 +343,11 @@ void Player::kill()
 
 void Player::jump()
 {
+<<<<<<< HEAD
+=======
+	if (m_dead)
+		return;
+
+>>>>>>> master
 	m_pStateContext->setStete(new PlayerStateJump);
 }

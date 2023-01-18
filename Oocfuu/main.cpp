@@ -7,19 +7,11 @@
 #include <cstdlib>
 #include <crtdbg.h>
 
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 #include "App.h"
+#include "font.h"
 #include "sound/audio.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
-#include "font.h"
 
 using namespace glm;
 
@@ -51,6 +43,7 @@ void timer(int value)
 void release()
 {
 	g_app.release();
+	//exit(0);
 }
 
 void reshape(int width, int height)

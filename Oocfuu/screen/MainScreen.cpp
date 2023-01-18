@@ -1,14 +1,23 @@
 #include <gl/glut.h>
 
 #include "MainScreen.h"
-#include "../App.h"
-#include "../Game.h"
+#include "App.h"
+#include "Game.h"
+#include "font.h"
+#include "Part.h"
+#include "Course.h"
+#include "Player/Player.h"
+#include "FrameCounter.h"
 #include "input/Keyboard.h"
 #include "world/GimmickPart.h"
 #include "sound/Sound.h"
 
 void MainScreen::init()
 {
+<<<<<<< HEAD
+=======
+	m_pause = false;
+>>>>>>> master
 }
 
 void MainScreen::reset()
@@ -27,11 +36,12 @@ void MainScreen::update()
 		g_game.setScreen(GAME_SCREEN_TITLE);
 
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
-		m_debugDisplay = m_debugDisplay ? false : true;
+		Game::m_debugInfo = Game::m_debugInfo ? false : true;
 
 	g_courseManager.update();
+	g_gmmickPart.update();
 	g_player.update();
-	m_enemyManager.update();
+	g_enemyManager.update();
 
 	if ((g_player.m_speed.x > 0)
 		&& (g_player.m_position.x > g_courseManager.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {

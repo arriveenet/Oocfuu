@@ -7,6 +7,11 @@
 
 #include <stdio.h>
 
+/*
+* ジャンプアルゴリズム参考
+* https://qiita.com/morian-bisco/items/4c659d9f940c7e3a2099
+*/
+
 static const unsigned char VerticalForceDecimalPartData[] = { 0x20, 0x20, 0x1e, 0x28, 0x28 };
 static const unsigned char VerticalFallForceData[] =		{ 0x70, 0x70, 0x60, 0x90, 0x90 };
 static const char InitalVerticalSpeedData[] = { -4, -4, -4, -5, -5 };
@@ -19,43 +24,41 @@ PlayerStateJump::PlayerStateJump()
 	, VerticalPositionOrigin(0)
 	, VerticalPosition(0)
 	, CorrectionValue(0)
-	, lastJumping(false)
+	, m_lastFalling(false)
 	, PlayerState(PLAYER_STATE_JUMP)
 {
 }
 
 void PlayerStateJump::start(Player* _pPlayer)
 {
+	// ジャンプ準備
+	_pPlayer->m_jumping = true;
+	_pPlayer->m_falling = false;
+
+	VerticalForceDecimalPart = 0;
+	VerticalPosition = VerticalPositionOrigin = (int)_pPlayer->m_position.y;
+
+	int index = 0;
+	if (HorizontalSpeed >= 0x1c) index++;
+	if (HorizontalSpeed >= 0x19) index++;
+	if (HorizontalSpeed >= 0x10) index++;
+	if (HorizontalSpeed >= 0x09) index++;
+
+	VerticalForce = VerticalForceDecimalPartData[index];
+	VerticalForceFall = VerticalFallForceData[index];
+	VerticalForceDecimalPart = InitalVerticalForceData[index];
+	_pPlayer->m_speed.y = InitalVerticalSpeedData[index];
+
+	g_pSound->play(SOUND_SE_HOI);
 }
 
 void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
-	if (!_pPlayer->m_jumping && lastJumping) {
+	// 落下状態が終了した場合走り状態に遷移する
+ 	if (!_pPlayer->m_falling && m_lastFalling) {
 		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_RUN);
 		_pStateContext->setStete(new PlayerStateRun);
 		return;
-	}
-
-	// ジャンプ準備
-	if (!_pPlayer->m_jumping) {
-		_pPlayer->m_jumping = true;
-		_pPlayer->m_falling = false;
-
-		VerticalForceDecimalPart = 0;
-		VerticalPosition = VerticalPositionOrigin = (int)_pPlayer->m_position.y;
-
-		int index = 0;
-		if (HorizontalSpeed >= 0x1c) index++;
-		if (HorizontalSpeed >= 0x19) index++;
-		if (HorizontalSpeed >= 0x10) index++;
-		if (HorizontalSpeed >= 0x09) index++;
-
-		VerticalForce = VerticalForceDecimalPartData[index];
-		VerticalForceFall = VerticalFallForceData[index];
-		VerticalForceDecimalPart = InitalVerticalForceData[index];
-		_pPlayer->m_speed.y = InitalVerticalSpeedData[index];
-
-		g_pSound->play(SOUND_SE_HOI);
 	}
 
 	if (Keyboard::m_pressed[PLAYER_KEY_RIGHT])
@@ -103,5 +106,5 @@ void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		}
 	}
 
-	lastJumping = _pPlayer->m_jumping;
+	m_lastFalling = _pPlayer->m_falling;
 }

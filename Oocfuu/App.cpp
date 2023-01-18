@@ -18,6 +18,9 @@
 #include "FrameCounter.h"
 
 #include <stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <psapi.h>
 #include <gl/freeglut.h>
 
 App g_app;
@@ -74,11 +77,6 @@ bool App::init()
 
 	if (!printInit(g_parts->initAll(), "Part initAll"))
 		return false;
-
-	if (g_courseManager.init(0,0)) {
-		printf("[  OK  ] Course init\n");
-		g_courseManager.load("resource\\course\\course1-1.txt");
-	}
 
 	if (!printInit(g_textureManager.init(), "Texture initAll"))
 		return false;

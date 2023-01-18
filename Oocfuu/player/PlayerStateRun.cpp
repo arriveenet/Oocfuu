@@ -39,7 +39,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 		_pPlayer->m_flip = RECT_FLIP_HORIZONTAL;
 	}
 
-	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP]) {
+	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP] && !_pPlayer->m_falling) {
 		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_JUMP);
 		_pStateContext->setStete(new PlayerStateJump);
 		return;

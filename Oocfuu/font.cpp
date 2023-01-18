@@ -5,10 +5,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <Windows.h>
+
 #include <vector>
 #include <gl/glut.h>
 #include <glm/glm.hpp>
-#include <time.h>
+
 
 using namespace glm;
 
@@ -20,8 +23,11 @@ static GLint lastMatrixMode;
 static ivec2 screenSize;
 static ivec2 size;
 static float scale;
-static vec2 m_position;
+static vec2 position;
 static vec2 origin;
+static COLORREF color;
+static bool background;
+
 
 int fontInit()
 {
@@ -29,6 +35,8 @@ int fontInit()
 	textureSize = { 128, 128 };
 	scale = 1.0f;
 	size = { 8,8 };
+	color = RGB(0xFF, 0xFF, 0xFF);
+	background = false;
 
 	return 0;
 }
@@ -90,12 +98,22 @@ void fontEnd()
 
 void fontPosition(float _x, float _y)
 {
-	origin = m_position = { _x, _y };
+	origin = position = { _x, _y };
 }
 
 void fontScale(float _scale)
 {
 	scale = _scale;
+}
+
+void fontColor(unsigned char _red, unsigned char _green, unsigned char _blue)
+{
+	color = RGB(_red, _green, _blue);
+}
+
+void fontBackgroundColor(bool _flag)
+{
+	background = _flag;
 }
 
 
@@ -109,17 +127,17 @@ void fontDraw(const char* format, ...)
 	vsprintf_s(str, format, ap);
 	va_end(ap);
 
-	int x = (int)m_position.x, y = (int)m_position.y;
+	int x = (int)position.x, y = (int)position.y;
 	p = str;
 	std::vector<QUAD> quads;
 
 	while (1) {
 		if ((*p) == '\n') {
-			x = (int)m_position.x;
+			x = (int)position.x;
 			y += size.y;
 			p++;
 			if (!(*p)) {
-				m_position.y = (float)y;
+				position.y = (float)y;
 				break;
 			}
 			continue;
@@ -155,5 +173,15 @@ void fontDraw(const char* format, ...)
 
 	glVertexPointer(3, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].position);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].texCoord);
+
+	// Draw background color
+	if (background) {
+		glDisable(GL_TEXTURE_2D);
+		glColor4ub(0x40, 0x40, 0x40, 0x80);
+		glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
+		glEnable(GL_TEXTURE_2D);
+	}
+
+	glColor4ub(GetRValue(color), GetGValue(color), GetBValue(color), 0xff);
 	glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
 }

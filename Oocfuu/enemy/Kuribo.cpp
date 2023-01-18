@@ -1,10 +1,11 @@
 #include "Kuribo.h"
 
-#include "../App.h"
-#include "../Part.h"
-#include "../Course.h"
-#include "../TextureManager.h"
-#include "../player/Player.h"
+#include "App.h"
+#include "Part.h"
+#include "Course.h"
+#include "TextureManager.h"
+#include "player/Player.h"
+#include "sound/Sound.h"
 
 #include <gl/glut.h>
 
@@ -48,10 +49,9 @@ void Kuribo::update()
 
 	switch (m_state) {
 	case KURIBO_STATE_MOVE:
-		if (m_counter % 12 == 0) {
+		if (Game::m_count % 12 == 0)
 			m_flip ^= 1;
-			m_counter = 0;
-		}
+
 
 		if (m_falling)
 			m_speed.y += KUROBO_FALL_SPEED;
@@ -66,23 +66,31 @@ void Kuribo::update()
 		m_bottomPoints.push_back(m_position + vec2(1, m_size.y));
 		m_bottomPoints.push_back(m_position + vec2(m_size.x - 1, m_size.y));
 
+		// squish
+		if (g_player.intersect(m_topPoint)) {
+			g_pSound->play(SOUND_SE_SQUISH);
+			m_state = KURIBO_STATE_SQUISH;
+			g_player.jump();
+		}
+
 		// bool player dead
-		//if (g_player.intersect(m_rightPoint)
-		//	|| g_player.intersect(m_leftPoint)) {
-		//	g_player.m_dead = true;
-		//	g_playerDie.start(g_player.m_position);
-		//}
+		if (g_player.intersect(m_rightPoint)
+			|| g_player.intersect(m_leftPoint)
+			) {
+			g_player.m_dead = true;
+			g_player.kill();
+		}
 
 		// Kuribo falling dead
 		if (m_position.y > SCREEN_HEIGHT)
 			m_state = KURIBO_STATE_DEAD;
 
 		if (g_courseManager.intersect(m_rightPoint)) {
-			m_speed.x = -KURIBO_SPEED;
+			turn();
 		}
 
 		if (g_courseManager.intersect(m_leftPoint)) {
-			m_speed.x = KURIBO_SPEED;
+			turn();
 		}
 
 		m_falling = true;
@@ -100,8 +108,7 @@ void Kuribo::update()
 		}
 		break;
 	case KURIBO_STATE_SQUISH:
-		//m_texture = g_textures[TEXTURE_KURIBO_SQUISH].m_texture;
-		if (m_counter > 30) {
+		if (m_counter > 32) {
 			m_counter = 0;
 			m_state = KURIBO_STATE_DEAD;
 		}
@@ -121,27 +128,70 @@ void Kuribo::draw()
 		)
 		return;
 
-	g_textureManager.setTexture(TEXTURE_KURIBO_RUN);
+	g_textureManager.setTexture(m_state == KURIBO_STATE_MOVE ? TEXTURE_KURIBO_RUN : TEXTURE_KURIBO_SQUISH);
 	Rect::draw();
 	g_textureManager.unbindTexture();
 
-	//{
-	//	glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
-	//	glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
-	//	glDisable(GL_TEXTURE_2D);// GLenum cap
-	//	glColor3ub(0xff, 0x00, 0x00);
-	//	glEnableClientState(GL_VERTEX_ARRAY);// GLenum array
-	//	glVertexPointer(
-	//		2,						// GLint size
-	//		GL_FLOAT,				// GLenum type
-	//		0,						// GLsizei stride
-	//		&m_position);	// const GLvoid * pointer
-	//	glDrawArrays(
-	//		GL_POINTS,				// GLenum mode
-	//		0,						// GLint first
-	//		1);	// GLsizei count
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
 
-	//	glPopAttrib();
-	//	glPopClientAttrib();
-	//}
+		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
+		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
+		glDisable(GL_TEXTURE_2D);// GLenum cap
+		glColor3ub(0xff, 0x00, 0x00);
+		glEnableClientState(GL_VERTEX_ARRAY);// GLenum array
+		glVertexPointer(
+			2,						// GLint size
+			GL_FLOAT,				// GLenum type
+			0,						// GLsizei stride
+			&m_leftPoint);	// const GLvoid * pointer
+		glDrawArrays(
+			GL_POINTS,				// GLenum mode
+			0,						// GLint first
+			1);	// GLsizei count
+
+		glVertexPointer(
+			2,						// GLint size
+			GL_FLOAT,				// GLenum type
+			0,						// GLsizei stride
+			&m_rightPoint);	// const GLvoid * pointer
+		glDrawArrays(
+			GL_POINTS,				// GLenum mode
+			0,						// GLint first
+			1);	// GLsizei count
+
+		glVertexPointer(
+			2,						// GLint size
+			GL_FLOAT,				// GLenum type
+			0,						// GLsizei stride
+			&m_topPoint);	// const GLvoid * pointer
+		glDrawArrays(
+			GL_POINTS,				// GLenum mode
+			0,						// GLint first
+			1);	// GLsizei count
+
+		glVertexPointer(
+			2,						// GLint size
+			GL_FLOAT,				// GLenum type
+			0,						// GLsizei stride
+			m_bottomPoints.data());	// const GLvoid * pointer
+		glDrawArrays(
+			GL_POINTS,				// GLenum mode
+			0,						// GLint first
+			static_cast<GLsizei>(m_bottomPoints.size()));	// GLsizei count
+
+		glPopAttrib();
+		glPopClientAttrib();
+
+	}
+}
+
+void Kuribo::turn()
+{
+	m_speed.x = m_speed.x > 0 ? -KURIBO_SPEED : KURIBO_SPEED;
+}
+
+Rect Kuribo::getRect() const
+{
+	return Rect(m_size, m_position);
 }

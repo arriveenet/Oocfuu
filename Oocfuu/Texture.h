@@ -4,6 +4,7 @@ class Texture
 {
 	int m_width;
 	int m_height;
+	int m_padding;
 	unsigned char* m_bitmapPixels;
 	unsigned char* m_pixels;
 

@@ -3,9 +3,6 @@
 #include "../enemy/EnemyManager.h"
 
 class MainScreen : public Screen {
-	bool m_debugDisplay;
-	EnemyManager m_enemyManager;
-
 public:
 	bool m_pause;
 
