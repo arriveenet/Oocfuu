@@ -293,6 +293,27 @@
     <ClInclude Include="input\Mouse.h">
       <Filter>ヘッダー ファイル\input</Filter>
     </ClInclude>
+    <ClInclude Include="world\Firework.h">
+      <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="world\Lift.h">
+      <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="world\Firebar.h">
+      <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="world\GimmickPart.h">
+      <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\Nokonoko.h">
+      <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="score\Komm_susser_Tod.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico">

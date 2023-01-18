@@ -4,21 +4,21 @@
 #include "../App.h"
 #include "../Game.h"
 #include "input/Keyboard.h"
-#include "../font.h"
-#include "../Player/Player.h"
-#include "../Part.h"
-#include "../Course.h"
-#include "../FrameCounter.h"
+#include "world/GimmickPart.h"
+#include "sound/Sound.h"
 
 void MainScreen::init()
 {
-	m_debugDisplay = true;
 }
 
 void MainScreen::reset()
 {
-	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_courseManager.load("resource\\course\\course1-1.txt");
+	m_pause = false;
+	COLORREF clearColor = g_courseManager.getClearColor();
+	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
+	g_game.resetTimer();
+	g_game.startTimer();
+	g_game.visibleTimer(true);
 }
 
 void MainScreen::update()
@@ -44,19 +44,18 @@ void MainScreen::draw()
 {
 	g_game.drawHUD();
 	g_courseManager.draw();
+	g_gmmickPart.draw();
 	g_player.draw();
-	m_enemyManager.draw();
+	g_enemyManager.draw();
 
-	if (m_debugDisplay) {
-		//glColor3ub(0x00, 0xff, 0x00);
-		//fontBegin();
-		//fontPosition(0, 0);
-		//fontDraw("FPS: %d", g_frameCounter.getFrameCount());
-		//fontPosition(0, 8 * 4);
-		//fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-		//fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-		//fontDraw("JUMPING :%d\n", g_player.m_jumping);
-		//fontDraw("JUMPING_COUNT:%d\n", g_player.m_jumpCount);
-		//fontEnd();
+	if (Game::m_debugInfo) {
+		fontBegin();
+		fontColor(0x00, 0xff, 0x00);
+		fontBackgroundColor(true);
+		fontPosition(0, 0);
+		fontDraw("FPS:%d", g_frameCounter.getFrameCount());
+		fontBackgroundColor(false);
+		fontColor(0xff, 0xff, 0xff);
+		fontEnd();
 	}
 }

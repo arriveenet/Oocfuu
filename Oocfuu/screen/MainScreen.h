@@ -7,6 +7,8 @@ class MainScreen : public Screen {
 	EnemyManager m_enemyManager;
 
 public:
+	bool m_pause;
+
 	virtual void init();
 	virtual void reset();
 	virtual void update();

@@ -13,3 +13,9 @@
 m1m2m4m5m3            t0t1t1t1t2m1m2m3        t0t1t2    p2p3                p2p3  t0t1t1t2  p2p3m1m2m4m5m3        p2p3t0t1t1t1t2m1m2m3        t0t1t2                              t0t1t1t2      m1m2m4m5m3            t0t1t1t1t2m1m2m3        t0t1t2                        b1b1b1b1t1t1b1b1b1b1m1m2m4m5b1b1b1b1b1    b1b1b1b1t2m1m2m3p2p3    t0t1t2                  p2p3b1b1b1b1b1b1b1b1b1    m1m2m4m5m3  b1      f2f2f6b2f2t2m1m2m3
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
+enemyCount=5 flag=1
+type=0 x=336 y=192
+type=0 x=800 y=192
+type=0 x=1600 y=192
+type=0 x=1248 y=128
+type=0 x=1326 y=64

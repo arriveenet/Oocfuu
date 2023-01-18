@@ -5,6 +5,8 @@
 #define SCREEN_HEIGHT	240
 
 class App {
+	bool m_running;
+
 public:
 	tm m_currentTime;
 
@@ -15,6 +17,7 @@ public:
 	void release();
 	void update();
 	void draw();
+	void run();
 };
 
 extern App g_app;

@@ -208,6 +208,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="score\HappyBirthdayToYou.h" />
+    <ClInclude Include="score\Komm_susser_Tod.h" />
     <ClInclude Include="score\score.h" />
     <ClInclude Include="score\TyphoonParade.h" />
     <ClInclude Include="score\Voyager.h" />

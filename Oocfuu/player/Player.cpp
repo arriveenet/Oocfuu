@@ -119,45 +119,64 @@ void Player::update()
 	m_bottomPoints.clear();
 	m_topPoints.clear();
 
+	// 左の当たり判定ポイント
 	m_leftPoints.push_back(m_position);
+	// 右の当たり判定ポイント
 	m_rightPoints.push_back(m_position + m_size + vec2(0, -PART_SIZE));
-
+	// 下の当たり判定ポイント
 	m_bottomPoints.push_back(m_position + vec2(1, PLAYER_SIZE));
 	m_bottomPoints.push_back(m_position + vec2(PLAYER_SIZE - 1, PLAYER_SIZE));
-
-	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, -1));
+	// 上の当たり判定ポイント
+	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, 0));
 
 	bool topHit = false;
-	static int parts;
-	for (vector<vec2>::iterator iter = m_topPoints.begin();
-		iter != m_topPoints.end();
-		iter++) {
-		if (g_courseManager.intersect(*iter, &parts)) {
-			m_jumping = false;
-			topHit = true;
-			break;
-		}
-	}
-
-	if (!topHit && !m_goal) {
-		for (vector<vec2>::iterator iter = m_rightPoints.begin();
-			iter != m_rightPoints.end();
+	int parts = PART_NONE;
+	if (!m_dead) {
+		for (vector<vec2>::iterator iter = m_topPoints.begin();
+			iter != m_topPoints.end();
 			iter++) {
-			int parts = PART_NONE;
 			if (g_courseManager.intersect(*iter, &parts)) {
-				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = right.x - PLAYER_SIZE;
-				m_speed.x = 0;
-				m_falling = true;
-				if ((parts == PART_GOAL_POLE) && (!m_goal)) {
-					printf("Player is goal\n");
-					m_goal = true;
-					m_pStateContext->setStete(new PlayerStateGoal);
-					break;
-				}
+				if (parts == PART_GOAL_POLE)
+					continue;
+				vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
+				m_position.y = top.y + PLAYER_SIZE;
+				m_speed.y = 0;
+				m_jumping = false;
+				//m_falling = true;
+				topHit = true;
 				break;
 			}
 		}
+
+		if (!topHit && !m_goal) {
+			for (vector<vec2>::iterator iter = m_rightPoints.begin();
+				iter != m_rightPoints.end();
+				iter++) {
+				int parts = PART_NONE;
+				if (g_courseManager.intersect(*iter, &parts)) {
+					vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = right.x - PLAYER_SIZE;
+					m_speed.x = 0;
+					m_falling = true;
+					// プレイヤーがゴール
+					if ((parts == PART_GOAL_POLE) && (!m_goal)) {
+						//printf("Player is goal\n");
+						m_goal = true;
+						g_game.stopTimer();
+						m_pStateContext->setStete(new PlayerStateGoal);
+						break;
+					} else if (parts == PART_AXE && (!m_clear)) {
+						m_clear = true;
+						printf("clear\n");
+						g_game.stopTimer();
+						g_music.resetScore();
+						g_music.setScore(AUDIO_CHANNEL_PULSE0, komm::pulse0, komm::PULSE0_COUNT);
+						g_music.setScore(AUDIO_CHANNEL_PULSE1, komm::triangle, komm::TRIANGLE_COUNT);
+						g_music.play();
+					}
+					break;
+				}
+			}
 
 		for (vector<vec2>::iterator iter = m_leftPoints.begin();
 			iter != m_leftPoints.end();
@@ -193,19 +212,22 @@ void Player::draw()
 	Rect::draw();
 	g_textureManager.unbindTexture();
 
-	glColor3ub(0x00, 0xff, 0x00);
-	fontBegin();
-	fontPosition(0, 0);
-	fontPosition(0, 8 * 4);
-	fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-	fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-	fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
-	fontDraw("ANIMATION:%d\n", m_animeCtr.m_animation);
-	fontDraw("JUMPING :%d\n", g_player.m_jumping);
-	fontDraw("FALLING :%d\n", g_player.m_falling);
-	fontDraw("DEAD    :%d\n", g_player.m_dead);
-	fontEnd();
-	glColor3ub(0xff, 0xff, 0xff);
+	if (Game::m_debugInfo) {
+		fontColor(0x00, 0xff, 0x00);
+		fontBackgroundColor(true);
+		fontBegin();
+		fontPosition(0, 0);
+		fontPosition(0, 8 * 4);
+		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+		fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
+		fontDraw("ANIMATION:%d\n", m_animeCtr.m_animation);
+		fontDraw("JUMPING :%d\n", g_player.m_jumping);
+		fontDraw("FALLING :%d\n", g_player.m_falling);
+		fontDraw("DEAD    :%d\n", g_player.m_dead);
+		fontEnd();
+		fontBackgroundColor(false);
+		fontColor(0xff, 0xff, 0xff);
 
 	{
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
@@ -268,5 +290,19 @@ void Player::draw()
 		//	1);	// GLsizei count
 		glPopAttrib();
 		glPopClientAttrib();
+
+		Rect::drawWire();
 	}
+}
+
+void Player::kill()
+{
+	//printf("Player::kill()\n");
+	m_dead = true;
+	m_pStateContext->setStete(new PlayerStateDie);
+}
+
+void Player::jump()
+{
+	m_pStateContext->setStete(new PlayerStateJump);
 }

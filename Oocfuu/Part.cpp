@@ -52,19 +52,22 @@ Part g_parts[PART_MAX] = {
 	 {"s6.bmp",},// PART_SEA_6
 	 {"s7.bmp",},// PART_SEA_7
 	 {"d0.bmp",},// PART_DESERT_0
-	 {"d1.bmp",}, // PART_DESERT_1,
-	 {"d2.bmp",}, // PART_DESERT_2,
-	 {"d3.bmp",}, // PART_DESERT_3,
-	 {"d4.bmp",}, // PART_DESERT_4,
-	 {"d5.bmp",}, // PART_DESERT_5,
-	 {"d6.bmp",}, // PART_DESERT_6,
-	 {"d7.bmp",}, // PART_DESERT_7,
-	 {"d8.bmp",}, // PART_DESERT_8,
+	 {"d1.bmp",},// PART_DESERT_1,
+	 {"d2.bmp",},// PART_DESERT_2,
+	 {"d3.bmp",},// PART_DESERT_3,
+	 {"d4.bmp",},// PART_DESERT_4,
+	 {"d5.bmp",},// PART_DESERT_5,
+	 {"d6.bmp",},// PART_DESERT_6,
+	 {"d7.bmp",},// PART_DESERT_7,
+	 {"d8.bmp",},// PART_DESERT_8,
 	 {"w0.bmp",},// PART_WOOD_0
 	 {"w1.bmp",},// PART_WOOD_1
 	 {"w2.bmp",},// PART_WOOD_2
-	 {"w3.bmp,",},// PART_WOOD_3
-	 {"br.bmp,",},// PART_BRIDGE
+	 {"w3.bmp",},// PART_WOOD_3
+	 {"br.bmp",},// PART_BRIDGE
+	 {"mg.bmp",},// PART_MAGMA_0
+	 {"mh.bmp",},// PART_MAGMA_1
+	 {"ax.bmp",},// PART_AXE
 };
 
 int Part::init() {

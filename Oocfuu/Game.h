@@ -2,11 +2,13 @@
 #include "screen/Screen.h"
 
 typedef struct tagWORLD {
-	unsigned char major;
-	unsigned char miner;
+	unsigned char world;
+	unsigned char stage;
 } WORLD;
 
-enum {
+static const WORLD GAME_START_WORLD = { 1, 1 };
+
+enum GAME_SCREEN {
 	GAME_SCREEN_TITLE,
 	GAME_SCREEN_INTRO,
 	GAME_SCREEN_MAIN,

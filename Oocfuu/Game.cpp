@@ -46,7 +46,11 @@ int Game::init()
 	m_isGameOver = false;
 	m_score = 0;
 	m_coin = 0;
-	m_world = { 1,1 };
+	m_world = GAME_START_WORLD;
+	m_time = GAME_START_TIME;
+	m_isTimerUpdate = false;
+	m_visibleTimer = false;
+	m_debugInfo = false; 
 
 	return 0;
 }
@@ -71,13 +75,6 @@ void Game::setScreen(int _screen) {
 
 void Game::drawHUD()
 {
-	//GLuint texture = g_textures[TEXTURE_COIN_1].m_texture;
-	//glBindTexture(
-	//	GL_TEXTURE_2D,	// GLenum target
-	//	texture);		// GLuint texture
-	//Rect rect(vec2(8, 8), vec2(g_course.m_scroll + 88, 24));
-	//rect.draw();
-
 	fontBegin();
 	{
 		fontPosition(24, 16);
@@ -100,16 +97,18 @@ void Game::drawHUD()
 		fontDraw("WORLD");
 
 		fontPosition(144, 24);
-		fontDraw("%2d-%d", m_world.major, m_world.miner);
+		fontDraw("%2d-%d", m_world.world, m_world.stage);
 		//fontDraw("%2d-%d", g_app.m_currentTime.tm_mon + 1, g_app.m_currentTime.tm_mday);
 		//fontDraw("%2d-%d", 2, 4);
 
 		fontPosition(200, 16);
 		fontDraw("TIME");
-
-		fontPosition(200, 24);
-		fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
-		//fontDraw("00:00");
+		// タイム表示を表示する
+		if (m_visibleTimer) {
+			fontPosition(208, 24);
+			//fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
+			fontDraw("%03d", m_time);
+		}
 	}
 	fontEnd();
 }
