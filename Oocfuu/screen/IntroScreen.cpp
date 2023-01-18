@@ -18,6 +18,7 @@ void IntroScreen::init()
 
 void IntroScreen::reset()
 {
+	g_courseManager.m_scroll = 0.0f;
 	g_game.visibleTimer(false);
 	m_counter = 0;
 	glClearColor(0, 0, 0, 1);

@@ -129,12 +129,14 @@ void Player::update()
 	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, 0));
 
 	bool topHit = false;
-	static int parts;
+	int parts = PART_NONE;
 	if (!m_dead) {
 		for (vector<vec2>::iterator iter = m_topPoints.begin();
 			iter != m_topPoints.end();
 			iter++) {
 			if (g_courseManager.intersect(*iter, &parts)) {
+				if (parts == PART_GOAL_POLE)
+					continue;
 				vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
 				m_position.y = top.y + PLAYER_SIZE;
 				m_speed.y = 0;
@@ -302,5 +304,8 @@ void Player::kill()
 
 void Player::jump()
 {
+	if (m_dead)
+		return;
+
 	m_pStateContext->setStete(new PlayerStateJump);
 }

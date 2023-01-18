@@ -174,6 +174,9 @@ bool CourseManager::load(const char* _fileName)
 
 void CourseManager::update()
 {
+	if (!m_isLoaded)
+		return;
+
 	m_quads.clear();
 
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
@@ -239,7 +242,7 @@ void CourseManager::update()
 
 void CourseManager::draw()
 {
-	if (m_quads.empty())
+	if (m_quads.empty() || !m_isLoaded)
 		return;
 
 	glEnable(GL_TEXTURE_2D);
@@ -397,6 +400,18 @@ bool CourseManager::intersect(glm::vec2 const& _point, int* _parts)
 		break;
 	case PART_BRIDGE:
 		*_parts = PART_BRIDGE;
+		result = true;
+		break;
+	case PART_MAGMA_0:
+		*_parts = PART_MAGMA_0;
+		result = true;
+		break;
+	case PART_MAGMA_1:
+		*_parts = PART_MAGMA_1;
+		result = true;
+			break;
+	case PART_AXE:
+		*_parts = PART_AXE;
 		result = true;
 		break;
 	}

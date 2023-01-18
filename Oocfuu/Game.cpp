@@ -35,7 +35,7 @@ int Game::init()
 	m_isGameOver = false;
 	m_score = 0;
 	m_coin = 0;
-	m_world = { 1, 1 };
+	m_world = GAME_START_WORLD;
 	m_time = GAME_START_TIME;
 	m_isTimerUpdate = false;
 	m_visibleTimer = false;

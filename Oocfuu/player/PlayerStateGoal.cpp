@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 
 #define PLAYER_POLE_OFFSET			9.0f
-#define PLAYER_POLE_FALL_SPEED		1.2f
+#define PLAYER_POLE_FALL_SPEED		1.6f
 #define PLAYER_FLIP_OFFSET			14.0f
 #define PLAYER_GOAL_MOVE_SPEED		0.8f
 
@@ -37,16 +37,17 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 
 	switch (m_state) {
 	case PLAYERSTATEGOAL_FALL:
-		if (m_counter > 90) {
+		if (m_counter > 64) {
 			m_state = PLAYERSTATEGOAL_FLIP;
 			m_counter = 0;
 			_pPlayer->m_position.x += PLAYER_FLIP_OFFSET;
+			_pPlayer->m_speed.y = 0;
 		} else {
-			_pPlayer->m_speed.y = PLAYER_POLE_FALL_SPEED;
+  			_pPlayer->m_speed.y = PLAYER_POLE_FALL_SPEED;
 		}
 		break;
 	case PLAYERSTATEGOAL_FLIP:
-		if (m_counter > 30) {
+		if (m_counter > 32) {
 			m_state = PLAYERSTATEGOAL_MOVE;
 			g_pSound->setGain(SOUND_FANFARE, 0.1f);
 			g_pSound->play(SOUND_FANFARE);

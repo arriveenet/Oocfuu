@@ -24,6 +24,7 @@
 #include <gl/freeglut.h>
 
 App g_app;
+extern glm::ivec2 windowSize;
 
 static bool printInit(int result, const char* _str)
 {
@@ -48,6 +49,7 @@ static bool printInit(bool result, const char* _str)
 }
 
 App::App()
+	: m_running(false)
 {
 	time_t t = time(NULL);
 	localtime_s(&m_currentTime, &t);
@@ -112,7 +114,7 @@ void App::update()
 	localtime_s(&m_currentTime, &t);
 
 	g_frameCounter.update();
-	g_courseManager.update();
+//	g_courseManager.update();
 	g_music.update();
 	g_game.update();
 	g_game.m_pCurrentScreen->update();
@@ -136,7 +138,24 @@ void App::draw()
 		GL_SRC_ALPHA,			//GLenum sfactor
 		GL_ONE_MINUS_SRC_ALPHA);//GLenum dfactor
 
+	{
+		float f = (float)windowSize.x / SCREEN_WIDTH;
+	//	glLineWidth(f);// GLfloat width
+		glPointSize(f);// GLfloat size
+	}
+
 	glColor3ub(0xff, 0xff, 0xff);
 
 	g_game.m_pCurrentScreen->draw();
+}
+
+void App::run()
+{
+	m_running = true;
+
+	while (m_running) {
+		//update();
+		//draw();
+		glutMainLoopEvent();
+	}
 }

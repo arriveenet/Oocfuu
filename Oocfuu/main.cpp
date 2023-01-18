@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
 		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
 		// MainLoop
 		glutMainLoop();
+		//g_app.run();
 	}
 	release();
 
