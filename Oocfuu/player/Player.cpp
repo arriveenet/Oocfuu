@@ -36,7 +36,6 @@ Player::Player()
 	, m_visible(true)
 {
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
-	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
 	m_pStateContext->setStete(new PlayerStateIdle);
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 }
@@ -61,7 +60,7 @@ void Player::reset()
 	m_jumping = false;
 	m_falling = false;
 	m_size = { PLAYER_SIZE, PLAYER_SIZE };
-	m_position = { PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y };
+	m_position = { 0, 0 };
 	m_pStateContext->setStete(new PlayerStateIdle);
 	m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
 	m_left = PLAYER_START_LEFT;

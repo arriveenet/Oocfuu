@@ -31,15 +31,17 @@ TitleScreen::TitleScreen()
 void TitleScreen::init()
 {
 	g_courseManager.load("resource\\course\\course1-1.txt");
+	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
 }
 
 void TitleScreen::reset()
 {
-	g_player.reset();
 	g_game.visibleTimer(false);
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_courseManager.load("resource\\course\\course1-1.txt");
 	g_courseManager.m_scroll = 0.0f;
+	g_player.reset();
+	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
 }
 void TitleScreen::update()
 {

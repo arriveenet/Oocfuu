@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "PlayerStateContext.h"
 #include "PlayerState.h"
+
 #include <vector>
 #include <glm/glm.hpp>
 
@@ -13,9 +14,6 @@
 #define PLAYER_KEY_LEFT		0x61
 #define PLAYER_KEY_RIGHT	0x64
 #define PLAYER_KEY_JUMP		0x20
-
-#define PLAYER_DEFAULT_X	40
-#define PLAYER_DEFAULT_Y	192
 
 #define PLAYER_SPEED_MAX	2.5f
 #define PLAYER_GRAVITY		0.4f
