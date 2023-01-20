@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Part.h"
 #include "Course.h"
+#include "player/Player.h"
 
 #include <cmath>
 #include <gl/glut.h>
@@ -53,6 +54,10 @@ void Firebar::draw()
 
 		m_fireballs[i] = Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position);
 		m_fireballs[i].draw();
+
+		if (m_fireballs[i].intersect(g_player))
+			g_player.kill();
+
 		if (Game::m_debugInfo)
 			m_fireballs[i].drawWire();
 	}

@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "Course.h"
 #include "Part.h"
+#include "font.h"
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
 #include "enemy/EnemyManager.h"
@@ -90,6 +91,7 @@ bool CourseManager::load(const char* _fileName)
 	m_startPosition = ivec2(startX, startY);
 	m_nextWorld = { (unsigned char)nextWorld, (unsigned char)nextStage };
 
+	// メモリを確保
 	m_pParts = new int* [m_height];
 	for (int i = 0; i < m_height; i++) {
 		m_pParts[i] = new int[m_width];
@@ -124,6 +126,7 @@ bool CourseManager::load(const char* _fileName)
 	// 仕掛けパーツをクリアする
 	g_gmmickPart.clear();
 
+	// ファイヤーバーの読み込み
 	int firebarCount = 0;
 	if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
 		printf("firebaCount=%d\n", firebarCount);
@@ -135,6 +138,7 @@ bool CourseManager::load(const char* _fileName)
 		}
 	}
 
+	// リフトの読み込み
 	int liftCount = 0;
 	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
 		printf("liftCount=%d\n", liftCount);
@@ -262,6 +266,15 @@ void CourseManager::draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_CULL_FACE);
+
+	fontBegin();
+	fontBackgroundColor(true);
+	fontColor(0x00, 0xff, 0x00);
+	fontPosition(0, 8);
+	fontDraw("SCROLL:%f", m_scroll);
+	fontColor(0xff, 0xff, 0xff);
+	fontBackgroundColor(false);
+	fontEnd();
 }
 
 void CourseManager::setParts(ivec2 const& _point, int _parts) {
