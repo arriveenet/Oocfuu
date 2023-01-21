@@ -5,6 +5,7 @@ enum SOUNDTYPE {
 	SOUND_SE_YO,
 	SOUND_SE_HOI,
 	SOUND_SE_DIE,
+	SOUND_SE_PAUSE,
 	SOUND_SE_SQUISH,
 	SOUND_FIREWORK,
 	SOUND_FLAGPOLE,
@@ -29,6 +30,7 @@ public:
 	void play(SOUNDTYPE _sid);
 	void stop(SOUNDTYPE _sid);
 	void setGain(SOUNDTYPE _source, float _gain);
+	ALint getState(SOUNDTYPE _source);
 
 private:
 	bool loadWaveToBuffer(const char* _fileName, ALuint _bid);

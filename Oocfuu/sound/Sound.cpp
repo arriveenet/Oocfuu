@@ -25,6 +25,7 @@ static const char* fileNames[SOUND_MAX] = {
 	"resource\\sound\\Yo.wav", //SOUND_SE_YO
 	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
 	"resource\\sound\\Die.wav", // SOUND_SE_DIE
+	"resource\\sound\\Pause.wav",// SOUND_SE_PAUSE
 	"resource\\sound\\Squish.wav", // SOUND_SE_SQUISH
 	"resource\\sound\\Firework.wav", //SOUND_FIREWORK
 	"resource\\sound\\Flagpole.wav", //SOUND_FLAGPOLE
@@ -149,6 +150,16 @@ void Sound::setGain(SOUNDTYPE _source, float _gain)
 		m_sids[_source],	// ALuint source
 		AL_GAIN,			// ALenum param
 		_gain);				// ALfloat value
+}
+
+ALint Sound::getState(SOUNDTYPE _source)
+{
+	ALint value;
+	alGetSourcei(
+		m_sids[_source],	// ALuint sid
+		AL_SOURCE_STATE,	// ALenum param
+		&value);			// ALint * value
+	return value;
 }
 
 bool Sound::loadWaveToBuffer(const char* _fileName, ALuint _bid)

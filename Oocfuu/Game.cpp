@@ -10,6 +10,7 @@
 #include "screen/HbdScreen.h"
 #include "screen/TpScreen.h"
 #include "screen/GoodbyeOocfuuScreen.h"
+#include "sound/Sound.h"
 
 #include <freeglut.h>
 
@@ -40,6 +41,7 @@ int Game::init()
 	m_isTimerUpdate = false;
 	m_visibleTimer = false;
 	m_debugInfo = false; 
+	m_pause = false;
 
 	return 0;
 }
@@ -54,6 +56,9 @@ void Game::release()
 
 void Game::update()
 {
+	if (m_pause)
+		return;
+
 	m_count++;
 
 	// タイマーをカウントダウンさせる
@@ -111,4 +116,15 @@ void Game::drawHUD()
 		}
 	}
 	fontEnd();
+}
+
+void Game::pause()
+{
+	printf("sound state=0x%x\n", g_pSound->getState(SOUND_SE_PAUSE));
+	// ポーズ音が再生中であればポーズしない
+	if (g_pSound->getState(SOUND_SE_PAUSE) == AL_PLAYING)
+		return;
+
+	m_pause = m_pause ? false : true;
+	g_pSound->play(SOUND_SE_PAUSE);
 }

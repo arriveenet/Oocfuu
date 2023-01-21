@@ -35,6 +35,12 @@ void MainScreen::update()
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
 		Game::m_debugInfo = Game::m_debugInfo ? false : true;
 
+	if (Keyboard::m_nowPressed['p'] && !g_player.m_goal)
+		g_game.pause();
+
+	if (g_game.isPause())
+		return;
+
 	g_courseManager.update();
 	g_gmmickPart.update();
 	g_player.update();

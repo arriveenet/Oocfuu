@@ -9,7 +9,7 @@ typedef struct tagWORLD {
 	unsigned char stage;
 } WORLD;
 
-static const WORLD GAME_START_WORLD = { 1, 4 };
+static const WORLD GAME_START_WORLD = { 1, 1 };
 
 enum GAME_SCREEN {
 	GAME_SCREEN_TITLE,
@@ -27,6 +27,7 @@ class Game {
 	short m_time;
 	bool m_isTimerUpdate;
 	bool m_visibleTimer;
+	bool m_pause;
 
 public:
 	Screen* m_pCurrentScreen;
@@ -46,6 +47,8 @@ public:
 	void stopTimer() { m_isTimerUpdate = false; };
 	void resetTimer() { m_time = GAME_START_TIME; };
 	void visibleTimer(bool _visible) { m_visibleTimer = _visible; };
+	void pause();
+	bool isPause() { return m_pause; };
 };
 
 extern Game g_game;
