@@ -1,12 +1,16 @@
 #include "IntroScreen.h"
+
+#include "App.h"
 #include "Game.h"
-#include "input/Keyboard.h"
 #include "font.h"
-#include "Player/Player.h"
 #include "Course.h"
 #include "Rect.h"
 #include "TextureManager.h"
+#include "input/Keyboard.h"
+#include "Player/Player.h"
 #include "world/GimmickPart.h"
+
+#include <Windows.h>
 
 using namespace glm;
 
@@ -35,12 +39,30 @@ void IntroScreen::update()
 		switch (m_intro) {
 		case INTRO_LOAD:
 			char filePath[64];
-			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt",g_game.m_world.world, g_game.m_world.stage);
-			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt", 1, 4);
-			g_courseManager.load(filePath);
-			g_courseManager.m_scroll = 0.0f;
-			g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
-			g_game.setScreen(GAME_SCREEN_MAIN);
+			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt", g_game.m_world.world, g_game.m_world.stage);
+			// コースファイルを読み込む
+			if (g_courseManager.load(filePath)) {
+				g_courseManager.m_scroll = 0.0f;
+				g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
+				g_game.setScreen(GAME_SCREEN_MAIN);
+			} else {
+			// Convert a basic_string string to a wide character
+			// wchar_t* string. You must first convert to a char*
+			// for this to work.
+				const size_t newsizew = g_courseManager.getErrorString().size() + 1;
+				size_t convertedChars = 0;
+				wchar_t* wcstring = new wchar_t[newsizew];
+				mbstowcs_s(&convertedChars, wcstring, newsizew, g_courseManager.getErrorString().c_str(), _TRUNCATE);
+				MessageBox(
+					NULL,				// HWND hWnd,
+					(LPCWSTR)wcstring,	// LPCWSTR lpText,
+					(LPCWSTR)L"Error",	// LPCWSTR lpCaption,
+					MB_ICONHAND			// UINT uType
+				);
+				delete[] wcstring;
+				g_app.release();
+				exit(EXIT_FAILURE);
+			}
 			break;
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
@@ -89,3 +111,8 @@ void IntroScreen::draw()
 	}
 
 }
+
+/**
+* stringからwstringへの変換参考サイト
+* https://learn.microsoft.com/ja-jp/cpp/text/how-to-convert-between-various-string-types?view=msvc-170#converting-between-narrow-and-wide-strings
+*/

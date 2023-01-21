@@ -10,8 +10,15 @@
 #include "world/GimmickPart.h"
 #include "enemy/EnemyManager.h"
 
+#include <iostream>
+
+#define COURSE_ERROR_MSG_NO_ERRO			"No error"
+#define COURSE_ERROR_MSG_INVALID_SIZE		"A value less than 0 was specified for the width or height of the course\n"
+#define COURSE_ERROR_MSG_FAILED_OPEN_FILE	"File could not be opened\n"
+#define COURSE_ERROR_MSG_OUT_OF_MEMORY		"Failed to allocate memory\n"
+
 using namespace glm;
-using std::vector;
+using namespace std;
 
 CourseManager g_courseManager;
 
@@ -24,6 +31,8 @@ CourseManager::CourseManager()
 	, m_nextWorld{1, 1}
 	, m_pParts(NULL)
 	, m_isLoaded(false)
+	, m_courseError(COURSE_NO_ERROR)
+	, m_errorMsg(COURSE_ERROR_MSG_NO_ERRO)
 {
 }
 
@@ -53,25 +62,28 @@ bool CourseManager::load(const char* _fileName)
 
 	error = fopen_s(&pFile, _fileName, "r");
 	if (error != 0) {
-		printf("The file %s was open failed!\n", _fileName);
+		m_courseError = COURSE_FAILED_OPEN_FILE;
+		m_errorMsg = COURSE_ERROR_MSG_FAILED_OPEN_FILE;
+		m_errorMsg += _fileName;
 		return false;
 	}
-
-	printf("The file %s was opened!\n", _fileName);
 
 	// コースファイルのヘッダを読み込む
 	fscanf_s(pFile, "width=%d height=%d color=%d startX=%d startY=%d nextWorld=%d nextStage=%d",
 		&width, &height, &color, &startX, &startY, &nextWorld, &nextStage);
 
-	printf("/---------------COURSE INFO----------------/\n");
-	printf("width height : %d, %d\n", width, height);
-	printf("clear color : %d, %d, %d\n", GetRValue(color), GetGValue(color), GetBValue(color));
-	printf("start position : %d, %d\n", startX, startY);
-	printf("next world : %d-%d\n", nextWorld, nextStage);
-	printf("/-----------------------------------------/\n");
+	//printf("/---------------COURSE INFO----------------/\n");
+	//printf("width height : %d, %d\n", width, height);
+	//printf("clear color : %d, %d, %d\n", GetRValue(color), GetGValue(color), GetBValue(color));
+	//printf("start position : %d, %d\n", startX, startY);
+	//printf("next world : %d-%d\n", nextWorld, nextStage);
+	//printf("/-----------------------------------------/\n");
 
-	if (width <= 0 || height <= 0)
+	if (width <= 0 || height <= 0) {
+		m_courseError = COURSE_INVALID_SIZE;
+		m_errorMsg = COURSE_ERROR_MSG_INVALID_SIZE;
 		return false;
+	}
 
 	// すでにコースが読み込まれていた場合メモリを開放する
 	if (m_isLoaded) {
@@ -92,11 +104,17 @@ bool CourseManager::load(const char* _fileName)
 	m_nextWorld = { (unsigned char)nextWorld, (unsigned char)nextStage };
 
 	// メモリを確保
-	m_pParts = new int* [m_height];
-	for (int i = 0; i < m_height; i++) {
-		m_pParts[i] = new int[m_width];
+	try {
+		m_pParts = new int* [m_height];
+		for (int i = 0; i < m_height; i++) {
+			m_pParts[i] = new int[m_width];
+		}
+	} catch (bad_alloc& ex) {
+		m_courseError = COURSE_OUT_OF_MEMORY;
+		m_errorMsg = COURSE_ERROR_MSG_OUT_OF_MEMORY;
+		m_errorMsg = ex.what();
+		return false;
 	}
-
 
 	/*
 	* fscanf_sで読み込むとなぜかファイルポインタの位置がずれるので位置を調整する
@@ -129,11 +147,11 @@ bool CourseManager::load(const char* _fileName)
 	// ファイヤーバーの読み込み
 	int firebarCount = 0;
 	if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
-		printf("firebaCount=%d\n", firebarCount);
+		//printf("firebaCount=%d\n", firebarCount);
 		for (int i = 0; i < firebarCount; i++) {
 			int x, y, rotate;
 			fscanf_s(pFile, "x=%d y=%d rotate=%d\n", &x, &y, &rotate);
-			printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
+			//printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
 			g_gmmickPart.addFirebar(Firebar((float)x, (float)y, (FIREBAR_ROTATE)rotate));
 		}
 	}
@@ -141,11 +159,11 @@ bool CourseManager::load(const char* _fileName)
 	// リフトの読み込み
 	int liftCount = 0;
 	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
-		printf("liftCount=%d\n", liftCount);
+		//printf("liftCount=%d\n", liftCount);
 		for (int i = 0; i < liftCount; i++) {
 			int x, y, width, mode;
 			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
-			printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
+			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
 			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
 		}
 	}
@@ -155,12 +173,12 @@ bool CourseManager::load(const char* _fileName)
 	int enemyCount = 0;
 	int enemyFlag = 0;
 	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
-		printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
+		//printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
 		g_enemyManager.m_enemyFlag = enemyFlag;
 		for (int i = 0; i < enemyCount; i++) {
 			int type, x, y;
 			fscanf_s(pFile, "type=%d x=%d y=%d\n", &type, &x, &y);
-			printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
+			//printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
 			ENEMYINFO enemy;
 			enemy.type = (ENEMYTYPE)type;
 			enemy.position = ivec2(x, y);
@@ -173,6 +191,7 @@ bool CourseManager::load(const char* _fileName)
 	m_isLoaded = true;
 	update();
 
+	m_courseError = COURSE_NO_ERROR;
 	return true;
 }
 
@@ -455,4 +474,15 @@ glm::ivec2 CourseManager::getStartPosition()
 WORLD CourseManager::getNextWorld()
 {
 	return m_nextWorld;
+}
+
+COURSE_ERROR CourseManager::getError() const
+{
+	return m_courseError;
+}
+
+string CourseManager::getErrorString() const
+{
+	//cout << "m_errorMsg=" << m_errorMsg << endl;
+	return m_errorMsg;
 }

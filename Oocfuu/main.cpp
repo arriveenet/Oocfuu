@@ -1,4 +1,3 @@
-#define FREEGLUT_STATIC
 #include <gl/freeglut.h>
 
 #include <glm/glm.hpp>

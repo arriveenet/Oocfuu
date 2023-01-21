@@ -1,56 +1,34 @@
 #include "App.h"
 
 #include "font.h"
-#include "sound\audio.h"
-#include "input/Keyboard.h"
-#include "input/Mouse.h"
 #include "Part.h"
 #include "Course.h"
+#include "Game.h"
+#include "FrameCounter.h"
 #include "TextureManager.h"
+#include "input/Keyboard.h"
+#include "input/Mouse.h"
+#include "sound\audio.h"
 #include "sound\Sound.h"
 #include "sound\Music.h"
 #include "sound\Channel.h"
-#include "Game.h"
 #include "animation\Animation.h"
 #include "animation\AnimationController.h"
 #include "Player/Player.h"
-//#include "Firework.h"
-#include "FrameCounter.h"
 
 #include <stdio.h>
 #include <windows.h>
 #include <stdio.h>
-#include <psapi.h>
 #include <gl/freeglut.h>
 
 App g_app;
 extern glm::ivec2 windowSize;
 
-static bool printInit(int result, const char* _str)
-{
-	if (result == 0) {
-		printf("[  OK  ] %s\n", _str);
-		return true;
-	} else {
-		printf("[FAILED] %s\n", _str);
-		return false;
-	}
-}
-
-static bool printInit(bool result, const char* _str)
-{
-	if (result) {
-		printf("[  OK  ] %s\n", _str);
-		return true;
-	} else {
-		printf("[FAILED] %s\n", _str);
-		return false;
-	}
-}
-
 App::App()
 	: m_running(false)
 {
+	// コンソールハンドルを取得
+	m_hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	time_t t = time(NULL);
 	localtime_s(&m_currentTime, &t);
 }
@@ -80,12 +58,6 @@ bool App::init()
 
 	if (!printInit(g_textureManager.init(), "Texture initAll"))
 		return false;
-
-	//if (!printInit(g_player.init(), "Player init"))
-	//	return false;
-
-	//if (!printInit(g_firework.init(), "Firework init"))
-	//	return false;
 
 	if (!printInit(g_animations->initAll(), "Animation init"))
 		return false;
@@ -158,4 +130,31 @@ void App::run()
 		//draw();
 		glutMainLoopEvent();
 	}
+}
+
+bool App::printInit(int _result, const char* _str)
+{
+	return printInit(_result == 0 ? true : false, _str);
+}
+
+bool App::printInit(bool _result, const char* _str)
+{
+	printf("[");
+	if (_result) {
+		SetConsoleTextAttribute(
+			m_hConsoleOutput,	// HANDLE hConsoleOutput,
+			FOREGROUND_GREEN);	// WORD wAttributes
+			printf("  OK  ");
+	} else {
+		SetConsoleTextAttribute(
+			m_hConsoleOutput,	// HANDLE hConsoleOutput,
+			FOREGROUND_RED);	// WORD wAttributes
+		printf("FAILED");
+	}
+	SetConsoleTextAttribute(
+		m_hConsoleOutput,										// HANDLE hConsoleOutput,
+		FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);	// WORD wAttributes
+	printf("] %s\n", _str);
+
+	return _result;
 }

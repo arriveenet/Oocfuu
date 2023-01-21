@@ -1,13 +1,23 @@
 #pragma once
-
-#include <vector>
-#include <Windows.h>
+#include "Game.h"
 
 #include <gl/glut.h>
 #include <glm/glm.hpp>
+#include <Windows.h>
 
-#include "Game.h"
+#include <vector>
+#include <string>
 
+// コースの読み込み時のエラーを列挙する
+enum COURSE_ERROR {
+	COURSE_NO_ERROR = 0,		// エラーなし
+	COURSE_INVALID_VALUE,		// 無効なパーツが指定されている
+	COURSE_INVALID_SIZE,		// コースのサイズが0以下
+	COURSE_FAILED_OPEN_FILE,	// コースファイルが開けなかった
+	COURSE_OUT_OF_MEMORY,		// コースデータを読み込むメモリが残っていない
+};
+
+// 構造体を定義する
 typedef struct {
 	glm::vec2 position;
 	glm::vec2 texCoord;
@@ -36,6 +46,8 @@ class CourseManager {
 	int** m_pParts;
 	bool m_isLoaded;
 	std::vector<QUAD> m_quads;
+	COURSE_ERROR m_courseError;
+	std::string m_errorMsg;
 
 public:
 	float m_scroll;
@@ -56,6 +68,8 @@ public:
 	COLORREF getClearColor();
 	glm::ivec2 getStartPosition();
 	WORLD getNextWorld();
+	COURSE_ERROR getError() const;
+	std::string getErrorString() const;
 };
 
 extern CourseManager g_courseManager;
