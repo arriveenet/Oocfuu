@@ -159,13 +159,13 @@ void Player::update()
 						if ((parts == PART_GOAL_POLE) && (!m_goal)) {
 							//printf("Player is goal\n");
 							m_goal = true;
-							g_game.stopTimer();
+							g_game.m_timer.stop();
 							m_pStateContext->setStete(new PlayerStateGoal);
 							break;
 						} else if (parts == PART_AXE && (!m_clear)) {
 							m_clear = true;
 							printf("clear\n");
-							g_game.stopTimer();
+							g_game.m_timer.stop();
 							g_music.resetScore();
 							g_music.setScore(AUDIO_CHANNEL_PULSE0, komm::pulse0, komm::PULSE0_COUNT);
 							g_music.setScore(AUDIO_CHANNEL_PULSE1, komm::triangle, komm::TRIANGLE_COUNT);

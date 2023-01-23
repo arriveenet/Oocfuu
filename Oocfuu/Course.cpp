@@ -286,14 +286,16 @@ void CourseManager::draw()
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_CULL_FACE);
 
-	fontBegin();
-	fontBackgroundColor(true);
-	fontColor(0x00, 0xff, 0x00);
-	fontPosition(0, 8);
-	fontDraw("SCROLL:%f", m_scroll);
-	fontColor(0xff, 0xff, 0xff);
-	fontBackgroundColor(false);
-	fontEnd();
+	if (Game::m_debugInfo) {
+		fontBegin();
+		fontBackgroundColor(true);
+		fontColor(0x00, 0xff, 0x00);
+		fontPosition(0, 8);
+		fontDraw("SCROLL:%f", m_scroll);
+		fontColor(0xff, 0xff, 0xff);
+		fontBackgroundColor(false);
+		fontEnd();
+	}
 }
 
 void CourseManager::setParts(ivec2 const& _point, int _parts) {

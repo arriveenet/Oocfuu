@@ -159,6 +159,8 @@
     <ClCompile Include="font.cpp" />
     <ClCompile Include="FrameCounter.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameScore.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="input\Keyboard.cpp" />
     <ClCompile Include="input\Mouse.cpp" />
     <ClCompile Include="main.cpp" />
@@ -204,6 +206,8 @@
     <ClInclude Include="font.h" />
     <ClInclude Include="FrameCounter.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameScore.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="input\Keyboard.h" />
     <ClInclude Include="input\Mouse.h" />
     <ClInclude Include="Part.h" />

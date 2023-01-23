@@ -23,7 +23,7 @@ void IntroScreen::init()
 void IntroScreen::reset()
 {
 	g_courseManager.m_scroll = 0.0f;
-	g_game.visibleTimer(false);
+	g_game.m_timer.setVisible(false);
 	m_counter = 0;
 	glClearColor(0, 0, 0, 1);
 
@@ -66,8 +66,7 @@ void IntroScreen::update()
 			break;
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
-			g_game.m_isGameOver = false;
-			g_game.m_world = { 1, 1 };
+			g_game.reset();
 			g_game.setScreen(GAME_SCREEN_TITLE);
 			break;
 		case INTRO_TIMEUP:

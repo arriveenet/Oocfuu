@@ -12,6 +12,7 @@
 #include "screen/GoodbyeOocfuuScreen.h"
 #include "sound/Sound.h"
 
+#include <algorithm>
 #include <freeglut.h>
 
 Game g_game;
@@ -37,13 +38,20 @@ int Game::init()
 	m_score = 0;
 	m_coin = 0;
 	m_world = GAME_START_WORLD;
-	m_time = GAME_START_TIME;
-	m_isTimerUpdate = false;
-	m_visibleTimer = false;
 	m_debugInfo = false; 
 	m_pause = false;
 
 	return 0;
+}
+
+void Game::reset()
+{
+	m_count = 0;
+	m_isGameOver = false;
+	m_score = 0;
+	m_coin = 0;
+	m_world = GAME_START_WORLD;
+	m_pause = false;
 }
 
 void Game::release()
@@ -61,16 +69,7 @@ void Game::update()
 
 	m_count++;
 
-	// タイマーをカウントダウンさせる
-	if (m_isTimerUpdate) {
-		static int lastTime;
-		int time = m_count / GAME_TIMER_LATE;
-		if ((time != lastTime) && (m_time > 0)) {
-			//printf("time=%d\n", time);
-			m_time--;
-		}
-		lastTime = time;
-	}
+	m_timer.update();
 }
 
 void Game::setScreen(int _screen) {
@@ -109,22 +108,42 @@ void Game::drawHUD()
 		fontPosition(200, 16);
 		fontDraw("TIME");
 		// タイム表示を表示する
-		if (m_visibleTimer) {
+		if (m_timer.getVisible()) {
 			fontPosition(208, 24);
 			//fontDraw("%02d:%02d", g_app.m_currentTime.tm_hour, g_app.m_currentTime.tm_min);
-			fontDraw("%03d", m_time);
+			fontDraw("%03d", m_timer.getTime());
 		}
 	}
 	fontEnd();
 }
 
+void Game::countDownTimer()
+{
+}
+
 void Game::pause()
 {
-	printf("sound state=0x%x\n", g_pSound->getState(SOUND_SE_PAUSE));
 	// ポーズ音が再生中であればポーズしない
 	if (g_pSound->getState(SOUND_SE_PAUSE) == AL_PLAYING)
 		return;
 
 	m_pause = m_pause ? false : true;
 	g_pSound->play(SOUND_SE_PAUSE);
+}
+
+bool Game::isPause()
+{
+	return m_pause;
+}
+
+void Game::addScore(int _score)
+{
+	m_score += _score;
+
+	m_topScore = std::max(m_score, m_topScore);
+}
+
+unsigned int Game::getTopScore() const
+{
+	return m_topScore;
 }

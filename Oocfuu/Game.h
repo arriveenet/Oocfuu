@@ -1,8 +1,6 @@
 #pragma once
 #include "screen/Screen.h"
-
-#define GAME_START_TIME		400
-#define GAME_TIMER_LATE		32
+#include "GameTimer.h"
 
 typedef struct tagWORLD {
 	unsigned char world;
@@ -22,33 +20,33 @@ enum GAME_SCREEN {
 };
 
 class Game {
+private:
 	int m_screen;
 	Screen* m_pScreens[GAME_SCREEN_MAX];
-	short m_time;
-	bool m_isTimerUpdate;
-	bool m_visibleTimer;
 	bool m_pause;
+	unsigned int m_score;
+	unsigned int m_topScore;
+	unsigned char m_coin;
 
 public:
 	Screen* m_pCurrentScreen;
 	static unsigned int m_count;
 	static bool m_debugInfo;
-	unsigned int m_score;
-	unsigned char m_coin;
 	WORLD m_world;
 	bool m_isGameOver;
+	GameTimer m_timer;
 
 	int init();
+	void reset();
 	void release();
 	void update();
 	void setScreen(int _screen);
 	void drawHUD();
-	void startTimer() { m_isTimerUpdate = true; };
-	void stopTimer() { m_isTimerUpdate = false; };
-	void resetTimer() { m_time = GAME_START_TIME; };
-	void visibleTimer(bool _visible) { m_visibleTimer = _visible; };
+	void countDownTimer();
 	void pause();
-	bool isPause() { return m_pause; };
+	bool isPause();
+	void addScore(int _score);
+	unsigned int getTopScore() const;
 };
 
 extern Game g_game;

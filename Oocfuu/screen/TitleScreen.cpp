@@ -36,7 +36,7 @@ void TitleScreen::init()
 
 void TitleScreen::reset()
 {
-	g_game.visibleTimer(false);
+	g_game.m_timer.setVisible(false);
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_courseManager.load("resource\\course\\course1-1.txt");
 	g_courseManager.m_scroll = 0.0f;
@@ -91,6 +91,6 @@ void TitleScreen::draw()
 		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);
 	}
 	fontPosition(96, 184);
-	fontDraw("TOP-%07d", 0);
+	fontDraw("TOP-%07d", g_game.getTopScore());
 	fontEnd();
 }

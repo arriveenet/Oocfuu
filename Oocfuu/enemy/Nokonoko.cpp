@@ -35,25 +35,7 @@ void Nokonoko::update()
 	switch (m_state) {
 	case NOKONOKO_STATE_MOVE:
 		m_collision.clear();
-		m_collision.m_rightPoints.push_back(vec2(m_position.x + m_size.x, m_position.y));
-		m_collision.m_leftPoints.push_back(m_position);
-		m_collision.m_topPoints.push_back(m_position + vec2(m_size.x / 2, 0));
-		m_collision.m_bottomPoints.push_back(m_position + vec2(1, m_size.y));
-		m_collision.m_bottomPoints.push_back(m_position + vec2(m_size.x - 1, m_size.y));
 
-		m_falling = true;
-		if (m_speed.y >= 0)
-			for (std::vector<vec2>::iterator iter = m_collision.m_bottomPoints.begin();
-				iter != m_collision.m_bottomPoints.end();
-				iter++) {
-			if (g_courseManager.intersect(*iter)) {
-				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-				m_position.y = bottom.y - m_size.y;
-				m_speed.y = 0;
-				m_falling = false;
-				break;
-			}
-		}
 		break;
 	case NOKONOKO_STATE_SQUISH:
 		break;

@@ -3,6 +3,7 @@
 #include "App.h"
 #include "Part.h"
 #include "Course.h"
+#include "GameScore.h"
 #include "TextureManager.h"
 #include "player/Player.h"
 #include "sound/Sound.h"
@@ -71,6 +72,7 @@ void Kuribo::update()
 			g_pSound->play(SOUND_SE_SQUISH);
 			m_state = KURIBO_STATE_SQUISH;
 			g_player.jump();
+			g_game.addScore(100);
 		}
 
 		// bool player dead
