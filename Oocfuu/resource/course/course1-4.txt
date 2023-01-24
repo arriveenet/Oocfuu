@@ -21,7 +21,7 @@ x=964 y=100 rotate=1
 x=1076 y=100 rotate=1
 x=1220 y=148 rotate=1
 x=1348 y=148 rotate=1
-x=1412 y=68 rotate=1
+x=1412 y=68 rotate=0
 lift=1
 x=2176 y=96 width=4, mode=0
 enemyCount=1 flag=4
