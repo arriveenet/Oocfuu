@@ -14,12 +14,10 @@
 
 void MainScreen::init()
 {
-	m_pause = false;
 }
 
 void MainScreen::reset()
 {
-	m_pause = false;
 	COLORREF clearColor = g_courseManager.getClearColor();
 	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
 	g_game.m_timer.start();

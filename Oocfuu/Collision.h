@@ -1,22 +1,38 @@
 #pragma once
 #include "Rect.h"
+#include "Course.h"
 
 #include <vector>
 #include <functional>
 #include <glm/glm.hpp>
 
 class Collision {
-public:
+private:
+	Rect m_rect;
+
 	std::vector<glm::vec2> m_leftPoints;
 	std::vector<glm::vec2> m_rightPoints;
 	std::vector<glm::vec2> m_topPoints;
 	std::vector<glm::vec2> m_bottomPoints;
 
-	void leftCollision(Rect _rect, std::function<void()> _proc);
-	void rightCollision(Rect _rect, std::function<void()> _proc);
-	void topCollision(Rect _rect, std::function<void()> _proc);
-	void bottomCollision(Rect _rect, std::function<void()> _proc);
+public:
+	Collision();
 
 	void clear();
+	void prepare(const Rect& _rect);
+
+	template<typename TUpdate>
+	inline void updateLeft(TUpdate _update, CourseManager _course);
+
+	template<typename TUpdate>
+	inline void updateRight(TUpdate _update, CourseManager _course);
+
+	 template<typename TUpdate>
+	 inline void updateTop(TUpdate _update, CourseManager _course);
+
+	 template<typename TUpdate>
+	 inline void updateBottom(TUpdate _update, CourseManager _course);
+
+	 void drawPoints();
 };
 

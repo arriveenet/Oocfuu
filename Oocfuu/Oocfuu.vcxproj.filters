@@ -186,7 +186,7 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GameScore.cpp">
+    <ClCompile Include="ScoreText.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GameTimer.cpp">
@@ -344,7 +344,7 @@
     <ClInclude Include="score\Komm_susser_Tod.h">
       <Filter>ヘッダー ファイル\score</Filter>
     </ClInclude>
-    <ClInclude Include="GameScore.h">
+    <ClInclude Include="ScoreText.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameTimer.h">

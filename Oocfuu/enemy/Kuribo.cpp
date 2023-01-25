@@ -3,7 +3,7 @@
 #include "App.h"
 #include "Part.h"
 #include "Course.h"
-#include "GameScore.h"
+#include "ScoreText.h"
 #include "TextureManager.h"
 #include "player/Player.h"
 #include "sound/Sound.h"
@@ -73,6 +73,7 @@ void Kuribo::update()
 			m_state = KURIBO_STATE_SQUISH;
 			g_player.jump();
 			g_game.addScore(100);
+			g_scoreTextManager.add(SCORETYPE_100, m_position.x, m_position.y);
 		}
 
 		// bool player dead
