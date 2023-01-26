@@ -1,8 +1,8 @@
 #include "Kuribo.h"
 
 #include "App.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 #include "ScoreText.h"
 #include "TextureManager.h"
 #include "player/Player.h"

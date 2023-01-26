@@ -1,8 +1,8 @@
 #include "App.h"
 
 #include "font.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 #include "Game.h"
 #include "FrameCounter.h"
 #include "TextureManager.h"

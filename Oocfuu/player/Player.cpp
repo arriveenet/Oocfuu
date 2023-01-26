@@ -7,8 +7,8 @@
 
 #include "App.h"
 #include "font.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 #include "TextureManager.h"
 #include "input/Keyboard.h"
 #include "input//Mouse.h"

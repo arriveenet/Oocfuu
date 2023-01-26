@@ -1,7 +1,7 @@
 #include "Koopa.h"
 
-#include "Course.h"
-#include "Part.h"
+#include "world/Course.h"
+#include "world/Part.h"
 #include "font.h"
 #include "player/Player.h"
 #include "TextureManager.h"

@@ -9,7 +9,7 @@
 #include "../font.h"
 #include "../Texture.h"
 #include "../Player/Player.h"
-#include "../Course.h"
+#include "world/Course.h"
 
 #include <freeglut.h>
 

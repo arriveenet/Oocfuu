@@ -1,8 +1,8 @@
 #include "Lift.h"
 
 #include "App.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 #include "TextureManager.h"
 
 #include <glm/glm.hpp>

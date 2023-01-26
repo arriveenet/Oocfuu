@@ -1,8 +1,8 @@
 #include "PlayerStateGoal.h"
 #include "sound/Sound.h"
 #include "animation/Animation.h"
-#include "Course.h"
-#include "Part.h"
+#include "world/Course.h"
+#include "world/Part.h"
 
 #include <vector>
 #include <glm/glm.hpp>

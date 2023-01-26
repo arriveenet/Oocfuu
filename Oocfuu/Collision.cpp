@@ -1,6 +1,6 @@
 #include "Collision.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 
 #include <gl/glut.h>
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "Rect.h"
-#include "Course.h"
+#include "world/Course.h"
 
 #include <vector>
 #include <functional>

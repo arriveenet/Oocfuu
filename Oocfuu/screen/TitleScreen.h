@@ -1,6 +1,6 @@
 #pragma once
 #include "Screen.h"
-#include "../Course.h"
+#include "world/Course.h"
 
 class TitleScreen : public Screen {
 	int m_mode;

@@ -4,8 +4,8 @@
 #include "font.h"
 #include "Game.h"
 #include "TextureManager.h"
-#include "Part.h"
-#include "Course.h"
+#include "world/Part.h"
+#include "world/Course.h"
 #include "player/Player.h"
 
 #include <cmath>
