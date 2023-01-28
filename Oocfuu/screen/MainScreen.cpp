@@ -44,7 +44,7 @@ void MainScreen::update()
 	g_enemyManager.update();
 
 	if ((g_player.m_speed.x > 0)
-		&& (g_player.m_position.x > g_courseManager.m_scroll + GLUT_SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
+		&& (g_player.m_position.x > g_courseManager.m_scroll + SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
 		g_courseManager.m_scroll += g_player.m_speed.x;
 	}
 	g_courseManager.m_scroll = std::min(g_courseManager.m_scroll, (float)(g_courseManager.getWidth() * PART_SIZE - SCREEN_WIDTH));

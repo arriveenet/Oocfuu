@@ -6,6 +6,7 @@
 #include "Course.h"
 #include "Part.h"
 #include "font.h"
+#include "player/Player.h"
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
 #include "enemy/EnemyManager.h"
@@ -31,6 +32,7 @@ CourseManager::CourseManager()
 	, m_nextWorld{1, 1}
 	, m_pParts(NULL)
 	, m_isLoaded(false)
+	, m_clearAex(PART_SIZE, PART_SIZE)
 	, m_courseError(COURSE_NO_ERROR)
 	, m_errorMsg(COURSE_ERROR_MSG_NO_ERRO)
 {
@@ -43,7 +45,7 @@ CourseManager::~CourseManager()
 
 void CourseManager::release()
 {
-	if (m_pParts) {
+	if (m_pParts && m_isLoaded) {
 		for (int i = 0; i < m_height; ++i) {
 			delete m_pParts[i];
 		}
@@ -82,11 +84,12 @@ bool CourseManager::load(const char* _fileName)
 	if (width <= 0 || height <= 0) {
 		m_courseError = COURSE_INVALID_SIZE;
 		m_errorMsg = COURSE_ERROR_MSG_INVALID_SIZE;
+		m_isLoaded = false;
 		return false;
 	}
 
 	// すでにコースが読み込まれていた場合メモリを開放する
-	if (m_isLoaded) {
+	if (m_isLoaded && m_pParts) {
 		if (m_pParts) {
 			for (int i = 0; i < m_height; ++i) {
 				delete m_pParts[i];
@@ -113,6 +116,7 @@ bool CourseManager::load(const char* _fileName)
 		m_courseError = COURSE_OUT_OF_MEMORY;
 		m_errorMsg = COURSE_ERROR_MSG_OUT_OF_MEMORY;
 		m_errorMsg = ex.what();
+		m_isLoaded = false;
 		return false;
 	}
 
@@ -134,6 +138,10 @@ bool CourseManager::load(const char* _fileName)
 				for (int k = PART_NONE + 1; k < PART_MAX; k++) {
 					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
 						m_pParts[i][j] = k;
+
+						if (k == PART_AXE)
+							m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
+
 						break;
 					}
 				}
@@ -455,6 +463,9 @@ bool CourseManager::intersect(glm::vec2 const& _point, int* _parts)
 
 int CourseManager::getWidth()
 {
+	if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
+		return m_width - 16;
+	}
 	return m_width;
 }
 
@@ -476,6 +487,15 @@ glm::ivec2 CourseManager::getStartPosition()
 WORLD CourseManager::getNextWorld()
 {
 	return m_nextWorld;
+}
+
+bool CourseManager::getClearAex(Rect& _rect)
+{
+	if (m_clearAex.m_position != vec2(0, 0)) {
+		_rect = m_clearAex;
+		return true;
+	}
+	return false;
 }
 
 COURSE_ERROR CourseManager::getError() const

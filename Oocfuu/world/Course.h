@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.h"
+#include "Rect.h"
 
 #include <gl/glut.h>
 #include <glm/glm.hpp>
@@ -46,6 +47,7 @@ class CourseManager {
 	int** m_pParts;
 	bool m_isLoaded;
 	std::vector<QUAD> m_quads;
+	Rect m_clearAex;
 	COURSE_ERROR m_courseError;
 	std::string m_errorMsg;
 
@@ -68,6 +70,7 @@ public:
 	COLORREF getClearColor();
 	glm::ivec2 getStartPosition();
 	WORLD getNextWorld();
+	bool getClearAex(Rect& _rect);
 	COURSE_ERROR getError() const;
 	std::string getErrorString() const;
 };
