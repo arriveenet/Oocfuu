@@ -7,7 +7,7 @@ typedef struct tagWORLD {
 	unsigned char stage;
 } WORLD;
 
-static const WORLD GAME_START_WORLD = { 1, 1 };
+static const WORLD GAME_BEGIN_WORLD = { 1, 1 };
 
 enum GAME_SCREEN {
 	GAME_SCREEN_TITLE,
@@ -46,6 +46,7 @@ public:
 	void pause();
 	bool isPause();
 	void addScore(int _score);
+	void updateTopScore();
 	unsigned int getTopScore() const;
 };
 

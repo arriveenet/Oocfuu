@@ -37,7 +37,7 @@ int Game::init()
 	m_isGameOver = false;
 	m_score = 0;
 	m_coin = 0;
-	m_world = GAME_START_WORLD;
+	m_world = GAME_BEGIN_WORLD;
 	m_debugInfo = false; 
 	m_pause = false;
 
@@ -50,7 +50,7 @@ void Game::reset()
 	m_isGameOver = false;
 	m_score = 0;
 	m_coin = 0;
-	m_world = GAME_START_WORLD;
+	m_world = GAME_BEGIN_WORLD;
 	m_pause = false;
 }
 
@@ -139,7 +139,10 @@ bool Game::isPause()
 void Game::addScore(int _score)
 {
 	m_score += _score;
+}
 
+void Game::updateTopScore()
+{
 	m_topScore = std::max(m_score, m_topScore);
 }
 

@@ -66,6 +66,7 @@ void IntroScreen::update()
 			break;
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
+			g_game.updateTopScore();
 			g_game.reset();
 			g_game.setScreen(GAME_SCREEN_TITLE);
 			break;
