@@ -192,6 +192,12 @@
     <ClCompile Include="world\Part.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
+    <ClCompile Include="player\PlayerStateClear.cpp">
+      <Filter>ソース ファイル\player</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\KoopaStates.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -349,6 +355,18 @@
     </ClInclude>
     <ClInclude Include="world\Part.h">
       <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="player\PlayerStateClear.h">
+      <Filter>ヘッダー ファイル\player</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\KoopaStates.h">
+      <Filter>ヘッダー ファイル\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

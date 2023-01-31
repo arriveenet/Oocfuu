@@ -4,7 +4,7 @@
 
 class Sprite : public Rect{
 public:
-	AnimationController m_animeCtr;
+	AnimationController m_animeController;
 
 	Sprite();
 	Sprite(glm::vec2 _size, glm::vec2 _position);
