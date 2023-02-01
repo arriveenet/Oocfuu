@@ -40,7 +40,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 	}
 
 	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP] && !_pPlayer->m_falling) {
-		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_JUMP);
+		_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_JUMP);
 		_pStateContext->setStete(new PlayerStateJump);
 		return;
 	}
@@ -54,7 +54,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 	//_pPlayer->m_position += _pPlayer->m_speed;
 
 	if (glm::length(_pPlayer->m_speed.x) <= 0) {
-		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_IDLE);
+		_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
 		_pStateContext->setStete(new PlayerStateIdle);
 	}
 }

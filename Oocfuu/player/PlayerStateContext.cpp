@@ -67,6 +67,8 @@ std::string PlayerStateContext::getString()
 	case PLAYER_STATE_GOAL:
 		str = "PLAYER_STATE_GOAL";
 		break;
+	case PLAYER_STATE_CLEAR:
+		str = "PLAYER_STATE_CLEAR";
 	}
 
 	return str;

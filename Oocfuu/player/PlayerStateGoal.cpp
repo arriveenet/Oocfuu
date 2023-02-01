@@ -53,7 +53,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 			g_pSound->setGain(SOUND_FANFARE, 0.1f);
 			g_pSound->play(SOUND_FANFARE);
 			_pPlayer->m_flip = RECT_FLIP_NONE;
-			_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_RUN);
+			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 		}
 		break;
 	case PLAYERSTATEGOAL_MOVE:

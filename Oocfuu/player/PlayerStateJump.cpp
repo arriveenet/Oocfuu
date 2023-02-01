@@ -56,7 +56,7 @@ void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 {
 	// —Ž‰ºó‘Ô‚ªI—¹‚µ‚½ê‡‘–‚èó‘Ô‚É‘JˆÚ‚·‚é
  	if (!_pPlayer->m_falling && m_lastFalling) {
-		_pPlayer->m_animeCtr.setAnimation(ANIMATION_PLAYER_RUN);
+		_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 		_pStateContext->setStete(new PlayerStateRun);
 		return;
 	}
