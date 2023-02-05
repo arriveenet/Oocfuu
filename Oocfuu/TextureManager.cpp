@@ -28,8 +28,10 @@ static TEX texs[] =
 	{{"font\\score_100.bmp"}, {0xff, 0x00, 0xff}},		// 	TEXTURE_SCORE_100
 	{{"enemy\\Koopa_Idle_1.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_KOOPA_IDLE_1
 	{{"enemy\\Koopa_Idle_2.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_KOOPA_IDLE_2
-	{{"enemy\\Koopa_Idle_Breath_1.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_BREATH_1
-	{{"enemy\\Koopa_Idle_Breath_2.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_BREATH_2
+	{{"enemy\\Koopa_Idle_Breath_1.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_IDLE_BREATH_1
+	{{"enemy\\Koopa_Idle_Breath_2.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_IDLE_BREATH_2
+	{{"enemy\\Koopa_Breath_1.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_BREATH_1
+	{{"enemy\\Koopa_Breath_2.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_KOOPA_BREATH_2
 	{{"enemy\\Nokonoko_Return.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_NOKONOKO_RETURN,
 	{{"enemy\\Nokonoko_Run_1.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_NOKONOKO_RUN_1,
 	{{"enemy\\Nokonoko_Run_2.bmp"}, {0xff, 0x00, 0xff}},// TEXTURE_NOKONOKO_RUN_2,
