@@ -26,6 +26,7 @@ static const char* fileNames[SOUND_MAX] = {
 	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
 	"resource\\sound\\Coin.wav", // SOUND_SE_COIN
 	"resource\\sound\\Die.wav", // SOUND_SE_DIE
+	"resource\\sound\\EnemyFire.wav", // SOUND_SE_ENEMY_FIRE
 	"resource\\sound\\Pause.wav",// SOUND_SE_PAUSE
 	"resource\\sound\\Squish.wav", // SOUND_SE_SQUISH
 	"resource\\sound\\Firework.wav", //SOUND_FIREWORK
