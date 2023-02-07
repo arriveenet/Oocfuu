@@ -1,13 +1,13 @@
 #include "TpScreen.h"
-#include "../sound/Music.h"
-#include "../font.h"
+#include "sound/Music.h"
+#include "common/font.h"
 #include "input/Keyboard.h"
-#include "../Game.h"
+#include "Game.h"
 //#include "../Firework.h"
-#include "../TextureManager.h"
-#include "../Player/Player.h"
+#include "TextureManager.h"
+#include "player/Player.h"
 #include "world/Course.h"
-#include "../FrameCounter.h"
+#include "common/FrameCounter.h"
 
 #include <freeglut.h>
 

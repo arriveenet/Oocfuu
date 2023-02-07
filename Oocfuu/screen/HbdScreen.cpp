@@ -1,14 +1,14 @@
 #pragma once
 #include "HbdScreen.h"
-#include "../score/HappyBirthdayToYou.h"
-#include "../score/TyphoonParade.h"
-#include "../score/Voyager.h"
-#include "../sound/Music.h"
-#include "../font.h"
-#include "../Game.h"
+#include "score/HappyBirthdayToYou.h"
+#include "score/TyphoonParade.h"
+#include "score/Voyager.h"
+#include "sound/Music.h"
+#include "common/font.h"
+#include "Game.h"
 #include "input/Keyboard.h"
-#include "../TextureManager.h"
-#include "../Player/Player.h"
+#include "TextureManager.h"
+#include "Player/Player.h"
 #include "world/Course.h"
 
 #include <freeglut.h> 

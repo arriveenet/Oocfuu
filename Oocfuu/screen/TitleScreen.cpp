@@ -4,7 +4,7 @@
 #include "TitleScreen.h"
 #include "Game.h"
 #include "input/Keyboard.h"
-#include "font.h"
+#include "common/font.h"
 #include "Player/Player.h"
 #include "world/Course.h"
 #include "TextureManager.h"

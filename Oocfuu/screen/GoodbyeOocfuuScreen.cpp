@@ -4,11 +4,11 @@
 
 #include "GoodbyeOocfuuScreen.h"
 #include "input/Keyboard.h"
-#include "../sound/Music.h"
-#include "../Game.h"
-#include "../font.h"
-#include "../Texture.h"
-#include "../Player/Player.h"
+#include "sound/Music.h"
+#include "Game.h"
+#include "common/font.h"
+#include "Texture.h"
+#include "player/Player.h"
 #include "world/Course.h"
 
 #include <freeglut.h>
