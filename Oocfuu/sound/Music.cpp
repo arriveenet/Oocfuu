@@ -6,7 +6,7 @@
 
 #include "music.h"
 #include "audio.h"
-#include "../font.h"
+#include "common/font.h"
 #include "glut.h"
 
 Music g_music;
