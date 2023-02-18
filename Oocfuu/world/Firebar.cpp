@@ -1,7 +1,7 @@
 #include "FireBar.h"
 
 #include "App.h"
-#include "font.h"
+#include "common/font.h"
 #include "Game.h"
 #include "TextureManager.h"
 #include "world/Part.h"

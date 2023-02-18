@@ -7,7 +7,7 @@
 #include <crtdbg.h>
 
 #include "App.h"
-#include "font.h"
+#include "common/font.h"
 #include "sound/audio.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"

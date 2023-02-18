@@ -1,7 +1,7 @@
 #include "Game.h"
 
 #include "App.h"
-#include "font.h"
+#include "common/font.h"
 #include "Rect.h"
 #include "TextureManager.h"
 #include "screen/TitleScreen.h"

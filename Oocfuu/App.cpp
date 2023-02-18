@@ -1,10 +1,10 @@
 #include "App.h"
 
-#include "font.h"
+#include "common/font.h"
 #include "world/Part.h"
 #include "world/Course.h"
 #include "Game.h"
-#include "FrameCounter.h"
+#include "common/FrameCounter.h"
 #include "TextureManager.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
@@ -39,6 +39,9 @@ App::~App()
 
 bool App::init()
 {
+	// —”‚ğ‰Šú‰»
+	srand((unsigned int)time(NULL));
+
 	g_pSound = Sound::getInstance();
 
 	if (!printInit(fontInit(), "Font init"))
@@ -126,9 +129,9 @@ void App::run()
 	m_running = true;
 
 	while (m_running) {
+		glutMainLoopEvent();
 		//update();
 		//draw();
-		glutMainLoopEvent();
 	}
 }
 

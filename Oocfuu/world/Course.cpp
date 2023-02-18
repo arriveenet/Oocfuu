@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Course.h"
 #include "Part.h"
-#include "font.h"
+#include "common/font.h"
 #include "player/Player.h"
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
@@ -339,7 +339,6 @@ bool CourseManager::intersect(vec2 const& _point) {
 		return false;
 
 	switch (m_pParts[cellPoint.y][cellPoint.x]) {
-		//case PART_NONE:
 	case PART_GROUND:
 	case PART_HARD_BLOCK:
 	case PART_SOFT_BLOCK:
@@ -356,6 +355,7 @@ bool CourseManager::intersect(vec2 const& _point) {
 	case PART_WOOD_1:
 	case PART_WOOD_2:
 	case PART_BRIDGE:
+	//case PART_AXE:
 		return true;
 	}
 	return false;
