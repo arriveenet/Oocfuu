@@ -207,6 +207,9 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="world\BossBridge.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -376,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="common\font.h">
       <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="world\BossBridge.h">
+      <Filter>ヘッダー ファイル\world</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
