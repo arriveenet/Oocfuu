@@ -24,6 +24,7 @@ Sound* g_pSound = NULL;
 static const char* fileNames[SOUND_MAX] = {
 	"resource\\sound\\Yo.wav", //SOUND_SE_YO
 	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
+	"resource\\sound\\1up.wav",//SOUND_SE_1UP
 	"resource\\sound\\Coin.wav", // SOUND_SE_COIN
 	"resource\\sound\\Break.wav",// SOUND_SE_BREAK
 	"resource\\sound\\Die.wav", // SOUND_SE_DIE
