@@ -18,6 +18,17 @@
 #define PLAYER_SPEED_MAX	2.5f
 #define PLAYER_GRAVITY		0.4f
 
+enum PLAYER_FLAG {
+	PLAYER_FLAG_NONE = 0,
+	PLAYER_FLAG_DEAD = 1,
+	PLAYER_FLAG_GOAL = 2,
+	PLAYER_FLAG_CLEAR = 4,
+	PLAYER_FLAG_VISIBLE = 8,
+	PLAYER_FLAG_JUMPING = 16,
+	PLAYER_FLAG_FALLING = 32,
+	PLAYER_FLAG_MAX = 16777215
+};
+
 class Player;
 class PlayerStateContext;
 
@@ -49,6 +60,7 @@ public:
 	void draw();
 	void kill();
 	void jump();
+	void oneUp();
 };
 
 extern Player g_player;

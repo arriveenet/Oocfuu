@@ -7,17 +7,17 @@
 #include "PlayerStateClear.h"
 
 #include "App.h"
-#include "font.h"
+#include "TextureManager.h"
+#include "common/font.h"
+#include "enemy/EnemyManager.h"
 #include "world/Part.h"
 #include "world/Course.h"
-#include "TextureManager.h"
+#include "world/GimmickPart.h"
 #include "input/Keyboard.h"
 #include "input//Mouse.h"
 #include "animation/Animation.h"
 #include "sound/Sound.h"
-#include "world/GimmickPart.h"
 #include "sound/Music.h"
-#include "score/Komm_susser_Tod.h"
 
 using namespace glm;
 using std::vector;
@@ -96,7 +96,8 @@ void Player::update()
 	if (m_falling 
 		&& (!m_dead)
 		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_JUMP)
-		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_GOAL)) {
+		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_GOAL)
+		&& (m_pStateContext->getStateEnum() != PLAYER_STATE_CLEAR)) {
 		m_speed.y += PLAYER_GRAVITY;
 	}
 
@@ -111,13 +112,22 @@ void Player::update()
 		m_pStateContext->setStete(new PlayerStateDie);
 	}
 
+	// コインとの当たり判定
+	g_courseManager.intersectCoin(this);
+
 	// ワールドクリア判定
 	Rect aex;
-	if (g_courseManager.getClearAex(aex)) {
+	if (g_courseManager.getClearAex(aex) && !m_clear) {
 		if (this->intersect(aex)) {
 			m_clear = true;
 			g_game.m_timer.stop();
 			m_pStateContext->setStete(new PlayerStateClear);
+			g_enemyManager.koopaKill();
+
+			// 斧を消す
+			g_courseManager.setParts(
+				vec2(aex.m_position.x / PART_SIZE, aex.m_position.y / PART_SIZE),
+				PART_NONE);
 		}
 	}
 
@@ -137,80 +147,82 @@ void Player::update()
 	// 上の当たり判定ポイント
 	m_topPoints.push_back(m_position + vec2(PLAYER_SIZE / 2, 0));
 
-	bool topHit = false;
-	int parts = PART_NONE;
-
-	for (vector<vec2>::iterator iter = m_topPoints.begin();
-		iter != m_topPoints.end();
-		iter++) {
-		if (g_courseManager.intersect(*iter, &parts)) {
-			if (parts == PART_GOAL_POLE)
-				continue;
-			vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
-			m_position.y = top.y + PLAYER_SIZE;
-			m_speed.y = 0;
-			m_jumping = false;
-			//m_falling = true;
-			topHit = true;
-			break;
-		}
-	}
-
-	if (!topHit && !m_goal) {
-		for (vector<vec2>::iterator iter = m_rightPoints.begin();
-			iter != m_rightPoints.end();
+	if (!m_dead) {
+		bool topHit = false;
+		for (vector<vec2>::iterator iter = m_topPoints.begin();
+			iter != m_topPoints.end();
 			iter++) {
-			int parts = PART_NONE;
-			if (g_courseManager.intersect(*iter, &parts)) {
-				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = right.x - PLAYER_SIZE;
-				m_speed.x = 0;
-				m_falling = true;
+			if (g_courseManager.intersect(*iter)) {
+				int parts = g_courseManager.getParts(*iter);
+				if (parts == PART_GOAL_POLE)
+					continue;
+				vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
+				m_position.y = top.y + PLAYER_SIZE;
+				m_speed.y = 0;
+				m_jumping = false;
+				//m_falling = true;
+				topHit = true;
+				break;
+			}
+		}
+
+		if (!topHit && !m_goal) {
+			for (vector<vec2>::iterator iter = m_rightPoints.begin();
+				iter != m_rightPoints.end();
+				iter++) {
+
 				// プレイヤーがゴール
-				if ((parts == PART_GOAL_POLE) && (!m_goal)) {
+				if ((g_courseManager.getParts(*iter) == PART_GOAL_POLE) && (!m_goal)) {
 					//printf("Player is goal\n");
 					m_goal = true;
 					g_game.m_timer.stop();
 					m_pStateContext->setStete(new PlayerStateGoal);
 					break;
 				}
-				break;
+
+				if (g_courseManager.intersect(*iter)) {
+					vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = right.x - PLAYER_SIZE;
+					m_speed.x = 0;
+					m_falling = true;
+					break;
+				}
+			}
+
+			for (vector<vec2>::iterator iter = m_leftPoints.begin();
+				iter != m_leftPoints.end();
+				iter++) {
+				if (g_courseManager.intersect(*iter)) {
+					vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = left.x + PLAYER_SIZE;
+					m_speed.x = 0;
+					break;
+				}
 			}
 		}
 
-		for (vector<vec2>::iterator iter = m_leftPoints.begin();
-			iter != m_leftPoints.end();
-			iter++) {
+		// 地面との当たり判定
+		m_falling = true;
+		vec2 liftPosition;
+		vec2 liftSpeed;
+		if (m_speed.y >= 0)
+			for (vector<vec2>::iterator iter = m_bottomPoints.begin();
+				iter != m_bottomPoints.end();
+				iter++) {
 			if (g_courseManager.intersect(*iter)) {
-				vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				m_position.x = left.x + PLAYER_SIZE;
-				m_speed.x = 0;
+				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
+				m_position.y = bottom.y - PLAYER_SIZE;
+				m_speed.y = 0;
+				m_jumping = false;
+				m_falling = false;
+				break;
+			} else if (g_gmmickPart.intersectLift(*iter, liftPosition, liftSpeed)) {	// リフトの当たり判定
+				m_position.y = liftPosition.y - PLAYER_SIZE;
+				//m_speed = liftSpeed;
+				m_jumping = false;
+				m_falling = false;
 				break;
 			}
-		}
-	}
-
-	// 地面との当たり判定
-	m_falling = true;
-	vec2 liftPosition;
-	vec2 liftSpeed;
-	if (m_speed.y >= 0)
-		for (vector<vec2>::iterator iter = m_bottomPoints.begin();
-			iter != m_bottomPoints.end();
-			iter++) {
-		if (g_courseManager.intersect(*iter)) {
-			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-			m_position.y = bottom.y - PLAYER_SIZE;
-			m_speed.y = 0;
-			m_jumping = false;
-			m_falling = false;
-			break;
-		} else if (g_gmmickPart.intersectLift(*iter, liftPosition, liftSpeed)) {	// リフトの当たり判定
-			m_position.y = liftPosition.y - PLAYER_SIZE;
-			//m_speed = liftSpeed;
-			m_jumping = false;
-			m_falling = false;
-			break;
 		}
 	}
 }
@@ -297,7 +309,9 @@ void Player::draw()
 
 void Player::kill()
 {
-	//printf("Player::kill()\n");
+	if (m_dead)
+		return;
+
 	m_dead = true;
 	m_pStateContext->setStete(new PlayerStateDie);
 }
@@ -308,4 +322,10 @@ void Player::jump()
 		return;
 
 	m_pStateContext->setStete(new PlayerStateJump);
+}
+
+void Player::oneUp()
+{
+	m_left++;
+	g_pSound->play(SOUND_SE_1UP);
 }
