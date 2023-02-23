@@ -383,6 +383,9 @@
     <ClInclude Include="world\BossBridge.h">
       <Filter>ヘッダー ファイル\world</Filter>
     </ClInclude>
+    <ClInclude Include="common\common.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico">

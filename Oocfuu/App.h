@@ -1,9 +1,7 @@
 #pragma once
 #include <time.h>
 #include <Windows.h>
-
-#define SCREEN_WIDTH	256
-#define SCREEN_HEIGHT	240
+#include "common/common.h"
 
 class App {
 private:
