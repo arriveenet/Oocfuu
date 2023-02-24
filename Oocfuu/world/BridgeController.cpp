@@ -1,4 +1,4 @@
-#include "BossBridge.h"
+#include "BridgeController.h"
 #include "Game.h"
 #include "Part.h"
 #include "Course.h"
@@ -8,65 +8,54 @@
 using namespace std;
 using namespace glm;
 
-BossBridge::BossBridge()
+BridgeController::BridgeController()
 	: m_ChainPosition(0, 0)
 	, m_destroy(false)
 	, m_exist(false)
 {
 }
 
-BossBridge::~BossBridge()
+BridgeController::~BridgeController()
 {
 }
 
-void BossBridge::update()
+void BridgeController::update()
 {
 	if (m_destroy && !m_parts.empty()) {
 		if (Game::m_count % 4 == 0) {
+			ivec2 position = m_parts.back();
+			g_courseManager.setParts(position, PART_NONE);
 			m_parts.pop_back();
 			g_pSound->play(SOUND_SE_BREAK);
 		}
 	}
 }
 
-void BossBridge::draw()
-{
-	if (m_parts.empty())
-		return;
-
-	g_textureManager.setTexture(TEXTURE_BOSSBRIDGE);
-	vector<Rect>::iterator iter = m_parts.begin();
-	for (; iter != m_parts.end(); iter++) {
-		iter->draw();
-	}
-	g_textureManager.unbindTexture();
-}
-
-void BossBridge::clear()
+void BridgeController::clear()
 {
 	m_parts.clear();
 	m_destroy = false;
 	m_exist = false;
 }
 
-void BossBridge::add(float _x, float _y)
+void BridgeController::add(int _x, int _y)
 {
 	m_exist = true;
-	m_parts.push_back(Rect(vec2(PART_SIZE, PART_SIZE), vec2(_x, _y)));
+	m_parts.push_back(ivec2(_x, _y));
 }
 
-void BossBridge::setChain(int _x, int _y)
+void BridgeController::setChain(int _x, int _y)
 {
 	m_ChainPosition = { _x, _y };
 }
 
-void BossBridge::destroy()
+void BridgeController::destroy()
 {
 	m_destroy = true;
 	g_courseManager.setParts(m_ChainPosition, PART_NONE);
 }
 
-bool BossBridge::isDestroyed()
+bool BridgeController::isDestroyed()
 {
 	return m_exist && m_parts.empty();
 }

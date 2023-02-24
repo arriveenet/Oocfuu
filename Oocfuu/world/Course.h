@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "Rect.h"
+#include "BridgeController.h"
 
 #include <gl/glut.h>
 #include <glm/glm.hpp>
@@ -38,6 +39,7 @@ typedef struct COURSEINFOHEADER {
 	BYTE nextStage;
 } COURSEINFOHEADER, *LPCOURSEINFOHEADER;
 
+
 class CourseManager {
 	int m_width;
 	int m_height;
@@ -47,7 +49,9 @@ class CourseManager {
 	int** m_pParts;
 	bool m_isLoaded;
 	std::vector<QUAD> m_quads;
+	std::vector<glm::ivec2> m_coins;
 	Rect m_clearAex;
+	BridgeController m_bridgeController;
 	COURSE_ERROR m_courseError;
 	std::string m_errorMsg;
 
@@ -55,7 +59,7 @@ public:
 	float m_scroll;
 
 	CourseManager();
-	~CourseManager();
+	virtual ~CourseManager();
 
 	void release();
 	bool load(const char* _fileName);
@@ -63,14 +67,17 @@ public:
 	void draw();
 	void setParts(glm::ivec2 const& _point, int _parts);
 	int getParts(int _x, int _y);
+	int getParts(glm::vec2 const& _point);
 	bool intersect(glm::vec2 const& _point);
-	bool intersect(glm::vec2 const& _point, int* _parts);
+	void intersectCoin(Player* _pPlayer);
 	int getWidth();
 	int getHeight();
 	COLORREF getClearColor();
 	glm::ivec2 getStartPosition();
 	WORLD getNextWorld();
 	bool getClearAex(Rect& _rect);
+	void destroyBridge();
+	bool isBridgeDestroyed();
 	COURSE_ERROR getError() const;
 	std::string getErrorString() const;
 };

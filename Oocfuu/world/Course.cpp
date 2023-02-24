@@ -33,6 +33,7 @@ CourseManager::CourseManager()
 	, m_pParts(NULL)
 	, m_isLoaded(false)
 	, m_clearAex(PART_SIZE, PART_SIZE)
+	, m_bridgeController()
 	, m_courseError(COURSE_NO_ERROR)
 	, m_errorMsg(COURSE_ERROR_MSG_NO_ERRO)
 {
@@ -99,6 +100,9 @@ bool CourseManager::load(const char* _fileName)
 		m_pParts = NULL;
 	}
 
+	// ボスステージの橋をクリアする
+	m_bridgeController.clear();
+
 	// メンバ変数に代入する
 	m_width = width;
 	m_height = height;
@@ -139,8 +143,17 @@ bool CourseManager::load(const char* _fileName)
 					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
 						m_pParts[i][j] = k;
 
-						if (k == PART_AXE)
+						switch (k) {
+						case PART_AXE_0:
 							m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
+							break;
+						case PART_BRIDGE:
+							m_bridgeController.add(j, i);
+							break;
+						case PART_CHAIN:
+							m_bridgeController.setChain(j, i);
+							break;
+						}
 
 						break;
 					}
@@ -209,6 +222,7 @@ void CourseManager::update()
 		return;
 
 	m_quads.clear();
+	m_coins.clear();
 
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
 	//printf("scrolleColumn=%d\n", scrolleColumn);
@@ -224,20 +238,23 @@ void CourseManager::update()
 
 			int textureIndex = part;
 			switch (part) {
+			case PART_COIN_0:
+				m_coins.push_back(ivec2(x, y));
 			case PART_QUESTION0:
+			case PART_AXE_0:
 			{
 				int animationTable[] = { 0,1,2,2,1,0 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
 				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
 			}
-			break;
+				break;
 			case PART_SEA_0:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
 				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 			}
-			break;
+				break;
 			case PART_DESERT_1:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
@@ -245,7 +262,7 @@ void CourseManager::update()
 				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 
 			}
-			break;
+				break;
 			}
 			textureIndex--;
 
@@ -269,6 +286,9 @@ void CourseManager::update()
 			m_quads.push_back(quad);
 		}
 	}
+
+	// ボスステージの橋を更新
+	m_bridgeController.update();
 }
 
 void CourseManager::draw()
@@ -288,7 +308,6 @@ void CourseManager::draw()
 	g_textureManager.setTexture(TEXTURE_PARTS);
 	glDrawArrays(GL_QUADS, 0, GLsizei(m_quads.size() * 4));
 	g_textureManager.unbindTexture();
-
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -319,13 +338,29 @@ void CourseManager::setParts(ivec2 const& _point, int _parts) {
 }
 
 int CourseManager::getParts(int _x, int _y) {
-	if (_x < 0
-		|| _x >= m_width
-		|| _y < 0
-		|| _y >= m_height)
+	if (
+		(_x < 0)
+		|| (_x >= m_width)
+		|| (_y < 0)
+		|| (_y >= m_height)
+		)
 		return PART_NONE;
 
 	return m_pParts[_y][_x];
+}
+
+int CourseManager::getParts(glm::vec2 const& _point)
+{
+	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
+	if (
+		(cellPoint.x < 0)
+		|| (cellPoint.x >= m_width)
+		|| (cellPoint.y < 0)
+		|| (cellPoint.y >= m_height)
+		)
+		return PART_NONE;
+
+	return m_pParts[cellPoint.y][cellPoint.x];
 }
 
 bool CourseManager::intersect(vec2 const& _point) {
@@ -355,116 +390,28 @@ bool CourseManager::intersect(vec2 const& _point) {
 	case PART_WOOD_1:
 	case PART_WOOD_2:
 	case PART_BRIDGE:
-	//case PART_AXE:
 		return true;
 	}
 	return false;
 }
 
-bool CourseManager::intersect(glm::vec2 const& _point, int* _parts)
+void CourseManager::intersectCoin(Player* _pPlayer)
 {
-	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
-	*_parts = PART_NONE;
-	bool result = false;
-	if (
-		(cellPoint.x < 0)
-		|| (cellPoint.x >= m_width)
-		|| (cellPoint.y < 0)
-		|| (cellPoint.y >= m_height)
-		) {
-		return false;
+	int scrolleColumn = (int)m_scroll / PART_SIZE;
+	vector<ivec2>::iterator iter = m_coins.begin();
+	for (; iter != m_coins.end(); iter++) {
+		Rect coin(vec2(PART_SIZE, PART_SIZE), vec2(iter->x * PART_SIZE, iter->y * PART_SIZE));
+		if (_pPlayer->intersect(coin)) {
+			g_game.addCoin();
+			setParts(ivec2(iter->x, iter->y), PART_NONE);
+		}
 	}
-
-	switch (m_pParts[cellPoint.y][cellPoint.x]) {
-	case PART_GROUND:
-		*_parts = PART_GROUND;
-		result = true;
-		break;
-	case PART_HARD_BLOCK:
-		*_parts = PART_HARD_BLOCK;
-		result = true;
-		break;
-	case PART_SOFT_BLOCK:
-		*_parts = PART_SOFT_BLOCK;
-		result = true;
-		break;
-	case PART_PIPE_UP_LEFT:
-		*_parts = PART_PIPE_UP_LEFT;
-		result = true;
-		break;
-	case PART_PIPE_UP_RIGHT:
-		*_parts = PART_PIPE_UP_RIGHT;
-		result = true;
-		break;
-	case PART_PIPE_DOWN_LEFT:
-		*_parts = PART_PIPE_DOWN_LEFT;
-		result = true;
-		break;
-	case PART_PIPE_DOWN_RIGHT:
-		*_parts = PART_PIPE_DOWN_RIGHT;
-		result = true;
-		break;
-	case PART_QUESTION0:
-		*_parts = PART_QUESTION0;
-		result = true;
-		break;
-	case PART_QUESTION1:
-		*_parts = PART_QUESTION1;
-		result = true;
-		break;
-	case PART_QUESTION2:
-		*_parts = PART_QUESTION2;
-		result = true;
-		break;
-	case PART_QUESTION3:
-		*_parts = PART_QUESTION3;
-		result = true;
-		break;
-	case PART_GROUND_2:
-		*_parts = PART_GROUND_2;
-		result = true;
-		break;
-	case PART_GOAL_POLE:
-		*_parts = PART_GOAL_POLE;
-		result = true;
-		break;
-	case PART_WOOD_0:
-		*_parts = PART_WOOD_0;
-		result = true;
-		break;
-	case PART_WOOD_1:
-		*_parts = PART_WOOD_1;
-		result = true;
-		break;
-	case PART_WOOD_2:
-		*_parts = PART_WOOD_2;
-		result = true;
-		break;
-	case PART_BRIDGE:
-		*_parts = PART_BRIDGE;
-		result = true;
-		break;
-	case PART_MAGMA_0:
-		*_parts = PART_MAGMA_0;
-		result = true;
-		break;
-	case PART_MAGMA_1:
-		*_parts = PART_MAGMA_1;
-		result = true;
-			break;
-	case PART_AXE:
-		*_parts = PART_AXE;
-		result = true;
-		break;
-	}
-
-	return result;
 }
 
 int CourseManager::getWidth()
 {
 	if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
-		return m_width - 16;
+		return m_width - 17;
 	}
 	return m_width;
 }
@@ -496,6 +443,16 @@ bool CourseManager::getClearAex(Rect& _rect)
 		return true;
 	}
 	return false;
+}
+
+void CourseManager::destroyBridge()
+{
+	m_bridgeController.destroy();
+}
+
+bool CourseManager::isBridgeDestroyed()
+{
+	return m_bridgeController.isDestroyed();
 }
 
 COURSE_ERROR CourseManager::getError() const

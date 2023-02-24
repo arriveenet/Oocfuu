@@ -1,23 +1,24 @@
 #pragma once
-#include "Rect.h"
 #include <glm/glm.hpp>
 #include <vector>
 
-class BossBridge {
-	std::vector<Rect> m_parts;
+class CourseManager;
+
+class BridgeController {
+private:
+	std::vector<glm::ivec2> m_parts;
 	glm::ivec2 m_ChainPosition;
 	bool m_destroy;
 	bool m_exist;
 
 public:
-	BossBridge();
-	~BossBridge();
+	BridgeController();
+	virtual ~BridgeController();
 
 	void update();
-	void draw();
 
 	void clear();
-	void add(float _x, float _y);
+	void add(int _x, int _y);
 	void setChain(int _x, int _y);
 	void destroy();
 	bool isDestroyed();
