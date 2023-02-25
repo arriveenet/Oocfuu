@@ -24,7 +24,6 @@ static TEX texs[] =
 	{{"parts\\part.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_PARTS
 	{{"parts\\fireball.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREBALL
 	{{"parts\\lift.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_LIFT
-	{{"parts\\bossBridge.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BOSSBRIDGE
 	{{"font\\CHR000.bmp"}, {0, 64, 128}},						// TEXTURE_FONT
 	{{"font\\score_100.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_100
 	{{"enemy\\Koopa_Idle_1.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_KOOPA_IDLE_1
