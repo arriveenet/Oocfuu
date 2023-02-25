@@ -204,7 +204,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="world\BossBridge.cpp" />
+    <ClCompile Include="world\BridgeController.cpp" />
     <ClCompile Include="world\Course.cpp" />
     <ClCompile Include="world\Firebar.cpp" />
     <ClCompile Include="world\Firework.cpp" />
@@ -220,6 +220,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="common\common.h" />
     <ClInclude Include="common\font.h" />
     <ClInclude Include="common\FrameCounter.h" />
+    <ClInclude Include="common\range.h" />
     <ClInclude Include="common\State.h" />
     <ClInclude Include="common\StateMachine.h" />
     <ClInclude Include="enemy\Enemy.h" />
@@ -264,7 +265,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="world\BossBridge.h" />
+    <ClInclude Include="world\BridgeController.h" />
     <ClInclude Include="world\Course.h" />
     <ClInclude Include="world\Firebar.h" />
     <ClInclude Include="world\Firework.h" />

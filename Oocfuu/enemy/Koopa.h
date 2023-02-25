@@ -1,5 +1,8 @@
 #pragma once
 #include "Sprite.h"
+#include "KoopaFire.h"
+#include "common/StateMachine.h"
+#include "common/range.h"
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -8,35 +11,61 @@
 #define KOOPA_HEIGHT			32
 #define KOOPA_FALL_SPEED		0.3f
 #define KOOPA_JUMP_COUNT_MAX	8
+#define KOOPA_UPDATE_DISTANCE	1024.0f
 
-enum KOOPAP_STATE {
-	KOOPAP_STATE_IDLE,
-	KOOPAP_STATE_FRONTJUMP,
-	KOOPAP_STATE_BACKJUMP,
-	KOOPAP_STATE_BREATH,
-	KOOPAP_STATE_MAX
+enum KOOPA_STATE {
+	KOOPA_STATE_IDLE,
+	KOOPA_STATE_JUMP,
+	KOOPA_STATE_FIRE,
+	KOOPA_STATE_DIE,
+	KOOPA_STATE_MAX
+};
+
+enum KOOPA_MOVE {
+	KOOPA_MOVE_FRONT,
+	KOOPA_MOVE_BACK,
+	KOOPA_MOVE_STOP,
+	KOOPA_MOVE_MAX,
+};
+
+enum KOOPA_FLAG {
+	KOOPA_FLAG_DEAD			= 0x01,
+	KOOPA_FLAG_JUMPING		= 0x02,
+	KOOPA_FLAG_FALLING		= 0x04,
+	KOOPA_FLAG_COLLISION	= 0x08,
+	KOOPA_FLAG_ANIMATION	= 0x10,
 };
 
 class Koopa : public Sprite {
-	bool m_dead;
-	bool m_jumping;
-	int m_jumpCount;
-	bool m_falling;
-	bool m_lastFalling;
-	KOOPAP_STATE m_state;
-	int m_counter;
-	glm::vec2 m_speed;
-	std::vector<glm::vec2> m_bottomPoints;
+private:
+	friend class KoopaStateIdle;
+	friend class KoopaStateJump;
+	friend class KoopaStateFire;
+	friend class KoopaStateDie;
 
 public:
 	Koopa();
 	Koopa(glm::vec2 _position);
 	Koopa(float _x, float _y);
-	~Koopa();
+	virtual ~Koopa();
 
+	void reset();
 	void update() override;
 	void draw() override;
+	void kill();
+	bool isDead();
+	void setActionRange(const RANGE& _range);
 
 protected:
-	void jump();
+	void nextMovement();
+
+	int m_flag;
+	int m_jumpCount;
+	KOOPA_STATE m_state;
+	int m_counter;
+	StateMachine<Koopa>* m_pStateMachine;
+	glm::vec2 m_speed;
+	std::vector<glm::vec2> m_bottomPoints;
+	KoopaFire m_fire;
+	RANGE m_actionRange;
 };

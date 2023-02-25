@@ -207,7 +207,7 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="world\BossBridge.cpp">
+    <ClCompile Include="world\BridgeController.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
   </ItemGroup>
@@ -380,10 +380,13 @@
     <ClInclude Include="common\font.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
-    <ClInclude Include="world\BossBridge.h">
+    <ClInclude Include="world\BridgeController.h">
       <Filter>ヘッダー ファイル\world</Filter>
     </ClInclude>
     <ClInclude Include="common\common.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\range.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
   </ItemGroup>
