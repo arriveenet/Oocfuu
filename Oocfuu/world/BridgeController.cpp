@@ -59,3 +59,20 @@ bool BridgeController::isDestroyed()
 {
 	return m_exist && m_parts.empty();
 }
+
+RANGE BridgeController::getRange()
+{
+	RANGE range = { 0.0f };
+
+	if (!m_exist) {
+		return range;
+	}
+
+	ivec2 front = m_parts.front();
+	ivec2 back = m_parts.back();
+
+	range.start = (float)front.x * PART_SIZE;
+	range.end = (float)back.x * PART_SIZE + PART_SIZE;
+
+	return range;
+}

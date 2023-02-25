@@ -204,6 +204,11 @@ bool CourseManager::load(const char* _fileName)
 			enemy.type = (ENEMYTYPE)type;
 			enemy.position = ivec2(x, y);
 			g_enemyManager.addEnemy(enemy);
+
+			// ƒNƒbƒp‚Å‚ ‚ê‚Î”ÍˆÍ‚ğİ’è‚·‚é
+			if (enemy.type == ENEMYTYPE_KOOPA) {
+				g_enemyManager.setKoopaRange(m_bridgeController.getRange());
+			}
 		}
 	}
 

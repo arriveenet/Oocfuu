@@ -1,8 +1,7 @@
 #pragma once
+#include "common/range.h"
 #include <glm/glm.hpp>
 #include <vector>
-
-class CourseManager;
 
 class BridgeController {
 private:
@@ -22,4 +21,5 @@ public:
 	void setChain(int _x, int _y);
 	void destroy();
 	bool isDestroyed();
+	RANGE getRange();
 };
