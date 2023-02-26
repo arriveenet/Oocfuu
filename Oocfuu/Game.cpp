@@ -141,9 +141,21 @@ void Game::addScore(int _score)
 	m_score += _score;
 }
 
+void Game::addCoin()
+{
+	g_pSound->play(SOUND_SE_COIN);
+	if (m_coin < 99) {
+		m_coin++;
+		addScore(200);
+	} else {
+		m_coin = 0;
+		g_player.oneUp();
+	}
+}
+
 void Game::updateTopScore()
 {
-	m_topScore = std::max(m_score, m_topScore);
+	m_topScore = max(m_score, m_topScore);
 }
 
 unsigned int Game::getTopScore() const

@@ -1,13 +1,14 @@
 #pragma once
 #include "screen/Screen.h"
 #include "GameTimer.h"
+#include "player/Player.h"
 
 typedef struct tagWORLD {
 	unsigned char world;
 	unsigned char stage;
 } WORLD;
 
-static const WORLD GAME_BEGIN_WORLD = { 1, 1 };
+static const WORLD GAME_BEGIN_WORLD = { 1, 4 };
 
 enum GAME_SCREEN {
 	GAME_SCREEN_TITLE,
@@ -46,6 +47,7 @@ public:
 	void pause();
 	bool isPause();
 	void addScore(int _score);
+	void addCoin();
 	void updateTopScore();
 	unsigned int getTopScore() const;
 };
