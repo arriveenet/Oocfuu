@@ -15,8 +15,8 @@ struct Rect {
 	Rect(float _width, float _height);
 	Rect(glm::vec2 const& _size);
 	Rect(glm::vec2 const& _size, glm::vec2 const& _position);
-	void draw();
-	void drawWire();
-	bool intersect(glm::vec2 const& _point);
-	bool intersect(Rect const& _rect);
+	virtual void draw();
+	virtual void drawWire();
+	virtual bool intersect(glm::vec2 const& _point);
+	virtual bool intersect(Rect const& _rect);
 };
