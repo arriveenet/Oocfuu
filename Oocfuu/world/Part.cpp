@@ -67,7 +67,13 @@ Part g_parts[PART_MAX] = {
 	 {"br.bmp",},// PART_BRIDGE
 	 {"mg.bmp",},// PART_MAGMA_0
 	 {"mh.bmp",},// PART_MAGMA_1
-	 {"ax.bmp",},// PART_AXE
+	 {"a0.bmp",},// PART_AXE_0
+	 {"a1.bmp",},// PART_AXE_1
+	 {"a2.bmp",},// PART_AXE_2
+	 {"cn.bmp",},// PART_CHAIN
+	 {"e0.bmp",},// PART_COIN_0
+	 {"e1.bmp",},// PART_COIN_1
+	 {"e2.bmp",},// PART_COIN_2
 };
 
 int Part::init() {
