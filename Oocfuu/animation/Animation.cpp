@@ -40,7 +40,7 @@ int Animation::initAll()
 	/* Koopa fire animation */
 	for (int i = TEXTURE_KOOPA_IDLE_FIRE_1; i <= TEXTURE_KOOPA_IDLE_FIRE_2; i++) {
 		g_animations[ANIMATION_KOOPA_FIRE].m_keys.push_back(i);
-		g_animations[ANIMATION_KOOPA_FIRE].m_rate = 32;
+		g_animations[ANIMATION_KOOPA_FIRE].m_rate = 16;
 		g_animations[ANIMATION_KOOPA_FIRE].m_next = ANIMATION_KOOPA;
 	}
 
