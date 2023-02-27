@@ -19,15 +19,13 @@ void GimmickPart::update()
 	for (vector<Firebar>::iterator itr = m_firebars.begin();
 		itr != m_firebars.end();
 		itr++) {
-		Firebar* pFirebar = &(*itr);
-		pFirebar->upadte();
+		itr->upadte();
 	}
 
 	for (vector<Lift>::iterator itr = m_lifts.begin();
 		itr != m_lifts.end();
 		itr++) {
-		Lift* pLift = &(*itr);
-		pLift->update();
+		itr->update();
 	}
 }
 
@@ -36,15 +34,13 @@ void GimmickPart::draw()
 	for (vector<Firebar>::iterator itr = m_firebars.begin();
 		itr != m_firebars.end();
 		itr++) {
-		Firebar* pFirebar = &(*itr);
-		pFirebar->draw();
+		itr->draw();
 	}
 
 	for (vector<Lift>::iterator itr = m_lifts.begin();
 		itr != m_lifts.end();
 		itr++) {
-		Lift* pLift = &(*itr);
-		pLift->draw();
+		itr->draw();
 	}
 }
 
