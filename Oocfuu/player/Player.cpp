@@ -216,8 +216,10 @@ void Player::update()
 				m_jumping = false;
 				m_falling = false;
 				break;
-			} else if (g_gmmickPart.intersectLift(*iter, liftPosition, liftSpeed)) {	// リフトの当たり判定
+			} // リフトの当たり判定
+			else if (g_gmmickPart.intersectLift(*iter, liftPosition, liftSpeed)) {	
 				m_position.y = liftPosition.y - PLAYER_SIZE;
+				m_position.x += liftSpeed.x;
 				//m_speed = liftSpeed;
 				m_jumping = false;
 				m_falling = false;
@@ -244,10 +246,8 @@ void Player::draw()
 		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
 		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
 		fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
-		fontDraw("ANIMATION:%d\n", m_animationController.m_animation);
-		fontDraw("JUMPING :%d\n", g_player.m_jumping);
-		fontDraw("FALLING :%d\n", g_player.m_falling);
-		fontDraw("DEAD    :%d\n", g_player.m_dead);
+		fontDraw("ANIMATION:%d  JUMPING:%d\n", m_animationController.m_animation, g_player.m_jumping);
+		fontDraw("FALLING :%d  DEAD:%d\n", g_player.m_falling, g_player.m_dead);
 		fontEnd();
 		fontBackgroundColor(false);
 		fontColor(0xff, 0xff, 0xff);

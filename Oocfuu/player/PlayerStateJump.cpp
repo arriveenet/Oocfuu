@@ -49,7 +49,8 @@ void PlayerStateJump::start(Player* _pPlayer)
 	VerticalForceDecimalPart = InitalVerticalForceData[index];
 	_pPlayer->m_speed.y = InitalVerticalSpeedData[index];
 
-	g_pSound->play(SOUND_SE_HOI);
+	int r = rand() % 2;
+	g_pSound->play((SOUNDTYPE)r);
 }
 
 void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
