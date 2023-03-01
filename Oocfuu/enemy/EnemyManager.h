@@ -2,6 +2,7 @@
 #include "Kuribo.h"
 #include "Nokonoko.h"
 #include "Koopa.h"
+#include "common/range.h"
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -35,6 +36,9 @@ public:
 
 	void addEnemy(const ENEMYINFO& _info);
 	void reset();
+	void koopaKill();
+	bool koopaIsDead();
+	void setKoopaRange(const RANGE& _range);
 
 	void update();
 	void draw();

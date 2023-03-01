@@ -28,7 +28,25 @@ void EnemyManager::reset()
 {
 	m_kuribos.clear();
 	m_nokonokos.clear();
+	m_koopa.reset();
+
 	m_enemyFlag = 0;
+}
+
+void EnemyManager::koopaKill()
+{
+	if (m_enemyFlag & ENEMYFLAG_KOOPA)
+		m_koopa.kill();
+}
+
+bool EnemyManager::koopaIsDead()
+{
+	return m_koopa.isDead();
+}
+
+void EnemyManager::setKoopaRange(const RANGE& _range)
+{
+	m_koopa.setActionRange(_range);
 }
 
 void EnemyManager::update()
