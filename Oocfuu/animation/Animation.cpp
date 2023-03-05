@@ -44,6 +44,13 @@ int Animation::initAll()
 		g_animations[ANIMATION_KOOPA_FIRE].m_next = ANIMATION_KOOPA;
 	}
 
+	/* Block coin animation */
+	for (int i = TEXTURE_BLOCK_COIN_1; i <= TEXTURE_BLOCK_COIN_4; i++) {
+		g_animations[ANIMATION_BLOCK_COIN].m_keys.push_back(i);
+		g_animations[ANIMATION_BLOCK_COIN].m_rate = 16;
+		g_animations[ANIMATION_BLOCK_COIN].m_next = ANIMATION_BLOCK_COIN;
+	}
+
 	/* Firework animation */
 	for (int i = TEXTURE_FIREWORK_1; i <= TEXTURE_FIREWORK_3; i++) {
 		g_animations[ANIMATION_FIREWORK].m_keys.push_back(i);

@@ -21,6 +21,10 @@ static TEX texs[] =
 	{{"item\\firework_2.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_2
 	{{"item\\firework_3.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_3
 	{{"item\\title_2.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_TITLE
+	{{"parts\\block_coin_1.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_1
+	{{"parts\\block_coin_2.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_2
+	{{"parts\\block_coin_3.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_3
+	{{"parts\\block_coin_4.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_4
 	{{"parts\\part.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_PARTS
 	{{"parts\\fireball.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREBALL
 	{{"parts\\lift.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_LIFT
