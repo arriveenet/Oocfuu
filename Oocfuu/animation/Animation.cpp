@@ -47,7 +47,7 @@ int Animation::initAll()
 	/* Block coin animation */
 	for (int i = TEXTURE_BLOCK_COIN_1; i <= TEXTURE_BLOCK_COIN_4; i++) {
 		g_animations[ANIMATION_BLOCK_COIN].m_keys.push_back(i);
-		g_animations[ANIMATION_BLOCK_COIN].m_rate = 16;
+		g_animations[ANIMATION_BLOCK_COIN].m_rate = 2;
 		g_animations[ANIMATION_BLOCK_COIN].m_next = ANIMATION_BLOCK_COIN;
 	}
 
