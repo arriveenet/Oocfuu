@@ -68,7 +68,7 @@ void Kuribo::update()
 		m_bottomPoints.push_back(m_position + vec2(m_size.x - 1, m_size.y));
 
 		// squish
-		if (g_player.intersect(m_topPoint)) {
+		if (g_player.intersect(m_topPoint) && !g_player.m_dead) {
 			g_pSound->play(SOUND_SE_SQUISH);
 			m_state = KURIBO_STATE_SQUISH;
 			g_player.jump();
@@ -80,7 +80,6 @@ void Kuribo::update()
 		if (g_player.intersect(m_rightPoint)
 			|| g_player.intersect(m_leftPoint)
 			) {
-			g_player.m_dead = true;
 			g_player.kill();
 		}
 
