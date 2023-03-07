@@ -32,6 +32,7 @@ CourseManager::CourseManager()
 	, m_nextWorld{1, 1}
 	, m_pParts(NULL)
 	, m_isLoaded(false)
+	, m_hitBlockController()
 	, m_clearAex(PART_SIZE, PART_SIZE)
 	, m_bridgeController()
 	, m_courseError(COURSE_NO_ERROR)
@@ -229,6 +230,19 @@ void CourseManager::update()
 	m_quads.clear();
 	m_coins.clear();
 
+	// ボスステージの橋を更新
+	m_bridgeController.update();
+
+	// 叩かれたブロックを更新
+	QUAD hitBlock;
+	if (m_hitBlockController.update(hitBlock)) {
+		m_quads.push_back(hitBlock);
+	}
+
+	// ブロックを叩いたときのコインを更新
+	BlockCoinManager* blockCoinMgr = BlockCoinManager::instance();
+	blockCoinMgr->update();
+
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
 	//printf("scrolleColumn=%d\n", scrolleColumn);
 	for (int y = 0; y < m_height; y++) {
@@ -269,7 +283,6 @@ void CourseManager::update()
 			}
 				break;
 			}
-			textureIndex--;
 
 			float x2 = (float)x * PART_SIZE;
 			float y2 = (float)y * PART_SIZE;
@@ -291,9 +304,6 @@ void CourseManager::update()
 			m_quads.push_back(quad);
 		}
 	}
-
-	// ボスステージの橋を更新
-	m_bridgeController.update();
 }
 
 void CourseManager::draw()
@@ -317,6 +327,10 @@ void CourseManager::draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_CULL_FACE);
+
+	// ブロックを叩いたときのコインを描画
+	BlockCoinManager* blockCoinMgr = BlockCoinManager::instance();
+	blockCoinMgr->draw();
 
 	if (Game::m_debugInfo) {
 		fontBegin();
@@ -411,6 +425,33 @@ void CourseManager::intersectCoin(Player* _pPlayer)
 			setParts(ivec2(iter->x, iter->y), PART_NONE);
 		}
 	}
+}
+
+void CourseManager::hitBlock(glm::vec2 const& _point)
+{
+	int part, endPart;
+
+	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
+	int cellPart = getParts(_point);
+
+	switch (cellPart) {
+	case PART_QUESTION0:
+		part = endPart = PART_QUESTION3;
+		g_game.addCoin();
+		break;
+	case PART_SOFT_BLOCK:
+		part = endPart = PART_SOFT_BLOCK;
+		break;
+	case PART_QUESTION3:
+		return;
+		break;
+	default:
+		return;
+		break;
+	}
+
+	setParts(cellPoint, PART_NONE);
+	m_hitBlockController.start(cellPoint, (PART)part, (PART)endPart);
 }
 
 int CourseManager::getWidth()

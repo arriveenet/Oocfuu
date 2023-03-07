@@ -4,12 +4,12 @@
 #include "App.h"
 #include "Game.h"
 #include "common/font.h"
+#include "common/FrameCounter.h"
 #include "world/Part.h"
 #include "world/Course.h"
-#include "Player/Player.h"
-#include "common/FrameCounter.h"
-#include "input/Keyboard.h"
 #include "world/GimmickPart.h"
+#include "Player/Player.h"
+#include "input/Keyboard.h"
 #include "sound/Sound.h"
 
 void MainScreen::init()

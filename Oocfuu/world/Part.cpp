@@ -6,7 +6,7 @@
 using namespace glm;
 
 Part g_parts[PART_MAX] = {
-	 {nullptr,}, // PART_NONE
+	// {nullptr,}, // PART_NONE
 	 {"b0.bmp",},// PART_GROUND
 	 {"b1.bmp",},// PART_HARD_BLOCK
 	 {"b2.bmp",},// PART_SOFT_BLOCK

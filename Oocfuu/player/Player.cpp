@@ -156,6 +156,7 @@ void Player::update()
 				int parts = g_courseManager.getParts(*iter);
 				if (parts == PART_GOAL_POLE)
 					continue;
+				g_courseManager.hitBlock(*iter);
 				vec2 top = (ivec2)*iter / PART_SIZE * PART_SIZE;
 				m_position.y = top.y + PLAYER_SIZE;
 				m_speed.y = 0;

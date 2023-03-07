@@ -1,7 +1,9 @@
 #pragma once
 #include "Game.h"
 #include "Rect.h"
+#include "HitBlockController.h"
 #include "BridgeController.h"
+#include "common/common.h"
 
 #include <gl/glut.h>
 #include <glm/glm.hpp>
@@ -19,16 +21,6 @@ enum COURSE_ERROR {
 	COURSE_OUT_OF_MEMORY,		// コースデータを読み込むメモリが残っていない
 };
 
-// 構造体を定義する
-typedef struct {
-	glm::vec2 position;
-	glm::vec2 texCoord;
-}VERTEX;
-
-typedef struct {
-	VERTEX vertices[4];
-}QUAD;
-
 typedef struct COURSEINFOHEADER {
 	unsigned short width;		// コースの幅
 	unsigned short height;		// コースの高さ
@@ -41,6 +33,7 @@ typedef struct COURSEINFOHEADER {
 
 
 class CourseManager {
+private:
 	int m_width;
 	int m_height;
 	COLORREF m_clearColor;
@@ -50,6 +43,7 @@ class CourseManager {
 	bool m_isLoaded;
 	std::vector<QUAD> m_quads;
 	std::vector<glm::ivec2> m_coins;
+	HitBlockController m_hitBlockController;
 	Rect m_clearAex;
 	BridgeController m_bridgeController;
 	COURSE_ERROR m_courseError;
@@ -70,6 +64,7 @@ public:
 	int getParts(glm::vec2 const& _point);
 	bool intersect(glm::vec2 const& _point);
 	void intersectCoin(Player* _pPlayer);
+	void hitBlock(glm::vec2 const& _point);
 	int getWidth();
 	int getHeight();
 	COLORREF getClearColor();
