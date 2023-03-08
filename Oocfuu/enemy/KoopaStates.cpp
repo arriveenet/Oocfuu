@@ -19,6 +19,7 @@ KoopaStateIdle* KoopaStateIdle::instance()
 
 void KoopaStateIdle::enter(Koopa* _pKoopa)
 {
+	_pKoopa->m_state = KOOPA_STATE_IDLE;
 	_pKoopa->m_counter = 0;
 	_pKoopa->nextMovement();
 }
@@ -54,6 +55,7 @@ KoopaStateJump* KoopaStateJump::instance()
 
 void KoopaStateJump::enter(Koopa* _pKoopa)
 {
+	_pKoopa->m_state = KOOPA_STATE_JUMP;
 	m_lastFalling = false;
 	// 落下フラグを下ろす
 	_pKoopa->m_flag &= ~KOOPA_FLAG_FALLING;
@@ -70,8 +72,9 @@ void KoopaStateJump::execute(Koopa* _pKoopa)
 
 	if (_pKoopa->m_flag & KOOPA_FLAG_JUMPING) {
 		_pKoopa->m_speed.y = -4.5f;
-		if (++_pKoopa->m_jumpCount >= KOOPA_JUMP_COUNT_MAX)
+		if (++_pKoopa->m_jumpCount >= KOOPA_JUMP_COUNT_MAX) {
 			_pKoopa->m_flag &= ~KOOPA_FLAG_JUMPING;
+		}
 	}
 
 	m_lastFalling = _pKoopa->m_flag | KOOPA_FLAG_FALLING;
@@ -91,6 +94,7 @@ KoopaStateFire* KoopaStateFire::instance()
 
 void KoopaStateFire::enter(Koopa* _pKoopa)
 {
+	_pKoopa->m_state = KOOPA_STATE_FIRE;
 	// アニメーションを変更
 	_pKoopa->m_animationController.setAnimation(ANIMATION_KOOPA_FIRE);
 }
@@ -104,10 +108,8 @@ void KoopaStateFire::execute(Koopa* _pKoopa)
 
 void KoopaStateFire::exit(Koopa* _pKoopa)
 {
-	// 向いている方向にファイヤーを向ける
-	float x = _pKoopa->m_flip == RECT_FLIP_NONE ? _pKoopa->m_position.x - 24.0f : _pKoopa->m_position.x + _pKoopa->m_size.x;
-	float height = _pKoopa->m_position.y + _pKoopa->m_size.y - PART_SIZE;
-	_pKoopa->m_fire.start(vec2(x, _pKoopa->m_position.y), height, _pKoopa->m_flip);
+	// ファイヤーを放つ
+	_pKoopa->fire();
 
 	// アニメーションを戻す
 	_pKoopa->m_animationController.setAnimation(ANIMATION_KOOPA);
@@ -122,6 +124,8 @@ KoopaStateDie* KoopaStateDie::instance()
 
 void KoopaStateDie::enter(Koopa* _pKoopa)
 {
+	_pKoopa->m_state = KOOPA_STATE_DIE;
+
 	m_lastBridge = false;
 	// アニメーションの速度を早くする
 	g_animations[ANIMATION_KOOPA].m_rate = 6;

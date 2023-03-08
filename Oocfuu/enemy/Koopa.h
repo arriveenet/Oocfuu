@@ -11,7 +11,8 @@
 #define KOOPA_HEIGHT			32
 #define KOOPA_FALL_SPEED		0.3f
 #define KOOPA_JUMP_COUNT_MAX	8
-#define KOOPA_UPDATE_DISTANCE	1024.0f
+#define KOOPA_UPDATE_DISTANCE	688.0f
+#define KOOPA_FIRE_MAX			2
 
 enum KOOPA_STATE {
 	KOOPA_STATE_IDLE,
@@ -52,6 +53,7 @@ public:
 	void reset();
 	void update() override;
 	void draw() override;
+	void fire();
 	void kill();
 	bool isDead();
 	void setActionRange(const RANGE& _range);
@@ -66,6 +68,6 @@ protected:
 	StateMachine<Koopa>* m_pStateMachine;
 	glm::vec2 m_speed;
 	std::vector<glm::vec2> m_bottomPoints;
-	KoopaFire m_fire;
+	KoopaFire m_fires[KOOPA_FIRE_MAX];
 	RANGE m_actionRange;
 };

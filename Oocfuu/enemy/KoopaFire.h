@@ -16,8 +16,10 @@ public:
 	virtual ~KoopaFire();
 
 	void start(glm::vec2 _position, float _height, int _direction);
+	void reset();
 	void update();
 	void draw();
+	bool intersect(Rect const& _rect) override;
 
 	bool isEnable()
 	{

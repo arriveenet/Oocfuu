@@ -38,6 +38,11 @@ void KoopaFire::start(glm::vec2 _position, float _height, int _direction)
 	g_pSound->play(SOUND_SE_ENEMY_FIRE);
 }
 
+void KoopaFire::reset()
+{
+	m_enable = false;
+}
+
 void KoopaFire::update()
 {
 	if (!m_enable)
@@ -53,9 +58,12 @@ void KoopaFire::update()
 		m_texture = (m_texture == TEXTURE_KOOPA_FIRE_1) ? TEXTURE_KOOPA_FIRE_2 : TEXTURE_KOOPA_FIRE_1;
 
 	// 画面外に出たら更新を終了する
-	if ((m_position.x + m_size.x <= g_courseManager.m_scroll)
-		|| (m_position.x >= g_courseManager.m_scroll + SCREEN_WIDTH)
-	){
+	if ((m_flip == RECT_FLIP_NONE)
+		&& (m_position.x + m_size.x <= g_courseManager.m_scroll)) {
+ 		m_enable = false;
+	}
+	if ((m_flip == RECT_FLIP_HORIZONTAL)
+		&& (m_position.x >= g_courseManager.m_scroll + SCREEN_WIDTH)){
 		m_enable = false;
 	}
 }
@@ -68,4 +76,17 @@ void KoopaFire::draw()
 	g_textureManager.setTexture(m_texture);
 	Rect::draw();
 	g_textureManager.unbindTexture();
+
+	if (Game::m_debugInfo) {
+		Rect::drawWire();
+	}
+}
+
+bool KoopaFire::intersect(Rect const& _rect)
+{
+	// ファイヤーが有効であれば当たり判定を取らない
+	if (!m_enable)
+		return false;
+
+	return Rect::intersect(_rect);
 }
