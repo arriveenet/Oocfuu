@@ -41,8 +41,8 @@ void Kuribo::update()
 {
 	if (
 		(m_dead)
-		|| (g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
-		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+		|| (g_courseManager.getScroll() > m_position.x + m_size.x + (PART_SIZE * 4))
+		|| (g_courseManager.getScroll() + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 
@@ -125,8 +125,8 @@ void Kuribo::draw()
 {
 	if (
 		(m_dead)
-		|| (g_courseManager.m_scroll > m_position.x + m_size.x + (PART_SIZE * 4))
-		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+		|| (g_courseManager.getScroll() > m_position.x + m_size.x + (PART_SIZE * 4))
+		|| (g_courseManager.getScroll() + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 

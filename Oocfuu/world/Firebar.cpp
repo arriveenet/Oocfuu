@@ -24,8 +24,8 @@ Firebar::Firebar(float _x, float _y, FIREBAR_ROTATE _rotate)
 
 void Firebar::upadte()
 {
-	if ((g_courseManager.m_scroll > m_position.x + (PART_SIZE * 4))
-		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+	if ((g_courseManager.getScroll() > m_position.x + (PART_SIZE * 4))
+		|| (g_courseManager.getScroll() + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 
@@ -51,8 +51,8 @@ void Firebar::upadte()
 
 void Firebar::draw()
 {
-	if ((g_courseManager.m_scroll > m_position.x + (PART_SIZE * 4))
-		|| (g_courseManager.m_scroll + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
+	if ((g_courseManager.getScroll() > m_position.x + (PART_SIZE * 4))
+		|| (g_courseManager.getScroll() + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)
 		)
 		return;
 

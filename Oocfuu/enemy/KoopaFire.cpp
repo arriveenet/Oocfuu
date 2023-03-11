@@ -59,11 +59,11 @@ void KoopaFire::update()
 
 	// 画面外に出たら更新を終了する
 	if ((m_flip == RECT_FLIP_NONE)
-		&& (m_position.x + m_size.x <= g_courseManager.m_scroll)) {
+		&& (m_position.x + m_size.x <= g_courseManager.getScroll())) {
  		m_enable = false;
 	}
 	if ((m_flip == RECT_FLIP_HORIZONTAL)
-		&& (m_position.x >= g_courseManager.m_scroll + SCREEN_WIDTH)){
+		&& (m_position.x >= g_courseManager.getScroll() + SCREEN_WIDTH)) {
 		m_enable = false;
 	}
 }

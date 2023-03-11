@@ -22,7 +22,7 @@ void IntroScreen::init()
 
 void IntroScreen::reset()
 {
-	g_courseManager.m_scroll = 0.0f;
+	g_courseManager.setScroll(0.0f);
 	g_game.m_timer.setVisible(false);
 	m_counter = 0;
 	glClearColor(0, 0, 0, 1);
@@ -42,7 +42,7 @@ void IntroScreen::update()
 			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt", g_game.m_world.world, g_game.m_world.stage);
 			// コースファイルを読み込む
 			if (g_courseManager.load(filePath)) {
-				g_courseManager.m_scroll = 0.0f;
+				g_courseManager.setScroll(0.0f);
 				g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
 				g_game.setScreen(GAME_SCREEN_MAIN);
 			} else {

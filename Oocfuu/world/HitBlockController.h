@@ -23,7 +23,7 @@ public:
 	virtual ~BlockCoin();
 
 	void update();
-	void draw();
+	void draw() override;
 	bool isUpdated() { return m_updated; };
 };
 

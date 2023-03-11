@@ -42,7 +42,7 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 			iter++) {
 			if (g_courseManager.intersect(*iter)) {
 				_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
-				g_courseManager.m_scroll += 1.0f;
+				g_courseManager.addScroll(1.0f);
 				break;
 			}
 		}

@@ -72,18 +72,19 @@ void BlockCoinManager::add(const BlockCoin& _blockCoin)
 
 void BlockCoinManager::update()
 {
-	std::size_t dist = -1;
+
 	vector<BlockCoin>::iterator iter = m_blockCoins.begin();
 	for (; iter != m_blockCoins.end(); iter++) {
 		iter->update();
-
-		if (iter->isUpdated()) {
-			dist = std::distance(m_blockCoins.begin(), iter);
-		}
+		
+		//if (iter->isUpdated()) {
+		//	m_blockCoins.erase(iter);
+		//} else {
+		//	++iter;
+		//}
 	}
 
-	/*if (dist >= 0)
-		m_blockCoins.erase(m_blockCoins.begin() + dist);*/
+
 }
 
 void BlockCoinManager::draw()

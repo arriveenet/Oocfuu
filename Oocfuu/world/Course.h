@@ -21,6 +21,7 @@ enum COURSE_ERROR {
 	COURSE_OUT_OF_MEMORY,		// コースデータを読み込むメモリが残っていない
 };
 
+// コースファイルのヘッダー構造体
 typedef struct COURSEINFOHEADER {
 	unsigned short width;		// コースの幅
 	unsigned short height;		// コースの高さ
@@ -31,50 +32,142 @@ typedef struct COURSEINFOHEADER {
 	BYTE nextStage;
 } COURSEINFOHEADER, *LPCOURSEINFOHEADER;
 
-
+/* コース管理クラス
+*/
 class CourseManager {
 private:
-	int m_width;
-	int m_height;
-	COLORREF m_clearColor;
-	glm::ivec2 m_startPosition;
-	WORLD m_nextWorld;
-	int** m_pParts;
-	bool m_isLoaded;
-	std::vector<QUAD> m_quads;
-	std::vector<glm::ivec2> m_coins;
-	HitBlockController m_hitBlockController;
-	Rect m_clearAex;
-	BridgeController m_bridgeController;
-	COURSE_ERROR m_courseError;
-	std::string m_errorMsg;
+	int m_width;								// コースの幅
+	int m_height;								// コースの高さ
+	float m_scroll;								// スクロール位置
+	COLORREF m_clearColor;						// 背景色
+	glm::ivec2 m_startPosition;					// プレイヤーのスタート位置
+	WORLD m_nextWorld;							// 次のワールド
+	int** m_pParts;								// コースパーツ
+	bool m_isLoaded;							// コース読み込みフラグ
+	std::vector<QUAD> m_quads;					// コースパーツの矩形
+	std::vector<glm::ivec2> m_coins;			// コインの位置
+	HitBlockController m_hitBlockController;	// 叩いたときのブロック制御
+	Rect m_clearAex;							// クリア斧
+	BridgeController m_bridgeController;		// 橋の制御
+	COURSE_ERROR m_courseError;					// コースエラー
+	std::string m_errorMsg;						// エラーメッセージ
 
 public:
-	float m_scroll;
-
+	// コンストラクタ
 	CourseManager();
+
+	// デストラクタ
 	virtual ~CourseManager();
 
+	// コース配列を解放
 	void release();
+
+	// コースを読み込む
 	bool load(const char* _fileName);
+
+	// コースを更新
 	void update();
+
+	// コースを描画
 	void draw();
+	
+	// スクロール位置を設定
+	inline void setScroll(const float _scroll)
+	{
+		m_scroll = _scroll;
+	};
+	
+	// 現在のスクロールを取得
+	inline float getScroll() const
+	{
+		return m_scroll;
+	};
+
+	// 現在のスクロール位置から加算する
+	inline void addScroll(const float _scroll)
+	{
+		m_scroll += _scroll;
+	};
+
+	// パーツを設定
 	void setParts(glm::ivec2 const& _point, int _parts);
+
+	// パーツを取得
 	int getParts(int _x, int _y);
+
+	// パーツを取得
 	int getParts(glm::vec2 const& _point);
+
+	// コースとの当たり判定
 	bool intersect(glm::vec2 const& _point);
+
+	// コースのコインとの当たり判定
 	void intersectCoin(Player* _pPlayer);
+
+	// ブロックを叩く
 	void hitBlock(glm::vec2 const& _point);
-	int getWidth();
-	int getHeight();
-	COLORREF getClearColor();
-	glm::ivec2 getStartPosition();
-	WORLD getNextWorld();
+
+	// コースの幅を取得
+	int getWidth() const
+	{
+		// ボスステージの場合幅を縮める
+		if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
+			return m_width - 17;
+		}
+		return m_width;
+	};
+
+	// コースの高さを取得
+	int getHeight() const
+	{
+		return m_height;
+	};
+
+	// 背景色を取得する
+	COLORREF getClearColor() const
+	{
+		return m_clearColor;
+	};
+
+	// プレイヤーのスタート位置を取得
+	glm::ivec2 getStartPosition() const
+	{
+		return m_startPosition;
+	};
+
+	// 次のワールドを取得
+	WORLD getNextWorld() const
+	{
+		return m_nextWorld;
+	};
+
+	// クリア斧と当たっているか
 	bool getClearAex(Rect& _rect);
-	void destroyBridge();
-	bool isBridgeDestroyed();
-	COURSE_ERROR getError() const;
-	std::string getErrorString() const;
+
+	// ボスステージの橋を破壊する
+	void destroyBridge()
+	{
+		m_bridgeController.destroy();
+	};
+
+	// ボスステージの橋が壊されたか
+	bool isBridgeDestroyed()
+	{
+		return m_bridgeController.isDestroyed();
+	};
+
+	// エラー列挙定数を取得
+	COURSE_ERROR getError() const
+	{
+		return m_courseError;
+	};
+
+	// エラーメッセージを取得
+	std::string getErrorString() const
+	{
+		//cout << "m_errorMsg=" << m_errorMsg << endl;
+		return m_errorMsg;
+	};
 };
 
 extern CourseManager g_courseManager;

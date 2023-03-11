@@ -90,7 +90,7 @@ void Game::drawHUD()
 
 		unsigned char hudCoin = 'c';
 		const int len = 6;
-		unsigned char table[len] = { 0,1,2,2,1,0 };
+		const unsigned char table[len] = { 0,1,2,2,1,0 };
 		hudCoin += table[(m_count / 8) % len];
 
 		fontPosition(88, 24);

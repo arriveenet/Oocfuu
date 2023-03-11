@@ -30,7 +30,7 @@ CourseManager::CourseManager()
 	, m_clearColor(0)
 	, m_startPosition(0, 0)
 	, m_nextWorld{1, 1}
-	, m_pParts(NULL)
+	, m_pParts(nullptr)
 	, m_isLoaded(false)
 	, m_hitBlockController()
 	, m_clearAex(PART_SIZE, PART_SIZE)
@@ -92,12 +92,10 @@ bool CourseManager::load(const char* _fileName)
 
 	// すでにコースが読み込まれていた場合メモリを開放する
 	if (m_isLoaded && m_pParts) {
-		if (m_pParts) {
-			for (int i = 0; i < m_height; ++i) {
-				delete m_pParts[i];
-			}
-			delete[] m_pParts;
+		for (int i = 0; i < m_height; ++i) {
+			delete m_pParts[i];
 		}
+		delete[] m_pParts;
 		m_pParts = NULL;
 	}
 
@@ -183,10 +181,10 @@ bool CourseManager::load(const char* _fileName)
 	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
 		//printf("liftCount=%d\n", liftCount);
 		for (int i = 0; i < liftCount; i++) {
-			int x, y, width, mode;
-			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
+			int x, y, liftWidth, mode;
+			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &liftWidth, &mode);
 			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
-			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
+			g_gmmickPart.addLift(Lift((float)x, (float)y, liftWidth, (LIFT_MOVEMENT)mode));
 		}
 	}
 
@@ -418,7 +416,7 @@ void CourseManager::intersectCoin(Player* _pPlayer)
 {
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
 	vector<ivec2>::iterator iter = m_coins.begin();
-	for (; iter != m_coins.end(); iter++) {
+	for (; iter != m_coins.end(); ++iter) {
 		Rect coin(vec2(PART_SIZE, PART_SIZE), vec2(iter->x * PART_SIZE, iter->y * PART_SIZE));
 		if (_pPlayer->intersect(coin)) {
 			g_game.addCoin();
@@ -454,34 +452,6 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 	m_hitBlockController.start(cellPoint, (PART)part, (PART)endPart);
 }
 
-int CourseManager::getWidth()
-{
-	if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
-		return m_width - 17;
-	}
-	return m_width;
-}
-
-int CourseManager::getHeight()
-{
-	return m_height;
-}
-
-COLORREF CourseManager::getClearColor()
-{
-	return m_clearColor;
-}
-
-glm::ivec2 CourseManager::getStartPosition()
-{
-	return m_startPosition;
-}
-
-WORLD CourseManager::getNextWorld()
-{
-	return m_nextWorld;
-}
-
 bool CourseManager::getClearAex(Rect& _rect)
 {
 	if (m_clearAex.m_position != vec2(0, 0)) {
@@ -489,25 +459,4 @@ bool CourseManager::getClearAex(Rect& _rect)
 		return true;
 	}
 	return false;
-}
-
-void CourseManager::destroyBridge()
-{
-	m_bridgeController.destroy();
-}
-
-bool CourseManager::isBridgeDestroyed()
-{
-	return m_bridgeController.isDestroyed();
-}
-
-COURSE_ERROR CourseManager::getError() const
-{
-	return m_courseError;
-}
-
-string CourseManager::getErrorString() const
-{
-	//cout << "m_errorMsg=" << m_errorMsg << endl;
-	return m_errorMsg;
 }
