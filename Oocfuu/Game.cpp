@@ -19,6 +19,24 @@ Game g_game;
 unsigned int Game::m_count;
 bool Game::m_debugInfo;
 
+Game::Game()
+	: m_screen(GAME_SCREEN_TITLE)
+	, m_pScreens()
+	, m_pause(false)
+	, m_score(0)
+	, m_topScore(0)
+	, m_coin(0)
+	, m_pCurrentScreen(nullptr)
+	, m_world(GAME_BEGIN_WORLD)
+	, m_isGameOver(false)
+	, m_timer()
+{
+}
+
+Game::~Game()
+{
+}
+
 int Game::init()
 {
 	m_pScreens[GAME_SCREEN_TITLE] = new TitleScreen();
@@ -33,13 +51,6 @@ int Game::init()
 
 	m_screen = GAME_SCREEN_TITLE;
 	m_pCurrentScreen = m_pScreens[m_screen];
-	m_count = 0;
-	m_isGameOver = false;
-	m_score = 0;
-	m_coin = 0;
-	m_world = GAME_BEGIN_WORLD;
-	m_debugInfo = false; 
-	m_pause = false;
 
 	return 0;
 }

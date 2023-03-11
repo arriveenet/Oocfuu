@@ -72,22 +72,13 @@ public:
 	void draw();
 	
 	// スクロール位置を設定
-	inline void setScroll(const float _scroll)
-	{
-		m_scroll = _scroll;
-	};
+	void setScroll(const float _scroll) { m_scroll = _scroll; };
 	
 	// 現在のスクロールを取得
-	inline float getScroll() const
-	{
-		return m_scroll;
-	};
+	float getScroll() const { return m_scroll; };
 
 	// 現在のスクロール位置から加算する
-	inline void addScroll(const float _scroll)
-	{
-		m_scroll += _scroll;
-	};
+	void addScroll(const float _scroll) { m_scroll += _scroll; };
 
 	// パーツを設定
 	void setParts(glm::ivec2 const& _point, int _parts);
@@ -118,28 +109,16 @@ public:
 	};
 
 	// コースの高さを取得
-	int getHeight() const
-	{
-		return m_height;
-	};
+	int getHeight() const { return m_height; };
 
 	// 背景色を取得する
-	COLORREF getClearColor() const
-	{
-		return m_clearColor;
-	};
+	COLORREF getClearColor() const { return m_clearColor; };
 
 	// プレイヤーのスタート位置を取得
-	glm::ivec2 getStartPosition() const
-	{
-		return m_startPosition;
-	};
+	glm::ivec2 getStartPosition() const { return m_startPosition; };
 
 	// 次のワールドを取得
-	WORLD getNextWorld() const
-	{
-		return m_nextWorld;
-	};
+	WORLD getNextWorld() const { return m_nextWorld; };
 
 	// クリア斧と当たっているか
 	bool getClearAex(Rect& _rect);

@@ -37,6 +37,9 @@ public:
 	bool m_isGameOver;
 	GameTimer m_timer;
 
+	Game();
+	virtual ~Game();
+
 	int init();
 	void reset();
 	void release();
