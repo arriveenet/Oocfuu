@@ -1,16 +1,16 @@
-#include <stdio.h>
-#include <string.h>
+#include "Course.h"
 
 #include "App.h"
 #include "Game.h"
-#include "Course.h"
 #include "Part.h"
+#include "CourseEffect.h"
 #include "common/font.h"
 #include "player/Player.h"
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
 #include "enemy/EnemyManager.h"
 
+#include <stdio.h>
 #include <iostream>
 
 #define COURSE_ERROR_MSG_NO_ERRO			"No error"
@@ -181,10 +181,10 @@ bool CourseManager::load(const char* _fileName)
 	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
 		//printf("liftCount=%d\n", liftCount);
 		for (int i = 0; i < liftCount; i++) {
-			int x, y, liftWidth, mode;
-			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &liftWidth, &mode);
+			int x, y, width, mode;
+			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
 			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
-			g_gmmickPart.addLift(Lift((float)x, (float)y, liftWidth, (LIFT_MOVEMENT)mode));
+			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
 		}
 	}
 
@@ -238,8 +238,8 @@ void CourseManager::update()
 	}
 
 	// ブロックを叩いたときのコインを更新
-	BlockCoinManager* blockCoinMgr = BlockCoinManager::instance();
-	blockCoinMgr->update();
+	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+	courseEffectMgr->update();
 
 	int scrolleColumn = (int)m_scroll / PART_SIZE;
 	//printf("scrolleColumn=%d\n", scrolleColumn);
@@ -327,8 +327,8 @@ void CourseManager::draw()
 	glDisable(GL_CULL_FACE);
 
 	// ブロックを叩いたときのコインを描画
-	BlockCoinManager* blockCoinMgr = BlockCoinManager::instance();
-	blockCoinMgr->draw();
+	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+	courseEffectMgr->draw();
 
 	if (Game::m_debugInfo) {
 		fontBegin();

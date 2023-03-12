@@ -40,8 +40,8 @@ void MainScreen::update()
 
 	g_courseManager.update();
 	g_gmmickPart.update();
-	g_player.update();
 	g_enemyManager.update();
+	g_player.update();
 
 	if ((g_player.m_speed.x > 0)
 		&& (g_player.m_position.x > g_courseManager.getScroll() + SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
@@ -55,8 +55,9 @@ void MainScreen::draw()
 	g_game.drawHUD();
 	g_courseManager.draw();
 	g_gmmickPart.draw();
-	g_player.draw();
 	g_enemyManager.draw();
+	g_player.draw();
+
 
 	if (Game::m_debugInfo) {
 		fontBegin();

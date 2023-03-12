@@ -1,47 +1,8 @@
 #pragma once
-#include "Rect.h"
 #include "Part.h"
 #include "common/common.h"
-#include "animation/AnimationController.h"
 
 #include <glm/glm.hpp>
-#include <vector>
-
-#define BLOCK_COIN_WIDTH	8
-#define BLOCK_COIN_HEIGHT	16
-#define BLOCK_COIN_TTL		24
-
-class BlockCoin : Rect {
-private:
-	uint8_t m_count;
-	const uint8_t m_ttl;
-	bool m_updated;
-	AnimationController m_animationController;
-
-public:
-	BlockCoin(const glm::vec2& _position, uint8_t _ttl);
-	virtual ~BlockCoin();
-
-	void update();
-	void draw() override;
-	bool isUpdated() { return m_updated; };
-};
-
-class BlockCoinManager {
-private:
-	BlockCoinManager() {};
-	BlockCoinManager(const BlockCoinManager&) {};
-
-	std::vector<BlockCoin> m_blockCoins;
-public:
-	virtual ~BlockCoinManager();
-
-	static BlockCoinManager* instance();
-
-	void add(const BlockCoin& _blockCoin);
-	void update();
-	void draw();
-};
 
 /** ヒットブロックを制御するクラス
 */ 
