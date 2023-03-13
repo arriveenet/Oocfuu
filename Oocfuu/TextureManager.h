@@ -24,6 +24,15 @@ enum TEXTURE
 	TEXTURE_LIFT,
 	TEXTURE_FONT,
 	TEXTURE_SCORE_100,
+	TEXTURE_SCORE_200,
+	TEXTURE_SCORE_400,
+	TEXTURE_SCORE_500,
+	TEXTURE_SCORE_800,
+	TEXTURE_SCORE_1000,
+	TEXTURE_SCORE_2000,
+	TEXTURE_SCORE_4000,
+	TEXTURE_SCORE_5000,
+	TEXTURE_SCORE_8000,
 	TEXTURE_KOOPA_IDLE_1,
 	TEXTURE_KOOPA_IDLE_2,
 	TEXTURE_KOOPA_IDLE_FIRE_1,
@@ -58,8 +67,9 @@ public:
 
 	bool init();
 	void release();
-	void setTexture(enum TEXTURE _tex);
-	GLuint getTexture(enum TEXTURE _tex);
+	void setTexture(enum TEXTURE _texture);
+	void setTexture(GLuint _texture);
+	GLuint getTexture(enum TEXTURE _texture);
 
 	void unbindTexture();
 };

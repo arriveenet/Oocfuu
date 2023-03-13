@@ -30,6 +30,15 @@ static TEX texs[] =
 	{{"parts\\lift.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_LIFT
 	{{"font\\CHR000.bmp"}, {0, 64, 128}},						// TEXTURE_FONT
 	{{"font\\score_100.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_100
+	{{"font\\score_200.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_200,
+	{{"font\\score_400.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_400,
+	{{"font\\score_500.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_500,
+	{{"font\\score_900.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_800,
+	{{"font\\score_1000.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_1000,
+	{{"font\\score_2000.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_2000,
+	{{"font\\score_4000.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_4000,
+	{{"font\\score_5000.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_5000,
+	{{"font\\score_8000.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_SCORE_8000,
 	{{"enemy\\Koopa_Idle_1.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_KOOPA_IDLE_1
 	{{"enemy\\Koopa_Idle_2.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_KOOPA_IDLE_2
 	{{"enemy\\Koopa_Idle_Breath_1.bmp"}, {0xff, 0x00, 0xff}},	// TEXTURE_KOOPA_IDLE_BREATH_1
@@ -105,16 +114,25 @@ void TextureManager::release()
 	glDeleteTextures(TEXTURE_MAX, m_textures);
 }
 
-void TextureManager::setTexture(enum TEXTURE _tex)
+void TextureManager::setTexture(enum TEXTURE _texture)
 {
 	glBindTexture(
 		GL_TEXTURE_2D,		// GLenum target
-		m_textures[_tex]);	// GLuint texture
+		m_textures[_texture]);	// GLuint texture
 }
 
-GLuint TextureManager::getTexture(enum TEXTURE _tex)
+void TextureManager::setTexture(GLuint _texture)
 {
-	return m_textures[_tex];
+	if (_texture < TEXTURE_MAX) {
+		glBindTexture(
+			GL_TEXTURE_2D,		// GLenum target
+			m_textures[_texture]);	// GLuint texture
+	}
+}
+
+GLuint TextureManager::getTexture(enum TEXTURE _texture)
+{
+	return m_textures[_texture];
 }
 
 void TextureManager::unbindTexture()
