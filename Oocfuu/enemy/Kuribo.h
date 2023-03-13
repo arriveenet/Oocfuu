@@ -4,11 +4,13 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-#define KURIBO_WIDTH		16
-#define KURIBO_HEIGHT		16
+#define KURIBO_WIDTH			16
+#define KURIBO_HEIGHT			16
 
-#define KURIBO_SPEED		0.5f
-#define KUROBO_FALL_SPEED	0.3f
+#define KURIBO_SPEED			0.5f
+#define KUROBO_FALL_SPEED		0.3f
+
+#define KURIBO_TOP_POINT_COUNT	3
 
 enum {
 	KURIBO_STATE_MOVE,
@@ -25,7 +27,7 @@ class Kuribo : public Sprite{
 	glm::vec2 m_speed;
 	glm::vec2 m_rightPoint;
 	glm::vec2 m_leftPoint;
-	glm::vec2 m_topPoint;
+	glm::vec2 m_topPoints[KURIBO_TOP_POINT_COUNT];
 	std::vector<glm::vec2> m_bottomPoints;
 
 public:

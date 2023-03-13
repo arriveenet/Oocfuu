@@ -3,7 +3,7 @@
 #include "App.h"
 #include "world/Part.h"
 #include "world/Course.h"
-#include "ScoreText.h"
+#include "world/CourseEffect.h"
 #include "TextureManager.h"
 #include "player/Player.h"
 #include "sound/Sound.h"
@@ -31,7 +31,7 @@ Kuribo::Kuribo(float _x, float _y)
 	, m_speed(-KURIBO_SPEED, 0)
 	, m_rightPoint(0, 0)
 	, m_leftPoint(0, 0)
-	, m_topPoint(0, 0)
+	, m_topPoints{ vec2(0.0f, 0.0f) }
 {
 	m_size = { KURIBO_WIDTH, KURIBO_HEIGHT };
 	m_position = { _x, _y };
@@ -50,6 +50,7 @@ void Kuribo::update()
 
 	switch (m_state) {
 	case KURIBO_STATE_MOVE:
+	{
 		if (Game::m_count % 12 == 0)
 			m_flip ^= 1;
 
@@ -61,19 +62,28 @@ void Kuribo::update()
 
 		m_bottomPoints.clear();
 
+		m_topPoints[0] = m_position + vec2(PLAYER_SIZE / 2, 0);
+		m_topPoints[1] = m_position + vec2(2, 5);
+		m_topPoints[2] = m_position + vec2(14, 5);
 		m_rightPoint = vec2(m_position.x + m_size.x, m_position.y + 8);
 		m_leftPoint = vec2(m_position.x, m_position.y + 8);
-		m_topPoint = m_position + vec2(PLAYER_SIZE / 2, -1);
 		m_bottomPoints.push_back(m_position + vec2(1, m_size.y));
 		m_bottomPoints.push_back(m_position + vec2(m_size.x - 1, m_size.y));
 
-		// squish
-		if (g_player.intersect(m_topPoint) && !g_player.m_dead) {
-			g_pSound->play(SOUND_SE_SQUISH);
-			m_state = KURIBO_STATE_SQUISH;
-			g_player.jump();
-			g_game.addScore(100);
-			g_scoreTextManager.add(SCORETYPE_100, m_position.x, m_position.y);
+		// Squish
+		for (int i = 0; i < KURIBO_TOP_POINT_COUNT; i++) {
+			if (g_player.intersect(m_topPoints[i]) && !g_player.m_dead) {
+				g_pSound->play(SOUND_SE_SQUISH);
+				m_state = KURIBO_STATE_SQUISH;
+				g_player.jump();
+				g_game.addScore(100);
+
+				vec2 scorePosition = { m_position.x, m_position.y - KURIBO_HEIGHT - 8 };
+				EffectScore score(scorePosition, EffectScore::SCORE_100);
+				CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+				courseEffectMgr->addScore(score);
+				break;
+			}
 		}
 
 		// bool player dead
@@ -108,6 +118,7 @@ void Kuribo::update()
 				break;
 			}
 		}
+	}
 		break;
 	case KURIBO_STATE_SQUISH:
 		if (m_counter > 32) {
@@ -162,16 +173,18 @@ void Kuribo::draw()
 			0,						// GLint first
 			1);	// GLsizei count
 
+		glColor3ub(0x00, 0x00, 0xff);
 		glVertexPointer(
 			2,						// GLint size
 			GL_FLOAT,				// GLenum type
 			0,						// GLsizei stride
-			&m_topPoint);	// const GLvoid * pointer
+			&m_topPoints);	// const GLvoid * pointer
 		glDrawArrays(
-			GL_POINTS,				// GLenum mode
-			0,						// GLint first
-			1);	// GLsizei count
+			GL_POINTS,					// GLenum mode
+			0,							// GLint first
+			KURIBO_TOP_POINT_COUNT);	// GLsizei count
 
+		glColor3ub(0x00, 0xff, 0x00);
 		glVertexPointer(
 			2,						// GLint size
 			GL_FLOAT,				// GLenum type
