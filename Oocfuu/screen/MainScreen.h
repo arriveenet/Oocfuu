@@ -1,6 +1,5 @@
 #pragma once
 #include "Screen.h"
-#include "ScoreText.h"
 #include "enemy/EnemyManager.h"
 
 class MainScreen : public Screen {

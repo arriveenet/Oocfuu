@@ -8,6 +8,7 @@ using namespace std;
 static const char coinEffectTable[] = { -2,-3,-4, -4, -4, -4, -4, -4, -3, -3, -2, -2, -1, 0, 0,
 										0, 0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 3, 2, };
 
+
 EffectCoin::EffectCoin(const glm::vec2& _position)
 	: m_animationController()
 	, EffectPartBase(vec2(EFFECT_COIN_WIDTH, EFFECT_COIN_HEIGHT), _position)
@@ -49,6 +50,7 @@ void EffectCoin::draw()
 */
 EffectScore::EffectScore(const glm::vec2& _position, SCORE _score)
 	: m_score(_score)
+	, m_texture(TEXTURE_SCORE_100 + (int)_score)
 	, EffectPartBase(vec2(EFFECT_SCORE_WIDTH, EFFECT_SCORE_HEIGHT),_position)
 {
 	m_ttl = EFFECT_SCORE_TTL;
@@ -81,7 +83,7 @@ void EffectScore::draw()
 	if (m_updated)
 		return;
 
-	g_textureManager.setTexture(TEXTURE_SCORE_100);
+	g_textureManager.setTexture(m_texture);
 	Rect::draw();
 	g_textureManager.unbindTexture();
 
@@ -102,26 +104,42 @@ CourseEffectManager* CourseEffectManager::instance()
 	return &instance;
 }
 
+void CourseEffectManager::addCoin(const EffectCoin& _coin)
+{
+	m_coins.push_back(_coin);
+}
+
+void CourseEffectManager::addScore(const EffectScore& _score)
+{
+	m_scores.push_back(_score);
+}
+
 /* エフェクトを更新
 */
 void CourseEffectManager::update()
 {
-
+	// コインエフェクトを更新
 	vector<EffectCoin>::iterator iterCoin = m_coins.begin();
-	for (; iterCoin != m_coins.end(); ++iterCoin) {
-		iterCoin->update();
-
-		// TODO 更新が終わったものは削除する
-		//if (iter->isUpdated()) {
-		//	m_blockCoins.erase(iter);
-		//} else {
-		//	++iter;
-		//}
+	for (; iterCoin != m_coins.end();) {
+		// 更新終了か確認する
+		if (iterCoin->isUpdated()) {
+			iterCoin = m_coins.erase(iterCoin);
+		} else {
+			iterCoin->update();
+			++iterCoin;
+		}
 	}
 
+	// スコアエフェクトを更新
 	vector<EffectScore>::iterator iterScore = m_scores.begin();
-	for (; iterScore != m_scores.end(); ++iterScore) {
-		iterScore->update();
+	for (; iterScore != m_scores.end();) {
+		// 更新終了か確認する
+		if (iterScore->isUpdated()) {
+			iterScore = m_scores.erase(iterScore);
+		} else {
+			iterScore->update();
+			++iterScore;
+		}
 	}
 }
 
@@ -129,11 +147,13 @@ void CourseEffectManager::update()
 */
 void CourseEffectManager::draw()
 {
+	// コインエフェクトを描画
 	vector<EffectCoin>::iterator iterCoin = m_coins.begin();
 	for (; iterCoin != m_coins.end(); iterCoin++) {
 		iterCoin->draw();
 	}
 
+	// スコアエフェクトを描画
 	vector<EffectScore>::iterator iterScore = m_scores.begin();
 	for (; iterScore != m_scores.end(); ++iterScore) {
 		iterScore->draw();

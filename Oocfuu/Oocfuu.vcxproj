@@ -177,7 +177,6 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="enemy\Nokonoko.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="player\PlayerStateClear.cpp" />
-    <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="input\Keyboard.cpp" />
     <ClCompile Include="input\Mouse.cpp" />
@@ -234,7 +233,6 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="enemy\Nokonoko.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="player\PlayerStateClear.h" />
-    <ClInclude Include="ScoreText.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="input\Keyboard.h" />
     <ClInclude Include="input\Mouse.h" />

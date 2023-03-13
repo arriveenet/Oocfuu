@@ -41,7 +41,7 @@ void HitBlockController::start(const glm::ivec2& _point, const PART& _part, cons
 	m_updated = false;
 
 	// ハテナブロックの場合コインのエフェクトを描画する
-	if (_part == PART_QUESTION3) {
+	if (m_part == PART_QUESTION3) {
 		vec2 position = { m_position.x + 4, m_position.y - PART_SIZE - 4 };
 		CourseEffectManager* blockCoinMgr = CourseEffectManager::instance();
 		EffectCoin blockCoin(position);
@@ -65,6 +65,14 @@ bool HitBlockController::update(QUAD& _quad)
 
 		// 更新終了フラグを立てる
 		m_updated = true;
+
+		// スコアエフェクトを追加
+		if (m_part == PART_QUESTION3) {
+			vec2 scorePosition = { m_position.x, m_position.y - PART_SIZE - 8 };
+			EffectScore score(scorePosition, EffectScore::SCORE_200);
+			CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+			courseEffectMgr->addScore(score);
+		}
 	}
 
 	// ブロックの位置をずらす

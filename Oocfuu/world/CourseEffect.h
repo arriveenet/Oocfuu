@@ -5,6 +5,7 @@
 #include "animation/AnimationController.h"
 
 #include <glm/glm.hpp>
+#include <gl/glut.h>
 #include <vector>
 
 #define EFFECT_COIN_WIDTH		8		// コインエフェクトの幅
@@ -79,6 +80,7 @@ public:
 
 private:
 	SCORE m_score;
+	GLuint m_texture;
 };
 
 
@@ -100,16 +102,11 @@ public:
 	// 唯一のインスタンスを取得
 	static CourseEffectManager* instance();
 
-	// エフェクトを追加
-	void addCoin(const EffectCoin& _coin)
-	{
-		m_coins.push_back(_coin);
-	}
+	// コインエフェクトを追加
+	void addCoin(const EffectCoin& _coin);
 
-	void addScore(const EffectScore& _score)
-	{
-		m_scores.push_back(_score);
-	}
+	// スコアエフェクトを追加
+	void addScore(const EffectScore& _score);
 
 	// エフェクトを更新
 	void update();
