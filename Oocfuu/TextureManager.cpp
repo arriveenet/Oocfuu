@@ -20,6 +20,7 @@ static TEX texs[] =
 	{{"item\\firework_1.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_1
 	{{"item\\firework_2.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_2
 	{{"item\\firework_3.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_3
+	{{"item\\goal_flag.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_GOAL_FLAG
 	{{"item\\title_2.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_TITLE
 	{{"parts\\block_coin_1.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_1
 	{{"parts\\block_coin_2.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_BLOCK_COIN_2
