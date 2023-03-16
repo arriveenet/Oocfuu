@@ -1,6 +1,8 @@
 #pragma once
 #include "PlayerState.h"
 
+#define PLAYER_POLE_FALL_SPEED		1.6f
+
 enum  PLAYERSTATEGOAL {
 	PLAYERSTATEGOAL_FALL,
 	PLAYERSTATEGOAL_FLIP,

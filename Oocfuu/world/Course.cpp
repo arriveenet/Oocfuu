@@ -9,6 +9,7 @@
 #include "TextureManager.h"
 #include "world/GimmickPart.h"
 #include "enemy/EnemyManager.h"
+#include "sound/Sound.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -99,6 +100,10 @@ bool CourseManager::load(const char* _fileName)
 		m_pParts = NULL;
 	}
 
+	// コースエフェクトマネージャーをクリアする
+	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+	courseEffectMgr->clear();
+
 	// ボスステージの橋をクリアする
 	m_bridgeController.clear();
 
@@ -151,6 +156,11 @@ bool CourseManager::load(const char* _fileName)
 							break;
 						case PART_CHAIN:
 							m_bridgeController.setChain(j, i);
+							break;
+						case PART_GOAL_TOP:
+							courseEffectMgr->setGoalFlag(vec2(j * PART_SIZE - 8, i * PART_SIZE + 17));
+							break;
+						default:
 							break;
 						}
 
@@ -439,13 +449,11 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 		break;
 	case PART_SOFT_BLOCK:
 		part = endPart = PART_SOFT_BLOCK;
-		break;
-	case PART_QUESTION3:
-		return;
+		g_pSound->play(SOUND_SE_BUMP);
 		break;
 	default:
+		g_pSound->play(SOUND_SE_BUMP);
 		return;
-		break;
 	}
 
 	setParts(cellPoint, PART_NONE);

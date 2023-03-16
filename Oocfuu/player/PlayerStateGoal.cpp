@@ -2,13 +2,13 @@
 #include "sound/Sound.h"
 #include "animation/Animation.h"
 #include "world/Course.h"
+#include "world/CourseEffect.h"
 #include "world/Part.h"
 
 #include <vector>
 #include <glm/glm.hpp>
 
 #define PLAYER_POLE_OFFSET			9.0f
-#define PLAYER_POLE_FALL_SPEED		1.6f
 #define PLAYER_FLIP_OFFSET			14.0f
 #define PLAYER_GOAL_MOVE_SPEED		0.8f
 
@@ -29,6 +29,9 @@ void PlayerStateGoal::start(Player* _pPlayer)
 	_pPlayer->m_speed.x = 0;
 	_pPlayer->m_position.x += PLAYER_POLE_OFFSET;
 	g_pSound->play(SOUND_FLAGPOLE);
+
+	CourseEffectManager* effectMgr = CourseEffectManager::instance();
+	effectMgr->startGoalFlag();
 }
 
 void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlayer)

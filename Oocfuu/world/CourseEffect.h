@@ -16,6 +16,23 @@
 #define EFFECT_SCORE_HEIGHT		8
 #define EFFECT_SCORE_TTL		24
 
+/* ゴールフラグクラス
+*/
+class GoalFlag : public Rect {
+	bool m_down;		// 更新フラグ
+	bool m_visible;		// 描画フラグ
+
+public:
+	GoalFlag();
+	~GoalFlag();
+
+	void start() { m_down = true; };
+	void stop() { m_down = false; };
+	void setVisible(bool _flag) { m_visible = _flag; };
+	void update();
+	void draw() override;
+};
+
 /* エフェクトパーツの抽象クラス
 */
 class EffectPartBase : public Rect {
@@ -95,6 +112,8 @@ private:
 
 	std::vector<EffectCoin> m_coins;
 	std::vector<EffectScore> m_scores;
+	GoalFlag m_goalFlag;
+
 public:
 	// デストラクタ
 	virtual ~CourseEffectManager();
@@ -102,11 +121,23 @@ public:
 	// 唯一のインスタンスを取得
 	static CourseEffectManager* instance();
 
+	// エフェクトをクリアする
+	void clear();
+
 	// コインエフェクトを追加
 	void addCoin(const EffectCoin& _coin);
 
 	// スコアエフェクトを追加
 	void addScore(const EffectScore& _score);
+
+	// ゴールフラグの位置を設定
+	void setGoalFlag(const glm::vec2& _position);
+
+	// ゴールフラグの更新をスタート
+	void startGoalFlag() { m_goalFlag.start(); };
+
+	// ゴールフラグの更新をストップ
+	void stopGoalFlag() { m_goalFlag.start(); };
 
 	// エフェクトを更新
 	void update();
