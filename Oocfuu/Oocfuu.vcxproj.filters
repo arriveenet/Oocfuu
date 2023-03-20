@@ -213,6 +213,9 @@
     <ClCompile Include="world\CourseEffect.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
+    <ClCompile Include="enemy\NokonokoStates.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="world\CourseEffect.h">
       <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\NokonokoStates.h">
+      <Filter>ヘッダー ファイル\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

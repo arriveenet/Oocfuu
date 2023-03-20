@@ -10,14 +10,14 @@ KoopaFire::KoopaFire()
 	: m_enable(false)
 	, m_texture(TEXTURE_KOOPA_FIRE_1)
 	, m_speed(0.0f, 0.0f)
-	, m_height(0.0f)
+	, m_height(FIRE_HEIGHT_LOW)
 	, Rect(24, 8)
 { }
 
 KoopaFire::~KoopaFire()
 { }
 
-void KoopaFire::start(glm::vec2 _position, float _height, int _direction)
+void KoopaFire::start(glm::vec2 _position, FIRE_HEIGHT _height, int _direction)
 {
 	m_enable = true;
 	m_position = _position;
@@ -48,8 +48,30 @@ void KoopaFire::update()
 	if (!m_enable)
 		return;
 
-	if (m_position.y < m_height) {
-		m_position.y += 1.0f;
+	switch (m_height) {
+	case FIRE_HEIGHT_LOW:
+		if (m_position.y <= KOOPA_FIRE_LOW) {
+			m_speed.y = 1.0f;
+		} else {
+			m_speed.y = 0.0f;
+		}
+		break;
+	case FIRE_HEIGHT_MIDDLE:
+		if (m_position.y < KOOPA_FIRE_MIDDLE) {
+			m_speed.y = 1.0f;
+		} else {
+			m_speed.y = 0.0f;
+		}
+		break;
+	case FIRE_HEIGHT_HIGH:
+		if (m_position.y > KOOPA_FIRE_HIGH) {
+			m_speed.y = -1.0f;
+		} else {
+			m_speed.y = 0.0f;
+		}
+		break;
+	default:
+		break;
 	}
 
 	m_position += m_speed;

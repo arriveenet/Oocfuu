@@ -203,7 +203,7 @@ void Kuribo::draw()
 
 void Kuribo::turn()
 {
-	m_speed.x = m_speed.x > 0 ? -KURIBO_SPEED : KURIBO_SPEED;
+	m_speed.x = -m_speed.x;
 }
 
 Rect Kuribo::getRect() const

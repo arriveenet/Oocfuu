@@ -24,6 +24,7 @@ static const char* modeNames[] = {
 
 TitleScreen::TitleScreen()
 	: m_mode(MODE_1P)
+	, m_command()
 {
 	glClearColor({ 80 / 255.f }, { 128 / 255.f }, { 255 / 255.f }, { 1 });
 }
@@ -36,6 +37,7 @@ void TitleScreen::init()
 
 void TitleScreen::reset()
 {
+	m_command.clear();
 	g_game.m_timer.setVisible(false);
 	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
 	g_courseManager.load("resource\\course\\course1-1.txt");
@@ -46,16 +48,37 @@ void TitleScreen::reset()
 void TitleScreen::update()
 {
 	g_courseManager.update();
+	
+	if (Keyboard::m_nowPressed['a']) {
+		m_command.push_back('a');
+	}
+	if (Keyboard::m_nowPressed['d']) {
+		m_command.push_back('d');
+	}
+	if (Keyboard::m_nowPressed['f']) {
+		m_command.push_back('f');
+	}
 
-	if (Keyboard::m_nowPressed['w'])
+	if (Keyboard::m_nowPressed['w']) {
+		m_command.push_back('w');
 		m_mode--;
-	if (Keyboard::m_nowPressed['s'])
+	}
+	if (Keyboard::m_nowPressed['s']) {
+		m_command.push_back('s');
 		m_mode++;
+	}
+	if (Keyboard::m_nowPressed[' ']) {
+		m_command.push_back(' ');
+	}
 	m_mode = (MODE_MAX + m_mode) % MODE_MAX;
 
-	if (Keyboard::m_nowPressed['f'])
+	if (Keyboard::m_nowPressed[0x0d])
 		switch (m_mode) {
 		case MODE_1P:
+			if (m_command == "wwssadad f") {
+				g_game.setScreen(GAME_SCREEN_GO);
+				break;
+			}
 			g_game.setScreen(GAME_SCREEN_INTRO);
 			break;
 		case MODE_HBD:

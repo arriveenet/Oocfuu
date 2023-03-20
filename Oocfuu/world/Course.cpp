@@ -53,6 +53,7 @@ void CourseManager::release()
 			delete m_pParts[i];
 		}
 		delete[] m_pParts;
+		m_isLoaded = false;
 	}
 
 	m_pParts = NULL;

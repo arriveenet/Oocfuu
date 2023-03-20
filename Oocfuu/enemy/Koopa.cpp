@@ -181,8 +181,17 @@ void Koopa::fire()
 
 		// 向いている方向にファイヤーを向ける
 		float x = m_flip == RECT_FLIP_NONE ? m_position.x - 24.0f : m_position.x + m_size.x;
-		float height = m_position.y + m_size.y - PART_SIZE;
-		m_fires[i].start(vec2(x, m_position.y), height, m_flip);
+		// 高さをランダムで決める(高:10%、中:10%、低:80%)
+		int r = rand() % 100;
+		FIRE_HEIGHT hight;
+		if (r < 10) {
+			hight = FIRE_HEIGHT_HIGH;
+		} else if(r < 20){
+			hight = FIRE_HEIGHT_MIDDLE;
+		} else {
+			hight = FIRE_HEIGHT_LOW;
+		}
+		m_fires[i].start(vec2(x, m_position.y), hight, m_flip);
 		return;
 	}
 }

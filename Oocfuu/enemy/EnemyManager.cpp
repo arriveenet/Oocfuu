@@ -55,7 +55,7 @@ void EnemyManager::update()
 	if (m_enemyFlag & ENEMYFLAG_KURIBO) {
 		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
 			itr != m_kuribos.end();
-			itr++) {
+			++itr) {
 			itr->update();
 		}
 	}
@@ -64,7 +64,7 @@ void EnemyManager::update()
 	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
 		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
 			itr != m_nokonokos.end();
-			itr++) {
+			++itr) {
 			itr->update();
 		}
 	}

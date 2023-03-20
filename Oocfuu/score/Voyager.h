@@ -3,7 +3,7 @@
 
 #define VOY_QUARTER_NOTE	28
 
-SCORE voyPulse0[] = {
+static SCORE voyPulse0[] = {
 	
 	{E,4,70}, {G,3,14}, {E,4,14},
 	{D,4,84}, {G,3,14}, {D,4,14},
@@ -224,7 +224,7 @@ SCORE voyPulse0[] = {
 
 };
 
-SCORE voyPulse1[] = {
+static SCORE voyPulse1[] = {
 
 	{C,3,98},
 	{C,3,98}, {C,3,14},
@@ -447,7 +447,7 @@ SCORE voyPulse1[] = {
 
 };
 
-SCORE voyTri[] = {
+static SCORE voyTri[] = {
 
 	{G,3,70}, {G,3,14}, {C,4,14},
 	{G,3,84}, {G,3,14}, {A,3,14},
