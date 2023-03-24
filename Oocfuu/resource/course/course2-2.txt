@@ -1,0 +1,18 @@
+width=26 height=15 color=16553052 startX=40 startY=144 nextWorld=1 nextStage=3
+                                                    
+                                                    
+b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                a0  
+                                              cnb0b0
+b0b0b0b0b0b0b0b0b0b0b0brbrbrbrbrbrbrbrbrbrbrbrbrb0b0
+b0b0b0b0b0b0b0b0b0b0b0                          b0b0
+b0b0b0b0b0b0b0b0b0b0b0                          b0b0
+b0b0b0b0b0b0b0b0b0b0b0                          b0b0
+b0b0b0b0b0b0b0b0b0b0b0                          b0b0
+enemyCount=1 flag=4
+type=2 x=240 y=96
