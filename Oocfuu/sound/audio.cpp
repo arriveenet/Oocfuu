@@ -78,9 +78,8 @@ int audioInit() {
 	/* Long noise */
 	{
 		const int len = 32767;
-		unsigned char* noise;
-		noise = (unsigned char*)calloc(len, sizeof(unsigned char));
-		if (noise == NULL) {
+		unsigned char* noise = new unsigned char[len];
+		if (!noise) {
 			printf("audio: Failed to allocate memory.\n");
 			return 1;
 		}
@@ -97,15 +96,14 @@ int audioInit() {
 			noise,								// const ALvoid* data
 			len,								// ALsizei size
 			1);									// ALsizei freq
-		free(noise);
+		delete[] noise;
 	}
 
 	/* Short noise */
 	{
 		const int len = 93;
-		unsigned char* noise;
-		noise = (unsigned char*)calloc(len, sizeof(unsigned char));
-		if (noise == NULL) {
+		unsigned char* noise = new unsigned char[len];
+		if (!noise) {
 			printf("audio: Failed to allocate memory.\n");
 			return 1;
 		}
@@ -122,7 +120,7 @@ int audioInit() {
 			noise,									// const ALvoid* data
 			len,									// ALsizei size
 			1);										// ALsizei freq
-		free(noise);
+		delete[] noise;
 	}
 
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++) {
@@ -197,7 +195,7 @@ void audioFreq(int _channel, float _freq) {
 }
 
 float audioIndexToFreq(int _index) {
-	int divisorTable[] = { 4, 8, 16, 32, 64, 96, 128, 160,
+	const int divisorTable[] = { 4, 8, 16, 32, 64, 96, 128, 160,
 		202, 254, 380, 508, 762, 1016, 2034, 4068 };
 	return 1789772.5f / divisorTable[_index];
 }

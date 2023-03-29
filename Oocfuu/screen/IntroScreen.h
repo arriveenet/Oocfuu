@@ -12,8 +12,8 @@ class IntroScreen : public Screen {
 	INTRO m_intro = INTRO_LOAD;
 
 public:
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-	virtual void draw();
+	void init() override;
+	void reset() override;
+	void update() override;
+	void draw() override;
 };

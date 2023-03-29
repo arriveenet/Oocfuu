@@ -2,13 +2,13 @@
 #include "Screen.h"
 
 class TpScreen :
-    public Screen
+	public Screen
 {
-    unsigned int m_count = 0;
+	unsigned int m_count = 0;
 public:
-    virtual void init();
-    virtual void reset();
-    virtual void update();
-    virtual void draw();
+	void init() override;
+	void reset() override;
+	void update() override;
+	void draw() override;
 };
 

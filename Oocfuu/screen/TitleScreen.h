@@ -10,8 +10,8 @@ class TitleScreen : public Screen {
 public:
 
 	TitleScreen();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
-	virtual void draw();
+	void init() override;
+	void reset() override;
+	void update() override;
+	void draw() override;
 };

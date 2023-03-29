@@ -14,6 +14,7 @@ Music g_music;
 Music::Music()
 	: m_play(false)
 	, m_playCount(0)
+	, m_end(false)
 	, m_title("NO TITLE")
 {}
 

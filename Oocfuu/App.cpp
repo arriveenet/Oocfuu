@@ -26,9 +26,8 @@ extern glm::ivec2 windowSize;
 
 App::App()
 	: m_running(false)
+	, m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
 {
-	// コンソールハンドルを取得
-	m_hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	time_t t = time(NULL);
 	localtime_s(&m_currentTime, &t);
 }

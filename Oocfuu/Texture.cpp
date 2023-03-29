@@ -55,7 +55,7 @@ const unsigned char* Texture::getTexImage() const
 	return m_pixels;
 }
 
-int Texture::loadBitmapFile(const char* _fileName, unsigned char* _colorKey)
+int Texture::loadBitmapFile(const char* _fileName, const unsigned char* _colorKey)
 {
 	openBitmapFile(_fileName);
 	createTexImage(_colorKey);
@@ -133,7 +133,7 @@ int Texture::openBitmapFile(const char* _fileName)
 	return 0;
 }
 
-int Texture::createTexImage(unsigned char* _colorKey)
+int Texture::createTexImage(const unsigned char* _colorKey)
 {
 	if (!m_bitmapPixels)
 		return 1;
