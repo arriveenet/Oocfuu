@@ -16,6 +16,7 @@
 
 #define COURSE_ERROR_MSG_NO_ERRO			"No error"
 #define COURSE_ERROR_MSG_INVALID_SIZE		"A value less than 0 was specified for the width or height of the course\n"
+#define COURSE_ERROR_MSG_INVALID_PARTS		"An invalid part was loaded\n"
 #define COURSE_ERROR_MSG_FAILED_OPEN_FILE	"File could not be opened\n"
 #define COURSE_ERROR_MSG_OUT_OF_MEMORY		"Failed to allocate memory\n"
 
@@ -143,9 +144,11 @@ bool CourseManager::load(const char* _fileName)
 			//printf("[%d-%d] %c%c\n", i, j, buf[0], buf[1]);
 			if (buf[0] == 0x20) {
 				m_pParts[i][j] = PART_NONE;
-			} else
+			} else {
+				bool validPart = false;	// 有効なパーツフラグ
 				for (int k = PART_NONE + 1; k < PART_MAX; k++) {
 					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
+						validPart = true;
 						m_pParts[i][j] = k;
 
 						switch (k) {
@@ -168,6 +171,14 @@ bool CourseManager::load(const char* _fileName)
 						break;
 					}
 				}
+				// 有効なパーツ判定
+				if (!validPart) {
+					m_courseError = COURSE_INVALID_VALUE;
+					m_errorMsg = COURSE_ERROR_MSG_INVALID_PARTS;
+					release();
+					return false;
+				}
+			}
 		}
 		fseek(pFile, 2, SEEK_CUR);
 	}

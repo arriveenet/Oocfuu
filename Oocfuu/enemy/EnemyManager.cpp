@@ -53,19 +53,19 @@ void EnemyManager::update()
 {
 	// クリボーを更新
 	if (m_enemyFlag & ENEMYFLAG_KURIBO) {
-		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
-			itr != m_kuribos.end();
-			++itr) {
-			itr->update();
+		for (vector<Kuribo>::iterator iter = m_kuribos.begin();
+			iter != m_kuribos.end();
+			++iter) {
+			iter->update();
 		}
 	}
 
 	// ノコノコを更新
 	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
-		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
-			itr != m_nokonokos.end();
-			++itr) {
-			itr->update();
+		for (vector<Nokonoko>::iterator iter = m_nokonokos.begin();
+			iter != m_nokonokos.end();
+			++iter) {
+			iter->update();
 		}
 	}
 
@@ -77,18 +77,18 @@ void EnemyManager::update()
 void EnemyManager::draw()
 {
 	if (m_enemyFlag & ENEMYFLAG_KURIBO) {
-		for (vector<Kuribo>::iterator itr = m_kuribos.begin();
-			itr != m_kuribos.end();
-			itr++) {
-			itr->draw();
+		for (vector<Kuribo>::iterator iter = m_kuribos.begin();
+			iter != m_kuribos.end();
+			iter++) {
+			iter->draw();
 		}
 	}
 
 	if (m_enemyFlag & ENEMYFLAG_NOKONOKO) {
-		for (vector<Nokonoko>::iterator itr = m_nokonokos.begin();
-			itr != m_nokonokos.end();
-			itr++) {
-			itr->draw();
+		for (vector<Nokonoko>::iterator iter = m_nokonokos.begin();
+			iter != m_nokonokos.end();
+			iter++) {
+			iter->draw();
 		}
 	}
 

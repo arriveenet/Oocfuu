@@ -18,13 +18,13 @@ void GimmickPart::update()
 {
 	for (vector<Firebar>::iterator itr = m_firebars.begin();
 		itr != m_firebars.end();
-		itr++) {
+		++itr) {
 		itr->upadte();
 	}
 
 	for (vector<Lift>::iterator itr = m_lifts.begin();
 		itr != m_lifts.end();
-		itr++) {
+		++itr) {
 		itr->update();
 	}
 }
@@ -33,13 +33,13 @@ void GimmickPart::draw()
 {
 	for (vector<Firebar>::iterator itr = m_firebars.begin();
 		itr != m_firebars.end();
-		itr++) {
+		++itr) {
 		itr->draw();
 	}
 
 	for (vector<Lift>::iterator itr = m_lifts.begin();
 		itr != m_lifts.end();
-		itr++) {
+		++itr) {
 		itr->draw();
 	}
 }
@@ -63,7 +63,7 @@ void GimmickPart::addLift(const Lift& _lift)
 bool GimmickPart::intersectLift(const vec2& _point, vec2& _liftPosition, vec2& _liftSpeed)
 {
 	vector<Lift>::iterator itr = m_lifts.begin();
-	for (; itr != m_lifts.end(); itr++) {
+	for (; itr != m_lifts.end(); ++itr) {
 		if (itr->intersect(_point)) {
 			_liftPosition = itr->m_position;
 			_liftSpeed = itr->getSpeed();
