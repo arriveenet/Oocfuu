@@ -37,6 +37,7 @@ CourseManager::CourseManager()
 	, m_hitBlockController()
 	, m_clearAex(PART_SIZE, PART_SIZE)
 	, m_bridgeController()
+	, m_kinopio()
 	, m_courseError(COURSE_NO_ERROR)
 	, m_errorMsg(COURSE_ERROR_MSG_NO_ERRO)
 {
@@ -57,7 +58,7 @@ void CourseManager::release()
 		m_isLoaded = false;
 	}
 
-	m_pParts = NULL;
+	m_pParts = nullptr;
 	m_quads.~vector();
 }
 
@@ -93,7 +94,7 @@ bool CourseManager::load(const char* _fileName)
 		return false;
 	}
 
-	// すでにコースが読み込まれていた場合メモリを開放する
+	// すでにコースが読み込まれていた場合メモリを解放する
 	if (m_isLoaded && m_pParts) {
 		for (int i = 0; i < m_height; ++i) {
 			delete m_pParts[i];
@@ -108,6 +109,9 @@ bool CourseManager::load(const char* _fileName)
 
 	// ボスステージの橋をクリアする
 	m_bridgeController.clear();
+
+	// キノピオを無効する
+	m_kinopio.m_enable = false;
 
 	// メンバ変数に代入する
 	m_width = width;
@@ -233,6 +237,15 @@ bool CourseManager::load(const char* _fileName)
 		}
 	}
 
+	// キノピオの読み込み
+	{
+		int x = 0; int y = 0;
+		if (fscanf_s(pFile, "kinopio x=%d y= %d", &x, &y) != EOF) {
+			m_kinopio.m_enable = true;
+			m_kinopio.m_position = {x, y};
+		}
+	}
+
 	fclose(pFile);
 
 	m_isLoaded = true;
@@ -351,6 +364,9 @@ void CourseManager::draw()
 	// ブロックを叩いたときのコインを描画
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
 	courseEffectMgr->draw();
+
+	// キノピオを描画
+	m_kinopio.draw();
 
 	if (Game::m_debugInfo) {
 		fontBegin();

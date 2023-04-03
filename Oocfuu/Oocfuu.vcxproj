@@ -211,6 +211,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="world\Firework.cpp" />
     <ClCompile Include="world\GimmickPart.cpp" />
     <ClCompile Include="world\HitBlockController.cpp" />
+    <ClCompile Include="world\Kinopio.cpp" />
     <ClCompile Include="world\Lift.cpp" />
     <ClCompile Include="world\Part.cpp" />
   </ItemGroup>
@@ -274,6 +275,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="world\Firework.h" />
     <ClInclude Include="world\GimmickPart.h" />
     <ClInclude Include="world\HitBlockController.h" />
+    <ClInclude Include="world\Kinopio.h" />
     <ClInclude Include="world\Lift.h" />
     <ClInclude Include="world\Part.h" />
   </ItemGroup>

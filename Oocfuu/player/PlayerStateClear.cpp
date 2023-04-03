@@ -36,15 +36,23 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 			_pPlayer->m_speed = (vec2)fixed / (float)one;
 		}
 
-		// ‰E‚Ì“–‚½‚è”»’è
-		for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
-			iter != _pPlayer->m_rightPoints.end();
-			iter++) {
-			if (g_courseManager.intersect(*iter)) {
+		Kinopio* pKinopio = g_courseManager.getKinopio();
+		if (pKinopio) {
+			if (_pPlayer->intersect(*pKinopio)) {
+				_pPlayer->m_speed = { 0.0f, 0.0f };
 				_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
 				g_courseManager.addScroll(1.0f);
-				break;
 			}
 		}
+		// ‰E‚Ì“–‚½‚è”»’è
+		//for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
+		//	iter != _pPlayer->m_rightPoints.end();
+		//	iter++) {
+		//	if (g_courseManager.intersect(*iter)) {
+		//		_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
+		//		g_courseManager.addScroll(1.0f);
+		//		break;
+		//	}
+		//}
 	}
 }

@@ -16,6 +16,7 @@ static TEX texs[] =
 	{{"enemy\\Kuribo_Run.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_PLAYER_RUN_1
 	{{"enemy\\Kuribo_Squish.bmp"}, {0xff, 0x00, 0xff}},			// TEXTURE_KURIBO_SQUISH
 	{{"item\\cake.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_CAKE
+	{{"item\\Kinopio.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_KINOPIO
 	{{"item\\coin_1.bmp"}, {0xff, 0x00, 0xff}},					// TEXTURE_COIN_1
 	{{"item\\firework_1.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_1
 	{{"item\\firework_2.bmp"}, {0xff, 0x00, 0xff}},				// TEXTURE_FIREWORK_2

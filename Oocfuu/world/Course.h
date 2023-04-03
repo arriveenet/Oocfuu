@@ -3,6 +3,7 @@
 #include "Rect.h"
 #include "HitBlockController.h"
 #include "BridgeController.h"
+#include "Kinopio.h"
 #include "common/common.h"
 
 #include <gl/glut.h>
@@ -49,6 +50,7 @@ private:
 	HitBlockController m_hitBlockController;	// 叩いたときのブロック制御
 	Rect m_clearAex;							// クリア斧
 	BridgeController m_bridgeController;		// 橋の制御
+	Kinopio m_kinopio;						// キノピオ
 	COURSE_ERROR m_courseError;					// コースエラー
 	std::string m_errorMsg;						// エラーメッセージ
 
@@ -134,6 +136,12 @@ public:
 	{
 		return m_bridgeController.isDestroyed();
 	};
+
+	// キノピオを取得
+	Kinopio* getKinopio()
+	{
+		return &m_kinopio;
+	}
 
 	// エラー列挙定数を取得
 	COURSE_ERROR getError() const
