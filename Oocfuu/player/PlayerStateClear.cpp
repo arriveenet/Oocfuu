@@ -36,14 +36,13 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 			_pPlayer->m_speed = (vec2)fixed / (float)one;
 		}
 
-		Kinopio* pKinopio = g_courseManager.getKinopio();
-		if (pKinopio) {
-			if (_pPlayer->intersect(*pKinopio)) {
-				_pPlayer->m_speed = { 0.0f, 0.0f };
-				_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
-				g_courseManager.addScroll(1.0f);
-			}
+		// キノピオとの当たり判定
+		if (g_courseManager.intersectKinopio(_pPlayer)) {
+			_pPlayer->m_speed = { 0.0f, 0.0f };
+			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
+			g_courseManager.addScroll(1.0f);
 		}
+
 		// 右の当たり判定
 		//for (vector<vec2>::iterator iter = _pPlayer->m_rightPoints.begin();
 		//	iter != _pPlayer->m_rightPoints.end();

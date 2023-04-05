@@ -496,3 +496,11 @@ bool CourseManager::getClearAex(Rect& _rect)
 	}
 	return false;
 }
+
+bool CourseManager::intersectKinopio(const Rect* _rect)
+{
+	if (m_kinopio.m_enable && m_kinopio.intersect(*_rect)) {
+		return true;
+	}
+	return false;
+}

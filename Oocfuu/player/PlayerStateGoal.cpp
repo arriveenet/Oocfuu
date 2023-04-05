@@ -40,7 +40,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 
 	switch (m_state) {
 	case PLAYERSTATEGOAL_FALL:
-		if (m_counter > 64) {
+		if (m_counter > 76) {
 			m_state = PLAYERSTATEGOAL_FLIP;
 			m_counter = 0;
 			_pPlayer->m_flip = RECT_FLIP_HORIZONTAL;

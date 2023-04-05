@@ -137,11 +137,8 @@ public:
 		return m_bridgeController.isDestroyed();
 	};
 
-	// キノピオを取得
-	Kinopio* getKinopio()
-	{
-		return &m_kinopio;
-	}
+	// キノピオをとの当たり判定
+	bool intersectKinopio(const Rect* _rect);
 
 	// エラー列挙定数を取得
 	COURSE_ERROR getError() const
