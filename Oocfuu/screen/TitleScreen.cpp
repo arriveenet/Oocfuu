@@ -49,14 +49,25 @@ void TitleScreen::update()
 {
 	g_courseManager.update();
 	
+	if (Keyboard::m_nowPressed[KEYBOARD_KEY_LEFT]) {
+		m_command.push_back('l');
+	}
+	if (Keyboard::m_nowPressed[KEYBOARD_KEY_UP]) {
+		m_command.push_back('u');
+		m_mode--;
+	}
+	if (Keyboard::m_nowPressed[KEYBOARD_KEY_RIGHT]) {
+		m_command.push_back('r');
+	}
+	if (Keyboard::m_nowPressed[KEYBOARD_KEY_DOWN]) {
+		m_command.push_back('d');
+		m_mode++;
+	}
+	if (Keyboard::m_nowPressed['b']) {
+		m_command.push_back('b');
+	}
 	if (Keyboard::m_nowPressed['a']) {
 		m_command.push_back('a');
-	}
-	if (Keyboard::m_nowPressed['d']) {
-		m_command.push_back('d');
-	}
-	if (Keyboard::m_nowPressed['f']) {
-		m_command.push_back('f');
 	}
 
 	if (Keyboard::m_nowPressed['w']) {
@@ -67,24 +78,23 @@ void TitleScreen::update()
 		m_command.push_back('s');
 		m_mode++;
 	}
-	if (Keyboard::m_nowPressed[' ']) {
-		m_command.push_back(' ');
-	}
+
 	m_mode = (MODE_MAX + m_mode) % MODE_MAX;
 
-	if (Keyboard::m_nowPressed[0x0d])
-		switch (m_mode) {
-		case MODE_1P:
-			if (m_command == "wwssadad f") {
-				g_game.setScreen(GAME_SCREEN_GO);
+	if (Keyboard::m_nowPressed[0x0d] || Keyboard::m_nowPressed['f']) {
+		if (m_command == "uuddlrlrba") {
+			g_game.setScreen(GAME_SCREEN_GO);
+		} else {
+			switch (m_mode) {
+			case MODE_1P:
+				g_game.setScreen(GAME_SCREEN_INTRO);
+				break;
+			case MODE_HBD:
+				g_game.setScreen(GAME_SCREEN_HBD);
 				break;
 			}
-			g_game.setScreen(GAME_SCREEN_INTRO);
-			break;
-		case MODE_HBD:
-			g_game.setScreen(GAME_SCREEN_HBD);
-			break;
 		}
+	}
 
 	if (Keyboard::m_nowPressed[0x1b]) {
 		glutLeaveMainLoop();

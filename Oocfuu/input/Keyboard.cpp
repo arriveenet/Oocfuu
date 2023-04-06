@@ -25,12 +25,48 @@ void keyboardUp(unsigned char key, int x, int y) {
 
 void special(int key, int x, int y)
 {
-	Keyboard::m_pressed[KEYBOARD_SPECIAL_KEY_BOUND + key] = true;
+	int keyCode = 0;
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		keyCode = KEYBOARD_KEY_LEFT;
+		break;
+	case GLUT_KEY_UP:
+		keyCode = KEYBOARD_KEY_UP;
+		break;
+	case GLUT_KEY_RIGHT:
+		keyCode = KEYBOARD_KEY_RIGHT;
+		break;
+	case GLUT_KEY_DOWN:
+		keyCode = KEYBOARD_KEY_DOWN;
+		break;
+	default:
+		keyCode = KEYBOARD_SPECIAL_KEY_BOUND + key;
+		break;
+	}
+	Keyboard::m_pressed[keyCode] = true;
 }
 
 void specialUp(int key, int x, int y)
 {
-	Keyboard::m_pressed[KEYBOARD_SPECIAL_KEY_BOUND + key] = false;
+	int keyCode = 0;
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		keyCode = KEYBOARD_KEY_LEFT;
+		break;
+	case GLUT_KEY_UP:
+		keyCode = KEYBOARD_KEY_UP;
+		break;
+	case GLUT_KEY_RIGHT:
+		keyCode = KEYBOARD_KEY_RIGHT;
+		break;
+	case GLUT_KEY_DOWN:
+		keyCode = KEYBOARD_KEY_DOWN;
+		break;
+	default:
+		keyCode = KEYBOARD_SPECIAL_KEY_BOUND + key;
+		break;
+	}
+	Keyboard::m_pressed[keyCode] = false;
 }
 
 int Keyboard::init() {
