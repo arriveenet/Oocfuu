@@ -24,38 +24,26 @@ static const vec2 fireworkPosition[FIREWORK_COUNT_MAX] = {
 	{vec2(16*5,16*10.5)},
 };
 
-typedef struct {
-	char str[32];
-	vec2 position;
-	unsigned int startCount;
-}MESSAGE;
-
-static MESSAGE messages[] = {
-	{"HAPPY BIRTHDAY OOCFUU!",vec2(40, 64)},
-	{"FEBRUARY,4,2022",vec2(120, 88)},
-	{"THANK YOU FOR A FUN",vec2(56,104)},
-	{"LIVESTREAMING ALWAYS.",vec2(48, 120)},
-	{"HOPE YOU HAVE A GREAT YEAR!",vec2(24, 136)},
-	{"FROM OSHU-FUJIWARA",vec2(96, 160)}
+static MESSAGE messages[] =
+{
+	{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	96},
+	{"FEBRUARY,4,2022",				vec2(120, 88),	192},
+	{"THANK YOU FOR A FUN",			vec2(56,104),	288},
+	{"LIVESTREAMING ALWAYS.",		vec2(48, 120),	288},
+	{"HOPE YOU HAVE A GREAT YEAR!",	vec2(24, 136),	384},
+	{"FROM OSHU-FUJIWARA",			vec2(96, 160),	480}
 };
 
 #define MESSAGE_MAX (sizeof(messages) / sizeof(MESSAGE))
 
 void TpScreen::init()
 {
-	m_count = 0;
-	int total = 96;
-	for (int i = 0; i < MESSAGE_MAX; i++) {
-		messages[i].startCount = total;
-		if (i == 2)
-			continue;
-		total += 96;
-	}
+	m_messageController.setMessage(messages, MESSAGE_MAX);
 }
 
 void TpScreen::reset()
 {
-	m_count = 0;
+	m_messageController.start();
 }
 
 void TpScreen::update()
@@ -64,7 +52,7 @@ void TpScreen::update()
 	g_player.update();
 
 	if (g_music.m_play)
-		m_count++;
+		m_messageController.update();
 
 	//if (g_music.m_end) {
 	//	if (
@@ -78,7 +66,7 @@ void TpScreen::update()
 	if (Keyboard::m_nowPressed['r']) {
 		g_music.reset();
 		g_music.play();
-		m_count = 0;
+		m_messageController.start();
 		count = FIREWORK_COUNT_MAX;
 	}
 	if (Keyboard::m_nowPressed['k']) {
@@ -100,18 +88,8 @@ void TpScreen::draw()
 	// Draw cake
 	g_textureManager.setTexture(TEXTURE_CAKE);
 	Rect(vec2(32, 32), vec2(16 * 7, 16 * 11)).draw();
-	fontBegin();
-	{
-		fontPosition(0, 0);
-		//fontDraw("FPS:%d", g_frameCounter.getFrameCount());
-		for (int i = 0; i < MESSAGE_MAX; i++) {
-			if (m_count < messages[i].startCount)
-				break;
-			fontPosition(messages[i].position.x, messages[i].position.y);
-			fontDraw(messages[i].str);
-		}
-	}
-	fontEnd();
+
+	m_messageController.draw();
 
 	g_player.draw();
 }

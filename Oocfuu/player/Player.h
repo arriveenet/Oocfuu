@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "PlayerStateContext.h"
 #include "PlayerState.h"
+#include "common/Message.h"
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -49,6 +50,7 @@ public:
 	bool m_goal;
 	bool m_clear;
 	bool m_visible;
+	MessageController m_messageController;
 
 	Player();
 	~Player();

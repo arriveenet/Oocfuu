@@ -82,6 +82,9 @@ public:
 	// 現在のスクロール位置から加算する
 	void addScroll(const float _scroll) { m_scroll += _scroll; };
 
+	// コースの幅までスクロールしたか
+	bool isScrollMax();
+
 	// パーツを設定
 	void setParts(glm::ivec2 const& _point, int _parts);
 

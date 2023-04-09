@@ -69,6 +69,7 @@ void Player::reset()
 	m_goal = false;
 	m_clear = false;
 	m_visible = true;
+	m_messageController.reset();
 }
 
 void Player::respawn(float _x, float _y)
@@ -91,6 +92,7 @@ void Player::update()
 {
 	m_animationController.update();
 	m_pStateContext->update();
+	m_messageController.update();
 
 	// ジャンプ中かつ落下フラグが立っていれば重力の影響を与える
 	if (m_falling 
@@ -306,6 +308,8 @@ void Player::draw()
 
 		Rect::drawWire();
 	}
+
+	m_messageController.draw();
 }
 
 void Player::kill()

@@ -26,5 +26,5 @@ type=0 x=1616 y=192
 type=0 x=1822 y=192
 type=0 x=1838 y=192
 type=0 x=2084 y=192
-type=0 x=2090 y=192
+type=0 x=2100 y=192
 type=1 x=500 y=184

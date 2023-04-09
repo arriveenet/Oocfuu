@@ -380,6 +380,15 @@ void CourseManager::draw()
 	}
 }
 
+bool CourseManager::isScrollMax()
+{
+	if (m_scroll >= ((m_width * PART_SIZE) - SCREEN_WIDTH)) {
+		return true;
+	}
+
+	return false;
+}
+
 void CourseManager::setParts(ivec2 const& _point, int _parts) {
 	if (
 		(_point.x < 0)

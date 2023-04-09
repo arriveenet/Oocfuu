@@ -2,9 +2,9 @@ width=42 height=15 color=0 startX=40 startY=144 nextWorld=1 nextStage=3
                                                                                     
                                                                                     
 b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3
-                                                b3b3                                
-                                                b3b3                                
-                                                b3b3                                
+                                                  b3                                
+                                                  b3                                
+                                                  b3                                
                                                                                     
                                                                                     
                                                 a0                                  

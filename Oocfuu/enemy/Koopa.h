@@ -9,7 +9,7 @@
 
 #define KOOPA_WIDTH				32
 #define KOOPA_HEIGHT			32
-#define KOOPA_FALL_SPEED		0.3f
+#define KOOPA_FALL_SPEED		0.14f
 #define KOOPA_JUMP_COUNT_MAX	8
 #define KOOPA_UPDATE_DISTANCE	688.0f
 #define KOOPA_FIRE_MAX			2

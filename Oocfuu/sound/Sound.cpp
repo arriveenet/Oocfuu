@@ -22,20 +22,21 @@ static Wave* g_pWaveLoader = NULL;
 Sound* g_pSound = NULL;
 
 static const char* fileNames[SOUND_MAX] = {
-	"resource\\sound\\Yo.wav", //SOUND_SE_YO
-	"resource\\sound\\Hoi.wav", //SOUND_SE_HOI
-	"resource\\sound\\1up.wav",//SOUND_SE_1UP
-	"resource\\sound\\Coin.wav", // SOUND_SE_COIN
-	"resource\\sound\\Break.wav",// SOUND_SE_BREAK
-	"resource\\sound\\Bump.wav",// SOUND_SE_BUMP
-	"resource\\sound\\Die.wav", // SOUND_SE_DIE
-	"resource\\sound\\KoopaDie.wav",// SOUND_SE_KOOPA_DIE
-	"resource\\sound\\EnemyFire.wav", // SOUND_SE_ENEMY_FIRE
-	"resource\\sound\\Pause.wav",// SOUND_SE_PAUSE
-	"resource\\sound\\Squish.wav", // SOUND_SE_SQUISH
-	"resource\\sound\\Firework.wav", //SOUND_FIREWORK
-	"resource\\sound\\Flagpole.wav", //SOUND_FLAGPOLE
-	"resource\\sound\\Fanfare.wav",//SOUND_FANFARE
+	"resource\\sound\\Yo.wav",			// SOUND_SE_YO
+	"resource\\sound\\Hoi.wav",			// SOUND_SE_HOI
+	"resource\\sound\\1up.wav",			// SOUND_SE_1UP
+	"resource\\sound\\Coin.wav",		// SOUND_SE_COIN
+	"resource\\sound\\Break.wav",		// SOUND_SE_BREAK
+	"resource\\sound\\Bump.wav",		// SOUND_SE_BUMP
+	"resource\\sound\\Die.wav",			// SOUND_SE_DIE
+	"resource\\sound\\KoopaDie.wav",	// SOUND_SE_KOOPA_DIE
+	"resource\\sound\\EnemyFire.wav",	// SOUND_SE_ENEMY_FIRE
+	"resource\\sound\\Pause.wav",		// SOUND_SE_PAUSE
+	"resource\\sound\\Squish.wav",		// SOUND_SE_SQUISH
+	"resource\\sound\\Firework.wav",	// SOUND_FIREWORK
+	"resource\\sound\\Flagpole.wav",	// SOUND_FLAGPOLE
+	"resource\\sound\\Fanfare.wav",		// SOUND_FANFARE
+	"resource\\sound\\WorldClear.wav",	// SOUND_WORLED_CLEAR
 };
 
 Sound::Sound()
