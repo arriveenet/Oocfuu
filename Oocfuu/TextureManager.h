@@ -1,5 +1,6 @@
 #pragma once
 #include <gl/glut.h>
+#include <glm/glm.hpp>
 
 enum TEXTURE
 {
@@ -48,15 +49,10 @@ enum TEXTURE
 	TEXTURE_MAX
 };
 
-typedef struct tagRGB {
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-} RGB;
-
 typedef struct tagTEX {
 	char fileName[64];
-	RGB colorKey;
+	COLORREF colorKey;
+	glm::ivec2 size;
 } TEX;
 
 class TextureManager
@@ -72,6 +68,7 @@ public:
 	void setTexture(enum TEXTURE _texture);
 	void setTexture(GLuint _texture);
 	GLuint getTexture(enum TEXTURE _texture);
+	glm::ivec2 getSize(enum TEXTURE _texture);
 
 	void unbindTexture();
 };
