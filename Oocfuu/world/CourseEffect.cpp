@@ -207,7 +207,7 @@ void CourseEffectManager::draw()
 {
 	// コインエフェクトを描画
 	vector<EffectCoin>::iterator iterCoin = m_coins.begin();
-	for (; iterCoin != m_coins.end(); iterCoin++) {
+	for (; iterCoin != m_coins.end(); ++iterCoin) {
 		iterCoin->draw();
 	}
 

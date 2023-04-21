@@ -55,10 +55,10 @@ bool App::init()
 	if (!printInit(g_game.init(), "Game init"))
 		return false;
 
-	if (!printInit(g_parts->initAll(), "Part initAll"))
+	if (!printInit(g_textureManager.init(), "Texture initAll"))
 		return false;
 
-	if (!printInit(g_textureManager.init(), "Texture initAll"))
+	if (!printInit(g_partManager.init(), "Part init"))
 		return false;
 
 	if (!printInit(g_animations->initAll(), "Animation init"))

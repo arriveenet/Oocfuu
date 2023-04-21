@@ -82,19 +82,16 @@ bool HitBlockController::update(QUAD& _quad)
 	}
 
 	// QUADÇê›íË
-	float leftTopX = (float)g_parts[m_part].m_uvX / 256;
-	float leftTopY = (float)g_parts[m_part].m_sizeX / 256;
-	float rightBottomX = (float)g_parts[m_part].m_uvY / 256;
-	float rightBottomY = (float)g_parts[m_part].m_sizeY / 256;
+	vec2* texCoords = g_partManager.getTexCoords(m_part);
 
 	_quad.vertices[0].position = { m_position.x, m_position.y };
-	_quad.vertices[0].texCoord = { leftTopX, rightBottomX };
-	_quad.vertices[1].position = { m_position.x + PART_SIZE, m_position.y };
-	_quad.vertices[1].texCoord = { leftTopY, rightBottomX };
+	_quad.vertices[0].texCoord = { texCoords[0].x,  texCoords[0].y };
+	_quad.vertices[1].position = { m_position.x, m_position.y + PART_SIZE };
+	_quad.vertices[1].texCoord = { texCoords[1].x,  texCoords[1].y };
 	_quad.vertices[2].position = { m_position.x + PART_SIZE, m_position.y + PART_SIZE };
-	_quad.vertices[2].texCoord = { leftTopY, rightBottomY };
-	_quad.vertices[3].position = { m_position.x, m_position.y + PART_SIZE };
-	_quad.vertices[3].texCoord = { leftTopX, rightBottomY };
+	_quad.vertices[2].texCoord = { texCoords[2].x,  texCoords[2].y };
+	_quad.vertices[3].position = { m_position.x + PART_SIZE, m_position.y };
+	_quad.vertices[3].texCoord = { texCoords[3].x,  texCoords[3].y };
 
 	return true;
 }

@@ -52,9 +52,11 @@ protected:
 
 };
 
+/* コインエフェクトクラス
+*/
 class EffectCoin : public EffectPartBase {
 public:
-	EffectCoin(const glm::vec2& _position);
+	explicit EffectCoin(const glm::vec2& _position);
 	virtual ~EffectCoin();
 
 	void update() override;

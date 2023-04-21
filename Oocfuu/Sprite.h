@@ -11,5 +11,5 @@ public:
 	virtual ~Sprite();
 
 	virtual void update();
-	virtual void draw();
+	virtual void draw() override;
 };

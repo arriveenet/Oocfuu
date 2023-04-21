@@ -32,10 +32,12 @@ private:
 public:
 	// コンストラクタ
 	Nokonoko();
-	Nokonoko(glm::vec2 _position);
+	explicit Nokonoko(glm::vec2 _position);
 	Nokonoko(float _x, float _y);
+
 	// コピーコンストラクタ
 	Nokonoko(const Nokonoko& _nokonoko);
+
 	// デストラクタ
 	virtual ~Nokonoko();
 

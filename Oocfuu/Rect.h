@@ -12,9 +12,10 @@ struct Rect {
 	int m_flip;
 
 	Rect();
+	explicit Rect(glm::vec2 const& _size);
 	Rect(float _width, float _height);
-	Rect(glm::vec2 const& _size);
 	Rect(glm::vec2 const& _size, glm::vec2 const& _position);
+
 	virtual void draw();
 	virtual void drawWire();
 	virtual bool intersect(glm::vec2 const& _point);

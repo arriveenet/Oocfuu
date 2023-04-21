@@ -76,16 +76,23 @@ enum PART {
 	PART_MAX
 };
 
+// パート構造体
 struct Part {
 	const char* m_fileName;
 	unsigned int m_texture;
-	unsigned short m_uvX;
-	unsigned short m_uvY;
-	unsigned short m_sizeX;
-	unsigned short m_sizeY;
+	glm::vec2 m_texCoords[4];
+};
 
-	int init();
-	static int initAll();
+// パーツ管理クラス
+class PartManager {
+public:
+	PartManager();
+	virtual ~PartManager();
+
+	bool init();
+	glm::vec2* getTexCoords(int _index);
+
 };
 
 extern Part g_parts[PART_MAX];
+extern PartManager g_partManager;

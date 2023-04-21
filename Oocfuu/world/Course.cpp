@@ -207,10 +207,10 @@ bool CourseManager::load(const char* _fileName)
 	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
 		//printf("liftCount=%d\n", liftCount);
 		for (int i = 0; i < liftCount; i++) {
-			int x, y, width, mode;
-			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &width, &mode);
+			int x, y, lifWidth, mode;
+			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &lifWidth, &mode);
 			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
-			g_gmmickPart.addLift(Lift((float)x, (float)y, width, (LIFT_MOVEMENT)mode));
+			g_gmmickPart.addLift(Lift((float)x, (float)y, lifWidth, (LIFT_MOVEMENT)mode));
 		}
 	}
 
@@ -267,9 +267,9 @@ void CourseManager::update()
 	m_bridgeController.update();
 
 	// 叩かれたブロックを更新
-	QUAD hitBlock;
-	if (m_hitBlockController.update(hitBlock)) {
-		m_quads.push_back(hitBlock);
+	QUAD hitPart;
+	if (m_hitBlockController.update(hitPart)) {
+		m_quads.push_back(hitPart);
 	}
 
 	// ブロックを叩いたときのコインを更新
@@ -299,14 +299,14 @@ void CourseManager::update()
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
 				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
 			}
-				break;
+			break;
 			case PART_SEA_0:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
 				int animationTableLength = sizeof(animationTable) / sizeof(int);
 				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 			}
-				break;
+			break;
 			case PART_DESERT_1:
 			{
 				int animationTable[] = { 0,1,2,3,4,5,6,7 };
@@ -314,26 +314,26 @@ void CourseManager::update()
 				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
 
 			}
-				break;
+			break;
 			}
 
+			// パーツを追加する
 			float x2 = (float)x * PART_SIZE;
 			float y2 = (float)y * PART_SIZE;
+			QUAD quad = {};
+			const vec2 positions[4] =
+			{
+				{ x2, y2 },
+				{ x2, y2 + PART_SIZE },
+				{ x2 + PART_SIZE, y2 + PART_SIZE },
+				{ x2 + PART_SIZE, y2 },
+			};
+			vec2* texCoords = g_partManager.getTexCoords(textureIndex);
 
-			float tx0 = (float)g_parts[textureIndex].m_uvX / 256;
-			float tx1 = (float)g_parts[textureIndex].m_sizeX / 256;
-			float ty0 = (float)g_parts[textureIndex].m_uvY / 256;
-			float ty1 = (float)g_parts[textureIndex].m_sizeY / 256;
-
-			QUAD quad;
-			quad.vertices[0].position = { x2, y2 };
-			quad.vertices[0].texCoord = { tx0, ty0 };
-			quad.vertices[1].position = { x2 + PART_SIZE,y2 };
-			quad.vertices[1].texCoord = { tx1, ty0 };
-			quad.vertices[2].position = { x2 + PART_SIZE, y2 + PART_SIZE };
-			quad.vertices[2].texCoord = { tx1, ty1 };
-			quad.vertices[3].position = { x2, y2 + PART_SIZE };
-			quad.vertices[3].texCoord = { tx0, ty1 };
+			for (int i = 0; i < 4; i++) {
+				quad.vertices[i].position = positions[i];
+				quad.vertices[i].texCoord = texCoords[i];
+			}
 			m_quads.push_back(quad);
 		}
 	}
@@ -346,7 +346,7 @@ void CourseManager::draw()
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
+	glCullFace(GL_BACK);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
@@ -461,7 +461,7 @@ bool CourseManager::intersect(vec2 const& _point) {
 
 void CourseManager::intersectCoin(Player* _pPlayer)
 {
-	int scrolleColumn = (int)m_scroll / PART_SIZE;
+	//int scrolleColumn = (int)m_scroll / PART_SIZE;
 	vector<ivec2>::iterator iter = m_coins.begin();
 	for (; iter != m_coins.end(); ++iter) {
 		Rect coin(vec2(PART_SIZE, PART_SIZE), vec2(iter->x * PART_SIZE, iter->y * PART_SIZE));

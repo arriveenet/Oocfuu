@@ -11,5 +11,9 @@ typedef struct {
 }VERTEX;
 
 typedef struct {
+	VERTEX vertices[3];
+}TRIANGLE;
+
+typedef struct {
 	VERTEX vertices[4];
 }QUAD;

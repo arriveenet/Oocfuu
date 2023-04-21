@@ -46,7 +46,7 @@ private:
 
 public:
 	Koopa();
-	Koopa(glm::vec2 _position);
+	explicit Koopa(glm::vec2 _position);
 	Koopa(float _x, float _y);
 	virtual ~Koopa();
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Part.h"
+#include "TextureManager.h"
 
 #include "glut.h"
 
@@ -76,47 +77,59 @@ Part g_parts[PART_MAX] = {
 	 {"e2.bmp",},// PART_COIN_2
 };
 
-int Part::init() {
-//	if (m_fileName != nullptr) {
-//		glGenTextures(
-//			1,				// GLsizei n
-//			&m_texture);	// GLuint * textures
-//
-//		glBindTexture(
-//			GL_TEXTURE_2D,	// GLenum target
-//			m_texture);		// GLuint texture
-//		char fileName[256] = "resource\\textures\\parts\\";
-//		sprintf_s(fileName, "%s%s", fileName, m_fileName);
-//		//printf("%s\n", fileName);
-//		if (texFromBMP(fileName, 0xff, 0x00, 0xff) != 0) {
-//#if _DEBUG
-//			printf("The file %s was open failed\n", fileName);
-//#endif // _DEBUG
-//			return 1;
-//		}
-//	}
-	return 0;
+PartManager g_partManager;
+
+/** コンストラクタ
+*/
+PartManager::PartManager()
+{
 }
 
-int Part::initAll() {
-	int failedCount = 0;
+/** コンストラクタ
+*/
+PartManager::~PartManager()
+{
+}
+
+
+/** パーツのテクスチャ座標を初期化する
+* @param[out] 成功:true、失敗:false
+*/
+bool PartManager::init()
+{
+	vec2 textureSize = g_textureManager.getSize(TEXTURE_PARTS);
+
+	// テクスチャのサイズがゼロベクトルか判定する
+	if (length(textureSize) == 0) {
+		return false;
+	}
+
 	for (int i = 0; i < PART_MAX; i++) {
-		//if (g_parts[i].init() != 0) {
-		//	failedCount++;
-		//}
-
-
 		int x = i % PART_SIZE;
 		int y = i / PART_SIZE;
 
-		g_parts[i].m_uvX = x * PART_SIZE;
-		g_parts[i].m_uvY = y * PART_SIZE;
-		g_parts[i].m_sizeX = g_parts[i].m_uvX + PART_SIZE;
-		g_parts[i].m_sizeY = g_parts[i].m_uvY + PART_SIZE;
+		ivec2 position = { x * PART_SIZE, y * PART_SIZE };
+		ivec2 size = position + PART_SIZE;
+
+		vec2 topLeft = static_cast<vec2>(position) / textureSize.x;
+		vec2 bottomRight = static_cast<vec2>(size) / textureSize.y;
+
+		g_parts[i].m_texCoords[0] = topLeft;
+		g_parts[i].m_texCoords[1] = {topLeft.x, bottomRight.y};
+		g_parts[i].m_texCoords[2] = bottomRight;
+		g_parts[i].m_texCoords[3] = {bottomRight.x, topLeft.y};
 	}
 
-	//if (failedCount > 0) {
-	//	return 1;
-	//}
-	return 0;
+	return true;
+}
+
+/** テクスチャ座標の配列の0番目のポインタを取得
+* @param[in] _index パーツの種類
+* @param[out] テクスチャ座標のポインタ
+*/
+vec2* PartManager::getTexCoords(int _index)
+{
+	assert(_index >= 0 && _index < PART_MAX);
+
+	return &g_parts[_index].m_texCoords[0];
 }

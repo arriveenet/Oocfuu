@@ -15,7 +15,7 @@ class PlayerStateContext
 	Player* m_pPlayer;
 
 public:
-	PlayerStateContext(Player* _pPlayer);
+	explicit PlayerStateContext(Player* _pPlayer);
 	virtual ~PlayerStateContext();
 
 	void setStete(PlayerState* _pState);

@@ -179,7 +179,7 @@ int Texture::createTexImage(const unsigned char* _colorKey)
 
 			unsigned char* pixel0 = &m_pixels[index0];
 			unsigned char* pixel1 = &m_pixels[index1];
-			unsigned char temp[4] = { *(pixel0), *(pixel0 + 1), *(pixel0 + 2), *(pixel0 + 3) };
+			const unsigned char temp[4] = { *(pixel0), *(pixel0 + 1), *(pixel0 + 2), *(pixel0 + 3) };
 			for (int i = 0; i < 4; i++) {
 				*(pixel0 + i) = *(pixel1 + i);
 				*(pixel1 + i) = temp[i];
