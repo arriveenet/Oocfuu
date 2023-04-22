@@ -77,7 +77,7 @@ void KoopaStateJump::execute(Koopa* _pKoopa)
 		}
 	}
 
-	m_lastFalling = _pKoopa->m_flag | KOOPA_FLAG_FALLING;
+	m_lastFalling = _pKoopa->m_flag & KOOPA_FLAG_FALLING;
 }
 
 void KoopaStateJump::exit(Koopa* _pKoopa)

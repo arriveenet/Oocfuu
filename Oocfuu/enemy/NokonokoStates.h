@@ -11,7 +11,7 @@ class NokonokoStateRun : public State<Nokonoko>{
 private:
 	NokonokoStateRun() {};
 	NokonokoStateRun(const NokonokoStateRun&) {};
-	NokonokoStateRun operator=(const NokonokoStateRun&) {};
+	NokonokoStateRun operator=(const NokonokoStateRun&){ return NokonokoStateRun(); };
 
 public:
 	static NokonokoStateRun* instance();
@@ -29,7 +29,7 @@ class NokonokoStateShell : public State<Nokonoko> {
 private:
 	NokonokoStateShell() {};
 	NokonokoStateShell(const NokonokoStateShell&) {};
-	NokonokoStateShell operator=(const NokonokoStateShell&) {};
+	NokonokoStateShell operator=(const NokonokoStateShell&) { return NokonokoStateShell(); };
 
 public:
 	static NokonokoStateShell* instance();
@@ -46,7 +46,7 @@ class NokonokoStateSpin : public State<Nokonoko> {
 private:
 	NokonokoStateSpin() {};
 	NokonokoStateSpin(const NokonokoStateSpin&) {};
-	NokonokoStateSpin operator=(const NokonokoStateSpin&) {};
+	NokonokoStateSpin operator=(const NokonokoStateSpin&) { return NokonokoStateSpin(); };
 
 public:
 	static NokonokoStateSpin* instance();
@@ -63,7 +63,7 @@ class NokonokoStateReturn : public State<Nokonoko> {
 private:
 	NokonokoStateReturn() {};
 	NokonokoStateReturn(const NokonokoStateReturn&) {};
-	NokonokoStateReturn operator=(const NokonokoStateReturn&) {};
+	NokonokoStateReturn operator=(const NokonokoStateReturn&) { return NokonokoStateReturn(); };
 
 public:
 	static NokonokoStateReturn* instance();
