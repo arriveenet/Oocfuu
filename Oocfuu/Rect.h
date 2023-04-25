@@ -20,4 +20,7 @@ struct Rect {
 	virtual void drawWire();
 	virtual bool intersect(glm::vec2 const& _point);
 	virtual bool intersect(Rect const& _rect);
+
+	bool operator==(const Rect& _rect);
+	bool operator!=(const Rect& _rect);
 };

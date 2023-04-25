@@ -413,6 +413,9 @@
     <ClInclude Include="common\Message.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
+    <ClInclude Include="common\Entity.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico">

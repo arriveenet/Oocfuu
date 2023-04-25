@@ -101,4 +101,21 @@ bool Rect::intersect(Rect const& _rect) {
 		return true;
 
 	return false;
-};
+}
+
+bool Rect::operator==(const Rect& _rect)
+{
+	if ((m_position == _rect.m_position) && (m_size == _rect.m_size))
+		return true;
+
+	return false;
+}
+
+bool Rect::operator!=(const Rect& _rect)
+{
+	if ((m_position != _rect.m_position) || (m_size != _rect.m_size))
+		return true;
+
+	return false;
+}
+;

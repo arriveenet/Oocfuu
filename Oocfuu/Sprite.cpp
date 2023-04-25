@@ -5,7 +5,7 @@ Sprite::Sprite()
 {
 }
 
-Sprite::Sprite(glm::vec2 _size, glm::vec2 _position)
+Sprite::Sprite(const glm::vec2 _size, const glm::vec2 _position)
 	: m_animationController()
 	, Rect(_size, _position)
 {
