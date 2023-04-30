@@ -8,32 +8,45 @@
 #include <gl/glut.h>
 #include <vector>
 
-#define EFFECT_COIN_WIDTH		8		// コインエフェクトの幅
-#define EFFECT_COIN_HEIGHT		16		// コインエフェクトの高さ
-#define EFFECT_COIN_TTL			24		// コインエフェクトの生存期間
+#define EFFECT_COIN_WIDTH		8	// コインエフェクトの幅
+#define EFFECT_COIN_HEIGHT		16	// コインエフェクトの高さ
+#define EFFECT_COIN_TTL			24	// コインエフェクトの生存期間
 
-#define EFFECT_SCORE_WIDTH		16
-#define EFFECT_SCORE_HEIGHT		8
-#define EFFECT_SCORE_TTL		24
+#define EFFECT_SCORE_WIDTH		16	// スコアエフェクトの幅
+#define EFFECT_SCORE_HEIGHT		8	// スコアエフェクトの高さ
+#define EFFECT_SCORE_TTL		24	// スコアエフェクトの生存期間
 
-/* ゴールフラグクラス
+/**
+* ゴールフラグクラス
 */
 class GoalFlag : public Rect {
 	bool m_down;		// 更新フラグ
 	bool m_visible;		// 描画フラグ
 
 public:
+	// コンストラクタ
 	GoalFlag();
-	~GoalFlag();
+	// デストラクタ
+	virtual ~GoalFlag();
 
+	// ゴールフラグを降ろす
 	void start() { m_down = true; };
+
+	// ゴールフラグを降ろすのを止める
 	void stop() { m_down = false; };
+
+	// 描画するか設定する
 	void setVisible(bool _flag) { m_visible = _flag; };
+
+	// ゴールフラグを更新
 	void update();
+
+	// ゴールフラグを描画
 	void draw() override;
 };
 
-/* エフェクトパーツの抽象クラス
+/**
+* エフェクトパーツの抽象クラス
 */
 class EffectPartBase : public Rect {
 public:
@@ -46,13 +59,14 @@ public:
 	virtual bool isUpdated() { return m_updated; };
 
 protected:
-	uint8_t m_count = 0;	// カウンター
-	uint8_t m_ttl = 0;		// 生存期間
-	bool m_updated = false;	// 更新終了フラグ
+	uint8_t	m_count		= 0;		// カウンター
+	uint8_t	m_ttl		= 0;		// 生存期間
+	bool	m_updated	= false;	// 更新終了フラグ
 
 };
 
-/* コインエフェクトクラス
+/**
+* コインエフェクトクラス
 */
 class EffectCoin : public EffectPartBase {
 public:
@@ -67,7 +81,8 @@ protected:
 
 };
 
-/* スコアエフェクトクラス
+/**
+* スコアエフェクトクラス
 */
 class EffectScore : public EffectPartBase {
 public:
@@ -103,7 +118,8 @@ private:
 };
 
 
-/* コースエフェクト管理クラス
+/**
+* コースエフェクト管理クラス
 */
 class CourseEffectManager {
 private:
