@@ -9,8 +9,9 @@
 
 using namespace glm;
 
-Lift::Lift(float _x, float _y, int _width, LIFT_MOVEMENT _mode)
+Lift::Lift(float _x, float _y, int _width, LIFT_MOVEMENT _mode, int _distance)
 	: m_width(_width)
+	, m_distance(_distance)
 	, m_mode(_mode)
 	, m_speed(0, 0)
 	, m_startPosition(_x, _y)
@@ -23,6 +24,12 @@ Lift::Lift(float _x, float _y, int _width, LIFT_MOVEMENT _mode)
 	case LIFT_UP_AND_DOWN:
 		m_speed = { 0, LIFT_SPEED };
 		break;
+	case LEFT_SCREEN_DOWN:
+		m_speed = { 0, LIFT_SPEED };
+		break;
+	case LEFT_SCREEN_UP:
+		m_speed = { 0, -LIFT_SPEED };
+		break;
 	}
 }
 
@@ -33,17 +40,28 @@ void Lift::update()
 		)
 		return;
 
-	if (m_position.x > m_startPosition.x + LIFT_DISTANCE
-		|| m_position.x < m_startPosition.x
-		|| m_position.y > m_startPosition.y + LIFT_DISTANCE
-		|| m_position.y < m_startPosition.y) {
-		switch (m_mode) {
-		case LIFT_LEFT_AND_RIGHT:
-			m_speed.x = m_speed.x > 0 ? -LIFT_SPEED : LIFT_SPEED;
-			break;
-		case LIFT_UP_AND_DOWN:
-			m_speed.y = m_speed.y > 0 ? -LIFT_SPEED : LIFT_SPEED;
-			break;
+	if (m_mode == LEFT_SCREEN_UP) {
+		if (m_position.y + m_size.y < 0) {
+			m_position.y = SCREEN_HEIGHT;
+		}
+	}
+	else if (m_mode == LEFT_SCREEN_DOWN) {
+		if (m_position.y > SCREEN_HEIGHT) {
+			m_position.y =  -m_size.y;
+		}
+	} else {
+		if (m_position.x > m_startPosition.x + m_distance
+			|| m_position.x < m_startPosition.x
+			|| m_position.y > m_startPosition.y + m_distance
+			|| m_position.y < m_startPosition.y) {
+			switch (m_mode) {
+			case LIFT_LEFT_AND_RIGHT:
+				m_speed.x = m_speed.x > 0 ? -LIFT_SPEED : LIFT_SPEED;
+				break;
+			case LIFT_UP_AND_DOWN:
+				m_speed.y = m_speed.y > 0 ? -LIFT_SPEED : LIFT_SPEED;
+				break;
+			}
 		}
 	}
 
