@@ -1,16 +1,39 @@
-width=146 height=15 color=16553052 startX=40 startY=192 nextWorld=1 nextStage=3
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                          c0c1c1c2                        g0                        
-                b2b2b2b2b2      b2b2b2b2b2      b2b2b2b2    b2b2b2b2b2  b2b2    b2b2  b2b2    b2b2      b0b0b0    b0                                    b0b0b0b0                                b0b0          b1b1        q0q0q0          c3c4c4c5                        g1  c0c1c2                
-              b2b2      b2b2  b2b2      b2b2  b2b2    b2b2  b2b2b2b2b2  b2b2    b2b2  b2b2    b2b2    b0      b0  b0                                  b0b0b0b0b0b0                              b0b0          b1b1      q0      q0                                        g1  c3c4c5                
-              b2b2      b2b2  b2b2      b2b2  b2b2      b2  b2b2        b2b2    b2b2  b2b2    b2b2    b0          b0            b0b0b0                b0b0    b0b0                              b0b0    b0b0            q0      q0                    b1b1                g1                        
-              b2b2      b2b2  b2b2      b2b2  b2b2          b2b2b2b2    b2b2    b2b2  b2b2    b2b2    b0          b0b0b0b0    b0      b0  b0  b0b0    b0b0            b0b0b0b0b0  b1b1  b3b0    b0b0  b0b0b0  p0p1              q0                  b1b1b1                g1                        
-              b2b2      b2b2  b2b2      b2b2  b2b2          b2b2b2b2    b2b2    b2b2  b2b2    b2b2    b0          b0      b0    b0b0b0b0  b0b0  b0    b0b0  b2b2b2  b0b0    b0b0  b1b1b3  b0b0  b0b0b0b0      p2p3            q0                  b1b1b1b1                g1                        
-              b2b2      b2b2  b2b2      b2b2  b2b2      b2  b2b2        b2b2    b2b2  b2b2    b2b2    b0          b0      b0  b0      b0  b0    b0    b0b0    b0b0  b0b0b0b0b0b0  b1b1    b0b0  b0b0b0b0      p2p3          q0                  b1b1b1b1b1                g1        f0f0f0          
-              b2b2      b2b2  b2b2      b2b2  b2b2    b2b2  b2b2        b2b2b2b2b2b2  b2b2b2b2b2b2    b0      b0  b0      b0  b0      b0  b0    b0    b0b0b0b0b0b0  b0b0          b1b1    b0b0  b0b0  b0b0    p2p3                            b1b1b1b1b1b1                g1        f1f2f3          
-                b2b2b2b2b2      b2b2b2b2b2      b2b2b2b2    b2b2          b2b2b2b2      b2b2b2b2        b0b0b0    b0      b0    b0b0b0b0  b0    b0      b0b0b0b0      b0b0q0b0    b1b1    b0b0  b0b0    b0b0  b0b0          q0              b1b1b1b1b1b1b1        m0      g1      f0f4f4f4f0        
-                                                                                                                                                                                                                                          b1b1b1b1b1b1b1b1      m1m2m3    g1      f2f2f5f2f2    m0  
-                                                                                                                                                                                                                                        b1b1b1b1b1b1b1b1b1    m1m2m4m5m3  b1      f2f2f6b2f2t2m1m2m3
-b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
-b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
+width=192 height=15 color=0 startX=40 startY=0 nextWorld=1 nextStage=3
+                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                
+u2          u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2                                              u2u2u2u2u2u2u2p2p3u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2      u2u2
+u2                                                                                                          u2u2    u2u2u2u2u2u2    u2u2u2u2            u2u2u2u2                                                                                                                                                                    g0          p2p3u2u2u2u2u2u2u2                          u2u2
+u2                                                                                                          u2u2    u2u2u2u2u2u2    u2u2u2u2            u2u2u2u2                                                                                                                                                                    g1          p2p3u2u2u2u2u2u2u2                          u2u2
+u2                                                                                e0e0e0e0              u2u2                u2u2      u2        u2u2                    e0e0e0e0e0e0                                                                                                                                                g1          p2p3u2u2u2u2u2u2u2                          u2u2
+u2                                                                                                      u2u2                u2u2      u2        u2u2                                                                                                                                                                                g1          p2p3u2u2u2u2u2u2u2                          u2u2
+u2                                                                            u2  u2u2u2u2  u2          u2u2                u2u2      u2        u2u2                    u2u2u2u2u2u2                                                                                                                                                g1          p2p3u2u2u2u2u2u2u2                          u2u2
+u2                                                        u2                  u2e0u2    u2e0u2          u2u2        e0e0e0e0u2u2      u2e0u2    u2u2                    u2u2u2u2u2u2                                                                                                              u2u2u2u2u2u2                      g1      p4p6p8p3u2u2u2u2u2u2u2                          u2u2
+u2                  q0q0q0q0q0                u1  u1                          u2u2u2    u2u2u2          u2u2u2u2    u2u2u2u2u2u2      u2u2u2    u2u2    u2u2u2u2                                                          p0p1                                                  u1u1                                                g1      p5p7p9p3u2u2u2u2u2u2u2                          u2u2
+u2                                        u1  u1  u1  u1      u1                                            u2u2                                                                                              p0p1        p2p3                      u2u2                      u1u1u1                                            u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2  p0p1    p0p1    p0p1    u2u2
+u2                                    u1  u1  u1  u1  u1      u1  u1                                        u2u2                                                                                              p2p3        p2p3        p0p1          u2u2                    u1u1u1u1                                            u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2  p2p3    p2p3    p2p3    u2u2
+u2                                u1  u1  u1  u1  u1  u1      u1  u1                                                                                                                                          p2p3        p2p3        p2p3          u2u2                  u1u1u1u1u1                                            u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2  p2p3    p2p3    p2p3    u2u2
+u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0      u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0    u0u0    u0u0u0u0u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0
+u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0      u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0    u0u0    u0u0u0u0u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0
+lift=4
+x=2236 y=96 width=6 mode=3
+x=2236 y=192 width=6 mode=3
+x=2476 y=16 width=6 mode=2
+x=2476 y=128 width=6 mode=2
+enemyCount=17 flag=3
+type=0 x=240 y=192
+type=0 x=256 y=192
+type=0 x=480 y=192
+type=1 x=736 y=192
+type=1 x=768 y=192
+type=1 x=928 y=192
+type=0 x=1008 y=192
+type=0 x=1040 y=192
+type=0 x=1168 y=64
+type=0 x=1232 y=128
+type=0 x=1264 y=128
+type=0 x=1568 y=192
+type=0 x=1584 y=192
+type=0 x=1600 y=192
+type=0 x=1808 y=192
+type=0 x=2160 y=128
+type=0 x=2176 y=128

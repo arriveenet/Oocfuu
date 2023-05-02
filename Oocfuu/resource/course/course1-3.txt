@@ -15,7 +15,7 @@ f2f2f6f2f2                          w0w1w1w2      w3w3w3w3w3w3  w0w1w2  w3w3w3  
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      w3w3        w3w3w3w3w3w3    w3    w3w3w3    w3w3w3w3w3        w0w1w1w2          w0w1w1w1w2  w0w1w1w1w2  w3          w3w3w3w3                                    w3w3        w3w3w3w3w3w3    w0w1w2  w3w3        w3w3        b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      w3w3        w3w3w3w3w3w3    w3    w3w3w3    w3w3w3w3w3          w3w3              w3w3w3      w3w3w3    w3          w3w3w3w3                                    w3w3        w3w3w3w3w3w3      w3    w3w3        w3w3        b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
 lift=4
-x=880 y=96 width=6, mode=1
-x=1376 y=128 width=6, mode=0
-x=1504 y=144 width=6, mode=0
-x=2096 y=96 width=6, mode=0
+x=880 y=96 width=6 mode=1
+x=1376 y=128 width=6 mode=0
+x=1504 y=144 width=6 mode=0
+x=2096 y=96 width=6 mode=0
