@@ -93,6 +93,7 @@ NokonokoStateSpin* NokonokoStateSpin::instance()
 void NokonokoStateSpin::enter(Nokonoko* _pNokonoko)
 {
 	_pNokonoko->m_state = NOKONOKO_STATE_SPIN;
+	g_pSound->play(SOUND_SE_KICK);
 }
 
 void NokonokoStateSpin::execute(Nokonoko* _pNokonoko)

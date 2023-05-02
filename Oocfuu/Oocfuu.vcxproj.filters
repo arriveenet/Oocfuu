@@ -58,11 +58,11 @@
     <Filter Include="ヘッダー ファイル\world">
       <UniqueIdentifier>{dd264be4-1401-4e14-a03f-390465c58db2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\common">
-      <UniqueIdentifier>{fc9f9601-9272-4a86-a2a4-ef1c9d02a156}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\common">
       <UniqueIdentifier>{8bd7d3b6-6cd9-4c38-8766-ed5a3027742a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\common">
+      <UniqueIdentifier>{fc9f9601-9272-4a86-a2a4-ef1c9d02a156}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="common\Message.cpp">
       <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy\KuriboStates.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="common\Entity.h">
       <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\KuriboStates.h">
+      <Filter>ヘッダー ファイル\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

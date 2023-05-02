@@ -4,7 +4,8 @@
 
 #include <glm/glm.hpp>
 
-/** ヒットブロックを制御するクラス
+/**
+* ヒットブロックを制御するクラス
 */ 
 class HitBlockController {
 	int m_count;			// カウント

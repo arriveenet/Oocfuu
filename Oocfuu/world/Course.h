@@ -24,35 +24,36 @@ enum COURSE_ERROR {
 
 // コースファイルのヘッダー構造体
 typedef struct COURSEINFOHEADER {
-	unsigned short width;		// コースの幅
-	unsigned short height;		// コースの高さ
-	COLORREF clearColor;		// バッファのクリアカラー
-	unsigned short startX;		// プレイヤーのスタートX座標
-	unsigned short startY;		// プレイヤーのスタートY座標
-	BYTE nextWorld;
-	BYTE nextStage;
+	unsigned short	width;		// コースの幅
+	unsigned short	height;		// コースの高さ
+	COLORREF		clearColor;	// バッファのクリアカラー
+	unsigned short	startX;		// プレイヤーのスタートX座標
+	unsigned short	startY;		// プレイヤーのスタートY座標
+	BYTE			nextWorld;	// 次のワールド
+	BYTE			nextStage;	// 次のステージ
 } COURSEINFOHEADER, *LPCOURSEINFOHEADER;
 
-/* コース管理クラス
+/**
+* コース管理クラス
 */
 class CourseManager {
 private:
-	int m_width;								// コースの幅
-	int m_height;								// コースの高さ
-	float m_scroll;								// スクロール位置
-	COLORREF m_clearColor;						// 背景色
-	glm::ivec2 m_startPosition;					// プレイヤーのスタート位置
-	WORLD m_nextWorld;							// 次のワールド
-	int** m_pParts;								// コースパーツ
-	bool m_isLoaded;							// コース読み込みフラグ
-	std::vector<QUAD> m_quads;					// コースパーツの矩形
-	std::vector<glm::ivec2> m_coins;			// コインの位置
-	HitBlockController m_hitBlockController;	// 叩いたときのブロック制御
-	Rect m_clearAex;							// クリア斧
-	BridgeController m_bridgeController;		// 橋の制御
-	Kinopio m_kinopio;						// キノピオ
-	COURSE_ERROR m_courseError;					// コースエラー
-	std::string m_errorMsg;						// エラーメッセージ
+	int						m_width;				// コースの幅
+	int						m_height;				// コースの高さ
+	float					m_scroll;				// スクロール位置
+	COLORREF				m_clearColor;			// 背景色
+	glm::ivec2				m_startPosition;		// プレイヤーのスタート位置
+	WORLD					m_nextWorld;			// 次のワールド
+	int**					m_pParts;				// コースパーツ
+	bool					m_isLoaded;				// コース読み込みフラグ
+	std::vector<QUAD>		m_quads;				// コースパーツの矩形
+	std::vector<glm::ivec2>	m_coins;				// コインの位置
+	HitBlockController		m_hitBlockController;	// 叩いたときのブロック制御
+	Rect					m_clearAex;				// クリア斧
+	BridgeController		m_bridgeController;		// 橋の制御
+	Kinopio					m_kinopio;				// キノピオ
+	COURSE_ERROR			m_courseError;			// コースエラー
+	std::string				m_errorMsg;				// エラーメッセージ
 
 public:
 	// コンストラクタ

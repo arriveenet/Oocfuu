@@ -8,7 +8,7 @@ typedef struct tagWORLD {
 	unsigned char stage;
 } WORLD;
 
-static const WORLD GAME_BEGIN_WORLD = { 1, 1 };
+constexpr WORLD GAME_BEGIN_WORLD = { 1, 1 };
 
 enum GAME_SCREEN {
 	GAME_SCREEN_TITLE,

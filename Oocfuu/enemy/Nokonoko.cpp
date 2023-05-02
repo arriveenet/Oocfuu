@@ -71,6 +71,12 @@ Nokonoko::~Nokonoko()
 
 void Nokonoko::update()
 {
+	if ((m_dead)
+		|| (g_courseManager.getScroll() > m_position.x + m_size.x + (PART_SIZE * 4))
+		|| (g_courseManager.getScroll() + SCREEN_WIDTH + (PART_SIZE * 4) < m_position.x)) {
+		return;
+	}
+
 	// アニメーションを更新
 	m_animationController.update();
 

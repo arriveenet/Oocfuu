@@ -33,7 +33,7 @@ public:
 	// コンストラクタ
 	Nokonoko();
 	explicit Nokonoko(glm::vec2 _position);
-	Nokonoko(float _x, float _y);
+	explicit Nokonoko(float _x, float _y);
 
 	// コピーコンストラクタ
 	Nokonoko(const Nokonoko& _nokonoko);
@@ -43,7 +43,8 @@ public:
 
 	void update();
 	void draw();
-	void trun() { m_speed.x = -m_speed.x; };
+	void trun() { m_speed.x = -m_speed.x; }
+	NOKONOKO_STATE getState() const { return m_state; }
 
 protected:
 	bool m_dead;

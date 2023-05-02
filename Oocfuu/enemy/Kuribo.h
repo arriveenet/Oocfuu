@@ -1,5 +1,7 @@
 #pragma once
-#include "Sprite.h"
+#include "Enemy.h"
+#include "KuriboStates.h"
+#include"common/StateMachine.h"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -12,31 +14,39 @@
 
 #define KURIBO_TOP_POINT_COUNT	3
 
-enum {
+enum KURIBO_STATE {
 	KURIBO_STATE_MOVE,
 	KURIBO_STATE_SQUISH,
 	KURIBO_STATE_DEAD,
 	KURIBO_STATE_MAX
 };
 
-class Kuribo : public Sprite{
-	bool m_dead;
-	bool m_falling;
-	int m_state;
-	int m_counter;
-	glm::vec2 m_speed;
-	glm::vec2 m_rightPoint;
-	glm::vec2 m_leftPoint;
-	glm::vec2 m_topPoints[KURIBO_TOP_POINT_COUNT];
-	std::vector<glm::vec2> m_bottomPoints;
+class Kuribo : public Enemy{
+private:
+	friend class KuriboStateRun;
+	friend class KuriboStateSquish;
+	friend class KuriboStateDie;
 
 public:
 	Kuribo();
 	explicit Kuribo(glm::vec2 _position);
-	Kuribo(float _x, float _y);
+	explicit Kuribo(float _x, float _y);
+	explicit Kuribo(const Kuribo& _kuribo);
+	virtual ~Kuribo();
 
 	void update() override;
 	void draw() override;
-	void turn();
+	void kill() override;
+	void intersectAllKuribo(std::vector<Kuribo>& kuribos);
 	Rect getRect() const;
+
+protected:
+	bool m_falling;
+	KURIBO_STATE m_state;
+	int m_counter;
+	glm::vec2 m_rightPoint;
+	glm::vec2 m_leftPoint;
+	glm::vec2 m_topPoints[KURIBO_TOP_POINT_COUNT];
+	std::vector<glm::vec2> m_bottomPoints;
+	StateMachine<Kuribo>* m_pStateMachine;
 };

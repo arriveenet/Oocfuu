@@ -208,14 +208,14 @@ bool CourseManager::load(const char* _fileName)
 		//printf("liftCount=%d\n", liftCount);
 		for (int i = 0; i < liftCount; i++) {
 			int x, y, lifWidth, mode;
-			fscanf_s(pFile, "x=%d y=%d width=%d, mode=%d\n", &x, &y, &lifWidth, &mode);
+			fscanf_s(pFile, "x=%d y=%d width=%d mode=%d\n", &x, &y, &lifWidth, &mode);
 			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
 			g_gmmickPart.addLift(Lift((float)x, (float)y, lifWidth, (LIFT_MOVEMENT)mode));
 		}
 	}
 
 	// 敵キャラクターの読み込み
-	g_enemyManager.reset();
+	g_enemyManager.clear();
 	int enemyCount = 0;
 	int enemyFlag = 0;
 	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
@@ -441,6 +441,15 @@ bool CourseManager::intersect(vec2 const& _point) {
 	case PART_GROUND:
 	case PART_HARD_BLOCK:
 	case PART_SOFT_BLOCK:
+	case PART_UNDER_GROUND:
+	case PART_UNDER_HARD_BLOCK:
+	case PART_UNDER_SOFT_BLOCK:
+	case PART_SIDE_PIPE_UP_LEFT:
+	case PART_SIDE_PIPE_DOWN_LEFT:
+	case PART_SIDE_PIPE_UP:
+	case PART_SIDE_PIPE_DOWN:
+	case PART_SIDE_PIPE_JOINT_UP:
+	case PART_SIDE_PIPE_JOINT_DOWN:
 	case PART_PIPE_UP_LEFT:
 	case PART_PIPE_UP_RIGHT:
 	case PART_PIPE_DOWN_LEFT:
@@ -449,7 +458,7 @@ bool CourseManager::intersect(vec2 const& _point) {
 	case PART_QUESTION1:
 	case PART_QUESTION2:
 	case PART_QUESTION3:
-	case PART_GROUND_2:
+	case PART_CASTLE_GROUND:
 	case PART_WOOD_0:
 	case PART_WOOD_1:
 	case PART_WOOD_2:
@@ -488,6 +497,10 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 		part = endPart = PART_SOFT_BLOCK;
 		g_pSound->play(SOUND_SE_BUMP);
 		break;
+	case PART_UNDER_SOFT_BLOCK:
+		part = endPart = PART_UNDER_SOFT_BLOCK;
+		g_pSound->play(SOUND_SE_BUMP);
+		break;
 	default:
 		g_pSound->play(SOUND_SE_BUMP);
 		return;
@@ -495,6 +508,8 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 
 	setParts(cellPoint, PART_NONE);
 	m_hitBlockController.start(cellPoint, (PART)part, (PART)endPart);
+
+	g_enemyManager.hitBlock(cellPoint);
 }
 
 bool CourseManager::getClearAex(Rect& _rect)
