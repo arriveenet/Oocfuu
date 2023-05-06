@@ -166,10 +166,10 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="common\font.cpp" />
     <ClCompile Include="common\FrameCounter.cpp" />
     <ClCompile Include="common\Message.cpp" />
+    <ClCompile Include="enemy\Enemy.cpp" />
     <ClCompile Include="enemy\EnemyManager.cpp" />
     <ClCompile Include="enemy\Koopa.cpp" />
     <ClCompile Include="enemy\KoopaFire.cpp" />
@@ -221,7 +221,6 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Collision.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="common\Entity.h" />
     <ClInclude Include="common\font.h" />
