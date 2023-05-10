@@ -45,7 +45,8 @@ CourseManager::CourseManager()
 
 CourseManager::~CourseManager()
 {
-
+	release();
+	clear();
 }
 
 void CourseManager::release()
@@ -59,7 +60,28 @@ void CourseManager::release()
 	}
 
 	m_pParts = nullptr;
-	m_quads.~vector();
+
+	m_quads.clear();
+	m_quads.shrink_to_fit();
+}
+
+void CourseManager::clear()
+{
+	// コースエフェクトマネージャーをクリアする
+	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+	courseEffectMgr->clear();
+
+	// ボスステージの橋をクリアする
+	m_bridgeController.clear();
+
+	// キノピオを無効する
+	m_kinopio.m_enable = false;
+
+	// 仕掛けパーツをクリアする
+	g_gmmickPart.clear();
+
+	// 敵キャラクターをクリアする
+	g_enemyManager.clear();
 }
 
 bool CourseManager::load(const char* _fileName)
@@ -96,22 +118,15 @@ bool CourseManager::load(const char* _fileName)
 
 	// すでにコースが読み込まれていた場合メモリを解放する
 	if (m_isLoaded && m_pParts) {
-		for (int i = 0; i < m_height; ++i) {
-			delete m_pParts[i];
-		}
-		delete[] m_pParts;
-		m_pParts = NULL;
+		// メモリを解放する
+		release();
+
+		// コースをクリアする
+		clear();
 	}
 
-	// コースエフェクトマネージャーをクリアする
+	// コースエフェクトマネージャー
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
-	courseEffectMgr->clear();
-
-	// ボスステージの橋をクリアする
-	m_bridgeController.clear();
-
-	// キノピオを無効する
-	m_kinopio.m_enable = false;
 
 	// メンバ変数に代入する
 	m_width = width;
@@ -187,8 +202,6 @@ bool CourseManager::load(const char* _fileName)
 		fseek(pFile, 2, SEEK_CUR);
 	}
 
-	// 仕掛けパーツをクリアする
-	g_gmmickPart.clear();
 
 	// ファイヤーバーの読み込み
 	int firebarCount = 0;
@@ -215,7 +228,6 @@ bool CourseManager::load(const char* _fileName)
 	}
 
 	// 敵キャラクターの読み込み
-	g_enemyManager.clear();
 	int enemyCount = 0;
 	int enemyFlag = 0;
 	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
@@ -367,17 +379,6 @@ void CourseManager::draw()
 
 	// キノピオを描画
 	m_kinopio.draw();
-
-	if (Game::m_debugInfo) {
-		fontBegin();
-		fontBackgroundColor(true);
-		fontColor(0x00, 0xff, 0x00);
-		fontPosition(0, 8);
-		fontDraw("SCROLL:%f", m_scroll);
-		fontColor(0xff, 0xff, 0xff);
-		fontBackgroundColor(false);
-		fontEnd();
-	}
 }
 
 bool CourseManager::isScrollMax()
@@ -495,11 +496,9 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 		break;
 	case PART_SOFT_BLOCK:
 		part = endPart = PART_SOFT_BLOCK;
-		g_pSound->play(SOUND_SE_BUMP);
 		break;
 	case PART_UNDER_SOFT_BLOCK:
 		part = endPart = PART_UNDER_SOFT_BLOCK;
-		g_pSound->play(SOUND_SE_BUMP);
 		break;
 	default:
 		g_pSound->play(SOUND_SE_BUMP);
@@ -526,5 +525,15 @@ bool CourseManager::intersectKinopio(const Rect* _rect)
 	if (m_kinopio.m_enable && m_kinopio.intersect(*_rect)) {
 		return true;
 	}
+	return false;
+}
+
+bool CourseManager::isInScreen(const Rect& _rect)
+{
+	if (_rect.m_position.x > m_scroll
+		&& _rect.m_position.x < m_scroll + SCREEN_WIDTH) {
+		return true;
+	}
+
 	return false;
 }

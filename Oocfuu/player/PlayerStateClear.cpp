@@ -11,7 +11,7 @@ using namespace std;
 using namespace glm;
 
 namespace {
-	MESSAGE messages[] =
+	const MESSAGE messages[] =
 	{
 		{"THANK YOU OOCFUU!", vec2(64, 80), 0},
 		{"BUT OUR PRINCESS IS IN\n\nANOTHER CASTLE!", vec2(40, 112), 96}

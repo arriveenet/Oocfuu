@@ -72,3 +72,17 @@ public:
 	virtual void execute(Nokonoko* _pNokonoko);
 	virtual void exit(Nokonoko* _pNokonoko);
 };
+
+class NokonokoStateDie : public State<Nokonoko> {
+private:
+	NokonokoStateDie() {}
+	NokonokoStateDie(const NokonokoStateDie&) {}
+	NokonokoStateDie operator=(const NokonokoStateDie&) { return NokonokoStateDie(); }
+
+public:
+	static NokonokoStateDie* instance();
+
+	virtual void enter(Nokonoko* _pNokonoko);
+	virtual void execute(Nokonoko* _pNokonoko);
+	virtual void exit(Nokonoko* _pNokonoko);
+};

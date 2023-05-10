@@ -19,8 +19,9 @@ typedef struct tagENEMYINFO {
 } ENEMYINFO;
 
 class EnemyManager {
-	std::vector<Kuribo*> m_kuribos;
-	std::vector<Nokonoko> m_nokonokos;
+	std::vector<Kuribo> m_kuriboes;
+	std::vector<Nokonoko> m_nokonokoes;
+	std::vector<Enemy*> m_enemies;
 	Koopa m_koopa;
 
 public:
@@ -35,10 +36,16 @@ public:
 	bool koopaIsDead();
 	void setKoopaRange(const RANGE& _range);
 	void hitBlock(const glm::ivec2& _point);
-	std::vector<Kuribo*> getUpdateAllKuribos();
+	std::vector<Kuribo>& getAllKuribo() { return m_kuriboes; }
+	std::vector<Nokonoko>& getAllNokonoko() { return m_nokonokoes; }
+	std::vector<Enemy*>& getAllEnemy() { return m_enemies; }
+	size_t getEnemySize()const { return m_enemies.size(); }
 
 	void update();
 	void draw();
+
+protected:
+	void prepare();
 };
 
 extern EnemyManager g_enemyManager;

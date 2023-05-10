@@ -24,7 +24,7 @@ static const vec2 fireworkPosition[FIREWORK_COUNT_MAX] = {
 	{vec2(16*5,16*10.5)},
 };
 
-static MESSAGE messages[] =
+static const MESSAGE messages[] =
 {
 	{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	96},
 	{"FEBRUARY,4,2022",				vec2(120, 88),	192},

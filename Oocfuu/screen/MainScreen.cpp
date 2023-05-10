@@ -64,7 +64,16 @@ void MainScreen::draw()
 		fontColor(0x00, 0xff, 0x00);
 		fontBackgroundColor(true);
 		fontPosition(0, 0);
-		fontDraw("FPS:%d", g_frameCounter.getFrameCount());
+		fontDraw("FPS:%d\n", g_frameCounter.getFrameCount());
+		fontDraw("SCROLL:%f\n", g_courseManager.getScroll());
+
+		fontPosition(0, 8 * 4);
+		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
+		//fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
+		fontDraw("ANIMATION:%d  JUMPING:%d\n", g_player.m_animationController.m_animation, g_player.m_jumping);
+		fontDraw("FALLING :%d  DEAD:%d\n", g_player.m_falling, g_player.m_dead);
+		fontDraw("ENEMYCOUNT:%d\n", g_enemyManager.getEnemySize());
 		fontBackgroundColor(false);
 		fontColor(0xff, 0xff, 0xff);
 		fontEnd();

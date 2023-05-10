@@ -241,20 +241,6 @@ void Player::draw()
 	}
 
 	if (Game::m_debugInfo) {
-		fontColor(0x00, 0xff, 0x00);
-		fontBackgroundColor(true);
-		fontBegin();
-		fontPosition(0, 0);
-		fontPosition(0, 8 * 4);
-		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
-		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
-		fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
-		fontDraw("ANIMATION:%d  JUMPING:%d\n", m_animationController.m_animation, g_player.m_jumping);
-		fontDraw("FALLING :%d  DEAD:%d\n", g_player.m_falling, g_player.m_dead);
-		fontEnd();
-		fontBackgroundColor(false);
-		fontColor(0xff, 0xff, 0xff);
-
 		glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);// GLbitfield mask
 		glPushAttrib(GL_ALL_ATTRIB_BITS);// GLbitfield mask
 		glDisable(GL_TEXTURE_2D);// GLenum cap

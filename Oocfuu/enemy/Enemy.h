@@ -5,6 +5,10 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+#define ENEMY_SPEED			0.5f
+#define ENEMY_FALL_SPEED	0.3f
+#define ENEMY_BOTTOM_COUNT	2
+
 enum ENEMYTYPE {
 	ENEMYTYPE_KURIBO,
 	ENEMYTYPE_NOKONIKO,
@@ -40,8 +44,7 @@ public:
 	virtual void turn();
 
 	// 敵同士の衝突処理
-	template <typename T>
-	void intersectEnemy(std::vector<T>& _enemies);
+	void intersectEnemy();
 
 	// 敵キャラクターをキルする
 	virtual void kill();
@@ -49,81 +52,29 @@ public:
 	// 敵キャラクターが死んでいるか
 	bool isDead();
 
+	// 敵キャラクターが生きているか
+	bool isAlive();
+
 	// 敵キャラクターを描画するか
 	bool isVisble();
 
 protected:
-	glm::vec2	m_speed;	// スピード
-	bool		m_dead;		// 死亡フラグ
-	bool		m_turned;	// ターンフラグ
-	bool		m_visible;	// 描画フラグ
-	AnimationController m_animationController;	// アニメーションコントローラー
+	// 左に向く
+	void turnLeft();
+
+	// 右に向く
+	void turnRight();
+
+protected:
+	bool		m_dead;				// 死亡フラグ
+	bool		m_visible;			// 描画フラグ
+	bool		m_falling;			// 落下フラグ
+	glm::vec2	m_speed;			// スピード
+	glm::vec2	m_leftPoint;		// 左のポイント
+	glm::vec2	m_rightPoint;		// 右のポイント
+	glm::vec2	m_bottomPoints[ENEMY_BOTTOM_COUNT];	// 下のポイント
+	AnimationController m_animationController;		// アニメーションコントローラー
 };
-
-/**
-* コンストラクタ
-* @param[in] なし
-*/
-inline Enemy::Enemy()
-	: Enemy(0.0f, 0.0f)
-{
-}
-
-/**
-* コンストラクタ
-* @param [in] _position	座標
-*/
-inline Enemy::Enemy(const glm::vec2& _position)
-	: Enemy(_position.x, _position.y)
-{
-}
-
-/**
-* コンストラクタ
-* @param [in] _x	X座標
-* @param [in] _y	Y座標
-*/
-inline Enemy::Enemy(float _x, float _y)
-	: m_animationController()
-	, m_speed()
-	, m_dead(false)
-	, m_turned(false)
-	, m_visible(false)
-	, Rect(_x, _y)
-{
-}
-
-/**
-* コンストラクタ
-* @param [in] _size		サイズ
-* @param [in] _position	位置
-*/
-inline Enemy::Enemy(const glm::vec2& _size, const glm::vec2& _position)
-	: m_animationController()
-	, m_speed()
-	, m_dead(false)
-	, m_turned(false)
-	, m_visible(false)
-	, Rect(_size, _position)
-{
-}
-
-/**
-* 敵キャラクターを更新
-* @param[in] なし
-*/
-inline void Enemy::update()
-{
-}
-
-/**
-* 敵キャラクターを描画
-* @param[in] なし
-*/
-inline void Enemy::draw()
-{
-	Rect::draw();
-}
 
 /**
 * X軸のスピードを反転する
@@ -134,27 +85,6 @@ inline void Enemy::turn()
 }
 
 /**
-* 敵同士の衝突処理
-* @param[in] _enemies	敵の配列
-*/
-template<typename T>
-inline void Enemy::intersectEnemy(std::vector<T>& _enemies)
-{
-	std::vector<T>::template iterator iter = _enemies.begin();
-	for (; iter != _enemies.end(); ++iter) {
-		//　自分自身もしくはターン済み場合コンティニュー
-		if (this->operator==(*iter))
-			continue;
-
-		// 他の敵との当たり判定
-		if (intersect(*iter)) {
-			m_turned = true;
-			turn();
-		}
-	}
-}
-
-/**
 * 敵キャラクターをキルする
 */
 inline void Enemy::kill()
@@ -162,12 +92,44 @@ inline void Enemy::kill()
 	m_dead = true;
 }
 
+/**
+* 敵キャラクターが死んでいるか
+*/
 inline bool Enemy::isDead()
 {
 	return m_dead;
 }
 
+/**
+* 敵キャラクターが生きているか
+*/
+inline bool Enemy::isAlive()
+{
+	return !m_dead;
+}
+
+/**
+* 敵キャラクターを描画するか
+*/
 inline bool Enemy::isVisble()
 {
 	return m_visible;
+}
+
+/**
+* 左に向く
+*/
+inline void Enemy::turnLeft()
+{
+	m_flip = RECT_FLIP_NONE;
+	m_speed.x = -ENEMY_SPEED;
+}
+
+/**
+* 右に向く
+*/
+inline void Enemy::turnRight()
+{
+	m_flip = RECT_FLIP_HORIZONTAL;
+	m_speed.x = ENEMY_SPEED;
 }

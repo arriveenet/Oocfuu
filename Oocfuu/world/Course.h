@@ -65,6 +65,9 @@ public:
 	// コース配列を解放
 	void release();
 
+	// コースをクリアする
+	void clear();
+
 	// コースを読み込む
 	bool load(const char* _fileName);
 
@@ -143,6 +146,9 @@ public:
 
 	// キノピオをとの当たり判定
 	bool intersectKinopio(const Rect* _rect);
+
+	// 矩形が画面内にいるか
+	bool isInScreen(const Rect& _rect);
 
 	// エラー列挙定数を取得
 	COURSE_ERROR getError() const

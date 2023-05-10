@@ -61,7 +61,7 @@ public:
 protected:
 	void nextMovement();
 
-	int m_flag;
+	unsigned int m_flag;
 	int m_jumpCount;
 	KOOPA_STATE m_state;
 	int m_counter;

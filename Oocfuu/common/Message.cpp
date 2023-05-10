@@ -36,7 +36,7 @@ void MessageController::draw()
 	fontEnd();
 }
 
-void MessageController::setMessage(MESSAGE* _messages, int _size)
+void MessageController::setMessage(const MESSAGE* _messages, int _size)
 {
 	m_messages = _messages;
 	m_messageSize = _size;

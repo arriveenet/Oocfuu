@@ -14,6 +14,7 @@ class HitBlockController {
 	glm::vec2 m_position;	// ブロックの位置
 	glm::ivec2 m_point;		// コースの位置
 	bool m_updated;			// 更新終了フラグ
+	bool m_enableEffect;	// エフェクト有効フラグ
 
 public:
 	// コンストラクタ

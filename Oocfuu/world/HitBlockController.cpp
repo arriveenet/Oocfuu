@@ -1,6 +1,7 @@
 #include "HitBlockController.h"
 #include "Course.h"
 #include "CourseEffect.h"
+#include "sound/Sound.h"
 
 using namespace glm;
 
@@ -17,6 +18,7 @@ HitBlockController::HitBlockController()
 	, m_position(0, 0)
 	, m_point(0, 0)
 	, m_updated(true)
+	, m_enableEffect(false)
 {
 }
 
@@ -39,13 +41,29 @@ void HitBlockController::start(const glm::ivec2& _point, const PART& _part, cons
 	m_endPart = _endPart;
 	m_count = 0;
 	m_updated = false;
+	m_enableEffect = false;
 
-	// ハテナブロックの場合コインのエフェクトを描画する
-	if (m_part == PART_QUESTION3) {
+	// 叩いた上のパーツを取得する
+	int upPart = g_courseManager.getParts(_point.x, _point.y - 1);
+
+	// 上のパーツがコインか確認する
+	if (upPart == PART_COIN_0) {
+		// エフェクトを有効にする
+		m_enableEffect = true;
+		// コインを追加する
+		g_game.addCoin();
+		g_courseManager.setParts(ivec2(_point.x, _point.y - 1), PART_NONE);
+	}
+
+	// ハテナブロックもしくは上のパーツがコイン場合、コインのエフェクトを描画する
+	if ((m_part == PART_QUESTION3) || m_enableEffect) {
+		m_enableEffect = true;
 		vec2 position = { m_position.x + 4, m_position.y - PART_SIZE - 4 };
 		CourseEffectManager* blockCoinMgr = CourseEffectManager::instance();
 		EffectCoin blockCoin(position);
 		blockCoinMgr->addCoin(blockCoin);
+	} else {
+		g_pSound->play(SOUND_SE_BUMP);
 	}
 }
 
@@ -67,7 +85,7 @@ bool HitBlockController::update(QUAD& _quad)
 		m_updated = true;
 
 		// スコアエフェクトを追加
-		if (m_part == PART_QUESTION3) {
+		if (m_enableEffect) {
 			vec2 scorePosition = { m_position.x, m_position.y - PART_SIZE - 8 };
 			EffectScore score(scorePosition, EffectScore::SCORE_200);
 			CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();

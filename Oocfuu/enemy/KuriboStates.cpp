@@ -27,10 +27,6 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 	if (Game::m_count % 12 == 0)
 		_pKuribo->m_flip ^= 1;
 
-
-	if (_pKuribo->m_falling)
-		_pKuribo->m_speed.y += KUROBO_FALL_SPEED;
-
 	// Squish
 	bool squished = false;
 	for (int i = 0; i < KURIBO_TOP_POINT_COUNT; i++) {
@@ -51,9 +47,12 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 		}
 	}
 
+	_pKuribo->m_hitRightPoint = vec2(_pKuribo->m_position.x + _pKuribo->m_size.x, _pKuribo->m_position.y + 8);
+	_pKuribo->m_hitLeftPoint = vec2(_pKuribo->m_position.x, _pKuribo->m_position.y + 8);
+
 	// bool player dead
-	if (g_player.intersect(_pKuribo->m_rightPoint)
-		|| g_player.intersect(_pKuribo->m_leftPoint)
+	if (g_player.intersect(_pKuribo->m_hitRightPoint)
+		|| g_player.intersect(_pKuribo->m_hitLeftPoint)
 		&& (!squished)
 		) {
 		g_player.kill();
@@ -66,37 +65,21 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 
 	_pKuribo->m_position += _pKuribo->m_speed;
 
-	_pKuribo->m_bottomPoints.clear();
 
 	_pKuribo->m_topPoints[0] = _pKuribo->m_position + vec2(PLAYER_SIZE / 2, 0);
 	_pKuribo->m_topPoints[1] = _pKuribo->m_position + vec2(2, 5);
 	_pKuribo->m_topPoints[2] = _pKuribo->m_position + vec2(14, 5);
-	_pKuribo->m_rightPoint = vec2(_pKuribo->m_position.x + _pKuribo->m_size.x, _pKuribo->m_position.y + 8);
-	_pKuribo->m_leftPoint = vec2(_pKuribo->m_position.x, _pKuribo->m_position.y + 8);
-	_pKuribo->m_bottomPoints.push_back(_pKuribo->m_position + vec2(1, _pKuribo->m_size.y));
-	_pKuribo->m_bottomPoints.push_back(_pKuribo->m_position + vec2(_pKuribo->m_size.x - 1, _pKuribo->m_size.y));
 
-	if (g_courseManager.intersect(_pKuribo->m_rightPoint)) {
-		_pKuribo->turn();
-	}
+	//if (g_courseManager.intersect(_pKuribo->m_rightPoint)) {
+	//	_pKuribo->turn();
+	//}
 
-	if (g_courseManager.intersect(_pKuribo->m_leftPoint)) {
-		_pKuribo->turn();
-	}
+	//if (g_courseManager.intersect(_pKuribo->m_leftPoint)) {
+	//	_pKuribo->turn();
+	//}
 
-	_pKuribo->m_falling = true;
-	if (_pKuribo->m_speed.y >= 0)
-		for (vector<vec2>::iterator iter = _pKuribo->m_bottomPoints.begin();
-			iter != _pKuribo->m_bottomPoints.end();
-			iter++) {
-		if (g_courseManager.intersect(*iter)) {
-			vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
-			_pKuribo->m_position.y = bottom.y - PLAYER_SIZE;
-			_pKuribo->m_speed.y = 0;
-			_pKuribo->m_falling = false;
-			break;
-		}
-	}
+	_pKuribo->Enemy::update();
+	_pKuribo->Enemy::intersectEnemy();
 }
 
 void KuriboStateRun::exit(Kuribo* _pKuribo)
@@ -116,6 +99,8 @@ KuriboStateSquish* KuriboStateSquish::instance()
 void KuriboStateSquish::enter(Kuribo* _pKuribo)
 {
 	_pKuribo->m_counter = 0;
+	_pKuribo->m_state = KURIBO_STATE_SQUISH;
+	_pKuribo->m_texture = TEXTURE_KURIBO_SQUISH;
 }
 
 void KuriboStateSquish::execute(Kuribo* _pKuribo)
@@ -142,7 +127,10 @@ KuriboStateDie* KuriboStateDie::instance()
 
 void KuriboStateDie::enter(Kuribo* _pKuribo)
 {
+	_pKuribo->m_state = KURIBO_STATE_DEAD;
+	_pKuribo->m_texture = TEXTURE_KURIBO_RUN;
 	_pKuribo->m_flip = RECT_FLIP_VERTICAL;
+
 	g_pSound->play(SOUND_SE_KICK);
 }
 

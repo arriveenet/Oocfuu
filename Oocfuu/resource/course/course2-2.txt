@@ -10,9 +10,11 @@ width=64 height=15 color=0 startX=8 startY=96 nextWorld=2 nextStage=4
                   b2          b2                                            b1b1b1b1b1                g1        f0f0f0          
                     b2b2b2b2b2                                            b1b1b1b1b1b1                g1        f1f2f3          
                                                                         b1b1b1b1b1b1b1        m0      g1      f0f4f4f4f0        
-                                                                p0p1  b1b1b1b1b1b1b1b1      m1m2m3    g1      f2f2f5f2f2    m0  
-                                                                p2p3b1b1b1b1b1b1b1b1b1    m1m2m4m5m3  b1      f2f2f6b2f2t2m1m2m3
+                                            b2                  p0p1  b1b1b1b1b1b1b1b1      m1m2m3    g1      f2f2f5f2f2    m0  
+                                            b2                  p2p3b1b1b1b1b1b1b1b1b1    m1m2m4m5m3  b1      f2f2f6b2f2t2m1m2m3
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
 b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0
-enemyCount=1 flag=1
+enemyCount=3 flag=1
 type=0 x=192 y=128
+type=1 x=384 y=192
+type=1 x=416 y=192

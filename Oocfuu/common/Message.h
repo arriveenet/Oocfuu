@@ -30,12 +30,12 @@ public:
 	void reset() { m_update = false; m_count = 0; };
 
 	// メッセージを設定する
-	void setMessage(MESSAGE* _messages, int _size);
+	void setMessage(const MESSAGE* _messages, int _size);
 
 private:
 	unsigned int m_count;	// カウンター
 	int m_messageSize;		// メッセージサイズ
-	MESSAGE* m_messages;	// メッセージリスト
+	const MESSAGE* m_messages;	// メッセージリスト
 	bool m_update;			// 更新フラグ
 };
 
