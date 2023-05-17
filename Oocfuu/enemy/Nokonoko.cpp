@@ -22,8 +22,7 @@ Nokonoko::Nokonoko(glm::vec2 _position)
 }
 
 Nokonoko::Nokonoko(float _x, float _y)
-	: m_falling(false)
-	, m_state(NOKONOKO_STATE_RUN)
+	: m_state(NOKONOKO_STATE_RUN)
 	, m_counter(0)
 	, m_pStateMachine(nullptr)
 	, m_topPoint(0.0f, 0.0f)

@@ -24,10 +24,10 @@ public:
 	void draw();
 
 	// メッセージをスタート
-	void start() { m_update = true; m_count = 0; };
+	void start() noexcept { m_update = true; m_count = 0; };
 
 	// メッセージをリセット
-	void reset() { m_update = false; m_count = 0; };
+	void reset() noexcept { m_update = false; m_count = 0; };
 
 	// メッセージを設定する
 	void setMessage(const MESSAGE* _messages, int _size);

@@ -164,7 +164,7 @@ void EnemyManager::prepare()
 	// 更新するノコノコーを取得する
 	for (vector<Nokonoko>::iterator nokonoko = m_nokonokoes.begin();
 		nokonoko != m_nokonokoes.end();
-		nokonoko++) {
+		++nokonoko) {
 		// 画面内かつ生きている場合追加する
 		if (g_courseManager.isInScreen(*nokonoko) && nokonoko->isAlive()) {
 			m_enemies.push_back((Enemy*)&(*nokonoko));

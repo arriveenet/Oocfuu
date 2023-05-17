@@ -44,7 +44,6 @@ public:
 	NOKONOKO_STATE getState() const { return m_state; }
 
 protected:
-	bool m_falling;
 	NOKONOKO_STATE m_state;
 	int m_counter;
 	glm::vec2 m_topPoint;

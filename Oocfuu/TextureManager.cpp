@@ -79,6 +79,22 @@ bool TextureManager::init()
 
 		COLORREF color = texs[i].colorKey;
 		if (tex.loadBitmapFile(fileName, GetRValue(color), GetGValue(color), GetBValue(color)) == 0) {
+			glTexParameteri(
+				GL_TEXTURE_2D,		// GLenum target
+				GL_TEXTURE_WRAP_S,	// GLenum pname
+				GL_CLAMP);			// GLint param
+			glTexParameteri(
+				GL_TEXTURE_2D,		// GLenum target
+				GL_TEXTURE_WRAP_T,	// GLenum pname
+				GL_CLAMP);			// GLint param
+			glTexParameteri(
+				GL_TEXTURE_2D,			// GLenum target
+				GL_TEXTURE_MAG_FILTER,	// GLenum pname
+				GL_NEAREST);			// GLint param
+			glTexParameteri(
+				GL_TEXTURE_2D,			// GLenum target
+				GL_TEXTURE_MIN_FILTER,	// GLenum pname
+				GL_NEAREST);			// GLint param
 			glTexImage2D(
 				GL_TEXTURE_2D,		// GLenum target
 				0,					// GLint level
@@ -89,14 +105,6 @@ bool TextureManager::init()
 				GL_RGBA,			// GLenum format
 				GL_UNSIGNED_BYTE,	// GLenum type
 				tex.getTexImage());	// const GLvoid *pixels
-			glTexParameteri(
-				GL_TEXTURE_2D,			// GLenum target
-				GL_TEXTURE_MAG_FILTER,	// GLenum pname
-				GL_NEAREST);			// GLint param
-			glTexParameteri(
-				GL_TEXTURE_2D,			// GLenum target
-				GL_TEXTURE_MIN_FILTER,	// GLenum pname
-				GL_NEAREST);			// GLint param
 			glEnable(GL_TEXTURE_2D);
 			texs[i].size = { tex.getWidth(), tex.getHeight() };
 			tex.deleteTexImage();

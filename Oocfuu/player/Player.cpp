@@ -153,7 +153,7 @@ void Player::update()
 		bool topHit = false;
 		for (vector<vec2>::iterator iter = m_topPoints.begin();
 			iter != m_topPoints.end();
-			iter++) {
+			++iter) {
 			if (g_courseManager.intersect(*iter)) {
 				int parts = g_courseManager.getParts(*iter);
 				if (parts == PART_GOAL_POLE)
@@ -172,7 +172,7 @@ void Player::update()
 		if (!topHit && !m_goal) {
 			for (vector<vec2>::iterator iter = m_rightPoints.begin();
 				iter != m_rightPoints.end();
-				iter++) {
+				++iter) {
 
 				// プレイヤーがゴール
 				if ((g_courseManager.getParts(*iter) == PART_GOAL_POLE) && (!m_goal)) {
@@ -194,7 +194,7 @@ void Player::update()
 
 			for (vector<vec2>::iterator iter = m_leftPoints.begin();
 				iter != m_leftPoints.end();
-				iter++) {
+				++iter) {
 				if (g_courseManager.intersect(*iter)) {
 					vec2 left = (ivec2)*iter / PART_SIZE * PART_SIZE;
 					m_position.x = left.x + PLAYER_SIZE;
@@ -211,7 +211,7 @@ void Player::update()
 		if (m_speed.y >= 0)
 			for (vector<vec2>::iterator iter = m_bottomPoints.begin();
 				iter != m_bottomPoints.end();
-				iter++) {
+				++iter) {
 			if (g_courseManager.intersect(*iter)) {
 				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 				m_position.y = bottom.y - PLAYER_SIZE;

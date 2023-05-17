@@ -38,7 +38,6 @@ public:
 	KURIBO_STATE getState()const { return m_state; }
 
 protected:
-	bool m_falling;
 	KURIBO_STATE m_state;
 	int m_counter;
 	TEXTURE m_texture;

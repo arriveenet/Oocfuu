@@ -18,8 +18,10 @@
 
 #include <stdio.h>
 #include <windows.h>
-#include <stdio.h>
+#include <chrono>
 #include <gl/freeglut.h>
+
+#define MS_PER_UPDATE	(1000 / 30)
 
 App g_app;
 extern glm::ivec2 windowSize;
@@ -27,9 +29,8 @@ extern glm::ivec2 windowSize;
 App::App()
 	: m_running(false)
 	, m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
+	, m_currentTime()
 {
-	time_t t = time(NULL);
-	localtime_s(&m_currentTime, &t);
 }
 
 App::~App()
@@ -38,6 +39,9 @@ App::~App()
 
 bool App::init()
 {
+	time_t t = time(NULL);
+	localtime_s(&m_currentTime, &t);
+
 	// óêêîÇèâä˙âª
 	srand((unsigned int)time(NULL));
 
@@ -127,10 +131,25 @@ void App::run()
 {
 	m_running = true;
 
-	while (m_running) {
+	std::chrono::system_clock::time_point previous = std::chrono::system_clock::now();
+	double lag = 0.0;
+
+	while (true) {
+		std::chrono::system_clock::time_point current = std::chrono::system_clock::now();
+		std::chrono::milliseconds millisec = std::chrono::duration_cast<std::chrono::milliseconds>(current - previous);
+		//double elapsed = millisec.count();
+		double elapsed = 0.0;
+		previous = current;
+		lag += elapsed;
+
 		glutMainLoopEvent();
-		//update();
-		//draw();
+
+		while (lag >= MS_PER_UPDATE) {
+			update();
+			lag -= MS_PER_UPDATE;
+		}
+
+		draw();
 	}
 }
 

@@ -60,9 +60,8 @@ void Channel::setScore(SCORE _score[], int _count)
 
 void Channel::setGain(float _gain)
 {
-	if (_gain < 0.f || 1.f > _gain)
-		return;
-	m_gain = _gain;
+	if (_gain >= 0.0f && 1.0f >= _gain)
+		m_gain = _gain;
 }
 
 void Channel::start()

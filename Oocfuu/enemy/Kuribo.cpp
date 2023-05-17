@@ -22,8 +22,7 @@ Kuribo::Kuribo(glm::vec2 _position)
 }
 
 Kuribo::Kuribo(float _x, float _y)
-	: m_falling(false)
-	, m_state(KURIBO_STATE_MOVE)
+	: m_state(KURIBO_STATE_MOVE)
 	, m_counter(0)
 	, m_texture(TEXTURE_KURIBO_RUN)
 	, m_hitRightPoint(0, 0)

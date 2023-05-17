@@ -130,7 +130,7 @@ void Koopa::update()
 		if (m_speed.y >= 0)
 			for (std::vector<vec2>::iterator iter = m_bottomPoints.begin();
 				iter != m_bottomPoints.end();
-				iter++) {
+				++iter) {
 			if (g_courseManager.intersect(*iter)) {
 				vec2 bottom = ((ivec2)*iter / PART_SIZE) * PART_SIZE;
 				m_position.y = bottom.y - KOOPA_HEIGHT;
