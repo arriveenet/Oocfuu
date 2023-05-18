@@ -55,7 +55,7 @@ void Nokonoko::update()
 	// ステートマシンを更新
 	m_pStateMachine->update();
 
-	//// 当たり判定用のポイントを設定
+	// 当たり判定用のポイントを設定
 	m_topPoint = m_position + vec2(8, 0);
 
 	if (g_player.intersect(m_topPoint)) {

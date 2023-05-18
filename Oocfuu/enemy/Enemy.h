@@ -122,7 +122,7 @@ inline bool Enemy::isVisble()
 inline void Enemy::turnLeft()
 {
 	m_flip = RECT_FLIP_NONE;
-	m_speed.x = -ENEMY_SPEED;
+	m_speed.x = -m_speed.x;
 }
 
 /**
@@ -131,5 +131,5 @@ inline void Enemy::turnLeft()
 inline void Enemy::turnRight()
 {
 	m_flip = RECT_FLIP_HORIZONTAL;
-	m_speed.x = ENEMY_SPEED;
+	m_speed.x = -m_speed.x;
 }
