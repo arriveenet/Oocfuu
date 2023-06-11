@@ -8,7 +8,9 @@ typedef struct tagMESSAGE{
 	int startCount;
 } MESSAGE;
 
-// メッセージ制御クラス
+/**
+ * メッセージコントローラークラス
+ */
 class MessageController {
 public:
 	// コンストラクタ
@@ -33,9 +35,9 @@ public:
 	void setMessage(const MESSAGE* _messages, int _size);
 
 private:
-	unsigned int m_count;	// カウンター
-	int m_messageSize;		// メッセージサイズ
-	const MESSAGE* m_messages;	// メッセージリスト
-	bool m_update;			// 更新フラグ
+	unsigned int m_count;		//!< カウンター
+	int m_messageSize;			//!< メッセージサイズ
+	const MESSAGE* m_messages;	//!< メッセージリスト
+	bool m_update;				//!< 更新フラグ
 };
 

@@ -3,6 +3,9 @@
 #include "common/Entity.h"
 #include "animation/AnimationController.h"
 
+/**
+ * スプライトクラス
+ */
 class Sprite : public Rect, Entity{
 public:
 	AnimationController m_animationController;

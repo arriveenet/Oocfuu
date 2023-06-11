@@ -1,6 +1,9 @@
 #include "Message.h"
 #include "font.h"
 
+/**
+ * @brief コンストラクタ
+ */
 MessageController::MessageController()
 	: m_count(0)
 	, m_messageSize(0)
@@ -9,10 +12,18 @@ MessageController::MessageController()
 {
 }
 
+/**
+ * @brief デストラクタ
+ */
 MessageController::~MessageController()
 {
 }
 
+/**
+ * @brief メッセージコントローラを更新する
+ * 
+ * @param[in] なし
+ */
 void MessageController::update()
 {
 	if (m_update) {
@@ -20,6 +31,11 @@ void MessageController::update()
 	}
 }
 
+/**
+ * @brief メッセージを描画する
+ * 
+ * @param[in] なし
+ */
 void MessageController::draw()
 {
 	if (!m_update) return;
@@ -36,6 +52,12 @@ void MessageController::draw()
 	fontEnd();
 }
 
+/**
+ * @brief メッセージを設定する
+ *
+ * @param[in] _messages	メッセージ構造体のポインタ
+ * @param[in] _size		メッセージのサイズ
+ */
 void MessageController::setMessage(const MESSAGE* _messages, int _size)
 {
 	m_messages = _messages;

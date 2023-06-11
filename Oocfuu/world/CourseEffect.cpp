@@ -85,8 +85,9 @@ void EffectCoin::draw()
 	g_textureManager.unbindTexture();
 }
 
-/* スコアエフェクトコンストラクタ
-*/
+/**
+ * スコアエフェクトコンストラクタ
+ */
 EffectScore::EffectScore(const glm::vec2& _position, SCORE _score)
 	: m_score(_score)
 	, m_texture(TEXTURE_SCORE_100 + (int)_score)
@@ -95,14 +96,16 @@ EffectScore::EffectScore(const glm::vec2& _position, SCORE _score)
 	m_ttl = EFFECT_SCORE_TTL;
 }
 
-/* スコアエフェクトデストラクタ
-*/
+/**
+ * スコアエフェクトデストラクタ
+ * /
 EffectScore::~EffectScore()
 {
 }
 
-/* スコアエフェクトを更新
-*/
+/**
+ * スコアエフェクトを更新
+ */
 void EffectScore::update()
 {
 	if (m_updated)
@@ -115,8 +118,9 @@ void EffectScore::update()
 	}
 }
 
-/* スコアエフェクトを描画
-*/
+/**
+ * @brief スコアエフェクトを描画
+ */
 void EffectScore::draw()
 {
 	if (m_updated)
@@ -128,23 +132,27 @@ void EffectScore::draw()
 
 }
 
-/* デストラクタ
-*/
+/**
+ * @brief デストラクタ
+ */
 CourseEffectManager::~CourseEffectManager()
 {
 }
 
-/* 唯一のインスタンスを取得
-*	@return インスタンスのポインタ
-*/
+/** 
+ *	@brief 唯一のインスタンスを取得
+ * 
+ *	@return[out]	インスタンスのポインタ
+ */
 CourseEffectManager* CourseEffectManager::instance()
 {
 	static CourseEffectManager instance;
 	return &instance;
 }
 
-/* コースエフェクトをクリア
-*/
+/**
+ * @brief コースエフェクトをクリア
+ */
 void CourseEffectManager::clear()
 {
 	m_coins.clear();
@@ -170,8 +178,9 @@ void CourseEffectManager::setGoalFlag(const glm::vec2& _position)
 	m_goalFlag.setVisible(true);
 }
 
-/* エフェクトを更新
-*/
+/**
+ * @brief エフェクトを更新
+ */
 void CourseEffectManager::update()
 {
 	// コインエフェクトを更新
@@ -201,8 +210,9 @@ void CourseEffectManager::update()
 	m_goalFlag.update();
 }
 
-/* エフェクトを描画
-*/
+/**
+ * @brief エフェクトを描画
+ */
 void CourseEffectManager::draw()
 {
 	// コインエフェクトを描画
