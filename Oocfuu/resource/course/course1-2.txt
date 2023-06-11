@@ -20,8 +20,8 @@ x=2236 y=192 width=6 mode=3
 x=2476 y=16 width=6 mode=2
 x=2476 y=128 width=6 mode=2
 enemyCount=17 flag=3
+type=0 x=224 y=192
 type=0 x=240 y=192
-type=0 x=256 y=192
 type=0 x=480 y=192
 type=1 x=736 y=192
 type=1 x=768 y=192

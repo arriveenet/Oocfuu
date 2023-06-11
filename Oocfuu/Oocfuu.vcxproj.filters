@@ -225,6 +225,9 @@
     <ClCompile Include="enemy\Enemy.cpp">
       <Filter>ソース ファイル\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="world\CourseLoader.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -418,6 +421,15 @@
     </ClInclude>
     <ClInclude Include="enemy\KuriboStates.h">
       <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="world\CourseLoader.h">
+      <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Observer.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Subject.h">
+      <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

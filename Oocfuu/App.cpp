@@ -1,5 +1,4 @@
 #include "App.h"
-
 #include "common/font.h"
 #include "world/Part.h"
 #include "world/Course.h"
@@ -15,6 +14,8 @@
 #include "animation\Animation.h"
 #include "animation\AnimationController.h"
 #include "Player/Player.h"
+
+#include "world/CourseLoader.h"
 
 #include <stdio.h>
 #include <windows.h>
@@ -42,7 +43,6 @@ bool App::init()
 	time_t t = time(NULL);
 	localtime_s(&m_currentTime, &t);
 
-	// —”‚ð‰Šú‰»
 	srand((unsigned int)time(NULL));
 
 	g_pSound = Sound::getInstance();
@@ -71,6 +71,9 @@ bool App::init()
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
+	CourseLoader* pLoader = CourseLoader::create();
+	pLoader->initialize("book.xml");
+
 	return true;
 }
 
@@ -92,7 +95,7 @@ void App::update()
 	localtime_s(&m_currentTime, &t);
 
 	g_frameCounter.update();
-//	g_courseManager.update();
+	//	g_courseManager.update();
 	g_music.update();
 	g_game.update();
 	g_game.m_pCurrentScreen->update();
@@ -118,7 +121,7 @@ void App::draw()
 
 	{
 		float f = (float)windowSize.x / SCREEN_WIDTH;
-	//	glLineWidth(f);// GLfloat width
+		//	glLineWidth(f);// GLfloat width
 		glPointSize(f);// GLfloat size
 	}
 
@@ -165,7 +168,7 @@ bool App::printInit(bool _result, const char* _str)
 		SetConsoleTextAttribute(
 			m_hConsoleOutput,	// HANDLE hConsoleOutput,
 			FOREGROUND_GREEN);	// WORD wAttributes
-			printf("  OK  ");
+		printf("  OK  ");
 	} else {
 		SetConsoleTextAttribute(
 			m_hConsoleOutput,	// HANDLE hConsoleOutput,
