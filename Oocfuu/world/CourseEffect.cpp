@@ -98,7 +98,7 @@ EffectScore::EffectScore(const glm::vec2& _position, SCORE _score)
 
 /**
  * スコアエフェクトデストラクタ
- * /
+ */
 EffectScore::~EffectScore()
 {
 }
