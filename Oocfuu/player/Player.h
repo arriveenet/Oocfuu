@@ -19,6 +19,9 @@
 #define PLAYER_SPEED_MAX	2.5f
 #define PLAYER_GRAVITY		0.4f
 
+/**
+ * @enum プレイヤーフラグ
+*/
 enum PLAYER_FLAG {
 	PLAYER_FLAG_NONE = 0,
 	PLAYER_FLAG_DEAD = 1,
@@ -33,6 +36,9 @@ enum PLAYER_FLAG {
 class Player;
 class PlayerStateContext;
 
+/**
+ * プレイヤークラス
+*/
 class Player : public Sprite{
 	PlayerStateContext* m_pStateContext;
 

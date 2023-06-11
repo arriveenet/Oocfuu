@@ -177,6 +177,8 @@ void Player::update()
 				// プレイヤーがゴール
 				if ((g_courseManager.getParts(*iter) == PART_GOAL_POLE) && (!m_goal)) {
 					//printf("Player is goal\n");
+					vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
+					m_position.x = right.x - PLAYER_SIZE;
 					m_goal = true;
 					g_game.m_timer.stop();
 					m_pStateContext->setStete(new PlayerStateGoal);
