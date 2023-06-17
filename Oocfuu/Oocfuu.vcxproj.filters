@@ -228,6 +228,9 @@
     <ClCompile Include="world\CourseLoader.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
+    <ClCompile Include="common\timer.cpp">
+      <Filter>ソース ファイル\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -429,6 +432,9 @@
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
     <ClInclude Include="common\Subject.h">
+      <Filter>ヘッダー ファイル\common</Filter>
+    </ClInclude>
+    <ClInclude Include="common\timer.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
   </ItemGroup>
