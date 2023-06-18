@@ -2,6 +2,7 @@
 #include <gl/freeglut.h>
 
 #include "TitleScreen.h"
+#include "App.h"
 #include "Game.h"
 #include "input/Keyboard.h"
 #include "common/font.h"
@@ -97,7 +98,7 @@ void TitleScreen::update()
 	}
 
 	if (Keyboard::m_nowPressed[0x1b]) {
-		glutLeaveMainLoop();
+		g_app.close();
 	}
 
 }

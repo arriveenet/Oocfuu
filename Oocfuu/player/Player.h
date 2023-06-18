@@ -64,8 +64,8 @@ public:
 	void init();
 	void reset();
 	void respawn(float _x, float _y);
-	void update();
-	void draw();
+	void update() override;
+	void draw() override;
 	void kill();
 	void jump();
 	void oneUp();

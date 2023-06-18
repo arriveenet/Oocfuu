@@ -18,31 +18,21 @@ ivec2 windowSize;
 
 void display(void)
 {
-	g_app.draw();
+	// âΩÇ‡ÇµÇ»Ç¢ÅB
 
-	glutSwapBuffers();
+	//g_app.draw();
+
+	//glutSwapBuffers();
 }
 
-void timer(int value)
-{
-	audioUpdate();
-	Keyboard::begin();
-
-	g_app.update();
-
-	Keyboard::end();
-	glutPostRedisplay();
-
-	glutTimerFunc(
-		1000 / 60,// unsigned int time
-		timer,	//void (* callback)( int )
-		0);		// int value
-}
-
-void release()
+void release(void)
 {
 	g_app.release();
-	//exit(0);
+}
+
+void close(void)
+{
+	g_app.close();
 }
 
 void reshape(int width, int height)
@@ -73,24 +63,22 @@ int main(int argc, char* argv[])
 			(windowHeight / 2) - (windowSize.y / 2));	// int y
 		glutInitWindowSize(windowSize.x, windowSize.y);
 	}
-	glutCreateWindow("Happy Birthday to oocfuu!");
+	g_app.setWindow(glutCreateWindow("Happy Birthday to oocfuu!"));
 
 	// Initialize
 	if (!g_app.init())
 		result = EXIT_FAILURE;
 	else {
 		glutDisplayFunc(display);
-		glutTimerFunc(0, timer, 0);
 		glutReshapeFunc(reshape);
-		//glutCloseFunc(release);
+		glutCloseFunc(close);
 		Keyboard::init();
 		Mouse::init();
 		printf("GL_VERSION:%s\n", glGetString(GL_VERSION));   // GLenum name
+
 		// MainLoop
-		glutMainLoop();
-		//g_app.run();
+		g_app.run();
 	}
-	release();
 
 	_CrtDumpMemoryLeaks();
 

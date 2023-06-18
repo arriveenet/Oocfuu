@@ -14,7 +14,7 @@ public:
 	Sprite(const glm::vec2 _size, const glm::vec2 _position);
 	virtual ~Sprite();
 
-	virtual void update() override;
-	virtual void draw() override;
+	void update() override;
+	void draw() override;
 
 };

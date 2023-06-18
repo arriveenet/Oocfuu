@@ -1,5 +1,6 @@
 #include "App.h"
 #include "common/font.h"
+#include  "common/timer.h"
 #include "world/Part.h"
 #include "world/Course.h"
 #include "Game.h"
@@ -18,34 +19,46 @@
 #include "world/CourseLoader.h"
 
 #include <stdio.h>
-#include <windows.h>
-#include <chrono>
 #include <gl/freeglut.h>
 
-#define MS_PER_UPDATE	(1000 / 30)
+#define MS_PER_UPDATE	(1000 / 60)
 
 App g_app;
 extern glm::ivec2 windowSize;
 
+/**
+ * @breif コンストラクタ
+ */
 App::App()
-	: m_running(false)
-	, m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
-	, m_currentTime()
+	: m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
+	, m_running(false)
+	, m_window(0)
 {
 }
 
+/**
+ * @breif デストラクタ
+ */
 App::~App()
 {
 }
 
+/**
+ * @breif アプリケーションの初期化を行う
+ * 
+ * @param なし
+ * 
+ * @return 成功: true 失敗: false
+ * 
+ */
 bool App::init()
 {
-	time_t t = time(NULL);
-	localtime_s(&m_currentTime, &t);
-
 	srand((unsigned int)time(NULL));
 
 	g_pSound = Sound::getInstance();
+
+	if (!printInit(timerInit(), "Timer init"))
+		return false;
 
 	if (!printInit(fontInit(), "Font init"))
 		return false;
@@ -77,6 +90,14 @@ bool App::init()
 	return true;
 }
 
+/**
+ * @breif 確保したリソースを解放する
+ *
+ * @param なし
+ *
+ * @return なし
+ *
+ */
 void App::release()
 {
 	g_player.~Player();
@@ -89,18 +110,36 @@ void App::release()
 	Mouse::release();
 }
 
+/**
+ * @breif アプリケーションの更新を行う
+ *
+ * @param なし
+ *
+ * @return なし
+ *
+ */
 void App::update()
 {
-	time_t t = time(NULL);
-	localtime_s(&m_currentTime, &t);
+	// オーディをを更新
+	audioUpdate();
+	Keyboard::begin();
 
 	g_frameCounter.update();
-	//	g_courseManager.update();
 	g_music.update();
 	g_game.update();
 	g_game.m_pCurrentScreen->update();
+
+	Keyboard::end();
 }
 
+/**
+ * @breif アプリケーションの描画を行う
+ *
+ * @param なし
+ *
+ * @return なし
+ *
+ */
 void App::draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -128,39 +167,76 @@ void App::draw()
 	glColor3ub(0xff, 0xff, 0xff);
 
 	g_game.m_pCurrentScreen->draw();
+
+	glutSwapBuffers();
 }
 
+/**
+ * @breif アプリケーションのメインループを開始する
+ *
+ * @param なし
+ *
+ * @return なし
+ *
+ */
 void App::run()
 {
 	m_running = true;
 
-	std::chrono::system_clock::time_point previous = std::chrono::system_clock::now();
-	double lag = 0.0;
+	while (m_running) {
 
-	while (true) {
-		std::chrono::system_clock::time_point current = std::chrono::system_clock::now();
-		std::chrono::milliseconds millisec = std::chrono::duration_cast<std::chrono::milliseconds>(current - previous);
-		//double elapsed = millisec.count();
-		double elapsed = 0.0;
-		previous = current;
-		lag += elapsed;
+		double start = getTime();
+
+		update();
+		draw();
+
+		DWORD sleepTime = start + MS_PER_UPDATE - getTime();
+		Sleep(sleepTime);
 
 		glutMainLoopEvent();
-
-		while (lag >= MS_PER_UPDATE) {
-			update();
-			lag -= MS_PER_UPDATE;
-		}
-
-		draw();
 	}
+
+	glutDestroyWindow(m_window);
+
+	release();
 }
 
+/**
+ * @breif アプリケーションを閉じる
+ *
+ * @param なし
+ *
+ * @return なし
+ *
+ */
+void App::close()
+{
+	m_running = false;
+}
+
+/**
+ * @breif 初期化の結果をコンソールに表示する
+ *
+ * @param[in] _result	初期化の結果
+ * @param[in] _str		表示する文字列
+ *
+ * @return 成功: true 失敗: false
+ *
+ */
 bool App::printInit(int _result, const char* _str)
 {
 	return printInit(_result == 0 ? true : false, _str);
 }
 
+/**
+ * @breif 初期化の結果をコンソールに表示する
+ *
+ * @param[in] _result	初期化の結果
+ * @param[in] _str		表示する文字列
+ *
+ * @return 成功: true 失敗: false
+ *
+ */
 bool App::printInit(bool _result, const char* _str)
 {
 	printf("[");
