@@ -64,6 +64,12 @@
     <Filter Include="ソース ファイル\common">
       <UniqueIdentifier>{fc9f9601-9272-4a86-a2a4-ef1c9d02a156}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\util">
+      <UniqueIdentifier>{61f5f5be-d32c-4385-ada6-3ee54bc024e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\util">
+      <UniqueIdentifier>{caf7fe11-712b-477d-af42-61f1a2a22cbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,8 +234,11 @@
     <ClCompile Include="world\CourseLoader.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
-    <ClCompile Include="common\timer.cpp">
-      <Filter>ソース ファイル\common</Filter>
+    <ClCompile Include="util\tinyxml2.cpp">
+      <Filter>ソース ファイル\util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\timer.cpp">
+      <Filter>ソース ファイル\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -434,8 +443,11 @@
     <ClInclude Include="common\Subject.h">
       <Filter>ヘッダー ファイル\common</Filter>
     </ClInclude>
-    <ClInclude Include="common\timer.h">
-      <Filter>ヘッダー ファイル\common</Filter>
+    <ClInclude Include="util\tinyxml2.h">
+      <Filter>ヘッダー ファイル\util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\timer.h">
+      <Filter>ヘッダー ファイル\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
