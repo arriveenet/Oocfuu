@@ -1,44 +1,110 @@
 #include "CourseLoader.h"
+#include <iostream>
+#include <cstdlib>
 
+using namespace tinyxml2;
 
+/**
+ * @brief コンストラクタ
+ * 
+ */
 CourseLoader::CourseLoader()
 {
-	// COMの初期化処理
-	HRESULT result = CoInitialize(NULL);
 }
 
+/**
+ * @brief デストラクタ
+ *
+ */
 CourseLoader::~CourseLoader()
 {
-	// COMの終了処理
-	//CoUninitialize();
+
 }
 
+/**
+ * @brief コースローダーのインスタンスを取得
+ * 
+ * @param なし
+ * 
+ * @return コースローダーのポインタ
+ *
+ */
 CourseLoader* CourseLoader::create()
 {
 	static CourseLoader instance;
 	return &instance;
 }
 
-bool CourseLoader::initialize(const char* pFileName)
+/**
+ * @brief コースローダーを初期化
+ *
+ * @param[in] _pFileName	ファイル名
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::initialize(const char* _pFileName)
 {
-	MSXML2::IXMLDOMNodeList* nodeList = nullptr;
+	// ファイル名のポインタがNULLか確認する
+	if (!_pFileName)
+		return false;
 
-	m_pDocument.CreateInstance("Msxml2.DOMDocument.6.0");
+	// ファイルを読み込む
+	XMLError error =  m_document.LoadFile(_pFileName);
 
-	_variant_t xmlSource(pFileName);
-	VARIANT_BOOL isSuccessful((bool)TRUE);
-	
-	HRESULT hResult = m_pDocument->load(xmlSource, &isSuccessful);
+	// ファイル読み込み成功確認
+	if (error != XML_SUCCESS)
+		return false;
 
-	BSTR tagName = ::SysAllocString(L"catalog");
+	// ルート要素を取得
+	m_pRootElement = m_document.FirstChildElement();
 
-	hResult = m_pDocument->getElementsByTagName(tagName, &nodeList);
+	// ルート要素がNULLか確認する
+	if (!m_pRootElement)
+		return false;
 
-	long a;
-	nodeList->get_length(&a);
+	return true;
+}
+
+/**
+ * @brief コースを読み込む
+ *
+ * @param[in] _pCourse	コースクラスのポインタ
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::load(Course* _pCourse)
+{
+
+	XMLElement* headerElement = m_pRootElement->FirstChildElement("header");
+
+	XMLElement* infoElement = headerElement->FirstChildElement();
+
+	const char* attribute = infoElement->Attribute("width");
+	_pCourse->m_width = std::atoi(attribute);
+
+	attribute = infoElement->Attribute("height");
+	_pCourse->m_height = std::atoi(attribute);
+
+	XMLElement* dataElement = m_pRootElement->FirstChildElement("data");
+
+	if (!parseCourse(dataElement->GetText()))
+		return false;
 
 
-	::SysFreeString(tagName);
+	return true;
+}
 
+/**
+ * @brief コースのパーツを解析する
+ *
+ * @param[in] _pData	コースクラスのポインタ
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::parseCourse(const char* _pData)
+{
 	return true;
 }

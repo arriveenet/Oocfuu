@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "Game.h"
 #include "EnemyManager.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 
 using namespace glm;
 using std::vector;

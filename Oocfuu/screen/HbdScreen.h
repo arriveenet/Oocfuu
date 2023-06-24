@@ -1,6 +1,6 @@
 #pragma once
 #include "Screen.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 
 class HbdScreen :
 	public Screen

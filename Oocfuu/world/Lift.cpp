@@ -2,7 +2,7 @@
 
 #include "App.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "TextureManager.h"
 
 #include <glm/glm.hpp>

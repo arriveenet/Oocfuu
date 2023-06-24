@@ -1,6 +1,6 @@
 #include "KuriboStates.h"
 #include "Game.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "world/CourseEffect.h"
 #include "sound/Sound.h"
 #include <glm/glm.hpp>

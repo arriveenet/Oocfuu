@@ -2,7 +2,7 @@
 #include "App.h"
 #include "player/Player.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "animation/Animation.h"
 #include "sound/Sound.h"
 

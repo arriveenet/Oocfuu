@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "player/Player.h"
 
 #include <cmath>

@@ -216,6 +216,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="world\Course.cpp" />
     <ClCompile Include="world\CourseEffect.cpp" />
     <ClCompile Include="world\CourseLoader.cpp" />
+    <ClCompile Include="world\CourseManager.cpp" />
     <ClCompile Include="world\Firebar.cpp" />
     <ClCompile Include="world\Firework.cpp" />
     <ClCompile Include="world\GimmickPart.cpp" />
@@ -287,6 +288,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="world\Course.h" />
     <ClInclude Include="world\CourseEffect.h" />
     <ClInclude Include="world\CourseLoader.h" />
+    <ClInclude Include="world\CourseManager.h" />
     <ClInclude Include="world\Firebar.h" />
     <ClInclude Include="world\Firework.h" />
     <ClInclude Include="world\GimmickPart.h" />

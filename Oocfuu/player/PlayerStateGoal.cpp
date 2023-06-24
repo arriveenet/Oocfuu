@@ -1,7 +1,7 @@
 #include "PlayerStateGoal.h"
 #include "sound/Sound.h"
 #include "animation/Animation.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "world/CourseEffect.h"
 #include "world/Part.h"
 

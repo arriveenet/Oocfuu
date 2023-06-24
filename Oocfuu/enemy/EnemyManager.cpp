@@ -1,6 +1,6 @@
 #include "EnemyManager.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "common/font.h"
 
 using namespace glm;

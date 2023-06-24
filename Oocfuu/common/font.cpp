@@ -1,6 +1,6 @@
 #include "font.h"
 #include "App.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "TextureManager.h"
 
 #include <stdio.h>

@@ -1,6 +1,6 @@
 #include "PlayerStateDie.h"
 #include "Game.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "App.h"
 #include "sound/Sound.h"
 

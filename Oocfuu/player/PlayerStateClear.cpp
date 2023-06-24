@@ -1,7 +1,7 @@
 #include "PlayerStateClear.h"
 #include "App.h"
 #include "animation/Animation.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "world/Part.h"
 #include "enemy/EnemyManager.h"
 #include "sound/Sound.h"

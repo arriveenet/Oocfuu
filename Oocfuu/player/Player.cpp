@@ -11,7 +11,7 @@
 #include "common/font.h"
 #include "enemy/EnemyManager.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "world/GimmickPart.h"
 #include "input/Keyboard.h"
 #include "input//Mouse.h"

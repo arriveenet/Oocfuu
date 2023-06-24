@@ -6,7 +6,7 @@
 //#include "../Firework.h"
 #include "TextureManager.h"
 #include "player/Player.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "common/FrameCounter.h"
 
 #include <freeglut.h>

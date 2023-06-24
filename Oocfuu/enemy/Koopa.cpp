@@ -1,6 +1,6 @@
 #include "Koopa.h"
 #include "KoopaStates.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "world/Part.h"
 #include "common/font.h"
 #include "player/Player.h"

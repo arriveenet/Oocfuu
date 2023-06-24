@@ -9,7 +9,7 @@
 #include "input/Keyboard.h"
 #include "TextureManager.h"
 #include "Player/Player.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 
 #include <freeglut.h> 
 

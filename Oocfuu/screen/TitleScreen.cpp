@@ -7,7 +7,7 @@
 #include "input/Keyboard.h"
 #include "common/font.h"
 #include "Player/Player.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "TextureManager.h"
 
 using namespace glm;

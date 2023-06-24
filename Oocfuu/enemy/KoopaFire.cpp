@@ -2,7 +2,7 @@
 
 #include "Game.h"
 #include "sound/Sound.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "common/common.h"
 
 

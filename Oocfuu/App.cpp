@@ -4,7 +4,7 @@
 #include "common/font.h"
 #include "common/FrameCounter.h"
 #include "world/Part.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "TextureManager.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
@@ -53,39 +53,53 @@ App::~App()
  */
 bool App::init()
 {
+	// 乱数をシードを設定
 	srand((unsigned int)time(NULL));
 
+	// サウンドのインスタンスを取得
 	g_pSound = Sound::getInstance();
 
+	// タイマーを初期化
 	if (!printInit(timerInit(), "Timer init"))
 		return false;
 
+	// フォントを初期化
 	if (!printInit(fontInit(), "Font init"))
 		return false;
 
+	// サウンドを初期化
 	if (!printInit(g_pSound->init(), "Sound init"))
 		return false;
 
+	// オーディオを初期化
 	if (!printInit(audioInit(), "Audio init"))
 		return false;
 
+	// ゲームを初期化
 	if (!printInit(g_game.init(), "Game init"))
 		return false;
 
+	// テクスチャマネージャーを初期化
 	if (!printInit(g_textureManager.init(), "Texture initAll"))
 		return false;
 
+	// パーツマネージャーを初期化
 	if (!printInit(g_partManager.init(), "Part init"))
 		return false;
 
+	// アニメーションを初期化
 	if (!printInit(g_animations->initAll(), "Animation init"))
 		return false;
 
+	// ミュージックを初期化
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
+	Course course;
+
 	CourseLoader* pLoader = CourseLoader::create();
-	pLoader->initialize("book.xml");
+	pLoader->initialize("resource\\course\\course.xml");
+	pLoader->load(&course);
 
 	return true;
 }
@@ -120,7 +134,7 @@ void App::release()
  */
 void App::update()
 {
-	// オーディをを更新
+	// オーディオを更新
 	audioUpdate();
 	Keyboard::begin();
 
@@ -190,7 +204,7 @@ void App::run()
 		update();
 		draw();
 
-		DWORD sleepTime = start + MS_PER_UPDATE - getTime();
+		DWORD sleepTime = static_cast<DWORD>(start + MS_PER_UPDATE - getTime());
 		Sleep(sleepTime);
 
 		glutMainLoopEvent();

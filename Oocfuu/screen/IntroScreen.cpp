@@ -3,7 +3,7 @@
 #include "App.h"
 #include "Game.h"
 #include "common/font.h"
-#include "world/Course.h"
+#include "world/CourseManager.h"
 #include "Rect.h"
 #include "TextureManager.h"
 #include "input/Keyboard.h"

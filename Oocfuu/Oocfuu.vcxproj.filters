@@ -240,6 +240,9 @@
     <ClCompile Include="util\timer.cpp">
       <Filter>ソース ファイル\util</Filter>
     </ClCompile>
+    <ClCompile Include="world\CourseManager.cpp">
+      <Filter>ソース ファイル\world</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="util\timer.h">
       <Filter>ヘッダー ファイル\util</Filter>
+    </ClInclude>
+    <ClInclude Include="world\CourseManager.h">
+      <Filter>ヘッダー ファイル\world</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
