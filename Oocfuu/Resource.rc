@@ -48,7 +48,7 @@ END
 
 #endif    // 日本語 (日本) リソース
 /////////////////////////////////////////////////////////////////////////////
-
+GLUT_ICON ICON DISCARDABLE "oocfuu.ico"
 
 
 #ifndef APSTUDIO_INVOKED
