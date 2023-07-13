@@ -25,6 +25,8 @@ public:
 	// デストラクタ
 	virtual ~Course();
 
+	void clear();
+
 	// コースの幅を取得
 	int getWidth() const noexcept;
 

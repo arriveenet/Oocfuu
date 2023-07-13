@@ -21,3 +21,13 @@ Course::Course()
 Course::~Course()
 {
 }
+
+void Course::clear()
+{
+	if (m_pParts) {
+		for (int i = 0; i < m_height; ++i) {
+			delete m_pParts[i];
+		}
+		delete[] m_pParts;
+	}
+}
