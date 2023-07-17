@@ -27,12 +27,6 @@ CourseManager g_courseManager;
 
 CourseManager::CourseManager()
 	: m_scroll(0.0f)
-	, m_width(0)
-	, m_height(0)
-	, m_clearColor(0)
-	, m_startPosition(0, 0)
-	, m_nextWorld{ 1, 1 }
-	, m_pParts(nullptr)
 	, m_isLoaded(false)
 	, m_hitBlockController()
 	, m_clearAex(PART_SIZE, PART_SIZE)
@@ -51,18 +45,15 @@ CourseManager::~CourseManager()
 
 void CourseManager::release()
 {
-	if (m_pParts && m_isLoaded) {
-		for (int i = 0; i < m_height; ++i) {
-			delete m_pParts[i];
-		}
-		delete[] m_pParts;
-		m_isLoaded = false;
-	}
+	//if (m_pParts && m_isLoaded) {
+	//	for (int i = 0; i < m_height; ++i) {
+	//		delete m_pParts[i];
+	//	}
+	//	delete[] m_pParts;
+	//	m_isLoaded = false;
+	//}
 
-	m_pParts = nullptr;
-
-	m_quads.clear();
-	m_quads.shrink_to_fit();
+	//m_pParts = nullptr;
 }
 
 void CourseManager::clear()
@@ -86,184 +77,184 @@ void CourseManager::clear()
 
 bool CourseManager::load(const char* _fileName)
 {
-	FILE* pFile;
-	errno_t error;
-	int width = 0, height = 0, color, startX, startY, nextWorld, nextStage;
+	//FILE* pFile;
+	//errno_t error;
+	//int width = 0, height = 0, color, startX, startY, nextWorld, nextStage;
 
-	error = fopen_s(&pFile, _fileName, "r");
-	if (error != 0) {
-		m_courseError = COURSE_FAILED_OPEN_FILE;
-		m_errorMsg = COURSE_ERROR_MSG_FAILED_OPEN_FILE;
-		m_errorMsg += _fileName;
-		return false;
-	}
+	//error = fopen_s(&pFile, _fileName, "r");
+	//if (error != 0) {
+	//	m_courseError = COURSE_FAILED_OPEN_FILE;
+	//	m_errorMsg = COURSE_ERROR_MSG_FAILED_OPEN_FILE;
+	//	m_errorMsg += _fileName;
+	//	return false;
+	//}
 
-	// コースファイルのヘッダを読み込む
-	fscanf_s(pFile, "width=%d height=%d color=%d startX=%d startY=%d nextWorld=%d nextStage=%d",
-		&width, &height, &color, &startX, &startY, &nextWorld, &nextStage);
+	//// コースファイルのヘッダを読み込む
+	//fscanf_s(pFile, "width=%d height=%d color=%d startX=%d startY=%d nextWorld=%d nextStage=%d",
+	//	&width, &height, &color, &startX, &startY, &nextWorld, &nextStage);
 
-	//printf("/---------------COURSE INFO----------------/\n");
-	//printf("width height : %d, %d\n", width, height);
-	//printf("clear color : %d, %d, %d\n", GetRValue(color), GetGValue(color), GetBValue(color));
-	//printf("start position : %d, %d\n", startX, startY);
-	//printf("next world : %d-%d\n", nextWorld, nextStage);
-	//printf("/-----------------------------------------/\n");
+	////printf("/---------------COURSE INFO----------------/\n");
+	////printf("width height : %d, %d\n", width, height);
+	////printf("clear color : %d, %d, %d\n", GetRValue(color), GetGValue(color), GetBValue(color));
+	////printf("start position : %d, %d\n", startX, startY);
+	////printf("next world : %d-%d\n", nextWorld, nextStage);
+	////printf("/-----------------------------------------/\n");
 
-	if (width <= 0 || height <= 0) {
-		m_courseError = COURSE_INVALID_SIZE;
-		m_errorMsg = COURSE_ERROR_MSG_INVALID_SIZE;
-		m_isLoaded = false;
-		return false;
-	}
+	//if (width <= 0 || height <= 0) {
+	//	m_courseError = COURSE_INVALID_SIZE;
+	//	m_errorMsg = COURSE_ERROR_MSG_INVALID_SIZE;
+	//	m_isLoaded = false;
+	//	return false;
+	//}
 
-	// すでにコースが読み込まれていた場合メモリを解放する
-	if (m_isLoaded && m_pParts) {
-		// メモリを解放する
-		release();
+	//// すでにコースが読み込まれていた場合メモリを解放する
+	//if (m_isLoaded && m_pParts) {
+	//	// メモリを解放する
+	//	release();
 
-		// コースをクリアする
-		clear();
-	}
+	//	// コースをクリアする
+	//	clear();
+	//}
 
-	// コースエフェクトマネージャー
-	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
+	//// コースエフェクトマネージャー
+	//CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
 
-	// メンバ変数に代入する
-	m_width = width;
-	m_height = height;
-	m_clearColor = color;
-	m_startPosition = ivec2(startX, startY);
-	m_nextWorld = { (unsigned char)nextWorld, (unsigned char)nextStage };
+	//// メンバ変数に代入する
+	//m_width = width;
+	//m_height = height;
+	//m_clearColor = color;
+	//m_startPosition = ivec2(startX, startY);
+	//m_nextWorld = { (unsigned char)nextWorld, (unsigned char)nextStage };
 
-	// メモリを確保
-	try {
-		m_pParts = new int* [m_height];
-		for (int i = 0; i < m_height; i++) {
-			m_pParts[i] = new int[m_width];
-		}
-	} catch (bad_alloc& ex) {
-		m_courseError = COURSE_OUT_OF_MEMORY;
-		m_errorMsg = COURSE_ERROR_MSG_OUT_OF_MEMORY;
-		m_errorMsg = ex.what();
-		m_isLoaded = false;
-		return false;
-	}
+	//// メモリを確保
+	//try {
+	//	m_pParts = new int* [m_height];
+	//	for (int i = 0; i < m_height; i++) {
+	//		m_pParts[i] = new int[m_width];
+	//	}
+	//} catch (bad_alloc& ex) {
+	//	m_courseError = COURSE_OUT_OF_MEMORY;
+	//	m_errorMsg = COURSE_ERROR_MSG_OUT_OF_MEMORY;
+	//	m_errorMsg = ex.what();
+	//	m_isLoaded = false;
+	//	return false;
+	//}
 
-	/*
-	* fscanf_sで読み込むとなぜかファイルポインタの位置がずれるので位置を調整する
-	*/
-	rewind(pFile);	// ファイルポインタを最初に戻す
-	char str[256];
-	fgets(str, sizeof str, pFile);	// 一行ファイルポインタを読み込む
+	///*
+	//* fscanf_sで読み込むとなぜかファイルポインタの位置がずれるので位置を調整する
+	//*/
+	//rewind(pFile);	// ファイルポインタを最初に戻す
+	//char str[256];
+	//fgets(str, sizeof str, pFile);	// 一行ファイルポインタを読み込む
 
-	for (int i = 0; i < m_height; i++) {
-		for (int j = 0; j < m_width; j++) {
-			char buf[2];
-			fread(buf, sizeof(char), 2, pFile);
-			//printf("[%d-%d] %c%c\n", i, j, buf[0], buf[1]);
-			if (buf[0] == 0x20) {
-				m_pParts[i][j] = PART_NONE;
-			} else {
-				bool validPart = false;	// 有効なパーツフラグ
-				for (int k = PART_NONE + 1; k < PART_MAX; k++) {
-					if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
-						validPart = true;
-						m_pParts[i][j] = k;
+	//for (int i = 0; i < m_height; i++) {
+	//	for (int j = 0; j < m_width; j++) {
+	//		char buf[2];
+	//		fread(buf, sizeof(char), 2, pFile);
+	//		//printf("[%d-%d] %c%c\n", i, j, buf[0], buf[1]);
+	//		if (buf[0] == 0x20) {
+	//			m_pParts[i][j] = PART_NONE;
+	//		} else {
+	//			bool validPart = false;	// 有効なパーツフラグ
+	//			for (int k = PART_NONE + 1; k < PART_MAX; k++) {
+	//				if (strncmp(buf, g_parts[k].m_fileName, 2) == 0) {
+	//					validPart = true;
+	//					m_pParts[i][j] = k;
 
-						switch (k) {
-						case PART_AXE_0:
-							m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
-							break;
-						case PART_BRIDGE:
-							m_bridgeController.add(j, i);
-							break;
-						case PART_CHAIN:
-							m_bridgeController.setChain(j, i);
-							break;
-						case PART_GOAL_TOP:
-							courseEffectMgr->setGoalFlag(vec2(j * PART_SIZE - 8, i * PART_SIZE + 17));
-							break;
-						default:
-							break;
-						}
+	//					switch (k) {
+	//					case PART_AXE_0:
+	//						m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
+	//						break;
+	//					case PART_BRIDGE:
+	//						m_bridgeController.add(j, i);
+	//						break;
+	//					case PART_CHAIN:
+	//						m_bridgeController.setChain(j, i);
+	//						break;
+	//					case PART_GOAL_TOP:
+	//						courseEffectMgr->setGoalFlag(vec2(j * PART_SIZE - 8, i * PART_SIZE + 17));
+	//						break;
+	//					default:
+	//						break;
+	//					}
 
-						break;
-					}
-				}
-				// 有効なパーツ判定
-				if (!validPart) {
-					m_courseError = COURSE_INVALID_VALUE;
-					m_errorMsg = COURSE_ERROR_MSG_INVALID_PARTS;
-					release();
-					return false;
-				}
-			}
-		}
-		fseek(pFile, 2, SEEK_CUR);
-	}
+	//					break;
+	//				}
+	//			}
+	//			// 有効なパーツ判定
+	//			if (!validPart) {
+	//				m_courseError = COURSE_INVALID_VALUE;
+	//				m_errorMsg = COURSE_ERROR_MSG_INVALID_PARTS;
+	//				release();
+	//				return false;
+	//			}
+	//		}
+	//	}
+	//	fseek(pFile, 2, SEEK_CUR);
+	//}
 
 
-	// ファイヤーバーの読み込み
-	int firebarCount = 0;
-	if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
-		//printf("firebaCount=%d\n", firebarCount);
-		for (int i = 0; i < firebarCount; i++) {
-			int x, y, rotate;
-			fscanf_s(pFile, "x=%d y=%d rotate=%d\n", &x, &y, &rotate);
-			//printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
-			g_gmmickPart.addFirebar(Firebar((float)x, (float)y, (FIREBAR_ROTATE)rotate));
-		}
-	}
+	//// ファイヤーバーの読み込み
+	//int firebarCount = 0;
+	//if (fscanf_s(pFile, "firebar=%d\n", &firebarCount) != EOF) {
+	//	//printf("firebaCount=%d\n", firebarCount);
+	//	for (int i = 0; i < firebarCount; i++) {
+	//		int x, y, rotate;
+	//		fscanf_s(pFile, "x=%d y=%d rotate=%d\n", &x, &y, &rotate);
+	//		//printf("Firebar: x=%d, y=%d, rotate=%d\n", x, y, rotate);
+	//		g_gmmickPart.addFirebar(Firebar((float)x, (float)y, (FIREBAR_ROTATE)rotate));
+	//	}
+	//}
 
-	// リフトの読み込み
-	int liftCount = 0;
-	if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
-		//printf("liftCount=%d\n", liftCount);
-		for (int i = 0; i < liftCount; i++) {
-			int x, y, lifWidth, mode;
-			fscanf_s(pFile, "x=%d y=%d width=%d mode=%d\n", &x, &y, &lifWidth, &mode);
-			//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
-			g_gmmickPart.addLift(Lift((float)x, (float)y, lifWidth, (LIFT_MOVEMENT)mode));
-		}
-	}
+	//// リフトの読み込み
+	//int liftCount = 0;
+	//if (fscanf_s(pFile, "lift=%d\n", &liftCount) != EOF) {
+	//	//printf("liftCount=%d\n", liftCount);
+	//	for (int i = 0; i < liftCount; i++) {
+	//		int x, y, lifWidth, mode;
+	//		fscanf_s(pFile, "x=%d y=%d width=%d mode=%d\n", &x, &y, &lifWidth, &mode);
+	//		//printf("lift: x=%d, y=%d, width=%d, mode=%d\n", x, y, width, mode);
+	//		g_gmmickPart.addLift(Lift((float)x, (float)y, lifWidth, (LIFT_MOVEMENT)mode));
+	//	}
+	//}
 
-	// 敵キャラクターの読み込み
-	int enemyCount = 0;
-	int enemyFlag = 0;
-	if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
-		//printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
-		g_enemyManager.m_enemyFlag = enemyFlag;
-		for (int i = 0; i < enemyCount; i++) {
-			int type, x, y;
-			fscanf_s(pFile, "type=%d x=%d y=%d\n", &type, &x, &y);
-			//printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
-			ENEMYINFO enemy;
-			enemy.type = (ENEMYTYPE)type;
-			enemy.position = ivec2(x, y);
-			g_enemyManager.addEnemy(enemy);
+	//// 敵キャラクターの読み込み
+	//int enemyCount = 0;
+	//int enemyFlag = 0;
+	//if (fscanf_s(pFile, "enemyCount=%d flag=%d\n", &enemyCount, &enemyFlag) != EOF) {
+	//	//printf("enemyCount=%d, enemyFlag=%d\n", enemyCount, enemyFlag);
+	//	g_enemyManager.m_enemyFlag = enemyFlag;
+	//	for (int i = 0; i < enemyCount; i++) {
+	//		int type, x, y;
+	//		fscanf_s(pFile, "type=%d x=%d y=%d\n", &type, &x, &y);
+	//		//printf("enemy: type=%d, x=%d, y=%d\n", type, x, y);
+	//		ENEMYINFO enemy;
+	//		enemy.type = (ENEMYTYPE)type;
+	//		enemy.position = ivec2(x, y);
+	//		g_enemyManager.addEnemy(enemy);
 
-			// クッパであれば範囲を設定する
-			if (enemy.type == ENEMYTYPE_KOOPA) {
-				g_enemyManager.setKoopaRange(m_bridgeController.getRange());
-			}
-		}
-	}
+	//		// クッパであれば範囲を設定する
+	//		if (enemy.type == ENEMYTYPE_KOOPA) {
+	//			g_enemyManager.setKoopaRange(m_bridgeController.getRange());
+	//		}
+	//	}
+	//}
 
-	// キノピオの読み込み
-	{
-		int x = 0; int y = 0;
-		if (fscanf_s(pFile, "kinopio x=%d y= %d", &x, &y) != EOF) {
-			m_kinopio.m_enable = true;
-			m_kinopio.m_position = { x, y };
-		}
-	}
+	//// キノピオの読み込み
+	//{
+	//	int x = 0; int y = 0;
+	//	if (fscanf_s(pFile, "kinopio x=%d y= %d", &x, &y) != EOF) {
+	//		m_kinopio.m_enable = true;
+	//		m_kinopio.m_position = { x, y };
+	//	}
+	//}
 
-	fclose(pFile);
+	//fclose(pFile);
 
-	m_isLoaded = true;
-	update();
+	//m_isLoaded = true;
+	//update();
 
-	m_courseError = COURSE_NO_ERROR;
+	//m_courseError = COURSE_NO_ERROR;
 	return true;
 }
 
@@ -288,90 +279,12 @@ void CourseManager::update()
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
 	courseEffectMgr->update();
 
-	int scrolleColumn = (int)m_scroll / PART_SIZE;
-	//printf("scrolleColumn=%d\n", scrolleColumn);
-	for (int y = 0; y < m_height; y++) {
-		for (int x = 0; x < m_width; x++) {
-			int part = m_pParts[y][x];
-			if (
-				(x < scrolleColumn)
-				|| (x > scrolleColumn + (SCREEN_WIDTH / PART_SIZE))
-				|| (part == PART_NONE)
-				)
-				continue;
-
-			int textureIndex = part;
-			switch (part) {
-			case PART_COIN_0:
-				m_coins.push_back(ivec2(x, y));
-			case PART_QUESTION0:
-			case PART_AXE_0:
-			{
-				int animationTable[] = { 0,1,2,2,1,0 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
-			}
-			break;
-			case PART_SEA_0:
-			{
-				int animationTable[] = { 0,1,2,3,4,5,6,7 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
-			}
-			break;
-			case PART_DESERT_1:
-			{
-				int animationTable[] = { 0,1,2,3,4,5,6,7 };
-				int animationTableLength = sizeof(animationTable) / sizeof(int);
-				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
-
-			}
-			break;
-			}
-
-			// パーツを追加する
-			float x2 = (float)x * PART_SIZE;
-			float y2 = (float)y * PART_SIZE;
-			QUAD quad = {};
-			const vec2 positions[4] =
-			{
-				{ x2, y2 },
-				{ x2, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 },
-			};
-			vec2* texCoords = g_partManager.getTexCoords(textureIndex);
-
-			for (int i = 0; i < 4; i++) {
-				quad.vertices[i].position = positions[i];
-				quad.vertices[i].texCoord = texCoords[i];
-			}
-			m_quads.push_back(quad);
-		}
-	}
+	m_currentCourse.update();
 }
 
 void CourseManager::draw()
 {
-	if (m_quads.empty() || !m_isLoaded)
-		return;
-
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glVertexPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].position);
-	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].texCoord);
-
-	g_textureManager.setTexture(TEXTURE_PARTS);
-	glDrawArrays(GL_QUADS, 0, GLsizei(m_quads.size() * 4));
-	g_textureManager.unbindTexture();
-
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisable(GL_CULL_FACE);
+	m_currentCourse.draw();
 
 	// ブロックを叩いたときのコインを描画
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
@@ -383,7 +296,7 @@ void CourseManager::draw()
 
 bool CourseManager::isScrollMax()
 {
-	if (m_scroll >= ((m_width * PART_SIZE) - SCREEN_WIDTH)) {
+	if (m_scroll >= ((m_currentCourse.getWidth() * PART_SIZE) - SCREEN_WIDTH)) {
 		return true;
 	}
 
@@ -394,26 +307,26 @@ void CourseManager::setParts(ivec2 const& _point, int _parts)
 {
 	if (
 		(_point.x < 0)
-		|| (_point.x >= m_width)
+		|| (_point.x >= m_currentCourse.getWidth())
 		|| (_point.y < 0)
-		|| (_point.y >= m_height)
+		|| (_point.y >= m_currentCourse.getHeight())
 		)
 		return;
 
-	m_pParts[_point.y][_point.x] = _parts;
+	m_currentCourse.m_pParts[_point.y][_point.x] = _parts;
 }
 
 int CourseManager::getParts(int _x, int _y)
 {
 	if (
 		(_x < 0)
-		|| (_x >= m_width)
+		|| (_x >= m_currentCourse.getWidth())
 		|| (_y < 0)
-		|| (_y >= m_height)
+		|| (_y >= m_currentCourse.getHeight())
 		)
 		return PART_NONE;
 
-	return m_pParts[_y][_x];
+	return m_currentCourse.m_pParts[_y][_x];
 }
 
 int CourseManager::getParts(glm::vec2 const& _point)
@@ -421,13 +334,13 @@ int CourseManager::getParts(glm::vec2 const& _point)
 	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
 	if (
 		(cellPoint.x < 0)
-		|| (cellPoint.x >= m_width)
+		|| (cellPoint.x >= m_currentCourse.getWidth())
 		|| (cellPoint.y < 0)
-		|| (cellPoint.y >= m_height)
+		|| (cellPoint.y >= m_currentCourse.getHeight())
 		)
 		return PART_NONE;
 
-	return m_pParts[cellPoint.y][cellPoint.x];
+	return m_currentCourse.m_pParts[cellPoint.y][cellPoint.x];
 }
 
 bool CourseManager::intersect(vec2 const& _point)
@@ -435,13 +348,13 @@ bool CourseManager::intersect(vec2 const& _point)
 	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
 	if (
 		(cellPoint.x < 0)
-		|| (cellPoint.x >= m_width)
+		|| (cellPoint.x >= m_currentCourse.m_width)
 		|| (cellPoint.y < 0)
-		|| (cellPoint.y >= m_height)
+		|| (cellPoint.y >= m_currentCourse.m_height)
 		)
 		return false;
 
-	switch (m_pParts[cellPoint.y][cellPoint.x]) {
+	switch (m_currentCourse.m_pParts[cellPoint.y][cellPoint.x]) {
 	case PART_GROUND:
 	case PART_HARD_BLOCK:
 	case PART_SOFT_BLOCK:
@@ -539,4 +452,9 @@ bool CourseManager::isInScreen(const Rect& _rect)
 	}
 
 	return false;
+}
+
+void CourseManager::import(Course* pCourse)
+{
+	m_currentCourse = *pCourse;
 }

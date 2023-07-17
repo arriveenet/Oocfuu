@@ -17,12 +17,14 @@ enum ENEMYTYPE {
 };
 
 typedef struct tagENEMY {
-	unsigned char id;	// 敵の種類
-	unsigned short x;	// 敵のX座標
-	unsigned short y;	// 敵のY座標
+	unsigned char id;	//!< 敵の種類
+	unsigned short x;	//!< 敵のX座標
+	unsigned short y;	//!< 敵のY座標
 } ENEMY;
 
-// 敵の抽象クラス
+/**
+ * @brief 敵キャラクターの抽象クラス
+ */
 class Enemy : public Rect, Entity{
 public:
 	// コンストラクタ
@@ -66,59 +68,81 @@ protected:
 	void turnRight();
 
 protected:
-	bool		m_dead;				// 死亡フラグ
-	bool		m_visible;			// 描画フラグ
-	bool		m_falling;			// 落下フラグ
-	glm::vec2	m_speed;			// スピード
-	glm::vec2	m_leftPoint;		// 左のポイント
-	glm::vec2	m_rightPoint;		// 右のポイント
-	glm::vec2	m_bottomPoints[ENEMY_BOTTOM_COUNT];	// 下のポイント
-	AnimationController m_animationController;		// アニメーションコントローラー
+	bool		m_dead;				//!< 死亡フラグ
+	bool		m_visible;			//!< 描画フラグ
+	bool		m_falling;			//!< 落下フラグ
+	glm::vec2	m_speed;			//!< スピード
+	glm::vec2	m_leftPoint;		//!< 左のポイント
+	glm::vec2	m_rightPoint;		//!< 右のポイント
+	glm::vec2	m_bottomPoints[ENEMY_BOTTOM_COUNT];	//!< 下のポイント
+	AnimationController m_animationController;		//!< アニメーションコントローラー
 };
 
 /**
-* X軸のスピードを反転する
-*/
+ * @brief X軸のスピードを反転する
+ * 
+ * @param なし
+ * 
+ * @return なし
+ * 
+ */
 inline void Enemy::turn()
 {
 	m_speed.x = -m_speed.x;
 }
 
 /**
-* 敵キャラクターをキルする
-*/
+ * @brief 敵キャラクターをキルする
+ * 
+ * @param なし
+ * 
+ * @return なし
+ * 
+ */
 inline void Enemy::kill()
 {
 	m_dead = true;
 }
 
 /**
-* 敵キャラクターが死んでいるか
-*/
+ * @brief 敵キャラクターが死んでいるか
+ * 
+ */
 inline bool Enemy::isDead()
 {
 	return m_dead;
 }
 
 /**
-* 敵キャラクターが生きているか
-*/
+ * @brief 敵キャラクターが生きているか
+ *
+ */
 inline bool Enemy::isAlive()
 {
 	return !m_dead;
 }
 
 /**
-* 敵キャラクターを描画するか
-*/
+ * @brief 敵キャラクターを描画するか
+ * 
+ * @param なし
+ * 
+ * @return true:描画する、false:描画しない
+ * 
+ */
 inline bool Enemy::isVisble()
 {
 	return m_visible;
 }
 
 /**
-* 左に向く
-*/
+ * @brief 左に向く
+ * 
+ * @param なし
+ * 
+ * @return なし
+ * 
+ */
 inline void Enemy::turnLeft()
 {
 	m_flip = RECT_FLIP_NONE;
@@ -126,8 +150,13 @@ inline void Enemy::turnLeft()
 }
 
 /**
-* 右に向く
-*/
+ * @brief 右に向く
+ * 
+ * @param なし
+ *
+ * @return なし
+ * 
+ */
 inline void Enemy::turnRight()
 {
 	m_flip = RECT_FLIP_HORIZONTAL;

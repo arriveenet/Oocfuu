@@ -1,12 +1,12 @@
 #pragma once
+#include "Game.h"
+#include "common/common.h"
+
 #include <Windows.h>
 #include <glm/glm.hpp>
-#include "Game.h"
-#include "CourseManager.h"
-#include "CourseLoader.h"
 
 /**
- * @breif コースクラス
+ * @brief コースクラス
  * 
  */
 class Course {
@@ -16,7 +16,9 @@ public:
 	int**		m_pParts;			//!< パーツの2次元配列
 	COLORREF	m_clearColor;		//!< 背景色
 	glm::vec2	m_startPosition;	//!< プレイヤーのスタート位置
-	WORLD		m_nexstWorld;		//!< 次のワールド
+	WORLD		m_nextWorld;		//!< 次のワールド
+	bool		m_isLoaded;			// コース読み込みフラグ
+	std::vector<QUAD> m_quads;		// コースパーツの矩形
 
 
 	// コンストラクタ
@@ -25,7 +27,17 @@ public:
 	// デストラクタ
 	virtual ~Course();
 
-	void clear();
+	// コースをクリア
+	void create();
+
+	// コースを破棄
+	void destroy();
+
+	// コースを更新
+	void update();
+
+	// コースを描画
+	void draw();
 
 	// コースの幅を取得
 	int getWidth() const noexcept;
@@ -33,6 +45,7 @@ public:
 	// コースの高さを取得
 	int getHeight() const noexcept;
 
+	// パーツのアドレスを取得
 	int** getParts() const noexcept;
 };
 

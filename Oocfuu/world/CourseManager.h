@@ -5,6 +5,7 @@
 #include "BridgeController.h"
 #include "Kinopio.h"
 #include "common/common.h"
+#include "Course.h"
 
 #include <gl/glut.h>
 #include <glm/glm.hpp>
@@ -22,19 +23,12 @@ enum COURSE_ERROR {
 	COURSE_OUT_OF_MEMORY,		// コースデータを読み込むメモリが残っていない
 };
 
-
 /**
 * コース管理クラス
 */
 class CourseManager {
 private:
-	int						m_width;				// コースの幅
-	int						m_height;				// コースの高さ
 	float					m_scroll;				// スクロール位置
-	COLORREF				m_clearColor;			// 背景色
-	glm::ivec2				m_startPosition;		// プレイヤーのスタート位置
-	WORLD					m_nextWorld;			// 次のワールド
-	int**					m_pParts;				// コースパーツ
 	bool					m_isLoaded;				// コース読み込みフラグ
 	std::vector<QUAD>		m_quads;				// コースパーツの矩形
 	std::vector<glm::ivec2>	m_coins;				// コインの位置
@@ -44,6 +38,7 @@ private:
 	Kinopio					m_kinopio;				// キノピオ
 	COURSE_ERROR			m_courseError;			// コースエラー
 	std::string				m_errorMsg;				// エラーメッセージ
+	Course					m_currentCourse;
 
 public:
 	// コンストラクタ
@@ -102,22 +97,22 @@ public:
 	{
 		// ボスステージの場合幅を縮める
 		if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
-			return m_width - 17;
+			return m_currentCourse.m_width - 17;
 		}
-		return m_width;
+		return m_currentCourse.m_width;
 	};
 
 	// コースの高さを取得
-	int getHeight() const { return m_height; };
+	int getHeight() const { return m_currentCourse.m_height; };
 
 	// 背景色を取得する
-	COLORREF getClearColor() const { return m_clearColor; };
+	COLORREF getClearColor() const { return m_currentCourse.m_clearColor; };
 
 	// プレイヤーのスタート位置を取得
-	glm::ivec2 getStartPosition() const { return m_startPosition; };
+	glm::ivec2 getStartPosition() const { return m_currentCourse.m_startPosition; };
 
 	// 次のワールドを取得
-	WORLD getNextWorld() const { return m_nextWorld; };
+	WORLD getNextWorld() const { return m_currentCourse.m_nextWorld; };
 
 	// クリア斧と当たっているか
 	bool getClearAex(Rect& _rect);
@@ -152,6 +147,8 @@ public:
 		//cout << "m_errorMsg=" << m_errorMsg << endl;
 		return m_errorMsg;
 	};
+
+	void import(Course* pCourse);
 };
 
 extern CourseManager g_courseManager;

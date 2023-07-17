@@ -95,12 +95,6 @@ bool App::init()
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
-	Course course;
-
-	CourseLoader* pLoader = CourseLoader::create();
-	pLoader->initialize("resource\\course\\course.xml");
-	pLoader->load(&course);
-
 	return true;
 }
 

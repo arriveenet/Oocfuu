@@ -1,5 +1,5 @@
 #include "HitBlockController.h"
-#include "Course.h"
+#include "CourseManager.h"
 #include "CourseEffect.h"
 #include "sound/Sound.h"
 

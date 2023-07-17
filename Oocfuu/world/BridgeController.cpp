@@ -1,7 +1,7 @@
 #include "BridgeController.h"
 #include "Game.h"
 #include "Part.h"
-#include "Course.h"
+#include "CourseManager.h"
 #include "TextureManager.h"
 #include "sound/Sound.h"
 
