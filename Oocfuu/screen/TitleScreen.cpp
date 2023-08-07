@@ -7,6 +7,7 @@
 #include "input/Keyboard.h"
 #include "common/font.h"
 #include "Player/Player.h"
+#include "world/CourseLoader.h"
 #include "world/CourseManager.h"
 #include "TextureManager.h"
 
@@ -32,7 +33,13 @@ TitleScreen::TitleScreen()
 
 void TitleScreen::init()
 {
-	g_courseManager.load("resource\\course\\course1-1.txt");
+	Course course;
+
+	// コースを読み込む
+	CourseLoader* pLoader = CourseLoader::create(&g_courseManager);
+	pLoader->initialize("resource\\course\\course1-1.xml");
+	pLoader->load(&course);
+
 	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
 }
 
@@ -40,8 +47,14 @@ void TitleScreen::reset()
 {
 	m_command.clear();
 	g_game.m_timer.setVisible(false);
-	glClearColor({ 92 / 255.f }, { 148 / 255.f }, { 252 / 255.f }, { 1 });
-	g_courseManager.load("resource\\course\\course1-1.txt");
+
+	Course course;
+
+	// コースを読み込む
+	CourseLoader* pLoader = CourseLoader::create(&g_courseManager);
+	pLoader->initialize("resource\\course\\course1-1.xml");
+	pLoader->load(&course);
+
 	g_courseManager.setScroll(0.0f);
 	g_player.reset();
 	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);

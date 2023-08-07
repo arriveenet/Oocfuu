@@ -17,8 +17,9 @@ public:
 	COLORREF	m_clearColor;		//!< 背景色
 	glm::vec2	m_startPosition;	//!< プレイヤーのスタート位置
 	WORLD		m_nextWorld;		//!< 次のワールド
-	bool		m_isLoaded;			// コース読み込みフラグ
-	std::vector<QUAD> m_quads;		// コースパーツの矩形
+	bool		m_isLoaded;			//!< コース読み込みフラグ
+	std::vector<QUAD> m_quads;		//!< コースパーツの矩形
+	QUAD m_hitBlock;				//!< ヒットブロック
 
 
 	// コンストラクタ

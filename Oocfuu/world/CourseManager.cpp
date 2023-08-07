@@ -260,9 +260,6 @@ bool CourseManager::load(const char* _fileName)
 
 void CourseManager::update()
 {
-	if (!m_isLoaded)
-		return;
-
 	m_quads.clear();
 	m_coins.clear();
 

@@ -10,7 +10,7 @@ static const char hitBlockTable[] = { -1, -2, -1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 
 constexpr int HIT_BLOCK_TABLE_SIZE = sizeof(hitBlockTable) / sizeof(char);
 
 /** コンストラクタ
-*/
+ */
 HitBlockController::HitBlockController()
 	: m_count(0)
 	, m_part(PART_NONE)
@@ -23,16 +23,16 @@ HitBlockController::HitBlockController()
 }
 
 /** デストラクタ
-*/
+ */
 HitBlockController::~HitBlockController()
 {
 }
 
 /** ヒットブロック更新をスタート
-*	@param	コースの位置
-*	@param	更新するパーツ
-*	@param	更新後のパーツ
-*/
+ *	@param	コースの位置
+ *	@param	更新するパーツ
+ *	@param	更新後のパーツ
+ */
 void HitBlockController::start(const glm::ivec2& _point, const PART& _part, const PART& _endPart)
 {
 	m_point = _point;
@@ -68,9 +68,9 @@ void HitBlockController::start(const glm::ivec2& _point, const PART& _part, cons
 }
 
 /** パーツを更新
-*	@param	更新された矩形
-*	@return	更新フラグ
-*/
+ *	@param	更新された矩形
+ *	@return	更新フラグ
+ */
 bool HitBlockController::update(QUAD& _quad)
 {
 	if (m_updated)

@@ -42,8 +42,13 @@ void IntroScreen::update()
 		{
 			Course course;
 
+			// コースのファイル名を設定
+			char filePath[64];
+			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", g_game.m_world.world, g_game.m_world.stage);
+
+			// コースを読み込む
 			CourseLoader* pLoader = CourseLoader::create(&g_courseManager);
-			pLoader->initialize("resource\\course\\course.xml");
+			pLoader->initialize(filePath);
 			pLoader->load(&course);
 
 			g_courseManager.setScroll(0.0f);
