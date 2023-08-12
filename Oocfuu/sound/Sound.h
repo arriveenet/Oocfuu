@@ -27,9 +27,9 @@ class Sound {
 
 	Sound();
 	Sound(const Sound& _sound);
-	~Sound();
 
 public:
+	virtual ~Sound();
 	static Sound* getInstance();
 
 	bool init();

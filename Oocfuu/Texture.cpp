@@ -157,7 +157,7 @@ int Texture::createTexImage(const unsigned char* _colorKey)
 
 			// Add Alpha channel
 			m_pixels[index + 3] = ((_colorKey != nullptr)
-				&& (m_pixels[index] == _colorKey[0])	// r
+				&& (m_pixels[index] == _colorKey[0])		// r
 				&& (m_pixels[index + 1] == _colorKey[1])	// g
 				&& (m_pixels[index + 2] == _colorKey[2]))	// b
 				? 0x00

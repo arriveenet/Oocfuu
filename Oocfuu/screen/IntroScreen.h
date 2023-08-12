@@ -8,10 +8,12 @@ enum INTRO {
 };
 
 class IntroScreen : public Screen {
-	int m_counter = 0;
-	INTRO m_intro = INTRO_LOAD;
+	int m_counter;
+	INTRO m_intro;
 
 public:
+	IntroScreen();
+
 	void init() override;
 	void reset() override;
 	void update() override;

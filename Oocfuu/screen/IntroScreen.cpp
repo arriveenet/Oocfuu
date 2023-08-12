@@ -15,10 +15,14 @@
 
 using namespace glm;
 
+IntroScreen::IntroScreen()
+	: m_counter(0)
+	, m_intro(INTRO_LOAD)
+{
+}
+
 void IntroScreen::init()
 {
-	m_counter = 0;
-	m_intro = INTRO_LOAD;
 }
 
 void IntroScreen::reset()
