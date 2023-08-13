@@ -112,6 +112,7 @@ void Course::destroy()
  */
 void Course::update()
 {
+
 }
 
 /**

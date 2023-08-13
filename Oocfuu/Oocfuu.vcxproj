@@ -132,12 +132,13 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\diceke\source\repos\Oocfuu\third_party\libpng\include;$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)third_party\freeglut\libs;$(SolutionDir)third_party\OpenAL 1.1 SDK\libs\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)third_party\libpng\lib;$(SolutionDir)third_party\freeglut\libs;$(SolutionDir)third_party\OpenAL 1.1 SDK\libs\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "resource" "$(OutDir)"
@@ -152,14 +153,15 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglutd.dll" "$(OutDir)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\diceke\source\repos\Oocfuu\third_party\libpng\include;$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)third_party\freeglut\libs;$(SolutionDir)third_party\OpenAL 1.1 SDK\libs\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)third_party\libpng\lib;$(SolutionDir)third_party\freeglut\libs;$(SolutionDir)third_party\OpenAL 1.1 SDK\libs\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "resource" "$(OutDir)"
@@ -210,6 +212,8 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="util\Image.cpp" />
+    <ClCompile Include="util\PngImage.cpp" />
     <ClCompile Include="util\timer.cpp" />
     <ClCompile Include="util\tinyxml2.cpp" />
     <ClCompile Include="world\BridgeController.cpp" />
@@ -282,6 +286,8 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="util\Image.h" />
+    <ClInclude Include="util\PngImage.h" />
     <ClInclude Include="util\timer.h" />
     <ClInclude Include="util\tinyxml2.h" />
     <ClInclude Include="world\BridgeController.h" />

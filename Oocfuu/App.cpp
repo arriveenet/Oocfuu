@@ -15,8 +15,7 @@
 #include "animation\Animation.h"
 #include "animation\AnimationController.h"
 #include "Player/Player.h"
-
-#include "world/CourseLoader.h"
+#include "util/PngImage.h"
 
 #include <stdio.h>
 #include <gl/freeglut.h>
@@ -25,6 +24,7 @@
 
 App g_app;
 extern glm::ivec2 windowSize;
+GLuint texid;
 
 /**
  * @breif コンストラクタ
@@ -94,6 +94,38 @@ bool App::init()
 	// ミュージックを初期化
 	if (!printInit(g_music.init(), "Music init"))
 		return false;
+
+	glGenTextures(1, &texid);
+	glBindTexture(
+		GL_TEXTURE_2D,	// GLenum target
+		texid);			// GLuint texture
+
+	PngImage png;
+	png.load("resource\\textures\\pngtest.png");
+
+	glTexImage2D(
+		GL_TEXTURE_2D,		// GLenum target
+		0,					// GLint level
+		GL_RGBA,			// GLint internalformat
+		png.m_width,		// GLsizei width
+		png.m_height,	// GLsizei height
+		0,					// GLint border
+		GL_RGBA,			// GLenum format
+		GL_UNSIGNED_BYTE,	// GLenum type
+		png.m_pData);	// const GLvoid *pixels
+	glTexParameteri(
+		GL_TEXTURE_2D,			// GLenum target
+		GL_TEXTURE_MAG_FILTER,	// GLenum pname
+		GL_NEAREST);			// GLint param
+	glTexParameteri(
+		GL_TEXTURE_2D,			// GLenum target
+		GL_TEXTURE_MIN_FILTER,	// GLenum pname
+		GL_NEAREST);			// GLint param
+	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(
+		GL_TEXTURE_2D,	// GLenum target
+		0);				// GLuint texture
 
 	return true;
 }
@@ -171,6 +203,9 @@ void App::draw()
 		//	glLineWidth(f);// GLfloat width
 		glPointSize(f);// GLfloat size
 	}
+
+	glBindTexture(GL_TEXTURE_2D, texid);
+	Rect(100, 100).draw();
 
 	glColor3ub(0xff, 0xff, 0xff);
 
