@@ -75,8 +75,8 @@ bool App::init()
 	if (!printInit(audioInit(), "Audio init"))
 		return false;
 
-	// ゲームを初期化
-	if (!printInit(g_game.init(), "Game init"))
+	// ミュージックを初期化
+	if (!printInit(g_music.init(), "Music init"))
 		return false;
 
 	// テクスチャマネージャーを初期化
@@ -91,8 +91,8 @@ bool App::init()
 	if (!printInit(g_animations->initAll(), "Animation init"))
 		return false;
 
-	// ミュージックを初期化
-	if (!printInit(g_music.init(), "Music init"))
+	// ゲームを初期化
+	if (!printInit(g_game.init(), "Game init"))
 		return false;
 
 	return true;
