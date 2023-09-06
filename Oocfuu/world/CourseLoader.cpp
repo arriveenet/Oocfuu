@@ -101,14 +101,22 @@ bool CourseLoader::initialize(const char* _pFileName)
 bool CourseLoader::load(Course* _pCourse)
 {
 	// ヘッダーを解析する
-	XMLElement* headerElement = m_pRootElement->FirstChildElement("header");
-	if (!parseHeader(_pCourse, headerElement))
+	XMLElement* pHeaderElement = m_pRootElement->FirstChildElement("header");
+	assert(pHeaderElement);
+	if (!parseHeader(_pCourse, pHeaderElement))
 		return false;
 
 	// コースデータを解析する
-	XMLElement* dataElement = m_pRootElement->FirstChildElement("data");
-	if (!parseCourse(_pCourse, dataElement))
+	XMLElement* pDataElement = m_pRootElement->FirstChildElement("data");
+	assert(pDataElement);
+	if (!parseCourse(_pCourse, pDataElement))
 		return false;
+
+	// 仕掛けパーツを解析する
+	XMLElement* pGimmickElement = m_pRootElement->FirstChildElement("gimmick");
+	if (pGimmickElement) {
+		parseGimmickParts(&g_gmmickPart, pGimmickElement);
+	}
 
 	// コースを作成
 	_pCourse->create();
@@ -272,6 +280,25 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 		}
 		pElement = pElement->NextSiblingElement();
 		index = 0;
+	}
+
+	return true;
+}
+
+bool CourseLoader::parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pDataElement)
+{
+	assert(_pDataElement);
+
+	tinyxml2::XMLElement* pLiftElement = _pDataElement->FirstChildElement("lift");
+	if (pLiftElement) {
+		for (tinyxml2::XMLElement* pElement = pLiftElement; pElement != NULL; pElement = pElement->NextSiblingElement()) {
+			float x = std::atof(pElement->Attribute("x"));
+			float y = std::atof( pElement->Attribute("y"));
+			int width = std::atoi(pElement->Attribute("width"));
+			int mode = std::atoi(pElement->Attribute("mode"));
+
+			_pGimmickParts->addLift(Lift(x, y, width, static_cast<LIFT_MOVEMENT>(mode)));
+		}
 	}
 
 	return true;

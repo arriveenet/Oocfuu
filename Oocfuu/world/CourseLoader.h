@@ -1,5 +1,6 @@
 #pragma once
 #include "Course.h"
+#include "GimmickPart.h"
 #include "CourseManager.h"
 #include "util/tinyxml2.h"
 
@@ -37,5 +38,8 @@ private:
 
 	// コースを解析する
 	bool parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataElement);
+
+	// 仕掛けパーツを解析する
+	bool parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pDataElement);
 
 };
