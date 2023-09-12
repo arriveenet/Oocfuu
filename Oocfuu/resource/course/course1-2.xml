@@ -24,4 +24,10 @@
 		<dr>u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0      u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0    u0u0    u0u0u0u0u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0              u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0u0</dr>
 	</data>
 	<enemy type="0" x="336" y="192"/>
+	<gimmick>
+		<lift x="2236" y="96" width="6" mode="3"/>
+		<lift x="2236" y="192" width="6" mode="3"/>
+		<lift x="2476" y="16" width="6" mode="2"/>
+		<lift x="2476" y="128" width="6" mode="2"/>
+	</gimmick>
 </course>
