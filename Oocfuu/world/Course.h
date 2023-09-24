@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "common/common.h"
+#include "BridgeController.h"
 
 #include <Windows.h>
 #include <glm/glm.hpp>
@@ -20,6 +21,8 @@ public:
 	bool		m_isLoaded;			//!< コース読み込みフラグ
 	std::vector<QUAD> m_quads;		//!< コースパーツの矩形
 	QUAD m_hitBlock;				//!< ヒットブロック
+	Rect		m_clearAex;			//!< クリア斧
+	BridgeController m_bridgeController;
 
 
 	// コンストラクタ

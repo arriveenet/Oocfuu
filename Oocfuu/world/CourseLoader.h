@@ -2,6 +2,7 @@
 #include "Course.h"
 #include "GimmickPart.h"
 #include "CourseManager.h"
+#include "enemy/EnemyManager.h"
 #include "util/tinyxml2.h"
 
 /**
@@ -34,12 +35,15 @@ public:
 
 private:
 	// ヘッダーを解析する
-	bool parseHeader(Course* _pCourse, tinyxml2::XMLElement* _pDataElement);
+	bool parseHeader(Course* _pCourse, tinyxml2::XMLElement* _pHeaderElement);
 
 	// コースを解析する
 	bool parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataElement);
 
+	// 敵キャラクターを解析する
+	bool parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement * _pEnemyElement);
+
 	// 仕掛けパーツを解析する
-	bool parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pDataElement);
+	bool parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pGimmickElement);
 
 };

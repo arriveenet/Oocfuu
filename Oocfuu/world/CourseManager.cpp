@@ -426,8 +426,8 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 
 bool CourseManager::getClearAex(Rect& _rect)
 {
-	if (m_clearAex.m_position != vec2(0, 0)) {
-		_rect = m_clearAex;
+	if (m_currentCourse.m_clearAex.m_position != vec2(0, 0)) {
+		_rect = m_currentCourse.m_clearAex;
 		return true;
 	}
 	return false;

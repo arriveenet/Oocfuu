@@ -1,13 +1,16 @@
 #include "CourseLoader.h"
 
 #include "Part.h"
+#include "CourseEffect.h"
 
+#include <glm/glm.hpp>
 #include <iostream>
 #include <cstdlib>
 
 #define PART_STR_SIZE	2
 
 using namespace tinyxml2;
+using namespace glm;
 
 CourseManager* CourseLoader::m_pCourseManager = nullptr;
 
@@ -100,6 +103,11 @@ bool CourseLoader::initialize(const char* _pFileName)
  */
 bool CourseLoader::load(Course* _pCourse)
 {
+	// コースエフェクトをクリア
+	//CourseEffectManager::instance()->clear();
+
+	g_enemyManager.clear();
+
 	// ヘッダーを解析する
 	XMLElement* pHeaderElement = m_pRootElement->FirstChildElement("header");
 	assert(pHeaderElement);
@@ -115,7 +123,15 @@ bool CourseLoader::load(Course* _pCourse)
 	// 仕掛けパーツを解析する
 	XMLElement* pGimmickElement = m_pRootElement->FirstChildElement("gimmick");
 	if (pGimmickElement) {
-		parseGimmickParts(&g_gmmickPart, pGimmickElement);
+		if (!parseGimmickParts(&g_gmmickPart, pGimmickElement))
+			return false;
+	}
+
+	// 敵キャラクターを解析する
+	XMLElement* pEnemyElement = m_pRootElement->FirstChildElement("enemy");
+	if (pEnemyElement) {
+		if (!parseEnemy(&g_enemyManager, pEnemyElement))
+			return false;
 	}
 
 	// コースを作成
@@ -135,52 +151,42 @@ bool CourseLoader::load(Course* _pCourse)
 /**
  * @brief コースのヘッダーを解析する
  *
- * @param[in] _pData		コースクラスのポインタ
- * @param[in] _pDataElement	ヘッダーのXML要素
+ * @param[in] _pData			コースクラスのポインタ
+ * @param[in] _pHeaderElement	ヘッダーのXML要素
  *
  * @return 成功：true 失敗：false
  *
  */
-bool CourseLoader::parseHeader(Course* _pCourse, tinyxml2::XMLElement* _pDataElement)
+bool CourseLoader::parseHeader(Course* _pCourse, tinyxml2::XMLElement* _pHeaderElement)
 {
 	// コース情報の要素を取得
-	XMLElement* element = _pDataElement->FirstChildElement("info");
+	XMLElement* element = _pHeaderElement->FirstChildElement("info");
 	{
 		// コースの幅を読み込む
-		const char* attribute = element->Attribute("width");
-		_pCourse->m_width = std::atoi(attribute);
+		_pCourse->m_width = element->IntAttribute("width");
 
 		// コースの高さを読み込む
-		attribute = element->Attribute("height");
-		_pCourse->m_height = std::atoi(attribute);
+		_pCourse->m_height = element->IntAttribute("height");
 	}
 
 	// コースのクリアカラーの要素を取得
-	element = _pDataElement->FirstChildElement("color");
+	element = _pHeaderElement->FirstChildElement("color");
 	{
-		const char* color = element->GetText();
-		_pCourse->m_clearColor = std::atoi(color);
+		_pCourse->m_clearColor = element->IntText();
 	}
 
 	// プレイヤーのスタート位置の要素を取得
-	element = _pDataElement->FirstChildElement("start");
+	element = _pHeaderElement->FirstChildElement("start");
 	{
-		char* stopstring;
-		const char* attribute = element->Attribute("x");
-		_pCourse->m_startPosition.x = std::strtof(attribute, &stopstring);
-
-		attribute = element->Attribute("y");
-		_pCourse->m_startPosition.y = std::strtof(attribute, &stopstring);
+		_pCourse->m_startPosition.x = element->FloatAttribute("x");
+		_pCourse->m_startPosition.y = element->FloatAttribute("y");
 	}
 
 	// 次のコースの要素を取得
-	element = _pDataElement->FirstChildElement("next");
+	element = _pHeaderElement->FirstChildElement("next");
 	{
-		const char* attribute = element->Attribute("world");
-		_pCourse->m_nextWorld.world = std::atoi(attribute);
-
-		attribute = element->Attribute("stage");
-		_pCourse->m_nextWorld.stage = std::atoi(attribute);
+		_pCourse->m_nextWorld.world = element->IntAttribute("world");
+		_pCourse->m_nextWorld.stage = element->IntAttribute("stage");
 	}
 
 	return true;
@@ -253,16 +259,16 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 
 						switch (k) {
 						case PART_AXE_0:
-							//m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
+							_pCourse->m_clearAex.m_position = { j * PART_SIZE, i * PART_SIZE };
 							break;
 						case PART_BRIDGE:
-							//m_bridgeController.add(j, i);
+							_pCourse->m_bridgeController.add(j, i);
 							break;
 						case PART_CHAIN:
-							//m_bridgeController.setChain(j, i);
+							_pCourse->m_bridgeController.setChain(j, i);
 							break;
 						case PART_GOAL_TOP:
-							//courseEffectMgr->setGoalFlag(vec2(j * PART_SIZE - 8, i * PART_SIZE + 17));
+							CourseEffectManager::instance()->setGoalFlag(vec2(j * PART_SIZE - 8, i * PART_SIZE + 17));
 							break;
 						default:
 							break;
@@ -276,7 +282,7 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 					return false;
 				}
 			}
-			index += 2;
+			index += PART_STR_SIZE;
 		}
 		pElement = pElement->NextSiblingElement();
 		index = 0;
@@ -285,19 +291,78 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 	return true;
 }
 
-bool CourseLoader::parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pDataElement)
+/**
+ * @brief 敵キャラクターを解析する
+ *
+ * @param[in] _pData			敵管理クラスのポインタ
+ * @param[in] _pGimmickElement	仕掛けパーツのXML要素
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement* _pEnemyElement)
 {
-	assert(_pDataElement);
+	assert(_pEnemyManager);
 
-	tinyxml2::XMLElement* pLiftElement = _pDataElement->FirstChildElement("lift");
+	// クリボーを読み込む
+	tinyxml2::XMLElement* pKuriboElement = _pEnemyElement->FirstChildElement("kuribo");
+	if (pKuriboElement) {
+		for (tinyxml2::XMLElement* pElement = pKuriboElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			ENEMYINFO enemy = { ENEMYTYPE_KURIBO, ivec2(x, y) };
+			_pEnemyManager->addEnemy(enemy);
+		}
+	}
+
+	tinyxml2::XMLElement* pNokonokoElement = _pEnemyElement->FirstChildElement("nokonoko");
+	if (pNokonokoElement) {
+		for (tinyxml2::XMLElement* pElement = pNokonokoElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			ENEMYINFO enemy = { ENEMYTYPE_NOKONOKO, ivec2(x, y) };
+			_pEnemyManager->addEnemy(enemy);
+		}
+	}
+
+	return true;
+}
+
+/**
+ * @brief コースの仕掛けパーツを解析する
+ *
+ * @param[in] _pData			コースクラスのポインタ
+ * @param[in] _pGimmickElement	仕掛けパーツのXML要素
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pGimmickElement)
+{
+	assert(_pGimmickElement);
+
+	// リフトを読み込む
+	tinyxml2::XMLElement* pLiftElement = _pGimmickElement->FirstChildElement("lift");
 	if (pLiftElement) {
-		for (tinyxml2::XMLElement* pElement = pLiftElement; pElement != NULL; pElement = pElement->NextSiblingElement()) {
-			float x = std::atof(pElement->Attribute("x"));
-			float y = std::atof( pElement->Attribute("y"));
-			int width = std::atoi(pElement->Attribute("width"));
-			int mode = std::atoi(pElement->Attribute("mode"));
+		for (tinyxml2::XMLElement* pElement = pLiftElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			int width = pElement->IntAttribute("width");
+			int mode = pElement->IntAttribute("mode");
 
 			_pGimmickParts->addLift(Lift(x, y, width, static_cast<LIFT_MOVEMENT>(mode)));
+		}
+	}
+
+	// ファイアバーを読み込む
+	tinyxml2::XMLElement* pFirebarElement = _pGimmickElement->FirstChildElement("firebar");
+	if (pFirebarElement) {
+		for (tinyxml2::XMLElement* pElement = pFirebarElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			int rotate = pElement->IntAttribute("rotate");
+
+			_pGimmickParts->addFirebar(Firebar(x, y, static_cast<FIREBAR_ROTATE>(rotate)));
 		}
 	}
 

@@ -23,5 +23,18 @@
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 	</data>
-	<enemy type="0" x="336" y="192"/>
+	<enemy>
+		<kuribo x="336" y="192"/>
+		<kuribo x="682" y="192"/>
+		<kuribo x="800" y="192"/>
+		<kuribo x="816" y="192"/>
+		<kuribo x="1248" y="128"/>
+		<kuribo x="1326" y="64"/>
+		<kuribo x="1600" y="192"/>
+		<kuribo x="1616" y="192"/>
+		<kuribo x="1822" y="192"/>
+		<kuribo x="1838" y="192"/>
+		<kuribo x="2084" y="192"/>
+		<kuribo x="500" y="184"/>
+	</enemy>
 </course>

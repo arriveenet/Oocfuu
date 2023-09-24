@@ -24,7 +24,7 @@ void EnemyManager::addEnemy(const ENEMYINFO& _info)
 	case ENEMYTYPE_KURIBO:
 		m_kuriboes.push_back(Kuribo(_info.position));
 		break;
-	case ENEMYTYPE_NOKONIKO:
+	case ENEMYTYPE_NOKONOKO:
 		m_nokonokoes.push_back(Nokonoko(_info.position));
 		break;
 	case ENEMYTYPE_KOOPA:
