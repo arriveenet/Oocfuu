@@ -40,7 +40,8 @@ Enemy::Enemy(float _x, float _y)
 * @param [in] _position	ˆÊ’u
 */
 Enemy::Enemy(const glm::vec2& _size, const glm::vec2& _position)
-	: m_dead(false)
+	: m_enemyType(EnemyType::Unknown)
+	, m_dead(false)
 	, m_visible(false)
 	, m_falling(true)
 	, m_speed(-ENEMY_SPEED, 0)

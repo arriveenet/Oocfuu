@@ -30,6 +30,7 @@ Kuribo::Kuribo(float _x, float _y)
 	, m_topPoints{ vec2(0.0f, 0.0f) }
 	, Enemy(vec2(KURIBO_WIDTH, KURIBO_HEIGHT), vec2(_x, _y))
 {
+	m_enemyType = EnemyType::Kuribo;
 	m_pStateMachine = new StateMachine<Kuribo>(this);
 	m_pStateMachine->setCurrentState(KuriboStateRun::instance());
 }

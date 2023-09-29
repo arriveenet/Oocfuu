@@ -16,6 +16,17 @@ enum ENEMYTYPE {
 	ENEMYTYPE_MAX
 };
 
+/**
+ * @brief 敵キャラクターの種類
+ */
+enum class EnemyType {
+	Unknown,	//!< 不明
+	Kuribo,		//!< クリボー
+	Nokonoko,	//!< ノコノコ
+	Koopa,		//!< クッパ
+	Max			//!< 敵キャラクター数
+};
+
 typedef struct tagENEMY {
 	unsigned char id;	//!< 敵の種類
 	unsigned short x;	//!< 敵のX座標
@@ -60,6 +71,8 @@ public:
 	// 敵キャラクターを描画するか
 	bool isVisble();
 
+	// 敵キャラクターの種類を取得
+	EnemyType getEnemyType() const;
 protected:
 	// 左に向く
 	void turnLeft();
@@ -68,6 +81,7 @@ protected:
 	void turnRight();
 
 protected:
+	EnemyType	m_enemyType;		//!< 敵キャラクター種類
 	bool		m_dead;				//!< 死亡フラグ
 	bool		m_visible;			//!< 描画フラグ
 	bool		m_falling;			//!< 落下フラグ
@@ -133,6 +147,19 @@ inline bool Enemy::isAlive()
 inline bool Enemy::isVisble()
 {
 	return m_visible;
+}
+
+/**
+ * @brief 敵キャラクターの種類を取得
+ *
+ * @param なし
+ *
+ * @return 敵キャラクターの種類
+ *
+ */
+inline EnemyType Enemy::getEnemyType() const
+{
+	return m_enemyType;
 }
 
 /**

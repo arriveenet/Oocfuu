@@ -28,6 +28,8 @@ Nokonoko::Nokonoko(float _x, float _y)
 	, m_topPoint(0.0f, 0.0f)
 	, Enemy(NOKONOKO_RUN_SIZE, vec2(_x, _y))
 {
+	m_enemyType = EnemyType::Nokonoko;
+
 	m_pStateMachine = new StateMachine<Nokonoko>(this);
 	m_pStateMachine->setCurrentState(NokonokoStateRun::instance());
 
