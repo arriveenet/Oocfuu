@@ -57,8 +57,10 @@ Koopa::Koopa(float _x, float _y)
 	, m_speed(0, 0)
 	, m_fires()
 	, m_actionRange{0.0f, 0.0f}
-	, Sprite(vec2(KOOPA_WIDTH, KOOPA_HEIGHT), vec2(_x, _y))
+	, Enemy(vec2(KOOPA_WIDTH, KOOPA_HEIGHT), vec2(_x, _y))
 {
+	m_enemyType = EnemyType::Koopa;
+
 	m_pStateMachine = new StateMachine<Koopa>(this);
 	m_pStateMachine->setCurrentState(KoopaStateIdle::instance());
 

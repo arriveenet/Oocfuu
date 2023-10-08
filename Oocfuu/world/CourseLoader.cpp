@@ -107,6 +107,7 @@ bool CourseLoader::load(Course* _pCourse)
 	//CourseEffectManager::instance()->clear();
 
 	g_enemyManager.clear();
+	g_gmmickPart.clear();
 
 	// ヘッダーを解析する
 	XMLElement* pHeaderElement = m_pRootElement->FirstChildElement("header");
@@ -310,18 +311,35 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 		for (tinyxml2::XMLElement* pElement = pKuriboElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
-			ENEMYINFO enemy = { ENEMYTYPE_KURIBO, ivec2(x, y) };
+			Kuribo enemy(x, y);
 			_pEnemyManager->addEnemy(enemy);
 		}
 	}
 
+	// ノコノコを読み込む
 	tinyxml2::XMLElement* pNokonokoElement = _pEnemyElement->FirstChildElement("nokonoko");
 	if (pNokonokoElement) {
 		for (tinyxml2::XMLElement* pElement = pNokonokoElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
-			ENEMYINFO enemy = { ENEMYTYPE_NOKONOKO, ivec2(x, y) };
+			Nokonoko enemy(x, y);
 			_pEnemyManager->addEnemy(enemy);
+		}
+	}
+
+	// クッパを読み込む
+	tinyxml2::XMLElement* pKoopaElement = _pEnemyElement->FirstChildElement("koopa");
+	if (pKoopaElement) {
+		for (tinyxml2::XMLElement* pElement = pKoopaElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			Koopa enemy(vec2(x, y));
+			_pEnemyManager->addEnemy(enemy);
+
+			RANGE range;
+			range.start = 2160.0f;
+			range.end = 2364.0f;
+			g_enemyManager.setKoopaRange(range);
 		}
 	}
 

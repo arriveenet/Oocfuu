@@ -13,11 +13,6 @@
 #define ENEMYFLAG_NOKONOKO		0x02
 #define ENEMYFLAG_KOOPA			0x04
 
-typedef struct tagENEMYINFO {
-	ENEMYTYPE type;
-	glm::ivec2 position;
-} ENEMYINFO;
-
 class EnemyManager {
 	std::vector<Kuribo> m_kuriboes;
 	std::vector<Nokonoko> m_nokonokoes;
@@ -30,7 +25,7 @@ public:
 	EnemyManager();
 	virtual ~EnemyManager();
 
-	void addEnemy(const ENEMYINFO& _info);
+	void addEnemy(Enemy& _enemy);
 	void clear();
 	void koopaKill();
 	bool koopaIsDead();

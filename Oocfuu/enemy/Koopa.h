@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Enemy.h"
 #include "KoopaFire.h"
 #include "common/StateMachine.h"
 #include "common/range.h"
@@ -37,7 +38,7 @@ enum KOOPA_FLAG {
 	KOOPA_FLAG_ANIMATION	= 0x10,
 };
 
-class Koopa : public Sprite {
+class Koopa : public Enemy {
 private:
 	friend class KoopaStateIdle;
 	friend class KoopaStateJump;

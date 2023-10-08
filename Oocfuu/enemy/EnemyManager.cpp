@@ -18,18 +18,23 @@ EnemyManager::~EnemyManager()
 	clear();
 }
 
-void EnemyManager::addEnemy(const ENEMYINFO& _info)
+void EnemyManager::addEnemy(Enemy& _enemy)
 {
-	switch (_info.type) {
-	case ENEMYTYPE_KURIBO:
-		m_kuriboes.push_back(Kuribo(_info.position));
+	switch (_enemy.getEnemyType()) {
+	// クリボー
+	case EnemyType::Kuribo:
+		m_kuriboes.push_back(dynamic_cast<Kuribo&>(_enemy));
 		break;
-	case ENEMYTYPE_NOKONOKO:
-		m_nokonokoes.push_back(Nokonoko(_info.position));
+	// ノコノコ
+	case EnemyType::Nokonoko:
+		m_nokonokoes.push_back(dynamic_cast<Nokonoko&>(_enemy));
 		break;
-	case ENEMYTYPE_KOOPA:
+	// クッパ
+	case EnemyType::Koopa:
 		m_enemyFlag |= ENEMYFLAG_KOOPA;
-		m_koopa.m_position = _info.position;
+		break;
+	default:
+		assert(false);
 		break;
 	}
 }

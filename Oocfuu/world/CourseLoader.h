@@ -6,6 +6,22 @@
 #include "util/tinyxml2.h"
 
 /**
+ * @brief コース読み込みの結果
+ */
+enum class CourseLoadResult {
+	Success = 0,				//!< 成功
+	InvalidValue,				//!< 無効なパーツが指定されている
+	InvalidSize,				//!< コースのサイズが0以下
+	OutOfMemory,				//!< コースデータを読み込むメモリが残っていない
+	OpenFileFailed,				//!< コースファイルが開けなかった
+	InitializationFailed,		//!< 初期化に失敗
+	HeaderParseFailed,			//!< ヘッダーの解析に失敗
+	EnemyParseFailed,			//!< 敵キャラクターの解析に失敗
+	GimmickPartsParseFailed,	//!< 仕掛けパーツの解析に失敗
+	Max
+};
+
+/**
  * @brief コース読み込みクラス
  */
 class CourseLoader {

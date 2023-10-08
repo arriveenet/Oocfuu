@@ -9,13 +9,6 @@
 #define ENEMY_FALL_SPEED	0.3f
 #define ENEMY_BOTTOM_COUNT	2
 
-enum ENEMYTYPE {
-	ENEMYTYPE_KURIBO,
-	ENEMYTYPE_NOKONOKO,
-	ENEMYTYPE_KOOPA,
-	ENEMYTYPE_MAX
-};
-
 /**
  * @brief 敵キャラクターの種類
  */
@@ -26,12 +19,6 @@ enum class EnemyType {
 	Koopa,		//!< クッパ
 	Max			//!< 敵キャラクター数
 };
-
-typedef struct tagENEMY {
-	unsigned char id;	//!< 敵の種類
-	unsigned short x;	//!< 敵のX座標
-	unsigned short y;	//!< 敵のY座標
-} ENEMY;
 
 /**
  * @brief 敵キャラクターの抽象クラス
