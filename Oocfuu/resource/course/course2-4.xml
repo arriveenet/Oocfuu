@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<course>
+	<header>
+		<info width="42" height="15"/>
+		<type>castle</type>
+		<color>0</color>
+		<start x="40" y="144"/>
+		<next world="1" stage="1"/>
+	</header>
+	<data>
+		<dr>                                                                                    </dr>
+		<dr>                                                                                    </dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3</dr>
+		<dr>                                                  b3                                </dr>
+		<dr>                                                  b3                                </dr>
+		<dr>                                                  b3                                </dr>
+		<dr>                                                                                    </dr>
+		<dr>                                                                                    </dr>
+		<dr>                                                a0                                  </dr>
+		<dr>                                              cnb3b3                                </dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3brbrbrbrbrbrbrbrbrbrbrbrbrb3b3                                </dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3                          b3b3                                </dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3                          b3b3                                </dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3                          b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3</dr>
+		<dr>b3b3b3b3b3b3b3b3b3b3b3                          b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3b3</dr>
+	</data>
+	<enemy>
+		<koopa x="240" y="96"/>
+	</enemy>
+	<kinopio x="554" y="184"/>
+</course>

@@ -9,16 +9,21 @@ using namespace glm;
 Part g_parts[PART_MAX] = {
 	// {nullptr,}, // PART_NONE
 	 {"b0.bmp",},// PART_GROUND
-	 {"b1.bmp",},// PART_HARD_BLOCK
-	 {"b2.bmp",},// PART_SOFT_BLOCK
-	 {"u0.bmp",},// PART_UNDER_GROUND,
-	 {"u1.bmp",},// PART_UNDER_HARD_BLOCK,
-	 {"u2.bmp",},// PART_UNDER_SOFT_BLOCK,
-	 {"b3.bmp",},// PART_CASTLE_GROUND,
-	 {"q0.bmp",},// PART_QUESTION0
-	 {"q1.bmp",},// PART_QUESTION1
-	 {"q2.bmp",},// PART_QUESTION2
-	 {"q3.bmp",},// PART_QUESTION3
+	 {"b1.bmp",},// PART_SOFT_BLOCK
+	 {"b2.bmp",},// PART_HARD_BLOCK_1
+	 {"b3.bmp",},// PART_HARD_BLOCK_2
+	 {"b4.bmp",},// PART_HARD_BLOCK_3
+	 {"f0.bmp",},// PART_FORT_TOP
+	 {"f1.bmp",},// PART_FORT_LEFT
+	 {"f2.bmp",},// PART_FORT_WALL
+	 {"f3.bmp",},// PART_FORT_RIGHT
+	 {"f4.bmp",},// PART_FORT_MIDDLE
+	 {"f5.bmp",},// PART_FORT_GATE_UP
+	 {"f6.bmp",},// PART_FORT_GATE_DOWN
+	 {"w0.bmp",},// PART_WOOD_0
+	 {"w1.bmp",},// PART_WOOD_1
+	 {"w2.bmp",},// PART_WOOD_2
+	 {"w3.bmp",},// PART_WOOD_3
 	 {"p4.bmp",},// PART_SIDE_PIPE_UP_LEFT
 	 {"p5.bmp",},// PART_SIDE_PIPE_DOWN_LEFT
 	 {"p6.bmp",},// PART_SIDE_PIPE_UP
@@ -40,33 +45,26 @@ Part g_parts[PART_MAX] = {
 	 {"m5.bmp",},// PART_MOUNTAIN_CENTER1
 	 {"g0.bmp",},// PART_GOAL_TOP
 	 {"g1.bmp",},// PART_GOAL_POLE
+	 {"cn.bmp",},// PART_CHAIN
+	 {"q0.bmp",},// PART_QUESTION0
+	 {"q1.bmp",},// PART_QUESTION1
+	 {"q2.bmp",},// PART_QUESTION2
+	 {"q3.bmp",},// PART_QUESTION3
+	 {"a0.bmp",},// PART_AXE_0
+	 {"a1.bmp",},// PART_AXE_1
+	 {"a2.bmp",},// PART_AXE_2
+	 {"e0.bmp",},// PART_COIN_0
+	 {"e1.bmp",},// PART_COIN_1
+	 {"e2.bmp",},// PART_COIN_2
+	 {"br.bmp",},// PART_BRIDGE
+	 {"mg.bmp",},// PART_MAGMA_0
+	 {"mh.bmp",},// PART_MAGMA_1
 	 {"c0.bmp",},// PART_CLOUD_UP_LEFT
 	 {"c1.bmp",},// PART_CLOUD_UP
 	 {"c2.bmp",},// PART_CLOUD_UP_RIGHT
 	 {"c3.bmp",},// PART_CLOUD_DOWN_LEFT
 	 {"c4.bmp",},// PART_CLOUD_DOWN
 	 {"c5.bmp",},// PART_CLOUD_DOWN_RIGHT
-	 {"f0.bmp",},// PART_FORT_TOP
-	 {"f1.bmp",},// PART_FORT_LEFT
-	 {"f2.bmp",},// PART_FORT_WALL
-	 {"f3.bmp",},// PART_FORT_RIGHT
-	 {"f4.bmp",},// PART_FORT_MIDDLE
-	 {"f5.bmp",},// PART_FORT_GATE_UP
-	 {"f6.bmp",},// PART_FORT_GATE_DOWN
-	 {"w0.bmp",},// PART_WOOD_0
-	 {"w1.bmp",},// PART_WOOD_1
-	 {"w2.bmp",},// PART_WOOD_2
-	 {"w3.bmp",},// PART_WOOD_3
-	 {"br.bmp",},// PART_BRIDGE
-	 {"mg.bmp",},// PART_MAGMA_0
-	 {"mh.bmp",},// PART_MAGMA_1
-	 {"a0.bmp",},// PART_AXE_0
-	 {"a1.bmp",},// PART_AXE_1
-	 {"a2.bmp",},// PART_AXE_2
-	 {"cn.bmp",},// PART_CHAIN
-	 {"e0.bmp",},// PART_COIN_0
-	 {"e1.bmp",},// PART_COIN_1
-	 {"e2.bmp",},// PART_COIN_2
 	 {"s0.bmp",},// PART_SEA_0
 	 {"s1.bmp",},// PART_SEA_1
 	 {"s2.bmp",},// PART_SEA_2
@@ -106,7 +104,7 @@ PartManager::~PartManager()
 */
 bool PartManager::init()
 {
-	vec2 textureSize = g_textureManager.getSize(TEXTURE_PARTS);
+	vec2 textureSize = g_textureManager.getSize(TEXTURE_PARTS_OVERWORLD);
 
 	// テクスチャのサイズがゼロベクトルか判定する
 	if (length(textureSize) == 0) {

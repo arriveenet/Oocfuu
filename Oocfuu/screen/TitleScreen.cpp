@@ -55,6 +55,8 @@ void TitleScreen::reset()
 	pLoader->initialize("resource\\course\\course1-1.xml");
 	pLoader->load(&course);
 
+	COLORREF clearColor = g_courseManager.getClearColor();
+	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
 	g_courseManager.setScroll(0.0f);
 	g_player.reset();
 	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);

@@ -21,7 +21,6 @@ void GoodbyeOocfuuScreen::init()
 
 void GoodbyeOocfuuScreen::reset()
 {
-	g_courseManager.load("resource\\course\\oocfuu.txt");
 	g_music.reset();
 	g_music.resetScore();
 	g_music.setScore(AUDIO_CHANNEL_PULSE0, voyPulse0, VOY_PULSE0_COUNT);

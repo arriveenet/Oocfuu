@@ -155,7 +155,7 @@ void App::draw()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(
-		g_courseManager.getScroll(), g_courseManager.getScroll() + SCREEN_WIDTH,
+		g_courseManager.getScroll(), g_courseManager.getScroll() + (float)SCREEN_WIDTH,
 		SCREEN_HEIGHT, 0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -5,6 +5,7 @@
 
 #include <glm/glm.hpp>
 #include <iostream>
+#include <string>
 #include <cstdlib>
 
 #define PART_STR_SIZE	2
@@ -20,6 +21,7 @@ CourseManager* CourseLoader::m_pCourseManager = nullptr;
  */
 CourseLoader::CourseLoader()
 	: m_pRootElement(nullptr)
+	, m_loadResult(Success)
 {
 }
 
@@ -73,22 +75,28 @@ void CourseLoader::destroy()
 bool CourseLoader::initialize(const char* _pFileName)
 {
 	// ファイル名のポインタがNULLか確認する
-	if (!_pFileName)
+	if (!_pFileName) {
+		m_loadResult = OpenFileFailed;
 		return false;
+	}
 
 	// ファイルを読み込む
 	XMLError error =  m_document.LoadFile(_pFileName);
 
 	// ファイル読み込み成功確認
-	if (error != XML_SUCCESS)
+	if (error != XML_SUCCESS) {
+		m_loadResult = OpenFileFailed;
 		return false;
+	}
 
 	// ルート要素を取得
 	m_pRootElement = m_document.FirstChildElement();
 
 	// ルート要素がNULLか確認する
-	if (!m_pRootElement)
+	if (!m_pRootElement) {
+		m_loadResult = InitializationFailed;
 		return false;
+	}
 
 	return true;
 }
@@ -104,35 +112,51 @@ bool CourseLoader::initialize(const char* _pFileName)
 bool CourseLoader::load(Course* _pCourse)
 {
 	// コースエフェクトをクリア
-	//CourseEffectManager::instance()->clear();
-
+	CourseEffectManager::instance()->clear();
 	g_enemyManager.clear();
 	g_gmmickPart.clear();
 
 	// ヘッダーを解析する
 	XMLElement* pHeaderElement = m_pRootElement->FirstChildElement("header");
 	assert(pHeaderElement);
-	if (!parseHeader(_pCourse, pHeaderElement))
+	if (!parseHeader(_pCourse, pHeaderElement)) {
+		m_loadResult = HeaderParseFailed;
 		return false;
+	}
 
 	// コースデータを解析する
 	XMLElement* pDataElement = m_pRootElement->FirstChildElement("data");
 	assert(pDataElement);
-	if (!parseCourse(_pCourse, pDataElement))
+	if (!parseCourse(_pCourse, pDataElement)) {
 		return false;
+	}
 
 	// 仕掛けパーツを解析する
 	XMLElement* pGimmickElement = m_pRootElement->FirstChildElement("gimmick");
 	if (pGimmickElement) {
-		if (!parseGimmickParts(&g_gmmickPart, pGimmickElement))
+		if (!parseGimmickParts(&g_gmmickPart, pGimmickElement)) {
+			m_loadResult = GimmickPartsParseFailed;
 			return false;
+		}
 	}
 
 	// 敵キャラクターを解析する
 	XMLElement* pEnemyElement = m_pRootElement->FirstChildElement("enemy");
 	if (pEnemyElement) {
-		if (!parseEnemy(&g_enemyManager, pEnemyElement))
+		if (!parseEnemy(&g_enemyManager, pEnemyElement, _pCourse)) {
+			m_loadResult = EnemyParseFailed;
 			return false;
+		}
+	}
+
+	g_courseManager.m_kinopio.m_enable = false;
+	XMLElement* pKinopioElement = m_pRootElement->FirstChildElement("kinopio");
+	if (pKinopioElement) {
+		int x = pKinopioElement->IntAttribute("x");
+		int y = pKinopioElement->IntAttribute("y");
+
+		g_courseManager.m_kinopio.m_enable = true;
+		g_courseManager.m_kinopio.m_position = vec2(x, y);
 	}
 
 	// コースを作成
@@ -146,7 +170,15 @@ bool CourseLoader::load(Course* _pCourse)
 		m_pCourseManager->import(_pCourse);
 	}
 
+	// XMLドキュメントをクリア
+	m_document.Clear();
+
 	return true;
+}
+
+CourseLoader::Result CourseLoader::getLastError()
+{
+	return m_loadResult;
 }
 
 /**
@@ -168,6 +200,12 @@ bool CourseLoader::parseHeader(Course* _pCourse, tinyxml2::XMLElement* _pHeaderE
 
 		// コースの高さを読み込む
 		_pCourse->m_height = element->IntAttribute("height");
+	}
+
+	// コース種別の要素を取得
+	element = _pHeaderElement->FirstChildElement("type");
+	{
+		_pCourse->setType(element->GetText());
 	}
 
 	// コースのクリアカラーの要素を取得
@@ -206,8 +244,12 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 {
 	const int courseWidth = _pCourse->m_width;
 	const int courseHeight = _pCourse->m_height;
-	assert(courseWidth > 0);
-	assert(courseHeight > 0);
+
+	// コースサイズが0以下の場合
+	if ((courseWidth <= 0) || (courseHeight <= 0)) {
+		m_loadResult = InvalidSize;
+		return false;
+	}
 
 	// NULLでなければメモリを解放する
 	if (_pCourse->m_pParts) {
@@ -225,6 +267,7 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 		}
 	} catch (std::bad_alloc& ex) {
 		std::cerr << "CourseLoader::parseCourse: " << ex.what() << std::endl;
+		m_loadResult = OutOfMemory;
 		return false;
 	}
 
@@ -280,6 +323,7 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
 				}
 				// 有効なパーツ判定
 				if (!validPart) {
+					m_loadResult = InvalidValue;
 					return false;
 				}
 			}
@@ -301,7 +345,7 @@ bool CourseLoader::parseCourse(Course* _pCourse, tinyxml2::XMLElement* _pDataEle
  * @return 成功：true 失敗：false
  *
  */
-bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement* _pEnemyElement)
+bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement* _pEnemyElement, Course* _pCourse)
 {
 	assert(_pEnemyManager);
 
@@ -336,9 +380,7 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 			Koopa enemy(vec2(x, y));
 			_pEnemyManager->addEnemy(enemy);
 
-			RANGE range;
-			range.start = 2160.0f;
-			range.end = 2364.0f;
+			RANGE range = _pCourse->m_bridgeController.getRange();
 			g_enemyManager.setKoopaRange(range);
 		}
 	}

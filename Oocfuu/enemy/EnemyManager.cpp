@@ -32,6 +32,7 @@ void EnemyManager::addEnemy(Enemy& _enemy)
 	// ƒNƒbƒp
 	case EnemyType::Koopa:
 		m_enemyFlag |= ENEMYFLAG_KOOPA;
+		m_koopa.m_position = _enemy.m_position;
 		break;
 	default:
 		assert(false);

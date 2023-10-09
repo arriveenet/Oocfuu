@@ -19,10 +19,6 @@ ivec2 windowSize;
 void display(void)
 {
 	// âΩÇ‡ÇµÇ»Ç¢ÅB
-
-	//g_app.draw();
-
-	//glutSwapBuffers();
 }
 
 void release(void)

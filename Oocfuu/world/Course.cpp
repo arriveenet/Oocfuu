@@ -1,5 +1,4 @@
 #include "Course.h"
-#include "TextureManager.h"
 #include "Part.h"
 
 #include <glm/glm.hpp>
@@ -14,7 +13,9 @@ Course::Course()
 	: m_width(0)
 	, m_height(0)
 	, m_pParts(nullptr)
+	, m_courseType(Overworld)
 	, m_clearColor(0L)
+	, m_texture(TEXTURE_PARTS_OVERWORLD)
 	, m_startPosition(0, 0)
 	, m_nextWorld()
 	, m_isLoaded(false)
@@ -46,36 +47,7 @@ Course::~Course()
  */
 void Course::create()
 {
-	// scrolleColumn = (int)m_scroll / PART_SIZE;
-	//printf("scrolleColumn=%d\n", scrolleColumn);
-	for (int y = 0; y < m_height; y++) {
-		for (int x = 0; x < m_width; x++) {
-			int part = m_pParts[y][x];
-			if (part == PART_NONE)
-				continue;
 
-			int textureIndex = part;
-
-			// パーツを追加する
-			float x2 = (float)x * PART_SIZE;
-			float y2 = (float)y * PART_SIZE;
-			QUAD quad = {};
-			const vec2 positions[4] =
-			{
-				{ x2, y2 },
-				{ x2, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 },
-			};
-			vec2* texCoords = g_partManager.getTexCoords(textureIndex);
-
-			for (int i = 0; i < 4; i++) {
-				quad.vertices[i].position = positions[i];
-				quad.vertices[i].texCoord = texCoords[i];
-			}
-			m_quads.push_back(quad);
-		}
-	}
 }
 
 /**
@@ -112,7 +84,79 @@ void Course::destroy()
  */
 void Course::update()
 {
+	if (!m_isLoaded)
+		return;
+
+	m_coins.clear();
+	m_quads.clear();
+
+	// ボスステージの橋を更新
 	m_bridgeController.update();
+
+	// 叩いたときのブロックを追加する
+	QUAD hitBlock;
+	if (m_hitBlockController.update(hitBlock)) {
+		m_quads.push_back(hitBlock);
+	}
+
+	// 描画するパーツを更新
+	for (int y = 0; y < m_height; y++) {
+		for (int x = 0; x < m_width; x++) {
+			int part = m_pParts[y][x];
+
+			if (part == PART_NONE)
+				continue;
+
+			int textureIndex = part;
+
+			switch (part) {
+			case PART_COIN_0:
+				m_coins.push_back(ivec2(x, y));
+			case PART_QUESTION0:
+			case PART_AXE_0:
+			{
+				int animationTable[] = { 0,1,2,2,1,0 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
+			}
+			break;
+			case PART_SEA_0:
+			{
+				int animationTable[] = { 0,1,2,3,4,5,6,7 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
+			}
+			break;
+			case PART_DESERT_1:
+			{
+				int animationTable[] = { 0,1,2,3,4,5,6,7 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 16) % animationTableLength];
+
+			}
+			break;
+			}
+
+			// パーツを追加する
+			float x2 = (float)x * PART_SIZE;
+			float y2 = (float)y * PART_SIZE;
+			QUAD quad = {};
+			const vec2 positions[4] =
+			{
+				{ x2, y2 },
+				{ x2, y2 + PART_SIZE },
+				{ x2 + PART_SIZE, y2 + PART_SIZE },
+				{ x2 + PART_SIZE, y2 },
+			};
+			vec2* texCoords = g_partManager.getTexCoords(textureIndex);
+
+			for (int i = 0; i < 4; i++) {
+				quad.vertices[i].position = positions[i];
+				quad.vertices[i].texCoord = texCoords[i];
+			}
+			m_quads.push_back(quad);
+		}
+	}
 }
 
 /**
@@ -135,11 +179,42 @@ void Course::draw()
 	glVertexPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].position);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].texCoord);
 
-	g_textureManager.setTexture(TEXTURE_PARTS);
+	g_textureManager.setTexture(m_texture);
 	glDrawArrays(GL_QUADS, 0, GLsizei(m_quads.size() * 4));
 	g_textureManager.unbindTexture();
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_CULL_FACE);
+}
+
+/**
+ * @brief コースの種別を設定する
+ * 
+ * @param[in] _typeName	コース種別の文字列
+ * 
+ * @return なし
+ * 
+ */
+void Course::setType(const std::string _typeName)
+{
+	// 地上
+	if (_typeName == "overworld") {
+		m_courseType = Overworld;
+		m_texture = TEXTURE_PARTS_OVERWORLD;
+	}
+	// 地下
+	else if (_typeName == "underground") {
+		m_courseType = Underground;
+		m_texture = TEXTURE_PARTS_UNDERGROUND;
+	}
+	// 城
+	else if (_typeName == "castle") {
+		m_courseType = Castle;
+		m_texture = TEXTURE_PARTS_CASTLE;
+	}
+	// 上記以外
+	else {
+		assert(false);
+	}
 }

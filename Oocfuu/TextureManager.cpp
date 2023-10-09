@@ -27,7 +27,9 @@ static TEX texs[] =
 	{{"parts\\block_coin_2.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_BLOCK_COIN_2
 	{{"parts\\block_coin_3.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_BLOCK_COIN_3
 	{{"parts\\block_coin_4.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_BLOCK_COIN_4
-	{{"parts\\part.bmp"},					RGB(0xff, 0x00, 0xff)},	// TEXTURE_PARTS
+	{{"parts\\part_overworld.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PARTS_OVERWORLD,
+	{{"parts\\part_underground.bmp"},		RGB(0xff, 0x00, 0xff)},	// TEXTURE_PARTS_UNDERGROUND,
+	{{"parts\\part_castle.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PARTS_CASTLE
 	{{"parts\\fireball.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_FIREBALL
 	{{"parts\\lift.bmp"},					RGB(0xff, 0x00, 0xff)},	// TEXTURE_LIFT
 	{{"font\\CHR000.bmp"},					RGB(0x00, 0x40, 0x80)},	// TEXTURE_FONT

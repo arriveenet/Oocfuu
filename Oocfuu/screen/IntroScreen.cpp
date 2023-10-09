@@ -44,45 +44,26 @@ void IntroScreen::update()
 
 			// コースのファイル名を設定
 			char filePath[64];
-			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", g_game.m_world.world, g_game.m_world.stage);
-			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 1, 1);
+			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", g_game.m_world.world, g_game.m_world.stage);
+			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 2, 4);
 
-			// コースを読み込む
+			// コースローダーを取得し、コースを初期化
 			CourseLoader* pLoader = CourseLoader::create(&g_courseManager);
 			pLoader->initialize(filePath);
-			pLoader->load(&course);
 
-			g_courseManager.setScroll(0.0f);
-			g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
-			g_game.setScreen(GAME_SCREEN_MAIN);
+			// コースを読み込む
+			if (pLoader->load(&course)) {
+				// コースの読み込みに成功
+				g_courseManager.setScroll(0.0f);
+				g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
+				g_game.setScreen(GAME_SCREEN_MAIN);
+			} else {
+				// コースの読み込みに失敗
+				CourseLoader::Result error = pLoader->getLastError();
+			}
 
 			break;
 		}
-			//char filePath[64];
-			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.txt", g_game.m_world.world, g_game.m_world.stage);
-			//// コースファイルを読み込む
-			//if (g_courseManager.load(filePath)) {
-			//	g_courseManager.setScroll(0.0f);
-			//	g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
-			//	g_game.setScreen(GAME_SCREEN_MAIN);
-			//} else {
-			//// Convert a basic_string string to a wide character
-			//// wchar_t* string. You must first convert to a char*
-			//// for this to work.
-			//	const size_t newsizew = g_courseManager.getErrorString().size() + 1;
-			//	size_t convertedChars = 0;
-			//	wchar_t* wcstring = new wchar_t[newsizew];
-			//	mbstowcs_s(&convertedChars, wcstring, newsizew, g_courseManager.getErrorString().c_str(), _TRUNCATE);
-			//	MessageBox(
-			//		NULL,				// HWND hWnd,
-			//		(LPCWSTR)wcstring,	// LPCWSTR lpText,
-			//		(LPCWSTR)L"Error",	// LPCWSTR lpCaption,
-			//		MB_ICONHAND			// UINT uType
-			//	);
-			//	delete[] wcstring;
-			//	g_app.release();
-			//	exit(EXIT_FAILURE);
-			//}
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
 			g_game.updateTopScore();

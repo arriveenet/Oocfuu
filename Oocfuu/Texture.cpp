@@ -138,7 +138,7 @@ int Texture::createTexImage(const unsigned char* _colorKey)
 	if (!m_bitmapPixels)
 		return 1;
 
-	m_pixels = new unsigned char[4 * m_width * m_height];
+	m_pixels = new unsigned char[static_cast<size_t>(4 * m_width * m_height)];
 	if (!m_pixels)
 		return 1;
 
