@@ -1,16 +1,15 @@
-#include <gl/freeglut.h>
-
-#include <glm/glm.hpp>
-
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
 #include "App.h"
 #include "common/font.h"
 #include "sound/audio.h"
 #include "input/Keyboard.h"
 #include "input/Mouse.h"
+
+#include <gl/freeglut.h>
+#include <glm/glm.hpp>
+
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
 
 using namespace glm;
 
@@ -18,7 +17,7 @@ ivec2 windowSize;
 
 void display(void)
 {
-	// âΩÇ‡ÇµÇ»Ç¢ÅB
+	// âΩÇ‡ÇµÇ»Ç¢
 }
 
 void release(void)
