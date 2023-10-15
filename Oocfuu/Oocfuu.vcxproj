@@ -203,6 +203,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="screen\TitleScreen.cpp" />
     <ClCompile Include="screen\TpScreen.cpp" />
     <ClCompile Include="sound\audio.cpp" />
+    <ClCompile Include="sound\Bgm.cpp" />
     <ClCompile Include="sound\Channel.cpp" />
     <ClCompile Include="sound\Music.cpp" />
     <ClCompile Include="sound\Sound.cpp" />
@@ -275,6 +276,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="screen\TitleScreen.h" />
     <ClInclude Include="screen\TpScreen.h" />
     <ClInclude Include="sound\audio.h" />
+    <ClInclude Include="sound\Bgm.h" />
     <ClInclude Include="sound\Channel.h" />
     <ClInclude Include="sound\Music.h" />
     <ClInclude Include="sound\Sound.h" />

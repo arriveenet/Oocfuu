@@ -243,6 +243,9 @@
     <ClCompile Include="world\CourseManager.cpp">
       <Filter>ソース ファイル\world</Filter>
     </ClCompile>
+    <ClCompile Include="sound\Bgm.cpp">
+      <Filter>ソース ファイル\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="world\CourseManager.h">
       <Filter>ヘッダー ファイル\world</Filter>
+    </ClInclude>
+    <ClInclude Include="sound\Bgm.h">
+      <Filter>ヘッダー ファイル\sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
