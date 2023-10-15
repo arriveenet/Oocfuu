@@ -71,7 +71,7 @@ void Bgm::setBgm(BgmType _bgm)
 		m_soundType = SOUND_BGM_UNDERGROUND;
 		break;
 	case Bgm::Castle:
-		m_soundType = SOUND_BGM_GROUND;
+		m_soundType = SOUND_BGM_CASTLE;
 		break;
 	default:
 		break;

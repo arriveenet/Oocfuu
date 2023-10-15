@@ -5,6 +5,7 @@
 #include "world/Part.h"
 #include "enemy/EnemyManager.h"
 #include "sound/Sound.h"
+#include "sound/Bgm.h"
 #include <vector>
 
 using namespace std;
@@ -29,6 +30,8 @@ PlayerStateClear::PlayerStateClear()
 
 void PlayerStateClear::start(Player* _pPlayer)
 {
+	Bgm::stop();
+
 	_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 	_pPlayer->m_speed = { 0.0f, 0.0f };
 	_pPlayer->m_messageController.setMessage(messages, messageSize);

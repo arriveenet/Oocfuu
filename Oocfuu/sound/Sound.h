@@ -18,6 +18,9 @@ enum SOUNDTYPE {
 	SOUND_FLAGPOLE,
 	SOUND_FANFARE,
 	SOUND_WORLED_CLEAR,
+	SOUND_BGM_GROUND,
+	SOUND_BGM_UNDERGROUND,
+	SOUND_BGM_CASTLE,
 	SOUND_MAX
 };
 
@@ -37,6 +40,7 @@ public:
 
 	void play(SOUNDTYPE _sid);
 	void stop(SOUNDTYPE _sid);
+	void repeat(SOUNDTYPE _sid, bool _enable = true);
 	void setGain(SOUNDTYPE _source, float _gain);
 	ALint getState(SOUNDTYPE _source);
 

@@ -1,5 +1,6 @@
 #include "PlayerStateGoal.h"
 #include "sound/Sound.h"
+#include "sound/Bgm.h"
 #include "animation/Animation.h"
 #include "world/CourseManager.h"
 #include "world/CourseEffect.h"
@@ -28,6 +29,8 @@ void PlayerStateGoal::start(Player* _pPlayer)
 	m_counter = 0;
 	_pPlayer->m_speed.x = 0;
 	_pPlayer->m_position.x += PLAYER_POLE_OFFSET;
+
+	Bgm::stop();
 	g_pSound->play(SOUND_FLAGPOLE);
 
 	CourseEffectManager* effectMgr = CourseEffectManager::instance();

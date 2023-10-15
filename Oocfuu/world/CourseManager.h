@@ -80,19 +80,22 @@ public:
 			return m_currentCourse.m_width - 17;
 		}
 		return m_currentCourse.m_width;
-	};
+	}
 
 	// コースの高さを取得
-	int getHeight() const { return m_currentCourse.m_height; };
+	int getHeight() const { return m_currentCourse.m_height; }
 
 	// 背景色を取得する
-	COLORREF getClearColor() const { return m_currentCourse.m_clearColor; };
+	COLORREF getClearColor() const { return m_currentCourse.m_clearColor; }
 
 	// プレイヤーのスタート位置を取得
-	glm::ivec2 getStartPosition() const { return m_currentCourse.m_startPosition; };
+	glm::ivec2 getStartPosition() const { return m_currentCourse.m_startPosition; }
 
 	// 次のワールドを取得
-	WORLD getNextWorld() const { return m_currentCourse.m_nextWorld; };
+	WORLD getNextWorld() const { return m_currentCourse.m_nextWorld; }
+
+	// コースの種別を取得
+	Course::CourseType getCourseType() { return m_currentCourse.m_courseType; }
 
 	// クリア斧と当たっているか
 	bool getClearAex(Rect& _rect);
@@ -101,13 +104,13 @@ public:
 	void destroyBridge()
 	{
 		m_currentCourse.m_bridgeController.destroy();
-	};
+	}
 
 	// ボスステージの橋が壊されたか
 	bool isBridgeDestroyed()
 	{
 		return m_currentCourse.m_bridgeController.isDestroyed();
-	};
+	}
 
 	// キノピオをとの当たり判定
 	bool intersectKinopio(const Rect* _rect);

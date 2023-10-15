@@ -3,6 +3,7 @@
 #include "world/CourseManager.h"
 #include "App.h"
 #include "sound/Sound.h"
+#include "sound/Bgm.h"
 
 PlayerStateDie::PlayerStateDie()
 	: PlayerState(PLAYER_STATE_DIE)
@@ -12,6 +13,8 @@ PlayerStateDie::PlayerStateDie()
 
 void PlayerStateDie::start(Player* _pPlayer)
 {
+	Bgm::stop();
+
 	g_pSound->play(SOUND_SE_DIE);
 	_pPlayer->m_speed = { 0, 0 };
 	m_counter = 0;

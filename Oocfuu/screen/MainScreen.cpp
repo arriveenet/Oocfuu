@@ -11,6 +11,7 @@
 #include "Player/Player.h"
 #include "input/Keyboard.h"
 #include "sound/Sound.h"
+#include "sound/Bgm.h"
 
 void MainScreen::init()
 {
@@ -22,6 +23,8 @@ void MainScreen::reset()
 	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
 	g_game.m_timer.start();
 	g_game.m_timer.setVisible(true);
+
+	Bgm::play();
 }
 
 void MainScreen::update()

@@ -1,5 +1,6 @@
 #include "Course.h"
 #include "Part.h"
+#include "sound/Bgm.h"
 
 #include <glm/glm.hpp>
 
@@ -202,16 +203,19 @@ void Course::setType(const std::string _typeName)
 	if (_typeName == "overworld") {
 		m_courseType = Overworld;
 		m_texture = TEXTURE_PARTS_OVERWORLD;
+		Bgm::setBgm(Bgm::Ground);
 	}
 	// ínâ∫
 	else if (_typeName == "underground") {
 		m_courseType = Underground;
 		m_texture = TEXTURE_PARTS_UNDERGROUND;
+		Bgm::setBgm(Bgm::Underground);
 	}
 	// èÈ
 	else if (_typeName == "castle") {
 		m_courseType = Castle;
 		m_texture = TEXTURE_PARTS_CASTLE;
+		Bgm::setBgm(Bgm::Castle);
 	}
 	// è„ãLà»äO
 	else {
