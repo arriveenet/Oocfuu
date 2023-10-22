@@ -35,7 +35,7 @@ void KoopaFire::start(glm::vec2 _position, FIRE_HEIGHT _height, int _direction)
 	}
 
 	// ファイヤーの効果音を再生
-	g_pSound->play(SOUND_SE_ENEMY_FIRE);
+	g_pSound->play(SOUND_TYPE_SE_ENEMY_FIRE);
 }
 
 void KoopaFire::reset()

@@ -22,25 +22,25 @@ static Wave* g_pWaveLoader = NULL;
 Sound* g_pSound = NULL;
 
 static const char* fileNames[SOUND_MAX] = {
-	"resource\\sound\\Yo.wav",				// SOUND_SE_YO
-	"resource\\sound\\Hoi.wav",				// SOUND_SE_HOI
-	"resource\\sound\\1up.wav",				// SOUND_SE_1UP
-	"resource\\sound\\Coin.wav",			// SOUND_SE_COIN
-	"resource\\sound\\Break.wav",			// SOUND_SE_BREAK
-	"resource\\sound\\Bump.wav",			// SOUND_SE_BUMP
-	"resource\\sound\\Die.wav",				// SOUND_SE_DIE
-	"resource\\sound\\Kick.wav",			// SOUND_SE_KICK
-	"resource\\sound\\KoopaDie.wav",		// SOUND_SE_KOOPA_DIE
-	"resource\\sound\\EnemyFire.wav",		// SOUND_SE_ENEMY_FIRE
-	"resource\\sound\\Pause.wav",			// SOUND_SE_PAUSE
-	"resource\\sound\\Squish.wav",			// SOUND_SE_SQUISH
-	"resource\\sound\\Firework.wav",		// SOUND_FIREWORK
-	"resource\\sound\\Flagpole.wav",		// SOUND_FLAGPOLE
-	"resource\\sound\\Fanfare.wav",			// SOUND_FANFARE
-	"resource\\sound\\WorldClear.wav",		// SOUND_WORLED_CLEAR
-	"resource\\sound\\GroundBGM.wav",		// SOUND_BGM_GROUND
-	"resource\\sound\\UndergroundBGM.wav",	// SOUND_BGM_UNDERGROUND
-	"resource\\sound\\CastleBGM.wav",		// SOUND_BGM_CASTLE,
+	"resource\\sound\\Yo.wav",				// SOUND_TYPE_SE_YO
+	"resource\\sound\\Hoi.wav",				// SOUND_TYPE_SE_HOI
+	"resource\\sound\\1up.wav",				// SOUND_TYPE_SE_1UP
+	"resource\\sound\\Coin.wav",			// SOUND_TYPE_SE_COIN
+	"resource\\sound\\Break.wav",			// SOUND_TYPE_SE_BREAK
+	"resource\\sound\\Bump.wav",			// SOUND_TYPE_SE_BUMP
+	"resource\\sound\\Die.wav",				// SOUND_TYPE_SE_DIE
+	"resource\\sound\\Kick.wav",			// SOUND_TYPE_SE_KICK
+	"resource\\sound\\KoopaDie.wav",		// SOUND_TYPE_SE_KOOPA_DIE
+	"resource\\sound\\EnemyFire.wav",		// SOUND_TYPE_SE_ENEMY_FIRE
+	"resource\\sound\\Pause.wav",			// SOUND_TYPE_SE_PAUSE
+	"resource\\sound\\Squish.wav",			// SOUND_TYPE_SE_SQUISH
+	"resource\\sound\\Firework.wav",		// SOUND_TYPE_SE_FIREWORK
+	"resource\\sound\\Flagpole.wav",		// SOUND_TYPE_SE_FLAGPOLE
+	"resource\\sound\\Fanfare.wav",			// SOUND_TYPE_SE_FANFARE
+	"resource\\sound\\WorldClear.wav",		// SOUND_TYPE_SE_WORLED_CLEAR
+	"resource\\sound\\GroundBGM.wav",		// SOUND_TYPE_BGM_GROUND
+	"resource\\sound\\UndergroundBGM.wav",	// SOUND_TYPE_BGM_UNDERGROUND
+	"resource\\sound\\CastleBGM.wav",		// SOUND_TYPE_BGM_CASTLE,
 };
 
 Sound::Sound()
@@ -143,19 +143,19 @@ void Sound::release()
 	}
 }
 
-void Sound::play(SOUNDTYPE _sid)
+void Sound::play(SoundType _sid)
 {
 	if(m_sids)
 		alSourcePlay(m_sids[_sid]);
 }
 
-void Sound::stop(SOUNDTYPE _sid)
+void Sound::stop(SoundType _sid)
 {
 	if (m_sids)
 		alSourceStop(m_sids[_sid]);
 }
 
-void Sound::repeat(SOUNDTYPE _sid, bool _enable)
+void Sound::repeat(SoundType _sid, bool _enable)
 {
 	alSourcei(
 		m_sids[_sid],						// ALuint sid
@@ -163,7 +163,7 @@ void Sound::repeat(SOUNDTYPE _sid, bool _enable)
 		_enable ? AL_TRUE : AL_FALSE);		//  ALint value
 }
 
-void Sound::setGain(SOUNDTYPE _source, float _gain)
+void Sound::setGain(SoundType _source, float _gain)
 {
 	alSourcef(
 		m_sids[_source],	// ALuint source
@@ -171,7 +171,7 @@ void Sound::setGain(SOUNDTYPE _source, float _gain)
 		_gain);				// ALfloat value
 }
 
-ALint Sound::getState(SOUNDTYPE _source)
+ALint Sound::getState(SoundType _source)
 {
 	ALint value;
 	alGetSourcei(

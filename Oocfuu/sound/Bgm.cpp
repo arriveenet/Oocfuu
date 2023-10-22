@@ -1,7 +1,7 @@
 #include "Bgm.h"
 
 Bgm::BgmType Bgm::m_bgmType;
-SOUNDTYPE Bgm::m_soundType;
+SOUND_TYPE Bgm::m_soundType;
 
 /**
  * @brief コンストラクタ
@@ -65,13 +65,13 @@ void Bgm::setBgm(BgmType _bgm)
 
 	switch (_bgm) {
 	case Bgm::Ground:
-		m_soundType = SOUND_BGM_GROUND;
+		m_soundType = SOUND_TYPE_BGM_GROUND;
 		break;
 	case Bgm::Underground:
-		m_soundType = SOUND_BGM_UNDERGROUND;
+		m_soundType = SOUND_TYPE_BGM_UNDERGROUND;
 		break;
 	case Bgm::Castle:
-		m_soundType = SOUND_BGM_CASTLE;
+		m_soundType = SOUND_TYPE_BGM_CASTLE;
 		break;
 	default:
 		break;

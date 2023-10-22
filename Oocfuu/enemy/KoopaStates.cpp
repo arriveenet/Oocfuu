@@ -141,7 +141,7 @@ void KoopaStateDie::execute(Koopa* _pKoopa)
 	bool bridge = g_courseManager.isBridgeDestroyed();
 	if (!m_lastBridge && bridge) {
 		//_pKoopa->m_collision = false;
-		g_pSound->play(SOUND_SE_KOOPA_DIE);
+		g_pSound->play(SOUND_TYPE_SE_KOOPA_DIE);
 		g_animations[ANIMATION_KOOPA].m_rate = 0;
 		_pKoopa->m_flag &= ~KOOPA_FLAG_ANIMATION;
 		_pKoopa->m_flag |= KOOPA_FLAG_FALLING;

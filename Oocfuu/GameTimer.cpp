@@ -30,7 +30,7 @@ void GameTimer::update()
 			m_time--;
 			// ゴールのカウントダウン中であれば
 			if (m_countDown) {
-				g_pSound->play(SOUND_SE_COIN);
+				g_pSound->play(SOUND_TYPE_SE_COIN);
 				g_game.addScore(50);
 			}
 		}

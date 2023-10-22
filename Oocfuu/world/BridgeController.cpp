@@ -26,7 +26,7 @@ void BridgeController::update()
 			ivec2 position = m_parts.back();
 			g_courseManager.setParts(position, PART_NONE);
 			m_parts.pop_back();
-			g_pSound->play(SOUND_SE_BREAK);
+			g_pSound->play(SOUND_TYPE_SE_BREAK);
 		}
 	}
 }

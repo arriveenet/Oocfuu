@@ -31,5 +31,5 @@ public:
 
 private:
 	static BgmType m_bgmType;		//!< 再生するBGMの種別
-	static SOUNDTYPE m_soundType;	//!< サウンドの種別
+	static SOUND_TYPE m_soundType;	//!< サウンドの種別
 };

@@ -196,7 +196,7 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 		part = endPart = PART_SOFT_BLOCK;
 		break;
 	default:
-		g_pSound->play(SOUND_SE_BUMP);
+		g_pSound->play(SOUND_TYPE_SE_BUMP);
 		return;
 	}
 

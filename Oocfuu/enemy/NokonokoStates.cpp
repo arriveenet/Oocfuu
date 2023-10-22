@@ -62,7 +62,7 @@ void NokonokoStateShell::enter(Nokonoko* _pNokonoko)
 	//_pNokonoko->m_position += vec2(0.f, 8.f);
 	_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_SHELL);
 
-	g_pSound->play(SOUND_SE_SQUISH);
+	g_pSound->play(SOUND_TYPE_SE_SQUISH);
 }
 
 void NokonokoStateShell::execute(Nokonoko* _pNokonoko)
@@ -107,7 +107,7 @@ NokonokoStateSpin* NokonokoStateSpin::instance()
 void NokonokoStateSpin::enter(Nokonoko* _pNokonoko)
 {
 	_pNokonoko->m_state = NOKONOKO_STATE_SPIN;
-	g_pSound->play(SOUND_SE_KICK);
+	g_pSound->play(SOUND_TYPE_SE_KICK);
 }
 
 void NokonokoStateSpin::execute(Nokonoko* _pNokonoko)
@@ -188,7 +188,7 @@ void NokonokoStateDie::enter(Nokonoko* _pNokonoko)
 {
 	_pNokonoko->m_state = NOKONOKO_STATE_DEAD;
 	_pNokonoko->m_flip = RECT_FLIP_VERTICAL;
-	g_pSound->play(SOUND_SE_KICK);
+	g_pSound->play(SOUND_TYPE_SE_KICK);
 }
 
 void NokonokoStateDie::execute(Nokonoko* _pNokonoko)

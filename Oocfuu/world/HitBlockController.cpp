@@ -63,7 +63,7 @@ void HitBlockController::start(const glm::ivec2& _point, const PART& _part, cons
 		EffectCoin blockCoin(position);
 		blockCoinMgr->addCoin(blockCoin);
 	} else {
-		g_pSound->play(SOUND_SE_BUMP);
+		g_pSound->play(SOUND_TYPE_SE_BUMP);
 	}
 }
 

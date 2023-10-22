@@ -135,11 +135,11 @@ void Game::countDownTimer()
 void Game::pause()
 {
 	// ポーズ音が再生中であればポーズしない
-	if (g_pSound->getState(SOUND_SE_PAUSE) == AL_PLAYING)
+	if (g_pSound->getState(SOUND_TYPE_SE_PAUSE) == AL_PLAYING)
 		return;
 
 	m_pause = m_pause ? false : true;
-	g_pSound->play(SOUND_SE_PAUSE);
+	g_pSound->play(SOUND_TYPE_SE_PAUSE);
 }
 
 bool Game::isPause()
@@ -154,7 +154,7 @@ void Game::addScore(int _score)
 
 void Game::addCoin()
 {
-	g_pSound->play(SOUND_SE_COIN);
+	g_pSound->play(SOUND_TYPE_SE_COIN);
 	if (m_coin < 99) {
 		m_coin++;
 		addScore(200);

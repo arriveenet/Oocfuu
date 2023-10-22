@@ -31,7 +31,7 @@ void PlayerStateGoal::start(Player* _pPlayer)
 	_pPlayer->m_position.x += PLAYER_POLE_OFFSET;
 
 	Bgm::stop();
-	g_pSound->play(SOUND_FLAGPOLE);
+	g_pSound->play(SOUND_TYPE_SE_FLAGPOLE);
 
 	CourseEffectManager* effectMgr = CourseEffectManager::instance();
 	effectMgr->startGoalFlag();
@@ -56,8 +56,8 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 	case PLAYERSTATEGOAL_FLIP:
 		if (m_counter > 32) {
 			m_state = PLAYERSTATEGOAL_MOVE;
-			g_pSound->setGain(SOUND_FANFARE, 0.1f);
-			g_pSound->play(SOUND_FANFARE);
+			g_pSound->setGain(SOUND_TYPE_SE_FANFARE, 0.1f);
+			g_pSound->play(SOUND_TYPE_SE_FANFARE);
 			_pPlayer->m_flip = RECT_FLIP_NONE;
 			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 		}

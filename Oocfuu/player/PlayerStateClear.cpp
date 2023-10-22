@@ -45,7 +45,7 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 	case CLEAR_STEP_STOP:
 		if (g_enemyManager.koopaIsDead()) {
 			m_step = CLEAR_STEP_MOVE;
-			g_pSound->play(SOUND_WORLED_CLEAR);
+			g_pSound->play(SOUND_TYPE_SE_WORLED_CLEAR);
 		}
 		break;
 	case CLEAR_STEP_MOVE:

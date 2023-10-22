@@ -50,7 +50,7 @@ void PlayerStateJump::start(Player* _pPlayer)
 	_pPlayer->m_speed.y = InitalVerticalSpeedData[index];
 
 	int r = rand() % 2;
-	g_pSound->play((SOUNDTYPE)r);
+	g_pSound->play((SOUND_TYPE)r);
 }
 
 void PlayerStateJump::update(PlayerStateContext* _pStateContext, Player* _pPlayer)

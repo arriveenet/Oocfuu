@@ -32,7 +32,7 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 	for (int i = 0; i < KURIBO_TOP_POINT_COUNT; i++) {
 		if (g_player.intersect(_pKuribo->m_topPoints[i]) && !g_player.m_dead) {
 			squished = true;
-			g_pSound->play(SOUND_SE_SQUISH);
+			g_pSound->play(SOUND_TYPE_SE_SQUISH);
 			g_player.jump();
 			g_game.addScore(100);
 
@@ -131,7 +131,7 @@ void KuriboStateDie::enter(Kuribo* _pKuribo)
 	_pKuribo->m_texture = TEXTURE_KURIBO_RUN;
 	_pKuribo->m_flip = RECT_FLIP_VERTICAL;
 
-	g_pSound->play(SOUND_SE_KICK);
+	g_pSound->play(SOUND_TYPE_SE_KICK);
 }
 
 void KuriboStateDie::execute(Kuribo* _pKuribo)

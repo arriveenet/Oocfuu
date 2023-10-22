@@ -320,5 +320,5 @@ void Player::jump()
 void Player::oneUp()
 {
 	m_left++;
-	g_pSound->play(SOUND_SE_1UP);
+	g_pSound->play(SOUND_TYPE_SE_1UP);
 }

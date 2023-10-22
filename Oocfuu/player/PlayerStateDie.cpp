@@ -15,7 +15,7 @@ void PlayerStateDie::start(Player* _pPlayer)
 {
 	Bgm::stop();
 
-	g_pSound->play(SOUND_SE_DIE);
+	g_pSound->play(SOUND_TYPE_SE_DIE);
 	_pPlayer->m_speed = { 0, 0 };
 	m_counter = 0;
 }
