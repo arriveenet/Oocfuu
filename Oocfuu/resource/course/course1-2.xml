@@ -24,7 +24,14 @@
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0    b0b0b0b0b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0    b0b0b0b0b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 	</data>
-	<enemy type="0" x="336" y="192"/>
+	<enemy>
+		<kuribo x="224" y="192"/>
+		<kuribo x="240" y="192"/>
+		<kuribo x="480" y="192"/>
+		<kuribo x="736" y="192"/>
+		<kuribo x="768" y="192"/>
+		<kuribo x="928" y="192"/>
+	</enemy>
 	<gimmick>
 		<lift x="2236" y="96" width="6" mode="3"/>
 		<lift x="2236" y="192" width="6" mode="3"/>
