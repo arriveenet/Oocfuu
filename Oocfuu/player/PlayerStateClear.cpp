@@ -59,12 +59,15 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 			_pPlayer->m_speed = (vec2)fixed / (float)one;
 		}
 
-		// キノピオとの当たり判定
-		if (g_courseManager.intersectKinopio(_pPlayer)) {
-			_pPlayer->m_speed = { 0.0f, 0.0f };
-			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
-			m_step = CLEAR_STEP_STAY;
+		// エンティティとの当たり判定
+		for (Sprite* object : g_courseManager.getCourse().m_courseObjects) {
+			if (object->intersect(*_pPlayer)) {
+				_pPlayer->m_speed = { 0.0f, 0.0f };
+				_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
+				m_step = CLEAR_STEP_STAY;
+			}
 		}
+
 		break;
 	case CLEAR_STEP_STAY:
 		g_courseManager.addScroll(1.0f);

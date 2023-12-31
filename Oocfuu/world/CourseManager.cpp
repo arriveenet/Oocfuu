@@ -21,7 +21,6 @@ CourseManager g_courseManager;
 CourseManager::CourseManager()
 	: m_scroll(0.0f)
 	, m_isLoaded(false)
-	, m_kinopio()
 	, m_currentCourse()
 {
 }
@@ -45,9 +44,6 @@ void CourseManager::clear()
 	// コースエフェクトマネージャーをクリアする
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
 	courseEffectMgr->clear();
-
-	// キノピオを無効する
-	m_kinopio.m_enable = false;
 
 	// 仕掛けパーツをクリアする
 	g_gmmickPart.clear();
@@ -73,9 +69,6 @@ void CourseManager::draw()
 	// ブロックを叩いたときのコインを描画
 	CourseEffectManager* courseEffectMgr = CourseEffectManager::instance();
 	courseEffectMgr->draw();
-
-	// キノピオを描画
-	m_kinopio.draw();
 }
 
 bool CourseManager::isScrollMax()
@@ -127,7 +120,12 @@ int CourseManager::getParts(glm::vec2 const& _point)
 	return m_currentCourse.m_pParts[cellPoint.y][cellPoint.x];
 }
 
-bool CourseManager::intersect(vec2 const& _point)
+Course& CourseManager::getCourse()
+{
+	return m_currentCourse;
+}
+
+bool CourseManager::intersect(vec2 const& _point) const
 {
 	ivec2 cellPoint = (ivec2)_point / PART_SIZE;
 	if (
@@ -206,18 +204,19 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 	g_enemyManager.hitBlock(cellPoint);
 }
 
-bool CourseManager::getClearAex(Rect& _rect)
+int CourseManager::getWidth() const
+{
+	// ボスステージの場合幅を縮める
+	if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
+		return m_currentCourse.m_width - 17;
+	}
+	return m_currentCourse.m_width;
+}
+
+bool CourseManager::getClearAex(Rect& _rect) const
 {
 	if (m_currentCourse.m_clearAex.m_position != vec2(0, 0)) {
 		_rect = m_currentCourse.m_clearAex;
-		return true;
-	}
-	return false;
-}
-
-bool CourseManager::intersectKinopio(const Rect* _rect)
-{
-	if (m_kinopio.m_enable && m_kinopio.intersect(*_rect)) {
 		return true;
 	}
 	return false;

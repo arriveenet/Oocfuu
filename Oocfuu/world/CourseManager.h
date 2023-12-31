@@ -1,7 +1,6 @@
 #pragma once
 #include "Game.h"
 #include "Rect.h"
-#include "Kinopio.h"
 #include "common/common.h"
 #include "Course.h"
 
@@ -22,8 +21,6 @@ private:
 	Course					m_currentCourse;		//!< 現在設定されているコース
 
 public:
-	Kinopio					m_kinopio;				//!< キノピオ
-
 	// コンストラクタ
 	CourseManager();
 
@@ -63,8 +60,11 @@ public:
 	// パーツを取得
 	int getParts(glm::vec2 const& _point);
 
+	// 現在のコースを取得
+	Course& getCourse();
+
 	// コースとの当たり判定
-	bool intersect(glm::vec2 const& _point);
+	bool intersect(glm::vec2 const& _point) const;
 
 	// コースのコインとの当たり判定
 	void intersectCoin(Player* _pPlayer);
@@ -73,14 +73,7 @@ public:
 	void hitBlock(glm::vec2 const& _point);
 
 	// コースの幅を取得
-	int getWidth() const
-	{
-		// ボスステージの場合幅を縮める
-		if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
-			return m_currentCourse.m_width - 17;
-		}
-		return m_currentCourse.m_width;
-	}
+	int getWidth() const;
 
 	// コースの高さを取得
 	int getHeight() const { return m_currentCourse.m_height; }
@@ -98,7 +91,7 @@ public:
 	Course::CourseType getCourseType() { return m_currentCourse.m_courseType; }
 
 	// クリア斧と当たっているか
-	bool getClearAex(Rect& _rect);
+	bool getClearAex(Rect& _rect) const;
 
 	// ボスステージの橋を破壊する
 	void destroyBridge()
@@ -111,9 +104,6 @@ public:
 	{
 		return m_currentCourse.m_bridgeController.isDestroyed();
 	}
-
-	// キノピオをとの当たり判定
-	bool intersectKinopio(const Rect* _rect);
 
 	// 矩形が画面内にいるか
 	bool isInScreen(const Rect& _rect);

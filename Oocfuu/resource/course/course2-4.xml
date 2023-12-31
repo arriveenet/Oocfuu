@@ -27,5 +27,8 @@
 	<enemy>
 		<koopa x="240" y="96"/>
 	</enemy>
-	<kinopio x="554" y="184"/>
+	<object>
+		<!-- <kinopio x="554" y="184"/> -->
+		<cake x="554" y="184"/>
+	</object>
 </course>

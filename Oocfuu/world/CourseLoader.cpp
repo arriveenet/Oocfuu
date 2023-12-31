@@ -2,6 +2,7 @@
 
 #include "Part.h"
 #include "CourseEffect.h"
+#include "CourseObject.h"
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -149,14 +150,12 @@ bool CourseLoader::load(Course* _pCourse)
 		}
 	}
 
-	g_courseManager.m_kinopio.m_enable = false;
-	XMLElement* pKinopioElement = m_pRootElement->FirstChildElement("kinopio");
-	if (pKinopioElement) {
-		int x = pKinopioElement->IntAttribute("x");
-		int y = pKinopioElement->IntAttribute("y");
-
-		g_courseManager.m_kinopio.m_enable = true;
-		g_courseManager.m_kinopio.m_position = vec2(x, y);
+	// コースのオブジェクトを解析する
+	XMLElement* pEntityElement = m_pRootElement->FirstChildElement("object");
+	if (pEntityElement) {
+		if (!parseObjects(_pCourse, pEntityElement)) {
+			return false;
+		}
 	}
 
 	// コースを作成
@@ -426,5 +425,44 @@ bool CourseLoader::parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLE
 		}
 	}
 
+	return true;
+}
+
+/**
+ * @brief コースオブジェクトを解析する
+ *
+ * @param[in] _pCourse			コースクラスのポインタ
+ * @param[in] _pObjectsElement	コースオブジェクトのXML要素
+ *
+ * @return 成功：true 失敗：false
+ *
+ */
+bool CourseLoader::parseObjects(Course* _pCourse, tinyxml2::XMLElement* _pObjectsElement)
+{
+	assert(_pObjectsElement);
+
+	// キノピオを読み込む
+	tinyxml2::XMLElement* pKinopioElement = _pObjectsElement->FirstChildElement("kinopio");
+	if (pKinopioElement) {
+		for (tinyxml2::XMLElement* pElement = pKinopioElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+
+			Kinopio* kinopio = new Kinopio(x, y);
+			_pCourse->m_courseObjects.push_back(kinopio);
+		}
+	}
+
+	// ケーキ読み込む
+	tinyxml2::XMLElement* pCakeElement = _pObjectsElement->FirstChildElement("cake");
+	if (pCakeElement) {
+		for (tinyxml2::XMLElement* pElement = pCakeElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+
+			Cake* kinopio = new Cake(x, y);
+			_pCourse->m_courseObjects.push_back(kinopio);
+		}
+	}
 	return true;
 }

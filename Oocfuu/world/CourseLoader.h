@@ -67,4 +67,6 @@ private:
 	// 仕掛けパーツを解析する
 	bool parseGimmickParts(GimmickPart* _pGimmickParts, tinyxml2::XMLElement* _pGimmickElement);
 
+	// コースオブジェクトを解析する
+	bool parseObjects(Course* _pCourse, tinyxml2::XMLElement* _pEntityElement);
 };

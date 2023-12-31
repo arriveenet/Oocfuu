@@ -37,7 +37,7 @@ public:
 	Rect					m_clearAex;				//!< クリア斧
 	HitBlockController		m_hitBlockController;	//!< 叩いたときのブロック制御
 	BridgeController		m_bridgeController;		//!< ボスステージの橋制御
-
+	std::vector<Sprite*>	m_courseObjects;
 
 	// コンストラクタ
 	Course();

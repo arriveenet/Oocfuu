@@ -38,6 +38,8 @@ Course::~Course()
 	m_isLoaded = false;
 	m_quads.clear();
 	m_quads.shrink_to_fit();
+	m_courseObjects.clear();
+	m_courseObjects.shrink_to_fit();
 }
 
 /**
@@ -75,6 +77,13 @@ void Course::destroy()
 	m_isLoaded = false;
 	m_quads.clear();
 	m_quads.shrink_to_fit();
+
+	for (Sprite* entitiy : m_courseObjects) {
+		delete entitiy;
+		entitiy = nullptr;
+	}
+	m_courseObjects.clear();
+	m_courseObjects.shrink_to_fit();
 }
 
 /**
@@ -187,6 +196,10 @@ void Course::draw()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_CULL_FACE);
+
+	for (Sprite* entity : m_courseObjects) {
+		entity->draw();
+	}
 }
 
 /**
