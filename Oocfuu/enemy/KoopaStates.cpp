@@ -27,8 +27,8 @@ void KoopaStateIdle::enter(Koopa* _pKoopa)
 void KoopaStateIdle::execute(Koopa* _pKoopa)
 {
 	if (_pKoopa->m_counter >= 32) {
-		int r =rand() % KOOPA_STATE_MAX;
-		printf("r=%d\n", r);
+		const int r = rand() % KOOPA_STATE_MAX;
+
 		switch (r) {
 		case KOOPA_STATE_JUMP:
 			_pKoopa->m_pStateMachine->changeState(KoopaStateJump::instance());

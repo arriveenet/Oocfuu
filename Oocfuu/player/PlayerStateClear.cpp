@@ -18,13 +18,25 @@ namespace {
 		{"BUT OUR PRINCESS IS IN\n\nANOTHER CASTLE!", vec2(40, 112), 96}
 	};
 
-	const int messageSize = sizeof(messages) / sizeof(MESSAGE);
+	const MESSAGE message2[] =
+	{
+		{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	96},
+		{"FEBRUARY,4,2024",				vec2(120, 88),	192},
+		{"THANK YOU FOR A FUN",			vec2(56,104),	288},
+		{"LIVESTREAMING ALWAYS.",		vec2(48, 120),	288},
+		{"HOPE YOU HAVE A GREAT YEAR!",	vec2(24, 136),	384},
+		{"FROM OSHU-FUJIWARA",			vec2(96, 160),	480}
+	};
+
+	constexpr int messageSize = sizeof(messages) / sizeof(MESSAGE);
+	constexpr int message2Size = sizeof(message2) / sizeof(MESSAGE);
 }
 
 PlayerStateClear::PlayerStateClear()
 	: PlayerState(PLAYER_STATE_CLEAR)
 	, m_step(CLEAR_STEP_STOP)
 	, m_lastScrollMax(false)
+	, m_lastMusicState(g_music.getState())
 {
 }
 
@@ -42,12 +54,16 @@ void PlayerStateClear::start(Player* _pPlayer)
 void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlayer)
 {
 	switch (m_step) {
+	// プレイヤーストップステップ
 	case CLEAR_STEP_STOP:
 		if (g_enemyManager.koopaIsDead()) {
 			m_step = CLEAR_STEP_MOVE;
-			g_pSound->play(SOUND_TYPE_SE_WORLED_CLEAR);
+			//g_pSound->play(SOUND_TYPE_SE_WORLED_CLEAR);
+			g_music.setMusic(MusicType::HappyBirthday);
+			g_music.play();
 		}
 		break;
+	// プレイヤー移動ステップ
 	case CLEAR_STEP_MOVE:
 		_pPlayer->m_acceleration = 0.14f;
 		_pPlayer->m_speed.x += _pPlayer->m_acceleration;
@@ -69,14 +85,29 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 		}
 
 		break;
+	// プレイヤー停止ステップ
 	case CLEAR_STEP_STAY:
 		g_courseManager.addScroll(1.0f);
 		if (g_courseManager.isScrollMax() && (!m_lastScrollMax)) {
 			_pPlayer->m_messageController.start();
 		}
-		m_lastScrollMax = g_courseManager.isScrollMax();
-		break;
 
+		// 前のミュージックが終わった場合
+		if ((g_music.getState() == MusicState::Stopped) && (m_lastMusicState == MusicState::Playing)) {
+			// タイフーンパレードを再生する
+			g_music.reset();
+			g_music.setMusic(MusicType::TyphoonParade);
+			g_music.play();
+
+			// メッセージを設定
+			_pPlayer->m_messageController.reset();
+			_pPlayer->m_messageController.setMessage(message2, message2Size);
+			_pPlayer->m_messageController.start();
+		}
+
+		m_lastScrollMax = g_courseManager.isScrollMax();
+		m_lastMusicState = g_music.getState();
+		break;
 	default:
 		break;
 	}

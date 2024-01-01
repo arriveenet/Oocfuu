@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerState.h"
+#include "sound/Music.h"
 #include <glm/glm.hpp>
 
 enum CLEAR_STEP {
@@ -12,6 +13,7 @@ enum CLEAR_STEP {
 class PlayerStateClear : public PlayerState {
 	CLEAR_STEP m_step;
 	bool m_lastScrollMax;
+	MusicState m_lastMusicState;
 
 public:
 	PlayerStateClear();

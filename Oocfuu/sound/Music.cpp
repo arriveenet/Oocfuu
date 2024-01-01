@@ -2,17 +2,22 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <thread>
 
 #include "music.h"
 #include "audio.h"
 #include "common/font.h"
 #include "glut.h"
+#include "score/HappyBirthdayToYou.h"
+#include "score/TyphoonParade.h"
+#include "score/TyphoonParade.h"
+#include "score/Voyager.h"
 
 Music g_music;
 
 Music::Music()
-	: m_play(false)
+	: m_type(MusicType::Unknown)
+	, m_state(MusicState::Initial)
+	, m_play(false)
 	, m_playCount(0)
 	, m_end(false)
 	, m_title("NO TITLE")
@@ -49,6 +54,33 @@ void Music::resetScore()
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++)
 		m_channels[i].resetScore();
 
+}
+
+void Music::setMusic(MusicType _type)
+{
+	if (m_type != MusicType::Unknown) {
+		resetScore();
+	}
+
+	m_type = _type;
+
+	switch (_type) {
+	case MusicType::Unknown:
+		break;
+	case MusicType::HappyBirthday:
+		setScore(AUDIO_CHANNEL_PULSE0, hbtyPulse0, HBTY_PULSE0_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
+		setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
+		break;
+	case MusicType::TyphoonParade:
+		setScore(AUDIO_CHANNEL_PULSE0, tpP0, TP_PULSE0_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE1, tpP1, TP_PULSE1_COUNT);
+		setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, TP_TRI_COUNT);
+		setScore(AUDIO_CHANNEL_NOISE, tpNoise, TP_NOISE_COUNT);
+		break;
+	default:
+		break;
+	}
 }
 
 void Music::setScore(int _channel, SCORE* _score, int _count)
@@ -95,6 +127,7 @@ void Music::update()
 		&& (m_channels[AUDIO_CHANNEL_NOISE].isEnd())
 		) {
 		m_end = true;
+		m_state = MusicState::Stopped;
 	}
 }
 
@@ -140,13 +173,20 @@ void Music::play()
 	m_playCount++;
 	m_play = true;
 	m_end = false;
+	m_state = MusicState::Playing;
 }
 
 void Music::stop()
 {
+	m_state = MusicState::Paused;
 	m_play = false;
 	audioStop(AUDIO_CHANNEL_PULSE0);
 	audioStop(AUDIO_CHANNEL_PULSE1);
 	audioStop(AUDIO_CHANNEL_TRIANGLE);
 	audioStop(AUDIO_CHANNEL_NOISE);
+}
+
+MusicState Music::getState() const
+{
+	return m_state;
 }

@@ -1,7 +1,5 @@
 #pragma once
 #include "HbdScreen.h"
-#include "score/HappyBirthdayToYou.h"
-#include "score/TyphoonParade.h"
 #include "score/Voyager.h"
 #include "sound/Music.h"
 #include "common/font.h"
@@ -21,17 +19,12 @@ HbdScreen::HbdScreen()
 
 void HbdScreen::init()
 {
-	g_music.setScore(AUDIO_CHANNEL_PULSE0, hbtyPulse0, HBTY_PULSE0_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
+	g_music.setMusic(MusicType::HappyBirthday);
 }
 
 void HbdScreen::reset()
 {
-	g_music.resetScore();
-	g_music.setScore(AUDIO_CHANNEL_PULSE0, hbtyPulse0, HBTY_PULSE0_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
+	g_music.setMusic(MusicType::HappyBirthday);
 	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
 }
 
@@ -49,11 +42,7 @@ void HbdScreen::update()
 	
 	if (g_music.m_end) {
 		g_music.reset();
-		g_music.resetScore();
-		g_music.setScore(AUDIO_CHANNEL_PULSE0, tpP0, TP_PULSE0_COUNT);
-		g_music.setScore(AUDIO_CHANNEL_PULSE1, tpP1, TP_PULSE1_COUNT);
-		g_music.setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, TP_TRI_COUNT);
-		g_music.setScore(AUDIO_CHANNEL_NOISE, tpNoise, TP_NOISE_COUNT);
+		g_music.setMusic(MusicType::TyphoonParade);
 		g_music.play();
 
 		g_game.setScreen(GAME_SCREEN_TP);

@@ -29,6 +29,6 @@
 	</enemy>
 	<object>
 		<!-- <kinopio x="554" y="184"/> -->
-		<cake x="554" y="184"/>
+		<cake x="554" y="176"/>
 	</object>
 </course>

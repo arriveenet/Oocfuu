@@ -21,12 +21,12 @@ void Kinopio::draw()
 }
 
 Cake::Cake()
-	: Sprite(glm::vec2(26.0f, 26.0f), glm::vec2(0.0f, 0.0f))
+	: Sprite(glm::vec2(32.0f, 32.0f), glm::vec2(0.0f, 0.0f))
 {
 }
 
 Cake::Cake(float x, float y)
-	: Sprite(glm::vec2(26.0f, 26.0f), glm::vec2(x, y))
+	: Sprite(glm::vec2(32.0f, 32.0f), glm::vec2(x, y))
 {
 }
 
