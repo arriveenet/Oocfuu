@@ -1,7 +1,8 @@
 #pragma once
 
-#include "../score/score.h"
 #include "Channel.h"
+#include "score/score.h"
+#include <string>
 
 #define WHOLE_NOTE			4
 #define HALF_NOTE			2
@@ -17,6 +18,7 @@ enum class MusicType {
 	Unknown,		//!< 不明
 	HappyBirthday,	//!< ハッピーバースデー
 	TyphoonParade,	//!< タイフーンパレード
+	Voyager,		//!< VOYAGER日付のない墓標
 };
 
 /**
@@ -30,7 +32,7 @@ enum class MusicState {
 };
 
 struct Music {
-	char m_title[32];
+	std::string m_title;
 	bool m_play;
 	int m_playCount;
 	bool m_end;
@@ -51,8 +53,8 @@ struct Music {
 	MusicState getState() const;
 
 private:
-	MusicType m_type;
-	MusicState m_state;
+	MusicType m_type;		//!< ミュージックの種類
+	MusicState m_state;		//!< ミュージックの状態
 };
 
 extern Music g_music;

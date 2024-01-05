@@ -1,16 +1,12 @@
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-
 #include "music.h"
 #include "audio.h"
 #include "common/font.h"
-#include "glut.h"
 #include "score/HappyBirthdayToYou.h"
 #include "score/TyphoonParade.h"
 #include "score/TyphoonParade.h"
 #include "score/Voyager.h"
+
+#include <glut.h>
 
 Music g_music;
 
@@ -25,7 +21,6 @@ Music::Music()
 
 int Music::init()
 {
-	strcpy_s(m_title, " ");
 	m_play = false;
 	m_playCount = 0;
 	m_end = false;
@@ -78,6 +73,10 @@ void Music::setMusic(MusicType _type)
 		setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, TP_TRI_COUNT);
 		setScore(AUDIO_CHANNEL_NOISE, tpNoise, TP_NOISE_COUNT);
 		break;
+	case MusicType::Voyager:
+		setScore(AUDIO_CHANNEL_PULSE0, voyPulse0, VOY_PULSE0_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE1, voyPulse1, VOY_PULSE1_COUNT);
+		setScore(AUDIO_CHANNEL_TRIANGLE, voyTri, VOY_TRI_COUNT);
 	default:
 		break;
 	}
@@ -103,7 +102,7 @@ void Music::setScore(int _channel, SCORE* _score, int _count)
 
 void Music::setTitle(const char* _title)
 {
-	strcpy_s(m_title, _title);
+	m_title = _title;
 }
 
 void Music::setGain(float _gain)
