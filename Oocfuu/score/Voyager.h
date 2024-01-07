@@ -3,7 +3,7 @@
 
 #define VOY_QUARTER_NOTE	28
 
-static SCORE voyPulse0[] = {
+static SCORE pulse0_score_voyager[] = {
 	
 	{E,4,70}, {G,3,14}, {E,4,14},
 	{D,4,84}, {G,3,14}, {D,4,14},
@@ -224,7 +224,7 @@ static SCORE voyPulse0[] = {
 
 };
 
-static SCORE voyPulse1[] = {
+static SCORE pulse1_score_voyager[] = {
 
 	{C,3,98},
 	{C,3,98}, {C,3,14},
@@ -447,7 +447,7 @@ static SCORE voyPulse1[] = {
 
 };
 
-static SCORE voyTri[] = {
+static SCORE triangle_score_voyager[] = {
 
 	{G,3,70}, {G,3,14}, {C,4,14},
 	{G,3,84}, {G,3,14}, {A,3,14},
@@ -667,6 +667,6 @@ static SCORE voyTri[] = {
 
 };
 
-#define VOY_PULSE0_COUNT sizeof(voyPulse0) / sizeof(voyPulse0[0])
-#define VOY_PULSE1_COUNT sizeof(voyPulse1) / sizeof(voyPulse1[0])
-#define VOY_TRI_COUNT sizeof(voyTri) / sizeof(voyTri[0])
+static constexpr size_t PULSE0_COUNT_VOYAGER = sizeof(pulse0_score_voyager) / sizeof(pulse0_score_voyager[0]);
+static constexpr size_t PULSE1_COUNT_VOYAGER = sizeof(pulse1_score_voyager) / sizeof(pulse1_score_voyager[0]);
+static constexpr size_t TRIANGLE_COUNT_VOYAGER = sizeof(triangle_score_voyager) / sizeof(triangle_score_voyager[0]);

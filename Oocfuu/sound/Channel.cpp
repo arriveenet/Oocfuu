@@ -20,7 +20,7 @@ Channel::Channel()
 	, m_gain(AUDIO_DEFAULT_GAIN)
 	, m_channel(0)
 	, m_waveform(0)
-	, m_end(false)
+	, m_state(State::Inital)
 {
 }
 
@@ -32,7 +32,7 @@ Channel::Channel(int _channel, int _waveform)
 	, m_gain(AUDIO_DEFAULT_GAIN)
 	, m_channel(_channel)
 	, m_waveform(_waveform)
-	, m_end(false)
+	, m_state(State::Inital)
 {
 }
 
@@ -70,20 +70,28 @@ void Channel::start()
 		//printf("%s channel is not set score!\n", channelNames[m_channel]);
 		return;
 	}
-	audioStop(m_channel);
-	audioWaveform(m_channel, m_waveform);
-	audioFreq(m_channel, m_score[0].freq);
-	audioDecay(m_channel, m_score[0].decay);
-	audioGain(m_channel, m_gain);
-	audioPlay(m_channel);
-	m_end = false;
+
+	// ‹x•„ˆÈŠO‚Ìê‡
+	if (m_score[0].key != REST) {
+		audioStop(m_channel);
+		audioWaveform(m_channel, m_waveform);
+		audioFreq(m_channel, m_score[0].freq);
+		audioDecay(m_channel, m_score[0].decay);
+		audioGain(m_channel, m_gain);
+		audioPlay(m_channel);
+
+		m_state = State::Playing;
+	// ‹x•„‚Ìê‡
+	} else {
+		m_state = State::Stopped;
+	}
 }
 
 void Channel::reset()
 {
 	m_phase = 0;
 	m_length = 0;
-	m_end = false;
+	m_state = State::Inital;
 }
 
 void Channel::resetScore()
@@ -94,24 +102,34 @@ void Channel::resetScore()
 void Channel::update()
 {
 	if ((m_phase >= m_count) || (m_score == NULL)) {
-		m_end = true;
+		audioStop(m_channel);
+		m_state = State::Ended;
 		return;
 	}
 
 	m_length++;
 
+	// Ÿ‚Ì‰¹•„‚És‚­ê‡
 	if (m_length >= m_score[m_phase].length) {
 		m_phase++;
 		m_length = 0;
-		if (m_score[m_phase].key == REST)
+
+		// ‹x•„‚Ìê‡
+		if (m_score[m_phase].key == REST) {
 			audioStop(m_channel);
-		else {
-			audioStop(m_channel);
-			audioWaveform(m_channel, m_waveform);
-			audioFreq(m_channel, m_score[m_phase].freq);
-			audioDecay(m_channel, m_score[m_phase].decay);
-			audioGain(m_channel, m_gain);
-			audioPlay(m_channel);
+			m_state = State::Stopped;
+		// ‹x•„ˆÈŠOê‡
+		} else {
+			//audioWaveform(m_channel, m_waveform);
+			audioFreq(m_channel, m_score[m_phase].freq);	// ü”g”‚ğİ’è
+			audioDecay(m_channel, m_score[m_phase].decay);	// Œ¸Š‚ğİ’è
+			audioGain(m_channel, m_gain);					// ‰¹—Ê‚ğİ’è
+
+			// ’â~’†‚Ìê‡
+			if (m_state == State::Stopped) {
+				audioPlay(m_channel);
+				m_state = State::Playing;
+			}
 		}
 	}
 }
@@ -136,7 +154,7 @@ void Channel::draw(float _x, float _y)
 	fontEnd();
 }
 
-bool Channel::isEnd()
+Channel::State Channel::getState() const
 {
-	return m_end;
+	return m_state;
 }

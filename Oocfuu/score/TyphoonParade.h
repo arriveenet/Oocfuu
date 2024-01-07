@@ -2,7 +2,7 @@
 
 #include "score.h"
 
-SCORE tpP0[] = {
+static SCORE pulse0_score_tyhoon_parade[] = {
 
 	{REST,9,96},
 	{B,4,24}, {E,5,24}, {F_SHARP,5,12}, {E,5,24},
@@ -100,7 +100,7 @@ SCORE tpP0[] = {
 
 };
 
-SCORE tpP1[] = {
+static SCORE pulse1_score_tyhoon_parade[] = {
 
 	{REST,9,96},
 	{E, 4, 96},
@@ -198,7 +198,7 @@ SCORE tpP1[] = {
 
 };
 
-SCORE tpTri[] = {
+static SCORE triangle_score_tyhoon_parade[] = {
 
 	{REST,9,96},
 	{B,3,96},
@@ -275,9 +275,9 @@ SCORE tpTri[] = {
 
 };
 
-SCORE tpNoise[] = {
+static SCORE noise_score_tyhoon_parade[] = {
 
-	{C, 17, 12, .9f},{C, 2, 24, .9f}, {C, 2, 24, .9f}, {C, 2, 12, .9f},{C, 2, 24, .9f},
+	{C, 2, 24, .9f}, {C, 2, 24, .9f}, {C, 2, 12, .9f}, {C, 2, 12, .9f},{C, 2, 1024, .8f},
 	/*
 	{C, 0, 96, .9f},
 	{C, 0, 48, .9f}, {C,0,48, .9f},
@@ -321,7 +321,7 @@ SCORE tpNoise[] = {
 	*/
 };
 
-#define TP_PULSE0_COUNT sizeof(tpP0) / sizeof(tpP0[0])
-#define TP_PULSE1_COUNT sizeof(tpP1) / sizeof(tpP0[1])
-#define TP_TRI_COUNT sizeof(tpTri) / sizeof(tpTri[0])
-#define TP_NOISE_COUNT sizeof(tpNoise) / sizeof(tpNoise[0])
+static constexpr size_t PULSE0_COUNT_TYHOON_PARADE = sizeof(pulse0_score_tyhoon_parade) / sizeof(pulse0_score_tyhoon_parade[0]);
+static constexpr size_t PULSE1_COUNT_TYHOON_PARADE = sizeof(pulse1_score_tyhoon_parade) / sizeof(pulse0_score_tyhoon_parade[1]);
+static constexpr size_t TRIANGLE_COUNT_TYHOON_PARADE = sizeof(triangle_score_tyhoon_parade) / sizeof(triangle_score_tyhoon_parade[0]);
+static constexpr size_t NOISE_COUNT_TYHOON_PARADE = sizeof(noise_score_tyhoon_parade) / sizeof(noise_score_tyhoon_parade[0]);

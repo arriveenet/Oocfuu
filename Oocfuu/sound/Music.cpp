@@ -5,6 +5,7 @@
 #include "score/TyphoonParade.h"
 #include "score/TyphoonParade.h"
 #include "score/Voyager.h"
+#include "score/Canon.h"
 
 #include <glut.h>
 
@@ -63,20 +64,26 @@ void Music::setMusic(MusicType _type)
 	case MusicType::Unknown:
 		break;
 	case MusicType::HappyBirthday:
-		setScore(AUDIO_CHANNEL_PULSE0, hbtyPulse0, HBTY_PULSE0_COUNT);
-		setScore(AUDIO_CHANNEL_PULSE1, hbtyPulse1, HBTY_PULSE1_COUNT);
-		setScore(AUDIO_CHANNEL_TRIANGLE, hbtyTri, HBTY_TRI_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE0, pulse0_score_happy_birthday, PULSE0_COUNT_HAPPY_BIRTHDAY);
+		setScore(AUDIO_CHANNEL_PULSE1, pulse1_score_happy_birthday, PULSE1_COUNT_HAPPY_BIRTHDAY);
+		setScore(AUDIO_CHANNEL_TRIANGLE, triangle_score_happy_birthday, TRIANGLE_COUNT_HAPPY_BIRTHDAY);
 		break;
 	case MusicType::TyphoonParade:
-		setScore(AUDIO_CHANNEL_PULSE0, tpP0, TP_PULSE0_COUNT);
-		setScore(AUDIO_CHANNEL_PULSE1, tpP1, TP_PULSE1_COUNT);
-		setScore(AUDIO_CHANNEL_TRIANGLE, tpTri, TP_TRI_COUNT);
-		setScore(AUDIO_CHANNEL_NOISE, tpNoise, TP_NOISE_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE0, pulse0_score_tyhoon_parade, PULSE0_COUNT_TYHOON_PARADE);
+		setScore(AUDIO_CHANNEL_PULSE1, pulse1_score_tyhoon_parade, PULSE1_COUNT_TYHOON_PARADE);
+		setScore(AUDIO_CHANNEL_TRIANGLE, triangle_score_tyhoon_parade, TRIANGLE_COUNT_TYHOON_PARADE);
+		setScore(AUDIO_CHANNEL_NOISE, noise_score_tyhoon_parade, NOISE_COUNT_TYHOON_PARADE);
 		break;
 	case MusicType::Voyager:
-		setScore(AUDIO_CHANNEL_PULSE0, voyPulse0, VOY_PULSE0_COUNT);
-		setScore(AUDIO_CHANNEL_PULSE1, voyPulse1, VOY_PULSE1_COUNT);
-		setScore(AUDIO_CHANNEL_TRIANGLE, voyTri, VOY_TRI_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE0, pulse0_score_voyager, PULSE0_COUNT_VOYAGER);
+		setScore(AUDIO_CHANNEL_PULSE1, pulse1_score_voyager, PULSE1_COUNT_VOYAGER);
+		setScore(AUDIO_CHANNEL_TRIANGLE, triangle_score_voyager, TRIANGLE_COUNT_CANON);
+		break;
+	case MusicType::Canon:
+		setScore(AUDIO_CHANNEL_PULSE0, pulse0_score_canon, PULSE0_COUNT_CANON);
+		setScore(AUDIO_CHANNEL_PULSE1, pulse1_score_canon, PULSE1_COUNT_CANON);
+		setScore(AUDIO_CHANNEL_TRIANGLE, triangle_score_canon, TRIANGLE_COUNT_CANON);
+		break;
 	default:
 		break;
 	}
@@ -119,11 +126,10 @@ void Music::update()
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++)
 		m_channels[i].update();
 
-	if (
-		(m_channels[AUDIO_CHANNEL_PULSE0].isEnd())
-		&& (m_channels[AUDIO_CHANNEL_PULSE1].isEnd())
-		&& (m_channels[AUDIO_CHANNEL_TRIANGLE].isEnd())
-		&& (m_channels[AUDIO_CHANNEL_NOISE].isEnd())
+	if ((m_channels[AUDIO_CHANNEL_PULSE0].getState() == Channel::Ended)
+		&& (m_channels[AUDIO_CHANNEL_PULSE1].getState() == Channel::Ended)
+		&& (m_channels[AUDIO_CHANNEL_TRIANGLE].getState() == Channel::Ended)
+		&& (m_channels[AUDIO_CHANNEL_NOISE].getState() == Channel::Ended)
 		) {
 		m_end = true;
 		m_state = MusicState::Stopped;

@@ -461,6 +461,9 @@
     <ClInclude Include="sound\Bgm.h">
       <Filter>ヘッダー ファイル\sound</Filter>
     </ClInclude>
+    <ClInclude Include="score\Canon.h">
+      <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="oocfuu.ico">

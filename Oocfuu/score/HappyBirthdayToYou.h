@@ -5,7 +5,7 @@
 //#define HBTY_QUARTER_NOTE	32
 #define HBTY_NAME_COUNT	96
 
-SCORE hbtyPulse0[] = {
+static SCORE pulse0_score_happy_birthday[] = {
 
 	{C,5,24}, {C,5,8},
 	{B,4,32}, {G,4,32}, {A,4,32},
@@ -21,7 +21,7 @@ SCORE hbtyPulse0[] = {
 	{REST,9,64},
 };
 
-SCORE hbtyPulse1[] = {
+static SCORE pulse1_score_happy_birthday[] = {
 
 	{REST,9,32},
 	{G,3,32}, {B,3,32}, {F_SHARP,3,32},
@@ -33,10 +33,10 @@ SCORE hbtyPulse1[] = {
 	{G,2,32}, {A,2,32}, {B,2,32},
 	{C,3,32}, {E,3,HBTY_NAME_COUNT}, {F_SHARP,3,32},
 	{G,3,32}, {B,3,32}, {D,3,32},
-	{G,3,32}, {G,2,32},
+	{G,3,32}, {G,2,64},
 };
 
-SCORE hbtyTri[] = {
+static SCORE triangle_score_happy_birthday[] = {
 	{REST,9,32},
 	{REST,9,32}, {D,4,32}, {C,4,32},
 	{B,3,32}, {REST,9,64},
@@ -50,10 +50,6 @@ SCORE hbtyTri[] = {
 	{REST,9,96},
 };
 
-#define HBTY_PULSE0_COUNT sizeof(hbtyPulse0) / sizeof(hbtyPulse0[0])
-#define HBTY_PULSE1_COUNT sizeof(hbtyPulse1) / sizeof(hbtyPulse1[0])
-#define HBTY_TRI_COUNT sizeof(hbtyTri) / sizeof(hbtyTri[0])
-
-extern SCORE hbtyPulse0[];
-extern SCORE hbtyPulse1[];
-extern SCORE hbtyTri[];
+static constexpr size_t PULSE0_COUNT_HAPPY_BIRTHDAY = sizeof(pulse0_score_happy_birthday) / sizeof(pulse0_score_happy_birthday[0]);
+static constexpr size_t PULSE1_COUNT_HAPPY_BIRTHDAY = sizeof(pulse1_score_happy_birthday) / sizeof(pulse1_score_happy_birthday[0]);
+static constexpr size_t TRIANGLE_COUNT_HAPPY_BIRTHDAY = sizeof(triangle_score_happy_birthday) / sizeof(triangle_score_happy_birthday[0]);

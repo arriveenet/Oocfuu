@@ -19,12 +19,12 @@ HbdScreen::HbdScreen()
 
 void HbdScreen::init()
 {
-	g_music.setMusic(MusicType::HappyBirthday);
+	g_music.setMusic(MusicType::Canon);
 }
 
 void HbdScreen::reset()
 {
-	g_music.setMusic(MusicType::HappyBirthday);
+	g_music.setMusic(MusicType::Canon);
 	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
 }
 
@@ -40,13 +40,13 @@ void HbdScreen::update()
 		g_game.setScreen(GAME_SCREEN_TITLE);
 	}
 	
-	if (g_music.m_end) {
-		g_music.reset();
-		g_music.setMusic(MusicType::TyphoonParade);
-		g_music.play();
+	//if (g_music.m_end) {
+	//	g_music.reset();
+	//	g_music.setMusic(MusicType::TyphoonParade);
+	//	g_music.play();
 
-		g_game.setScreen(GAME_SCREEN_TP);
-	}
+	//	g_game.setScreen(GAME_SCREEN_TP);
+	//}
 	
 }
 

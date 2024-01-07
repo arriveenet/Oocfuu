@@ -1,17 +1,15 @@
 #pragma once
-
-#include "../score/score.h"
-#include "audio.h"
+#include "score/score.h"
 
 class Channel {
-	SCORE *m_score;
-	unsigned int m_length = 0;
-	int m_phase = 0;
-	int m_count = 0;
-	float m_gain;
-	int m_channel;
-	int m_waveform;
-	bool m_end;
+public:
+	enum State {
+		Inital,
+		Playing,
+		Paused,
+		Stopped,
+		Ended
+	};
 
 public:
 	Channel();
@@ -24,5 +22,15 @@ public:
 	void resetScore();
 	virtual void update();
 	void draw(float _x, float _y);
-	bool isEnd();
+	State getState() const;
+
+private:
+	SCORE* m_score;
+	unsigned int m_length = 0;
+	int m_phase = 0;
+	int m_count = 0;
+	float m_gain;
+	int m_channel;
+	int m_waveform;
+	State m_state;
 };

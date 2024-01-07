@@ -124,8 +124,6 @@ int audioInit() {
 	}
 
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++) {
-		audioGain(i, AUDIO_DEFAULT_GAIN);
-
 		alGenSources(
 			1,					// ALsizei n
 			&channels[i].sid);	// ALuint* sources
@@ -134,6 +132,8 @@ int audioInit() {
 			channels[i].sid,	// ALuint sid
 			AL_LOOPING,			// ALenum param
 			AL_TRUE);			// ALint value
+
+		audioGain(i, AUDIO_DEFAULT_GAIN);
 	}
 
 	audioWaveform(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_12_5);
@@ -203,9 +203,9 @@ float audioIndexToFreq(int _index) {
 void audioPlay(int _channel) {
 	channels[_channel].gain = channels[_channel].startGain;
 	alSourcef(
-		channels[_channel].sid,					// ALuint sid
-		AL_GAIN,								// ALenum param
-		channels[_channel].gain);// ALfloat value
+		channels[_channel].sid,		// ALuint sid
+		AL_GAIN,					// ALenum param
+		channels[_channel].gain);	// ALfloat value
 
 	channels[_channel].freq = channels[_channel].freqStart;
 	alSourcef(
@@ -219,7 +219,12 @@ void audioPlay(int _channel) {
 }
 
 void audioStop(int _channel) {
-	alSourceStop(channels[_channel].sid);	//  ALuint sid 
+	alSourceStop(channels[_channel].sid);	// ALuint sid
+}
+
+void audioPause(int _channel)
+{
+	alSourcePause(channels[_channel].sid);	// ALuint sid
 }
 
 void audioUpdate() {
@@ -250,6 +255,11 @@ void audioUpdate() {
 		}
 	}
 
+	audioError();
+}
+
+void audioError()
+{
 	ALenum error = alGetError();
 	if (error != AL_NO_ERROR)
 		printf("%s\n",

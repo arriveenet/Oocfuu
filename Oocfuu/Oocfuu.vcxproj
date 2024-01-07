@@ -264,6 +264,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="player\PlayerStateGoal.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="score\Canon.h" />
     <ClInclude Include="score\HappyBirthdayToYou.h" />
     <ClInclude Include="score\score.h" />
     <ClInclude Include="score\TyphoonParade.h" />

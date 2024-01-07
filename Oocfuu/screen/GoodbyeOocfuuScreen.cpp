@@ -23,10 +23,7 @@ void GoodbyeOocfuuScreen::reset()
 {
 	g_music.reset();
 	g_music.resetScore();
-	g_music.setScore(AUDIO_CHANNEL_PULSE0, voyPulse0, VOY_PULSE0_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_PULSE1, voyPulse1, VOY_PULSE1_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_TRIANGLE, voyTri, VOY_TRI_COUNT);
-	g_music.setScore(AUDIO_CHANNEL_NOISE, NULL, 0);
+
 	g_music.play();
 }
 
