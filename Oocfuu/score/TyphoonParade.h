@@ -277,7 +277,7 @@ static SCORE triangle_score_tyhoon_parade[] = {
 
 static SCORE noise_score_tyhoon_parade[] = {
 
-	{C, 2, 24, .9f}, {C, 2, 24, .9f}, {C, 2, 12, .9f}, {C, 2, 12, .9f},{C, 2, 1024, .8f},
+	{C, 2, 24, .9f}, {C, 2, 24, .9f}, {C, 2, 12, .9f}, {C, 2, 512, .9f},
 	/*
 	{C, 0, 96, .9f},
 	{C, 0, 48, .9f}, {C,0,48, .9f},

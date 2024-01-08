@@ -20,7 +20,7 @@ enum {
 	AUDIO_CHANNEL_MAX
 };
 
-#define AUDIO_DEFAULT_GAIN	.1f
+#define AUDIO_DEFAULT_GAIN	0.05f
 #define AUDIO_DEFAULT_FREQ	440
 
 typedef struct {

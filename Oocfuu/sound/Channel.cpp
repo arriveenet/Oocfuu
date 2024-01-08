@@ -44,10 +44,10 @@ void Channel::setChannel(int _channel, int _waveform)
 
 void Channel::setScore(SCORE _score[], int _count)
 {
-	m_count = --_count;
+	m_count = _count;
 	m_score = _score;
 
-	for (int i = 0; i <= m_count; i++) {
+	for (int i = 0; i < m_count; i++) {
 		if (m_score[i].decay == 0.0f)
 			m_score[i].decay = .98f;
 		int oct = m_score[i].key >= 3 && m_score[i].key < 12 ? m_score[i].oct - 1 : m_score[i].oct;
