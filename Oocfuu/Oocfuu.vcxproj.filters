@@ -246,6 +246,9 @@
     <ClCompile Include="sound\Bgm.cpp">
       <Filter>ソース ファイル\sound</Filter>
     </ClCompile>
+    <ClCompile Include="util\ZipUtils.cpp">
+      <Filter>ソース ファイル\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="score\Canon.h">
       <Filter>ヘッダー ファイル\score</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ZipUtils.h">
+      <Filter>ヘッダー ファイル\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

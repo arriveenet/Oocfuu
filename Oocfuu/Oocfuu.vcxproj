@@ -96,6 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,6 +115,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglutd.dll" "$(OutDir)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +135,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,6 +156,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglutd.dll" "$(OutDir)"</Command>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)third_party\OpenAL 1.1 SDK\include;$(SolutionDir)third_party\glm;$(SolutionDir)third_party\freeglut\include;$(SolutionDir)Oocfuu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -213,6 +217,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="util\timer.cpp" />
     <ClCompile Include="util\tinyxml2.cpp" />
+    <ClCompile Include="util\ZipUtils.cpp" />
     <ClCompile Include="world\BridgeController.cpp" />
     <ClCompile Include="world\Course.cpp" />
     <ClCompile Include="world\CourseEffect.cpp" />
@@ -287,6 +292,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="util\timer.h" />
     <ClInclude Include="util\tinyxml2.h" />
+    <ClInclude Include="util\ZipUtils.h" />
     <ClInclude Include="world\BridgeController.h" />
     <ClInclude Include="world\Course.h" />
     <ClInclude Include="world\CourseEffect.h" />

@@ -15,8 +15,7 @@
 #include "animation\Animation.h"
 #include "animation\AnimationController.h"
 #include "Player/Player.h"
-
-#include "world/CourseLoader.h"
+#include "util/ZipUtils.h"
 
 #include <stdio.h>
 #include <gl/freeglut.h>
@@ -94,6 +93,12 @@ bool App::init()
 	// ƒQ[ƒ€‚ğ‰Šú‰»
 	if (!printInit(g_game.init(), "Game init"))
 		return false;
+
+	ZipFile zip("resource.zip");
+	zip.load();
+	auto list = zip.getFileList();
+
+
 
 	return true;
 }
