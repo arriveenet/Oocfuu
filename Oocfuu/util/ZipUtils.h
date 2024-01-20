@@ -12,9 +12,13 @@ public:
 	virtual ~ZipFile();
 
 	bool load();
-	
+	bool extract(const std::string& path);
+
 	std::vector<std::string> getFileList();
 	unsigned char* getFileData(const std::string& fileName, size_t& size);
+
+private:
+	bool write(const std::string& fileName, unsigned char* data, size_t size);
 
 private:
 	ZipFile();
