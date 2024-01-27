@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<course>
+	<header>
+		<info width="16" height="15"/>
+		<type>castle</type>
+		<color>0</color>
+		<start x="40" y="96"/>
+		<next world="1" stage="1"/>
+	</header>
+	<data>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+		<dr>s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0s0</dr>
+	</data>
+</course>
