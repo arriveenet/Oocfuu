@@ -2,6 +2,7 @@
 
 Bgm::BgmType Bgm::m_bgmType;
 SOUND_TYPE Bgm::m_soundType;
+bool Bgm::m_isPlaying;
 
 /**
  * @brief コンストラクタ
@@ -12,6 +13,7 @@ SOUND_TYPE Bgm::m_soundType;
 Bgm::Bgm()
 {
 	m_bgmType = Unknown;
+	m_isPlaying = false;
 }
 
 /**
@@ -36,6 +38,7 @@ void Bgm::play()
 	if (m_bgmType == Unknown)
 		return;
 
+	m_isPlaying = true;
 	g_pSound->repeat(m_soundType);
 	g_pSound->play(m_soundType);
 }
@@ -48,7 +51,19 @@ void Bgm::play()
  */
 void Bgm::stop()
 {
+	m_isPlaying = false;
 	g_pSound->stop(m_soundType);
+}
+
+/**
+ * @brief BGMが再生中か判定
+ *
+ * @return 再生中：true、停止中：false
+ *
+ */
+bool Bgm::isPlaying()
+{
+	return m_isPlaying;
 }
 
 /**

@@ -11,6 +11,8 @@
 #include "screen/TpScreen.h"
 #include "screen/GoodbyeOocfuuScreen.h"
 #include "sound/Sound.h"
+#include "sound/Music.h"
+#include "sound/Bgm.h"
 
 #include <algorithm>
 #include <freeglut.h>
@@ -83,7 +85,11 @@ void Game::update()
 	m_timer.update();
 }
 
-void Game::setScreen(int _screen) {
+void Game::setScreen(int _screen)
+{
+	g_music.reset();
+	Bgm::stop();
+
 	m_pCurrentScreen = m_pScreens[m_screen = _screen];
 	m_pCurrentScreen->reset();
 }
