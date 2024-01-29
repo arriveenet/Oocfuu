@@ -11,7 +11,7 @@ public:
 	ZipFile(const std::string& zipFile);
 	virtual ~ZipFile();
 
-	bool load();
+	bool fetch();
 	bool extract(const std::string& path);
 
 	std::vector<std::string> getFileList();

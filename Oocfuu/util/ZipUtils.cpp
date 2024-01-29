@@ -25,7 +25,7 @@ ZipFile::~ZipFile()
 	}
 }
 
-bool ZipFile::load()
+bool ZipFile::fetch()
 {
 	m_fileList.clear();
 
@@ -57,8 +57,10 @@ bool ZipFile::extract(const std::string& path)
 	// ファイルリストを取得
 	std::vector<std::string> fileList = getFileList();
 
+	std::string dir = path.empty() ? "./" : "/";
+
 	for (auto& file : fileList) {
-		fs::path filePath = path + "/" + file;
+		fs::path filePath = dir + file;
 		
 		// ファイル名を削除し、ディレクトリを取得
 		fs::path directory = filePath;
