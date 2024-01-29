@@ -10,6 +10,7 @@ GameTimer::GameTimer()
 	, m_isUpdate(false)
 	, m_visible(false)
 	, m_countDown(false)
+	, m_isEnded(false)
 {
 }
 
@@ -25,13 +26,19 @@ void GameTimer::update()
 	if (m_isUpdate) {
 		static int lastTime;
 		int time = m_count / m_rate;
-		if ((time != lastTime) && (m_time > 0)) {
-			//printf("time=%d\n", time);
+		if (time != lastTime) {
 			m_time--;
 			// ゴールのカウントダウン中であれば
 			if (m_countDown) {
 				g_pSound->play(SOUND_TYPE_SE_COIN);
 				g_game.addScore(50);
+			}
+
+			// カウントが終了した場合
+			if (m_time < 0) {
+				m_time = 0;
+				m_isEnded = true;
+				m_isUpdate = false;
 			}
 		}
 		lastTime = time;
@@ -40,9 +47,10 @@ void GameTimer::update()
 
 void GameTimer::start(int _time)
 {
-	m_time = _time;
+	m_time = _time + 1;
 	m_isUpdate = true;
 	m_countDown = false;
+	m_isEnded = false;
 	m_rate = GAME_TIMER_RATE;
 }
 
@@ -58,7 +66,7 @@ void GameTimer::countDown()
 	m_rate = GAME_TIMER_COUNTDOWN_RATE;
 }
 
-short GameTimer::getTime() const
+int GameTimer::getTime() const
 {
 	return m_time;
 }
@@ -71,4 +79,9 @@ void GameTimer::setVisible(bool _visible)
 bool GameTimer::getVisible() const
 {
 	return m_visible;
+}
+
+bool GameTimer::isEnded() const
+{
+	return m_isEnded;
 }

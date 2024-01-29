@@ -107,8 +107,14 @@ void Player::update()
 	m_position += m_speed;
 
 	// 落下死判定
-	if ((m_position.y >= SCREEN_HEIGHT)
-		&& (!m_dead)) {
+	if ((m_position.y >= SCREEN_HEIGHT) && (!m_dead)) {
+		m_speed = { 0.0f, 0.0f };
+		m_dead = true;
+		m_pStateContext->setStete(new PlayerStateDie);
+	}
+
+	// タイムアウト
+	if (g_game.m_timer.isEnded() && (!m_dead)) {
 		m_speed = { 0.0f, 0.0f };
 		m_dead = true;
 		m_pStateContext->setStete(new PlayerStateDie);
