@@ -8,6 +8,7 @@
 #include "TextureManager.h"
 #include "Player/Player.h"
 #include "world/CourseManager.h"
+#include "world/CourseLoader.h"
 
 #include <freeglut.h> 
 
@@ -25,7 +26,7 @@ void HbdScreen::init()
 void HbdScreen::reset()
 {
 	g_music.setMusic(MusicType::Canon);
-	glClearColor({ 0 }, { 0 }, { 0 }, { 1 });
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 void HbdScreen::update()

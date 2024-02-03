@@ -94,12 +94,6 @@ bool App::init()
 	if (!printInit(g_game.init(), "Game init"))
 		return false;
 
-	ZipFile zip("resource.zip");
-	zip.load();
-	auto list = zip.getFileList();
-
-
-
 	return true;
 }
 
