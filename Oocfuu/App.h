@@ -1,4 +1,5 @@
 #pragma once
+#include <chrono>
 #include <time.h>
 #include <Windows.h>
 #include "common/common.h"
@@ -11,6 +12,10 @@ private:
 	HANDLE m_hConsoleOutput;	//!< コンソールハンドル
 	bool m_running;				//!< メインループフラグ
 	int m_window;				//!< ウィンドウハンドル
+	unsigned int m_frames;
+	float m_deltaTime;
+	float m_accumulator;
+	std::chrono::steady_clock::time_point m_currentTime;
 
 public:
 	// コンストラクタ
@@ -38,6 +43,9 @@ public:
 
 	// ウィンドウを設定する
 	void setWindow(int _window) noexcept { m_window = _window; }
+
+	// デルタタイムを取得する
+	float getDeltaTime() const { return m_deltaTime; }
 	
 protected:
 	// 初期化の結果をコンソールに表示する

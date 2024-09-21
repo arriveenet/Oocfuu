@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <gl/freeglut.h>
 
-#define MS_PER_UPDATE	(1000 / 60)
+static constexpr float MS_PER_UPDATE = 1.0f / 60.0f;
 
 App g_app;
 extern glm::ivec2 windowSize;
@@ -32,7 +32,11 @@ App::App()
 	: m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
 	, m_running(false)
 	, m_window(0)
+	, m_deltaTime(0.0f)
+	, m_accumulator(0.0f)
+	, m_frames(0)
 {
+	m_currentTime = std::chrono::steady_clock::now();
 }
 
 /**
@@ -171,9 +175,19 @@ void App::draw()
 		glPointSize(f);// GLfloat size
 	}
 
+
 	glColor3ub(0xff, 0xff, 0xff);
 
 	g_game.m_pCurrentScreen->draw();
+
+	m_frames++;
+	m_accumulator += m_deltaTime;
+
+	if (m_accumulator > 0.5f) {
+		float fps = m_frames / m_accumulator;
+		m_frames = 0;
+		m_accumulator = 0.0f;
+	}
 
 	glutSwapBuffers();
 }
@@ -190,17 +204,24 @@ void App::run()
 {
 	m_running = true;
 
+	float accumlator = 0.0f;
+
 	while (m_running) {
-
-		double start = getTime();
-
-		update();
-		draw();
-
-		DWORD sleepTime = static_cast<DWORD>(start + MS_PER_UPDATE - getTime());
-		Sleep(sleepTime);
-
 		glutMainLoopEvent();
+
+		auto nowTime = std::chrono::steady_clock::now();
+		m_deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(nowTime - m_currentTime).count() / 1000000.0f;
+		m_deltaTime = std::min(m_deltaTime, 0.25f);
+		m_currentTime = nowTime;
+
+		accumlator += m_deltaTime;
+
+		while (accumlator >= MS_PER_UPDATE) {
+			update();
+			accumlator -= MS_PER_UPDATE;
+		}
+
+		draw();
 	}
 
 	glutDestroyWindow(m_window);
