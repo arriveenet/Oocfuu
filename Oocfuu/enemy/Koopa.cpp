@@ -67,7 +67,7 @@ Koopa::Koopa(float _x, float _y)
 	m_animationController.setAnimation(ANIMATION_KOOPA);
 }
 
-Koopa::~Koopa()
+Koopa::~Koopa() 
 {
 	if (m_pStateMachine) {
 		delete m_pStateMachine;
@@ -86,7 +86,7 @@ void Koopa::update()
 {
 	//printf("distance: %f\n", distance(g_player.m_position.x, m_position.x));
 	// プレイヤーとの距離がKOOPA_UPDATE_DISTANCEより離れていたら更新しない
-	if (distance(g_player.m_position.x, m_position.x) > KOOPA_UPDATE_DISTANCE)
+	if (distance(g_player.getPosition().x, m_position.x) > KOOPA_UPDATE_DISTANCE)
 		return;
 
 	// アニメーションを更新
@@ -96,7 +96,7 @@ void Koopa::update()
 	m_counter++;
 
 	// プレイヤーの方向にテクスチャを向ける
-	m_flip = m_position.x < g_player.m_position.x ? RECT_FLIP_HORIZONTAL : RECT_FLIP_NONE;
+	m_flip = m_position.x < g_player.getPosition().x ? RECT_FLIP_HORIZONTAL : RECT_FLIP_NONE;
 
 	// ステートマシンを更新
 	m_pStateMachine->update();
@@ -104,7 +104,7 @@ void Koopa::update()
 	// ファイヤーを更新
 	for (int i = 0; i < KOOPA_FIRE_MAX; i++) {
 		m_fires[i].update();
-		if (m_fires[i].intersect(g_player))
+		if (m_fires[i].intersect(g_player.getRect()))
 			g_player.kill();
 	}
 
@@ -118,7 +118,7 @@ void Koopa::update()
 
 
 	// プレイヤーとの当たり判定
-	if (this->intersect(g_player)) {
+	if (this->intersect(g_player.getRect())) {
 		g_player.kill();
 	}
 

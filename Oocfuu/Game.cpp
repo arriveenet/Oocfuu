@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "App.h"
+#include "Renderer.h"
 #include "common/font.h"
 #include "Rect.h"
 #include "TextureManager.h"
@@ -17,9 +18,28 @@
 #include <algorithm>
 #include <freeglut.h>
 
-Game g_game;
+Game* Game::m_pSharedInstance = nullptr;
+
 unsigned int Game::m_count;
 bool Game::m_debugInfo;
+
+Game* Game::getInstance()
+{
+	if (m_pSharedInstance == nullptr) {
+		m_pSharedInstance = new Game();
+	}
+
+	return m_pSharedInstance;
+}
+
+void Game::destroy()
+{
+	if (m_pSharedInstance != nullptr) {
+		m_pSharedInstance->release();
+		delete m_pSharedInstance;
+		m_pSharedInstance = nullptr;
+	}
+}
 
 Game::Game()
 	: m_screen(GAME_SCREEN_TITLE)
@@ -32,6 +52,7 @@ Game::Game()
 	, m_world(GAME_BEGIN_WORLD)
 	, m_isGameOver(false)
 	, m_timer()
+	, m_pRenderer(nullptr)
 {
 }
 
@@ -73,6 +94,9 @@ void Game::release()
 		delete m_pScreens[i];
 		m_pScreens[i] = NULL;
 	}
+
+	delete m_pRenderer;
+	m_pRenderer = nullptr;
 }
 
 void Game::update()
@@ -83,6 +107,13 @@ void Game::update()
 	m_count++;
 
 	m_timer.update();
+
+	m_pCurrentScreen->update();
+}
+
+void Game::draw()
+{
+	m_pCurrentScreen->draw();
 }
 
 void Game::setScreen(int _screen)

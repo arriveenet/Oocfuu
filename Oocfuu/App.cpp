@@ -32,6 +32,7 @@ App::App()
 	: m_hConsoleOutput(GetStdHandle(STD_OUTPUT_HANDLE))
 	, m_running(false)
 	, m_window(0)
+	, m_pGame(Game::getInstance())
 	, m_deltaTime(0.0f)
 	, m_accumulator(0.0f)
 	, m_frames(0)
@@ -95,7 +96,7 @@ bool App::init()
 		return false;
 
 	// ÉQÅ[ÉÄÇèâä˙âª
-	if (!printInit(g_game.init(), "Game init"))
+	if (!printInit(m_pGame->init(), "Game init"))
 		return false;
 
 	return true;
@@ -117,8 +118,8 @@ void App::release()
 	g_courseManager.release();
 	g_textureManager.release();
 	g_pSound->release();
-	g_game.release();
 	Mouse::release();
+	Game::destroy();
 }
 
 /**
@@ -137,8 +138,7 @@ void App::update()
 
 	g_frameCounter.update();
 	g_music.update();
-	g_game.update();
-	g_game.m_pCurrentScreen->update();
+	m_pGame->update();
 
 	Keyboard::end();
 }
@@ -178,7 +178,7 @@ void App::draw()
 
 	glColor3ub(0xff, 0xff, 0xff);
 
-	g_game.m_pCurrentScreen->draw();
+	m_pGame->draw();
 
 	m_frames++;
 	m_accumulator += m_deltaTime;
@@ -251,7 +251,7 @@ void App::close()
  * @return ê¨å˜: true é∏îs: false
  *
  */
-bool App::printInit(int _result, const char* _str)
+bool App::printInit(int _result, const char* _str) const
 {
 	return printInit(_result == 0 ? true : false, _str);
 }
@@ -265,7 +265,7 @@ bool App::printInit(int _result, const char* _str)
  * @return ê¨å˜: true é∏îs: false
  *
  */
-bool App::printInit(bool _result, const char* _str)
+bool App::printInit(bool _result, const char* _str) const
 {
 	printf("[");
 	if (_result) {

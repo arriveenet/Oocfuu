@@ -20,15 +20,9 @@ enum GAME_SCREEN {
 	GAME_SCREEN_MAX
 };
 
-class Game {
-private:
-	int m_screen;
-	Screen* m_pScreens[GAME_SCREEN_MAX];
-	bool m_pause;
-	unsigned int m_score;
-	unsigned int m_topScore;
-	unsigned char m_coin;
+class Renderer;
 
+class Game {
 public:
 	Screen* m_pCurrentScreen;
 	static unsigned int m_count;
@@ -37,6 +31,9 @@ public:
 	bool m_isGameOver;
 	GameTimer m_timer;
 
+	static Game* getInstance();
+	static void destroy();
+
 	Game();
 	virtual ~Game();
 
@@ -44,6 +41,7 @@ public:
 	void reset();
 	void release();
 	void update();
+	void draw();
 	void setScreen(int _screen);
 	void drawHUD();
 	void countDownTimer();
@@ -53,6 +51,14 @@ public:
 	void addCoin();
 	void updateTopScore();
 	unsigned int getTopScore() const;
-};
 
-extern Game g_game;
+private:
+	static Game* m_pSharedInstance;
+	Renderer* m_pRenderer;
+	int m_screen;
+	Screen* m_pScreens[GAME_SCREEN_MAX];
+	bool m_pause;
+	unsigned int m_score;
+	unsigned int m_topScore;
+	unsigned char m_coin;
+};

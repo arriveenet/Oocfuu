@@ -38,7 +38,7 @@ void HbdScreen::update()
 
 	if (Keyboard::m_nowPressed[0x1b]) {
 		g_music.reset();
-		g_game.setScreen(GAME_SCREEN_TITLE);
+		m_pGame->setScreen(GAME_SCREEN_TITLE);
 	}
 	
 	//if (g_music.m_end) {
@@ -54,7 +54,7 @@ void HbdScreen::update()
 void HbdScreen::draw()
 {
 	g_courseManager.draw();
-	g_game.drawHUD();
+	m_pGame->drawHUD();
 
 	fontBegin();
 	fontPosition(72, 128);

@@ -27,7 +27,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 		else
 			_pPlayer->m_acceleration = 0.2f;
 		_pPlayer->m_speed.x += _pPlayer->m_acceleration;
-		_pPlayer->m_flip = RECT_FLIP_NONE;
+		_pPlayer->setFlip(RECT_FLIP_NONE);
 	}
 
 	if (Keyboard::m_pressed[PLAYER_KEY_LEFT]) {
@@ -36,7 +36,7 @@ void PlayerStateRun::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 		else
 			_pPlayer->m_acceleration = 0.2f;
 		_pPlayer->m_speed.x -= _pPlayer->m_acceleration;
-		_pPlayer->m_flip = RECT_FLIP_HORIZONTAL;
+		_pPlayer->setFlip(RECT_FLIP_HORIZONTAL);
 	}
 
 	if (Keyboard::m_nowPressed[PLAYER_KEY_JUMP] && !_pPlayer->m_falling) {

@@ -1,12 +1,12 @@
 #pragma once
+#include "Actor.h"
 #include "Rect.h"
-#include "common/Entity.h"
 #include "animation/AnimationController.h"
 
 /**
  * スプライトクラス
  */
-class Sprite : public Rect, Entity{
+class Sprite : public Actor {
 public:
 	AnimationController m_animationController;
 
@@ -17,4 +17,12 @@ public:
 	void update() override;
 	void draw() override;
 
+	bool intersect(const glm::vec2& point);
+	bool intersect(const Rect& rect);
+
+	const Rect& getRect() const { return m_rect; }
+
+	void setFlip(int flip);
+
+	Rect m_rect;
 };

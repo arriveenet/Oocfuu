@@ -25,7 +25,7 @@ void PlayerStateDie::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 	m_counter++;
 
 	// 落下死でなければ死亡アニメーションをする
-	if (_pPlayer->m_position.y <= SCREEN_HEIGHT) {
+	if (_pPlayer->getPosition().y <= SCREEN_HEIGHT) {
 		if (m_counter > 20) {
 			_pPlayer->m_speed.y = +2.5f;
 		} else {
@@ -36,7 +36,8 @@ void PlayerStateDie::update(PlayerStateContext* _pStateContext, Player* _pPlayer
 	if (m_counter >= 60 * 2) {
 		_pPlayer->m_left--;
 		if (_pPlayer->m_left <= 0)
-			g_game.m_isGameOver = true;
-		g_game.setScreen(GAME_SCREEN_INTRO);
+			Game::getInstance()->m_isGameOver = true;
+
+		Game::getInstance()->setScreen(GAME_SCREEN_INTRO);
 	}
 }

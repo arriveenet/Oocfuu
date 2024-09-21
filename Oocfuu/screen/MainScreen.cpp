@@ -21,8 +21,8 @@ void MainScreen::reset()
 {
 	COLORREF clearColor = g_courseManager.getClearColor();
 	glClearColor(GetRValue(clearColor) / 255.0f, GetGValue(clearColor) / 255.0f, GetBValue(clearColor) / 255.0f, 1.0f);
-	g_game.m_timer.start();
-	g_game.m_timer.setVisible(true);
+	m_pGame->m_timer.start();
+	m_pGame->m_timer.setVisible(true);
 
 	Bgm::play();
 }
@@ -30,15 +30,15 @@ void MainScreen::reset()
 void MainScreen::update()
 {
 	if (Keyboard::m_nowPressed[0x1b])
-		g_game.setScreen(GAME_SCREEN_TITLE);
+		m_pGame->setScreen(GAME_SCREEN_TITLE);
 
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
 		Game::m_debugInfo = Game::m_debugInfo ? false : true;
 
 	if (Keyboard::m_nowPressed['p'] && !g_player.m_goal)
-		g_game.pause();
+		m_pGame->pause();
 
-	if (g_game.isPause())
+	if (m_pGame->isPause())
 		return;
 
 	g_courseManager.update();
@@ -47,7 +47,7 @@ void MainScreen::update()
 	g_player.update();
 
 	if ((g_player.m_speed.x > 0)
-		&& (g_player.m_position.x > g_courseManager.getScroll() + SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
+		&& (g_player.getPosition().x > g_courseManager.getScroll() + SCREEN_WIDTH / 2 - PLAYER_SIZE / 2)) {
 		g_courseManager.addScroll(g_player.m_speed.x);
 	}
 	g_courseManager.setScroll(std::min(g_courseManager.getScroll(), (float)(g_courseManager.getWidth() * PART_SIZE - SCREEN_WIDTH)));
@@ -55,7 +55,7 @@ void MainScreen::update()
 
 void MainScreen::draw()
 {
-	g_game.drawHUD();
+	m_pGame->drawHUD();
 	g_courseManager.draw();
 	g_gmmickPart.draw();
 	g_enemyManager.draw();
@@ -71,7 +71,7 @@ void MainScreen::draw()
 		fontDraw("SCROLL:%f\n", g_courseManager.getScroll());
 
 		fontPosition(0, 8 * 4);
-		fontDraw("POSITION:%f,%f\n", g_player.m_position.x, g_player.m_position.y);
+		fontDraw("POSITION:%f,%f\n", g_player.getPosition().x, g_player.getPosition().y);
 		fontDraw("SPEED   :%f,%f\n", g_player.m_speed.x, g_player.m_speed.y);
 		//fontDraw("STATE   :%s\n", m_pStateContext->getString().c_str());
 		fontDraw("ANIMATION:%d  JUMPING:%d\n", g_player.m_animationController.m_animation, g_player.m_jumping);

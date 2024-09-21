@@ -36,7 +36,7 @@ void PlayerStateJump::start(Player* _pPlayer)
 	_pPlayer->m_falling = false;
 
 	VerticalForceDecimalPart = 0;
-	VerticalPosition = VerticalPositionOrigin = (int)_pPlayer->m_position.y;
+	VerticalPosition = VerticalPositionOrigin = (int)_pPlayer->getPosition().y;
 
 	int index = 0;
 	if (HorizontalSpeed >= 0x1c) index++;

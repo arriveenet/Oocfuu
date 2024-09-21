@@ -171,6 +171,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
@@ -200,10 +201,12 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="player\PlayerStateJump.cpp" />
     <ClCompile Include="player\PlayerStateRun.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="screen\GoodbyeOocfuuScreen.cpp" />
     <ClCompile Include="screen\HbdScreen.cpp" />
     <ClCompile Include="screen\IntroScreen.cpp" />
     <ClCompile Include="screen\MainScreen.cpp" />
+    <ClCompile Include="screen\Screen.cpp" />
     <ClCompile Include="screen\TitleScreen.cpp" />
     <ClCompile Include="screen\TpScreen.cpp" />
     <ClCompile Include="sound\audio.cpp" />
@@ -232,6 +235,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="world\Part.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="App.h" />
@@ -268,6 +272,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="player\PlayerStateRun.h" />
     <ClInclude Include="player\PlayerStateGoal.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="score\Canon.h" />
     <ClInclude Include="score\HappyBirthdayToYou.h" />

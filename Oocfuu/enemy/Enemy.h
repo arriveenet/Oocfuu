@@ -1,6 +1,5 @@
 #pragma once
 #include "Rect.h"
-#include "common/Entity.h"
 #include "animation/AnimationController.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -23,7 +22,7 @@ enum class EnemyType {
 /**
  * @brief 敵キャラクターの抽象クラス
  */
-class Enemy : public Rect, Entity{
+class Enemy : public Rect {
 public:
 	// コンストラクタ
 	Enemy();
@@ -35,10 +34,10 @@ public:
 	virtual ~Enemy() {};
 
 	// 敵キャラクターを更新
-	virtual void update() override;
+	virtual void update();
 
 	// 敵キャラクターを描画
-	virtual void draw() override;
+	virtual void draw();
 
 	// 左右のスピードを反転する
 	virtual void turn();
@@ -50,13 +49,13 @@ public:
 	virtual void kill();
 
 	// 敵キャラクターが死んでいるか
-	bool isDead();
+	bool isDead() const;
 
 	// 敵キャラクターが生きているか
-	bool isAlive();
+	bool isAlive() const;
 
 	// 敵キャラクターを描画するか
-	bool isVisble();
+	bool isVisble() const;
 
 	// 敵キャラクターの種類を取得
 	EnemyType getEnemyType() const;
@@ -109,7 +108,7 @@ inline void Enemy::kill()
  * @brief 敵キャラクターが死んでいるか
  * 
  */
-inline bool Enemy::isDead()
+inline bool Enemy::isDead() const
 {
 	return m_dead;
 }
@@ -118,7 +117,7 @@ inline bool Enemy::isDead()
  * @brief 敵キャラクターが生きているか
  *
  */
-inline bool Enemy::isAlive()
+inline bool Enemy::isAlive() const
 {
 	return !m_dead;
 }
@@ -131,7 +130,7 @@ inline bool Enemy::isAlive()
  * @return true:描画する、false:描画しない
  * 
  */
-inline bool Enemy::isVisble()
+inline bool Enemy::isVisble() const
 {
 	return m_visible;
 }

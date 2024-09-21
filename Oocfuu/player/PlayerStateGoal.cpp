@@ -28,7 +28,8 @@ void PlayerStateGoal::start(Player* _pPlayer)
 	m_state = PLAYERSTATEGOAL_FALL;
 	m_counter = 0;
 	_pPlayer->m_speed.x = 0;
-	_pPlayer->m_position.x += PLAYER_POLE_OFFSET;
+	auto pos = _pPlayer->getPosition();
+	_pPlayer->setPosition(pos.x + PLAYER_POLE_OFFSET, pos.y);
 
 	Bgm::stop();
 	g_pSound->play(SOUND_TYPE_SE_FLAGPOLE);
@@ -46,8 +47,9 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		if (m_counter > 76) {
 			m_state = PLAYERSTATEGOAL_FLIP;
 			m_counter = 0;
-			_pPlayer->m_flip = RECT_FLIP_HORIZONTAL;
-			_pPlayer->m_position.x += PLAYER_FLIP_OFFSET;
+			_pPlayer->setFlip(RECT_FLIP_HORIZONTAL);
+			auto pos = _pPlayer->getPosition();
+			_pPlayer->setPosition(pos.x + PLAYER_FLIP_OFFSET, pos.y);
 			_pPlayer->m_speed.y = 0;
 		} else {
   			_pPlayer->m_speed.y = PLAYER_POLE_FALL_SPEED;
@@ -58,7 +60,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 			m_state = PLAYERSTATEGOAL_MOVE;
 			g_pSound->setGain(SOUND_TYPE_SE_FANFARE, 0.1f);
 			g_pSound->play(SOUND_TYPE_SE_FANFARE);
-			_pPlayer->m_flip = RECT_FLIP_NONE;
+			_pPlayer->setFlip(RECT_FLIP_NONE);
 			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 		}
 		break;
@@ -67,9 +69,9 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 		_pPlayer->m_speed.y += PLAYER_GRAVITY;
 		break;
 	case PLAYERSTATEGOAL_WAIT:
-		if (m_counter > 60 * 3 && (g_game.m_timer.getTime() == 0)) {
-			g_game.m_world = g_courseManager.getNextWorld();
-			g_game.setScreen(GAME_SCREEN_INTRO);
+		if (m_counter > 60 * 3 && (Game::getInstance()->m_timer.getTime() == 0)) {
+			Game::getInstance()->m_world = g_courseManager.getNextWorld();
+			Game::getInstance()->setScreen(GAME_SCREEN_INTRO);
 		}
 		break;
 	}
@@ -81,11 +83,12 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 			iter++) {
 			if (g_courseManager.intersect(*iter)) {
 				vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
-				_pPlayer->m_position.x = right.x - PLAYER_SIZE;
+				float posY = _pPlayer->getPosition().y;
+				_pPlayer->setPosition(right.x - PLAYER_SIZE, posY);
 				_pPlayer->m_speed.x = 0;
 				_pPlayer->m_falling = true;
 				m_state = PLAYERSTATEGOAL_WAIT;
-				g_game.m_timer.countDown();
+				Game::getInstance()->m_timer.countDown();
 				m_counter = 0;
 				_pPlayer->m_visible = false;
 				break;

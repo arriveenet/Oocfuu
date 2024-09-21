@@ -34,7 +34,7 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 			squished = true;
 			g_pSound->play(SOUND_TYPE_SE_SQUISH);
 			g_player.jump();
-			g_game.addScore(100);
+			Game::getInstance()->addScore(100);
 
 			vec2 scorePosition = { _pKuribo->m_position.x, _pKuribo->m_position.y - KURIBO_HEIGHT - 8 };
 			EffectScore score(scorePosition, EffectScore::SCORE_100);

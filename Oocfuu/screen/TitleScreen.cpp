@@ -46,7 +46,7 @@ void TitleScreen::init()
 void TitleScreen::reset()
 {
 	m_command.clear();
-	g_game.m_timer.setVisible(false);
+	m_pGame->m_timer.setVisible(false);
 
 	Course course;
 
@@ -99,14 +99,14 @@ void TitleScreen::update()
 
 	if (Keyboard::m_nowPressed[0x0d] || Keyboard::m_nowPressed['f']) {
 		if (m_command == "uuddlrlrba") {
-			g_game.setScreen(GAME_SCREEN_GO);
+			m_pGame->setScreen(GAME_SCREEN_GO);
 		} else {
 			switch (m_mode) {
 			case MODE_1P:
-				g_game.setScreen(GAME_SCREEN_INTRO);
+				m_pGame->setScreen(GAME_SCREEN_INTRO);
 				break;
 			case MODE_HBD:
-				g_game.setScreen(GAME_SCREEN_HBD);
+				m_pGame->setScreen(GAME_SCREEN_HBD);
 				break;
 			}
 		}
@@ -121,7 +121,7 @@ void TitleScreen::update()
 void TitleScreen::draw()
 {
 	g_courseManager.draw();
-	g_game.drawHUD();
+	m_pGame->drawHUD();
 
 	g_textureManager.setTexture(TEXTURE_TITLE);
 	Rect rect(vec2(174, 88), vec2(40,32));
@@ -140,6 +140,6 @@ void TitleScreen::draw()
 		fontDraw("%s %s\n\n", (i == m_mode) ? "a" : " ", modeNames[i]);
 	}
 	fontPosition(96, 184);
-	fontDraw("TOP-%07d", g_game.getTopScore());
+	fontDraw("TOP-%07d", m_pGame->getTopScore());
 	fontEnd();
 }

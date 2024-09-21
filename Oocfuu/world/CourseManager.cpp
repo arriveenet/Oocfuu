@@ -172,7 +172,7 @@ void CourseManager::intersectCoin(Player* _pPlayer)
 	for (; iter != m_currentCourse.m_coins.end(); ++iter) {
 		Rect coin(vec2(PART_SIZE, PART_SIZE), vec2(iter->x * PART_SIZE, iter->y * PART_SIZE));
 		if (_pPlayer->intersect(coin)) {
-			g_game.addCoin();
+			Game::getInstance()->addCoin();
 			setParts(ivec2(iter->x, iter->y), PART_NONE);
 		}
 	}
@@ -188,7 +188,7 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 	switch (cellPart) {
 	case PART_QUESTION0:
 		part = endPart = PART_QUESTION3;
-		g_game.addCoin();
+		Game::getInstance()->addCoin();
 		break;
 	case PART_SOFT_BLOCK:
 		part = endPart = PART_SOFT_BLOCK;
@@ -207,7 +207,7 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 int CourseManager::getWidth() const
 {
 	// ボスステージの場合幅を縮める
-	if ((g_game.m_world.stage == 4) && (!g_player.m_clear)) {
+	if ((Game::getInstance()->m_world.stage == 4) && (!g_player.m_clear)) {
 		return m_currentCourse.m_width - 17;
 	}
 	return m_currentCourse.m_width;

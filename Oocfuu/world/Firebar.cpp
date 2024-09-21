@@ -78,7 +78,7 @@ void Firebar::draw()
 		m_fireballs[i] = Rect(vec2(FIREBALL_SIZE, FIREBALL_SIZE), position);
 		m_fireballs[i].draw();
 
-		if (m_fireballs[i].intersect(g_player))
+		if (m_fireballs[i].intersect(g_player.getRect()))
 			g_player.kill();
 
 		if (Game::m_debugInfo)

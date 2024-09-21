@@ -24,13 +24,13 @@ void IntroScreen::init()
 void IntroScreen::reset()
 {
 	g_courseManager.setScroll(0.0f);
-	g_game.m_timer.setVisible(false);
+	m_pGame->m_timer.setVisible(false);
 	m_counter = 0;
 	glClearColor(0, 0, 0, 1);
 
-	if (g_game.m_isGameOver)
+	if (m_pGame->m_isGameOver)
 		m_intro = INTRO_GAMEOVER;
-	else if (g_game.m_timer.isEnded())
+	else if (m_pGame->m_timer.isEnded())
 		m_intro = INTRO_TIMEUP;
 	else
 		m_intro = INTRO_LOAD;
@@ -46,7 +46,8 @@ void IntroScreen::update()
 
 			// コースのファイル名を設定
 			char filePath[64];
- 			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", g_game.m_world.world, g_game.m_world.stage);
+ 			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 
+						m_pGame->m_world.world, m_pGame->m_world.stage);
 			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 2, 4);
 
 			// コースローダーを取得し、コースを初期化
@@ -58,7 +59,7 @@ void IntroScreen::update()
 				// コースの読み込みに成功
 				g_courseManager.setScroll(0.0f);
 				g_player.respawn((float)g_courseManager.getStartPosition().x, (float)g_courseManager.getStartPosition().y);
-				g_game.setScreen(GAME_SCREEN_MAIN);
+				m_pGame->setScreen(GAME_SCREEN_MAIN);
 			} else {
 				// コースの読み込みに失敗
 				CourseLoader::Result error = pLoader->getLastError();
@@ -68,9 +69,9 @@ void IntroScreen::update()
 		}
 		case INTRO_GAMEOVER:
 			m_intro = INTRO_LOAD;
-			g_game.updateTopScore();
-			g_game.reset();
-			g_game.setScreen(GAME_SCREEN_TITLE);
+			m_pGame->updateTopScore();
+			m_pGame->reset();
+			m_pGame->setScreen(GAME_SCREEN_TITLE);
 			break;
 		case INTRO_TIMEUP:
 			break;
@@ -80,7 +81,7 @@ void IntroScreen::update()
 
 void IntroScreen::draw()
 {
-	g_game.drawHUD();
+	m_pGame->drawHUD();
 
 	switch (m_intro) {
 	case INTRO_LOAD:
@@ -90,7 +91,7 @@ void IntroScreen::draw()
 
 		fontBegin();
 		fontPosition(88, 80);
-		fontDraw("WORLD %d-%d", g_game.m_world.world, g_game.m_world.stage);
+		fontDraw("WORLD %d-%d", m_pGame->m_world.world, m_pGame->m_world.stage);
 		fontPosition(120, 112);
 		fontDraw("x");
 		fontPosition(144, 112);

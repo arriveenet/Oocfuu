@@ -51,7 +51,7 @@ void HitBlockController::start(const glm::ivec2& _point, const PART& _part, cons
 		// エフェクトを有効にする
 		m_enableEffect = true;
 		// コインを追加する
-		g_game.addCoin();
+		Game::getInstance()->addCoin();
 		g_courseManager.setParts(ivec2(_point.x, _point.y - 1), PART_NONE);
 	}
 

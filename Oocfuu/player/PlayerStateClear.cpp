@@ -77,7 +77,7 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 
 		// エンティティとの当たり判定
 		for (Sprite* object : g_courseManager.getCourse().m_courseObjects) {
-			if (object->intersect(*_pPlayer)) {
+			if (object->intersect(_pPlayer->getRect())) {
 				_pPlayer->m_speed = { 0.0f, 0.0f };
 				_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_IDLE);
 				m_step = CLEAR_STEP_STAY;

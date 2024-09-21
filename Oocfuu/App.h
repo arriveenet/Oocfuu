@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include "common/common.h"
 
+class Game;
+
 /**
  * @brief アプリケーションクラス
  */
@@ -12,6 +14,7 @@ private:
 	HANDLE m_hConsoleOutput;	//!< コンソールハンドル
 	bool m_running;				//!< メインループフラグ
 	int m_window;				//!< ウィンドウハンドル
+	Game* m_pGame;
 	unsigned int m_frames;
 	float m_deltaTime;
 	float m_accumulator;
@@ -49,8 +52,8 @@ public:
 	
 protected:
 	// 初期化の結果をコンソールに表示する
-	bool printInit(int _result, const char* _str);
-	bool printInit(bool _result, const char* _str);
+	bool printInit(int _result, const char* _str) const;
+	bool printInit(bool _result, const char* _str) const;
 };
 
 extern App g_app;

@@ -16,7 +16,7 @@ Kinopio::Kinopio(float x, float y)
 void Kinopio::draw()
 {
 	g_textureManager.setTexture(TEXTURE_KINOPIO);
-	Rect::draw();
+	Sprite::draw();
 	g_textureManager.unbindTexture();
 }
 
@@ -33,6 +33,6 @@ Cake::Cake(float x, float y)
 void Cake::draw()
 {
 	g_textureManager.setTexture(TEXTURE_CAKE);
-	Rect::draw();
+	Sprite::draw();
 	g_textureManager.unbindTexture();
 }

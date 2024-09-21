@@ -49,7 +49,7 @@ void GoodbyeOocfuuScreen::update()
 	}
 
 	if (Keyboard::m_nowPressed[0x1b])
-		g_game.setScreen(GAME_SCREEN_TITLE);
+		m_pGame->setScreen(GAME_SCREEN_TITLE);
 }
 
 void GoodbyeOocfuuScreen::draw()

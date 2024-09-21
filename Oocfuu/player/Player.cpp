@@ -56,7 +56,7 @@ void Player::init()
 
 void Player::reset()
 {
-	m_flip = RECT_FLIP_NONE;
+	setFlip(RECT_FLIP_NONE);
 	m_speed = { 0.0f, 0.0f };
 	m_jumping = false;
 	m_falling = false;
@@ -74,7 +74,7 @@ void Player::reset()
 
 void Player::respawn(float _x, float _y)
 {
-	m_flip = RECT_FLIP_NONE;
+	setFlip(RECT_FLIP_NONE);
 	m_speed = { 0.0f, 0.0f };
 	m_jumping = false;
 	m_falling = false;
@@ -114,7 +114,7 @@ void Player::update()
 	}
 
 	// タイムアウト
-	if (g_game.m_timer.isEnded() && (!m_dead)) {
+	if (Game::getInstance()->m_timer.isEnded() && (!m_dead)) {
 		m_speed = { 0.0f, 0.0f };
 		m_dead = true;
 		m_pStateContext->setStete(new PlayerStateDie);
@@ -128,7 +128,7 @@ void Player::update()
 	if (g_courseManager.getClearAex(aex) && !m_clear) {
 		if (this->intersect(aex)) {
 			m_clear = true;
-			g_game.m_timer.stop();
+			m_pGame->m_timer.stop();
 			m_pStateContext->setStete(new PlayerStateClear);
 			g_enemyManager.koopaKill();
 
@@ -186,7 +186,7 @@ void Player::update()
 					vec2 right = (ivec2)*iter / PART_SIZE * PART_SIZE;
 					m_position.x = right.x - PLAYER_SIZE;
 					m_goal = true;
-					g_game.m_timer.stop();
+					m_pGame->m_timer.stop();
 					m_pStateContext->setStete(new PlayerStateGoal);
 					break;
 				}
@@ -244,7 +244,7 @@ void Player::draw()
 {
 	if (m_visible) {
 		g_textureManager.setTexture((TEXTURE)g_animations[m_animationController.m_animation].m_keys[m_animationController.m_time]);
-		Rect::draw();
+		Sprite::draw();
 		g_textureManager.unbindTexture();
 	}
 
@@ -300,7 +300,7 @@ void Player::draw()
 		glPopAttrib();
 		glPopClientAttrib();
 
-		Rect::drawWire();
+		m_rect.drawWire();
 	}
 
 	m_messageController.draw();
