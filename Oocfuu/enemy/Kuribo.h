@@ -19,7 +19,7 @@ enum KURIBO_STATE {
 	KURIBO_STATE_MAX
 };
 
-class Kuribo : public Enemy{
+class Kuribo : public Enemy {
 private:
 	friend class KuriboStateRun;
 	friend class KuriboStateSquish;

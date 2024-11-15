@@ -46,7 +46,12 @@ bool Sprite::intersect(const Rect& rect)
 
 bool Sprite::intersect(const Sprite& sprite)
 {
-	return false;
+	return m_rect.intersect(sprite.getRect());
+}
+
+bool Sprite::compare(const Sprite& sprite)
+{
+	return m_rect == sprite.getRect();
 }
 
 void Sprite::setFlip(int flip)

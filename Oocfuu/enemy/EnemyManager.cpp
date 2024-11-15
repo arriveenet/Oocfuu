@@ -1,4 +1,5 @@
 #include "EnemyManager.h"
+#include "Sprite.h"
 #include "world/Part.h"
 #include "world/CourseManager.h"
 #include "common/font.h"

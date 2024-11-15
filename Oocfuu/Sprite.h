@@ -23,6 +23,8 @@ public:
 	bool intersect(const Rect& rect);
 	bool intersect(const Sprite& sprite);
 
+	bool compare(const Sprite& sprite);
+
 	const Rect& getRect() const { return m_rect; }
 
 	void setFlip(int flip);

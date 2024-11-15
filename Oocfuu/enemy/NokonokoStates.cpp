@@ -132,15 +132,11 @@ void NokonokoStateSpin::execute(Nokonoko* _pNokonoko)
 	}
 
 	// ƒmƒRƒmƒR‚Æ‚Ì“–‚½‚è”»’è
-	vector<Nokonoko>& nokonokoes = g_enemyManager.getAllNokonoko();
-	for (vector<Nokonoko>::iterator iter = nokonokoes.begin();
-		iter != nokonokoes.end();
-		++iter) {
-		if (_pNokonoko->intersect(*iter)
-			&& (iter->getState() != NOKONOKO_STATE_DEAD)
-			&& (_pNokonoko->operator!=(*iter))
-			) {
-			iter->kill();
+	for (auto& nokonoko : g_enemyManager.getAllNokonoko()) {
+		if (_pNokonoko->intersect(nokonoko)
+			&& (nokonoko.getState() != NOKONOKO_STATE_DEAD)
+			&& (!_pNokonoko->compare(nokonoko))) {
+			nokonoko.kill();
 			break;
 		}
 	}
