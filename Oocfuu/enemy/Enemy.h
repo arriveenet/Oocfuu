@@ -1,5 +1,5 @@
 #pragma once
-#include "Rect.h"
+#include "Sprite.h"
 #include "animation/AnimationController.h"
 #include <glm/glm.hpp>
 #include <vector>
@@ -22,7 +22,7 @@ enum class EnemyType {
 /**
  * @brief 敵キャラクターの抽象クラス
  */
-class Enemy : public Rect {
+class Enemy : public Sprite {
 public:
 	// コンストラクタ
 	Enemy();
@@ -158,7 +158,7 @@ inline EnemyType Enemy::getEnemyType() const
  */
 inline void Enemy::turnLeft()
 {
-	m_flip = RECT_FLIP_NONE;
+	setFlip(RECT_FLIP_NONE);
 	m_speed.x = -m_speed.x;
 }
 
@@ -172,6 +172,6 @@ inline void Enemy::turnLeft()
  */
 inline void Enemy::turnRight()
 {
-	m_flip = RECT_FLIP_HORIZONTAL;
+	setFlip(RECT_FLIP_HORIZONTAL);
 	m_speed.x = -m_speed.x;
 }

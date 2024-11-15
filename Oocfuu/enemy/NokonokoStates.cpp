@@ -25,7 +25,7 @@ void NokonokoStateRun::enter(Nokonoko* _pNokonoko)
 	_pNokonoko->m_state = NOKONOKO_STATE_RUN;
 	_pNokonoko->m_size = NOKONOKO_RUN_SIZE;
 	_pNokonoko->m_speed = { -ENEMY_SPEED, 0.0f };
-	_pNokonoko->m_flip = RECT_FLIP_NONE;
+	_pNokonoko->setFlip(RECT_FLIP_NONE);
 	_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
 }
 
@@ -187,7 +187,7 @@ NokonokoStateDie* NokonokoStateDie::instance()
 void NokonokoStateDie::enter(Nokonoko* _pNokonoko)
 {
 	_pNokonoko->m_state = NOKONOKO_STATE_DEAD;
-	_pNokonoko->m_flip = RECT_FLIP_VERTICAL;
+	_pNokonoko->setFlip(RECT_FLIP_VERTICAL);
 	g_pSound->play(SOUND_TYPE_SE_KICK);
 }
 

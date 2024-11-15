@@ -24,8 +24,11 @@ void KuriboStateRun::enter(Kuribo* _pKuribo)
 
 void KuriboStateRun::execute(Kuribo* _pKuribo)
 {
-	if (Game::m_count % 12 == 0)
-		_pKuribo->m_flip ^= 1;
+	if (Game::m_count % 12 == 0) {
+		const int flip = _pKuribo->isFlipX() ? RECT_FLIP_NONE : RECT_FLIP_HORIZONTAL;
+		_pKuribo->setFlip(flip);
+	}
+
 
 	// Squish
 	bool squished = false;
@@ -129,7 +132,7 @@ void KuriboStateDie::enter(Kuribo* _pKuribo)
 {
 	_pKuribo->m_state = KURIBO_STATE_DEAD;
 	_pKuribo->m_texture = TEXTURE_KURIBO_RUN;
-	_pKuribo->m_flip = RECT_FLIP_VERTICAL;
+	_pKuribo->setFlip(RECT_FLIP_VERTICAL);
 
 	g_pSound->play(SOUND_TYPE_SE_KICK);
 }

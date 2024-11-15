@@ -49,7 +49,7 @@ Enemy::Enemy(const glm::vec2& _size, const glm::vec2& _position)
 	, m_rightPoint()
 	, m_bottomPoints{}
 	, m_animationController()
-	, Rect(_size, _position)
+	, Sprite(_size, _position)
 {
 }
 
@@ -120,7 +120,7 @@ void Enemy::draw()
 		glColor3ub(0xff, 0xff, 0xff);
 
 		// ワイヤーフレームを描画
-		Rect::drawWire();
+		Sprite::drawWire();
 	}
 }
 
@@ -136,7 +136,8 @@ void Enemy::intersectEnemy()
 		enemy != enemies.end();
 		++enemy) {
 		//　自分自身の場合コンティニュー
-		if (this->operator==(*(*enemy))) {
+		Rect rect = (*enemy)->getRect();
+		if (m_rect == rect) {
 			continue;
 		}
 

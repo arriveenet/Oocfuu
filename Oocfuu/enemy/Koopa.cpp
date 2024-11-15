@@ -96,7 +96,7 @@ void Koopa::update()
 	m_counter++;
 
 	// プレイヤーの方向にテクスチャを向ける
-	m_flip = m_position.x < g_player.getPosition().x ? RECT_FLIP_HORIZONTAL : RECT_FLIP_NONE;
+	setFlip(m_position.x < g_player.getPosition().x ? RECT_FLIP_HORIZONTAL : RECT_FLIP_NONE);
 
 	// ステートマシンを更新
 	m_pStateMachine->update();
@@ -149,7 +149,7 @@ void Koopa::draw()
 		return;
 
 	g_textureManager.setTexture((TEXTURE)g_animations[m_animationController.m_animation].m_keys[m_animationController.m_time]);
-	Rect::draw();
+	Sprite::draw();
 	g_textureManager.unbindTexture();
 
 	for (int i = 0; i < KOOPA_FIRE_MAX; i++) {
@@ -157,7 +157,7 @@ void Koopa::draw()
 	}
 
 	if (Game::m_debugInfo) {
-		Rect::drawWire();
+		Sprite::drawWire();
 
 		fontBegin();
 		fontColor(0x00, 0xff, 0xff);
@@ -182,7 +182,7 @@ void Koopa::fire()
 			continue;
 
 		// 向いている方向にファイヤーを向ける
-		float x = m_flip == RECT_FLIP_NONE ? m_position.x - 24.0f : m_position.x + m_size.x;
+		float x = isFlipX() ? m_position.x - 24.0f : m_position.x + m_size.x;
 		// 高さをランダムで決める(高:10%、中:10%、低:80%)
 		int r = rand() % 100;
 		FIRE_HEIGHT hight;
@@ -193,7 +193,8 @@ void Koopa::fire()
 		} else {
 			hight = FIRE_HEIGHT_LOW;
 		}
-		m_fires[i].start(vec2(x, m_position.y), hight, m_flip);
+		int direction = isFlipX() ? RECT_FLIP_HORIZONTAL : RECT_FLIP_NONE;
+		m_fires[i].start(vec2(x, m_position.y), hight, direction);
 		return;
 	}
 }

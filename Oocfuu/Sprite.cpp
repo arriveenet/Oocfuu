@@ -29,6 +29,11 @@ void Sprite::draw()
 	m_rect.draw();
 }
 
+void Sprite::drawWire()
+{
+	m_rect.drawWire();
+}
+
 bool Sprite::intersect(const glm::vec2& point)
 {
 	return m_rect.intersect(point);
@@ -39,7 +44,22 @@ bool Sprite::intersect(const Rect& rect)
 	return m_rect.intersect(rect);
 }
 
+bool Sprite::intersect(const Sprite& sprite)
+{
+	return false;
+}
+
 void Sprite::setFlip(int flip)
 {
 	m_rect.m_flip = flip;
+}
+
+bool Sprite::isFlipX() const
+{
+	return m_rect.m_flip == RECT_FLIP_HORIZONTAL;
+}
+
+bool Sprite::isFlipY() const
+{
+	return m_rect.m_flip == RECT_FLIP_VERTICAL;
 }

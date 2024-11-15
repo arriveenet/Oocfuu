@@ -32,7 +32,7 @@ void EnemyManager::addEnemy(Enemy& _enemy)
 	// ƒNƒbƒp
 	case EnemyType::Koopa:
 		m_enemyFlag |= ENEMYFLAG_KOOPA;
-		m_koopa.m_position = _enemy.m_position;
+		m_koopa.setPosition(_enemy.getPosition());
 		break;
 	default:
 		assert(false);
@@ -162,7 +162,7 @@ void EnemyManager::prepare()
 		kuribo != m_kuriboes.end();
 		++kuribo) {
 		// ‰æ–Ê“à‚©‚Â¶‚«‚Ä‚¢‚éê‡’Ç‰Á‚·‚é
-		if (g_courseManager.isInScreen(*kuribo) && kuribo->isAlive()) {
+		if (g_courseManager.isInScreen(kuribo->getRect()) && kuribo->isAlive()) {
 			m_enemies.push_back((Enemy*)&(*kuribo));
 		}
 	}
@@ -172,7 +172,7 @@ void EnemyManager::prepare()
 		nokonoko != m_nokonokoes.end();
 		++nokonoko) {
 		// ‰æ–Ê“à‚©‚Â¶‚«‚Ä‚¢‚éê‡’Ç‰Á‚·‚é
-		if (g_courseManager.isInScreen(*nokonoko) && nokonoko->isAlive()) {
+		if (g_courseManager.isInScreen(nokonoko->getRect()) && nokonoko->isAlive()) {
 			m_enemies.push_back((Enemy*)&(*nokonoko));
 		}
 	}

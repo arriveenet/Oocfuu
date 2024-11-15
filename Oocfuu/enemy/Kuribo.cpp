@@ -70,7 +70,7 @@ void Kuribo::draw()
 		return;
 
 	g_textureManager.setTexture(m_texture);
-	Rect::draw();
+	Sprite::draw();
 	g_textureManager.unbindTexture();
 
 	if (Game::m_debugInfo) {

@@ -74,7 +74,7 @@ void Nokonoko::update()
 void Nokonoko::draw()
 {
 	g_textureManager.setTexture((TEXTURE)g_animations[m_animationController.m_animation].m_keys[m_animationController.m_time]);
-	Rect::draw();
+	Sprite::draw();
 	g_textureManager.unbindTexture();
 
 	if (Game::m_debugInfo) {
