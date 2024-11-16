@@ -351,7 +351,9 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 	// クリボーを読み込む
 	tinyxml2::XMLElement* pKuriboElement = _pEnemyElement->FirstChildElement("kuribo");
 	if (pKuriboElement) {
-		for (tinyxml2::XMLElement* pElement = pKuriboElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+		for (tinyxml2::XMLElement* pElement = pKuriboElement;
+			pElement != nullptr;
+			pElement = pElement->NextSiblingElement("kuribo")) {
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
 			Kuribo enemy(x, y);
@@ -362,7 +364,9 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 	// ノコノコを読み込む
 	tinyxml2::XMLElement* pNokonokoElement = _pEnemyElement->FirstChildElement("nokonoko");
 	if (pNokonokoElement) {
-		for (tinyxml2::XMLElement* pElement = pNokonokoElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+		for (tinyxml2::XMLElement* pElement = pNokonokoElement;
+			pElement != nullptr;
+			pElement = pElement->NextSiblingElement("nokonoko")) {
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
 			Nokonoko enemy(x, y);
@@ -373,7 +377,9 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 	// クッパを読み込む
 	tinyxml2::XMLElement* pKoopaElement = _pEnemyElement->FirstChildElement("koopa");
 	if (pKoopaElement) {
-		for (tinyxml2::XMLElement* pElement = pKoopaElement; pElement != nullptr; pElement = pElement->NextSiblingElement()) {
+		for (tinyxml2::XMLElement* pElement = pKoopaElement;
+			pElement != nullptr;
+			pElement = pElement->NextSiblingElement("koopa")) {
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
 			Koopa enemy(vec2(x, y));

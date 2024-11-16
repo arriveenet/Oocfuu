@@ -29,13 +29,15 @@
 		<kuribo x="682" y="192"/>
 		<kuribo x="800" y="192"/>
 		<kuribo x="816" y="192"/>
-		<kuribo x="1248" y="128"/>
-		<kuribo x="1326" y="64"/>
+		<kuribo x="1280" y="64"/>
+		<kuribo x="1296" y="64"/>
 		<kuribo x="1600" y="192"/>
 		<kuribo x="1616" y="192"/>
-		<kuribo x="1822" y="192"/>
-		<kuribo x="1838" y="192"/>
+		<kuribo x="1840" y="192"/>
+		<kuribo x="1856" y="192"/>
+		<kuribo x="2000" y="192"/>
+		<kuribo x="2016" y="192"/>
 		<kuribo x="2084" y="192"/>
-		<kuribo x="500" y="184"/>
+		<nokonoko x="1696" y="192"/>
 	</enemy>
 </course>

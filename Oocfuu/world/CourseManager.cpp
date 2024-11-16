@@ -224,7 +224,7 @@ bool CourseManager::getClearAex(Rect& _rect) const
 
 bool CourseManager::isInScreen(const Rect& _rect)
 {
-	if (_rect.m_position.x > m_scroll
+	if (_rect.m_position.x > m_scroll - 16
 		&& _rect.m_position.x < m_scroll + SCREEN_WIDTH) {
 		return true;
 	}
