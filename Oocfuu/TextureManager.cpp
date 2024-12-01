@@ -33,6 +33,7 @@ static TEX texs[] =
 	{{"parts\\fireball.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_FIREBALL
 	{{"parts\\lift.bmp"},					RGB(0xff, 0x00, 0xff)},	// TEXTURE_LIFT
 	{{"font\\CHR000.bmp"},					RGB(0x00, 0x40, 0x80)},	// TEXTURE_FONT
+	{{"font\\font_0.bmp"},					RGB(0x00, 0x00, 0x00)},	// TEXTURE_FONT_BMP
 	{{"font\\score_100.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_SCORE_100
 	{{"font\\score_200.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_SCORE_200,
 	{{"font\\score_400.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_SCORE_400,

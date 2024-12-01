@@ -1,7 +1,7 @@
 #include "font.h"
 #include "App.h"
 #include "world/CourseManager.h"
-#include "TextureManager.h"
+#include "FontFNT.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,60 @@ static vec2 position;
 static vec2 origin;
 static COLORREF color;
 static bool background;
+static Font* pBitmapFont = nullptr;
 
+static std::u32string convertUtf8ToUtf32(const std::string& utf8String)
+{
+	std::u32string result;
+
+	for (int i = 0; i < utf8String.size(); i++) {
+		char p = utf8String.at(i);
+		char32_t unicode = 0;
+
+		int numBytes = 0;
+		if ((p & 0x80) == 0x00) {
+			numBytes = 1;
+		}
+		else if ((p & 0xE0) == 0xC0) {
+			numBytes = 2;
+		}
+		else if ((p & 0xF0) == 0xE0) {
+			numBytes = 3;
+		}
+		else if ((p & 0xF8) == 0xF0) {
+			numBytes = 4;
+		}
+
+		switch (numBytes) {
+		case 1:
+			unicode = p;
+			result.push_back(unicode);
+			break;
+		case 2:
+			unicode = (p & 0x1F) << 6;
+			unicode |= (utf8String[i + 1] & 0x3F);
+			result.push_back(unicode);
+			break;
+		case 3:
+			unicode = (p & 0x0F) << 12;
+			unicode |= (utf8String[i + 1] & 0x3F) << 6;
+			unicode |= (utf8String[i + 2] & 0x3F);
+			result.push_back(unicode);
+			break;
+		case 4:
+			unicode = (p & 0x07) << 18;
+			unicode |= (utf8String[i + 1] & 0x3F) << 12;
+			unicode |= (utf8String[i + 2] & 0x3F) << 6;
+			unicode |= (utf8String[i + 3] & 0x3F) << 6;
+			result.push_back(unicode);
+			break;
+		default:
+			break;
+		}
+	}
+
+	return result;
+}
 
 int fontInit()
 {
@@ -38,12 +91,17 @@ int fontInit()
 	color = RGB(0xFF, 0xFF, 0xFF);
 	background = false;
 
+	pBitmapFont = FontFNT::create("resource\\textures\\font\\font.fnt");
+	if (pBitmapFont == nullptr)
+		return 1;
+
 	return 0;
 }
 
 void fontRelease()
 {
-
+	delete pBitmapFont;
+	pBitmapFont = nullptr;
 }
 
 void fontBegin()
@@ -184,4 +242,103 @@ void fontDraw(const char* format, ...)
 
 	glColor4ub(GetRValue(color), GetGValue(color), GetBValue(color), 0xff);
 	glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
+}
+
+void fontBitmapFontDraw(const char* format, ...)
+{
+	va_list ap;
+	char str[512];
+
+	va_start(ap, format);
+	vsprintf_s(str, format, ap);
+	va_end(ap);
+
+	std::u32string utf32Text = convertUtf8ToUtf32(str);
+	float x = position.x, y = position.y;
+	float lineWidth = 0.0f;
+	float lineHeight = pBitmapFont->getLineHeight();
+	ivec2 textureSize = g_textureManager.getSize(pBitmapFont->getTexture());
+	std::vector<QUAD> quads;
+
+	for (int i = 0; i < utf32Text.size(); i++) {
+		const char32_t p = utf32Text.at(i);
+
+		if (p == '\n') {
+			x = 0;
+			y -= lineHeight;
+			continue;
+		}
+
+		auto& pChar = pBitmapFont->m_characterDefinition[p];
+
+		float tx0 = static_cast<float>(pChar.x) / textureSize.x;
+		float ty0 = static_cast<float>(pChar.y) / textureSize.y;
+		float tx1 = static_cast<float>((pChar.x) + pChar.width) / textureSize.x;
+		float ty1 = static_cast<float>((pChar.y) + pChar.height) / textureSize.y;
+
+		QUAD quad = { };
+		quad.vertices[0].position = { x + pChar.xoffset, y + pChar.yoffset };
+		quad.vertices[0].texCoord = { tx0, ty0 };
+
+		quad.vertices[1].position = { x + pChar.xoffset, y + pChar.yoffset + pChar.height};
+		quad.vertices[1].texCoord = { tx0, ty1 };
+
+		quad.vertices[2].position = { x + pChar.xoffset + pChar.width, y + pChar.yoffset + pChar.height };
+		quad.vertices[2].texCoord = { tx1, ty1 };
+
+		quad.vertices[3].position = { x + pChar.xoffset + pChar.width, y + pChar.yoffset };
+		quad.vertices[3].texCoord = { tx1, ty0 };
+
+		quads.emplace_back(quad);
+		x += pChar.xadvance;
+	}
+
+	g_textureManager.setTexture(pBitmapFont->getTexture());
+	glVertexPointer(3, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].position);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].texCoord);
+
+	glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
+	g_textureManager.unbindTexture();
+}
+
+Font::Font()
+	: m_texture(TEXTURE_FONT_BMP)
+	, m_lineHeight(0.0f)
+{
+}
+
+Font::~Font()
+{
+}
+
+void Font::addCharacterDefinition(char32_t utf32char, const FontCharacterDefinition& defintition)
+{
+	m_characterDefinition[utf32char] = defintition;
+}
+
+bool Font::getCharacterDefinition(char32_t utf32char, FontCharacterDefinition& defintition)
+{
+	auto iter = m_characterDefinition.find(utf32char);
+	if (iter != m_characterDefinition.end()) {
+		defintition = (*iter).second;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void Font::setLineHeight(float lineHeight)
+{
+	m_lineHeight = lineHeight;
+}
+
+std::string_view Font::getFontName() const
+{
+	return m_fontName;
+}
+
+TEXTURE Font::getTexture()
+{
+	return m_texture;
 }

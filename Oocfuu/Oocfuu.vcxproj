@@ -175,7 +175,8 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="common\font.cpp" />
+    <ClCompile Include="common\Font.cpp" />
+    <ClCompile Include="common\FontFNT.cpp" />
     <ClCompile Include="common\FrameCounter.cpp" />
     <ClCompile Include="common\Message.cpp" />
     <ClCompile Include="enemy\Enemy.cpp" />
@@ -241,7 +242,8 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="App.h" />
     <ClInclude Include="common\common.h" />
     <ClInclude Include="common\Entity.h" />
-    <ClInclude Include="common\font.h" />
+    <ClInclude Include="common\Font.h" />
+    <ClInclude Include="common\FontFNT.h" />
     <ClInclude Include="common\FrameCounter.h" />
     <ClInclude Include="common\Message.h" />
     <ClInclude Include="common\Observer.h" />
@@ -276,6 +278,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="resource.h" />
     <ClInclude Include="score\Canon.h" />
     <ClInclude Include="score\HappyBirthdayToYou.h" />
+    <ClInclude Include="score\OneLove.h" />
     <ClInclude Include="score\score.h" />
     <ClInclude Include="score\TyphoonParade.h" />
     <ClInclude Include="score\Voyager.h" />

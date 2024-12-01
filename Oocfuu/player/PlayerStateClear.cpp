@@ -96,7 +96,7 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 		if ((g_music.getState() == MusicState::Stopped) && (m_lastMusicState == MusicState::Playing)) {
 			// タイフーンパレードを再生する
 			g_music.reset();
-			g_music.setMusic(MusicType::TyphoonParade);
+			g_music.setMusic(MusicType::OneLove);
 			g_music.play();
 
 			// メッセージを設定
