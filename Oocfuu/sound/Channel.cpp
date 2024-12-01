@@ -101,16 +101,20 @@ void Channel::resetScore()
 
 void Channel::update()
 {
-	if ((m_phase >= m_count) || (m_score == NULL)) {
+	// 楽譜が設定されていない場合
+	if ((m_score == nullptr) || (m_state == State::Ended))
+		return;
+
+	// 最後の音符か確認
+	const unsigned int phaseLength = m_score[m_phase].length;
+	if ((m_phase >= m_count - 1) && (m_length >= phaseLength)) {
 		audioStop(m_channel);
 		m_state = State::Ended;
 		return;
 	}
 
-	m_length++;
-
 	// 次の音符に行く場合
-	if (m_length >= m_score[m_phase].length) {
+	if (m_length >= phaseLength) {
 		m_phase++;
 		m_length = 0;
 
@@ -132,6 +136,8 @@ void Channel::update()
 			}
 		}
 	}
+
+	m_length++;
 }
 
 void Channel::draw(float _x, float _y)
