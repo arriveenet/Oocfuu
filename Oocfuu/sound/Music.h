@@ -20,6 +20,7 @@ enum class MusicType {
 	TyphoonParade,	//!< タイフーンパレード
 	Voyager,		//!< VOYAGER日付のない墓標
 	Canon,			//!< カノン
+	OneLove,		//!< One Love
 };
 
 /**

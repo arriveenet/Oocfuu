@@ -23,6 +23,7 @@ public:
 	virtual void update();
 	void draw(float _x, float _y);
 	State getState() const;
+	bool isEnd() const;
 
 private:
 	SCORE* m_score;

@@ -164,3 +164,8 @@ Channel::State Channel::getState() const
 {
 	return m_state;
 }
+
+bool Channel::isEnd() const
+{
+	return (m_state == State::Ended) || (m_state == State::Inital);
+}

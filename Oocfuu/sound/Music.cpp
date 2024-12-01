@@ -6,6 +6,7 @@
 #include "score/TyphoonParade.h"
 #include "score/Voyager.h"
 #include "score/Canon.h"
+#include "score/OneLove.h"
 
 #include <glut.h>
 
@@ -84,6 +85,11 @@ void Music::setMusic(MusicType _type)
 		setScore(AUDIO_CHANNEL_PULSE1, pulse1_score_canon, PULSE1_COUNT_CANON);
 		setScore(AUDIO_CHANNEL_TRIANGLE, triangle_score_canon, TRIANGLE_COUNT_CANON);
 		break;
+	case MusicType::OneLove:
+		setScore(AUDIO_CHANNEL_PULSE0, one_love::pulse0, one_love::PULSE0_COUNT);
+		setScore(AUDIO_CHANNEL_PULSE1, one_love::pulse1, one_love::PULSE1_COUNT);
+		setScore(AUDIO_CHANNEL_TRIANGLE, one_love::triangle, one_love::TRIANGLE_COUNT);
+		break;
 	default:
 		break;
 	}
@@ -126,10 +132,10 @@ void Music::update()
 	for (int i = 0; i < AUDIO_CHANNEL_MAX; i++)
 		m_channels[i].update();
 
-	if ((m_channels[AUDIO_CHANNEL_PULSE0].getState() == Channel::Ended)
-		&& (m_channels[AUDIO_CHANNEL_PULSE1].getState() == Channel::Ended)
-		&& (m_channels[AUDIO_CHANNEL_TRIANGLE].getState() == Channel::Ended)
-		&& (m_channels[AUDIO_CHANNEL_NOISE].getState() == Channel::Ended)
+	if ((m_channels[AUDIO_CHANNEL_PULSE0].isEnd())
+		&& (m_channels[AUDIO_CHANNEL_PULSE1].isEnd())
+		&& (m_channels[AUDIO_CHANNEL_TRIANGLE].isEnd())
+		&& (m_channels[AUDIO_CHANNEL_NOISE].isEnd())
 		) {
 		m_end = true;
 		m_state = MusicState::Stopped;
