@@ -3,6 +3,7 @@
 #include "PlayerStateContext.h"
 #include "PlayerState.h"
 #include "common/Message.h"
+#include "common/Lyrics.h"
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -57,6 +58,7 @@ public:
 	bool m_clear;
 	bool m_visible;
 	MessageController m_messageController;
+	LyricsController m_lyricsController;
 
 	Player();
 	~Player();

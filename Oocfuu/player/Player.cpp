@@ -70,6 +70,7 @@ void Player::reset()
 	m_clear = false;
 	m_visible = true;
 	m_messageController.reset();
+	m_lyricsController.reset();
 }
 
 void Player::respawn(float _x, float _y)
@@ -93,6 +94,7 @@ void Player::update()
 	m_animationController.update();
 	m_pStateContext->update();
 	m_messageController.update();
+	m_lyricsController.update();
 
 	// ジャンプ中かつ落下フラグが立っていれば重力の影響を与える
 	if (m_falling 
@@ -304,15 +306,16 @@ void Player::draw()
 	}
 
 	m_messageController.draw();
+	m_lyricsController.draw();
 }
 
 void Player::kill()
 {
-	if (m_dead)
-		return;
+	//if (m_dead)
+	//	return;
 
-	m_dead = true;
-	m_pStateContext->setStete(new PlayerStateDie);
+	//m_dead = true;
+	//m_pStateContext->setStete(new PlayerStateDie);
 }
 
 void Player::jump()

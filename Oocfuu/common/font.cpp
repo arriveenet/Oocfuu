@@ -254,6 +254,9 @@ void fontBitmapFontDraw(const char* format, ...)
 	va_end(ap);
 
 	std::u32string utf32Text = convertUtf8ToUtf32(str);
+	if (utf32Text.empty())
+		return;
+
 	float x = position.x, y = position.y;
 	float lineWidth = 0.0f;
 	float lineHeight = pBitmapFont->getLineHeight();
@@ -291,13 +294,18 @@ void fontBitmapFontDraw(const char* format, ...)
 
 		quads.emplace_back(quad);
 		x += pChar.xadvance;
+		lineWidth += pChar.xadvance;
 	}
 
 	g_textureManager.setTexture(pBitmapFont->getTexture());
 	glVertexPointer(3, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].position);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &quads[0].vertices[0].texCoord);
 
-	glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
+	const float centerOffset = (SCREEN_WIDTH - lineWidth) / 2.0f;
+	glPushMatrix();
+		glTranslatef(centerOffset, 0, 0);
+		glDrawArrays(GL_QUADS, 0, GLsizei(quads.size() * 4));
+	glPopMatrix();
 	g_textureManager.unbindTexture();
 }
 

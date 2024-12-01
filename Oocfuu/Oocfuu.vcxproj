@@ -178,6 +178,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="common\Font.cpp" />
     <ClCompile Include="common\FontFNT.cpp" />
     <ClCompile Include="common\FrameCounter.cpp" />
+    <ClCompile Include="common\Lyrics.cpp" />
     <ClCompile Include="common\Message.cpp" />
     <ClCompile Include="enemy\Enemy.cpp" />
     <ClCompile Include="enemy\EnemyManager.cpp" />
@@ -245,6 +246,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="common\Font.h" />
     <ClInclude Include="common\FontFNT.h" />
     <ClInclude Include="common\FrameCounter.h" />
+    <ClInclude Include="common\Lyrics.h" />
     <ClInclude Include="common\Message.h" />
     <ClInclude Include="common\Observer.h" />
     <ClInclude Include="common\range.h" />

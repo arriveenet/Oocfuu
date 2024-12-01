@@ -20,16 +20,65 @@ namespace {
 
 	const MESSAGE message2[] =
 	{
-		{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	96},
-		{"FEBRUARY,4,2024",				vec2(120, 88),	192},
+		{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	0},
+		{"FEBRUARY,4,2024",				vec2(120, 88),	144},
 		{"THANK YOU FOR A FUN",			vec2(56,104),	288},
 		{"LIVESTREAMING ALWAYS.",		vec2(48, 120),	288},
-		{"HOPE YOU HAVE A GREAT YEAR!",	vec2(24, 136),	384},
-		{"FROM OSHU-FUJIWARA",			vec2(96, 160),	480}
+		{"HOPE YOU HAVE A GREAT YEAR!",	vec2(24, 136),	432},
+		{"FROM OSHU-FUJIWARA",			vec2(96, 160),	432}
 	};
 
 	constexpr int messageSize = sizeof(messages) / sizeof(MESSAGE);
 	constexpr int message2Size = sizeof(message2) / sizeof(MESSAGE);
+
+	static std::vector<Lyrics> oneLoveLyrics = {
+	{u8"", 1998},
+	{u8"“`‚¦‚½‚­‚Ä“`‚í‚ç‚È‚­‚Ä", 288},
+	{u8"Žž‚É‚Í‘f’¼‚É‚È‚ê‚¸‚É", 288},
+	{u8"‹ƒ‚¢‚½‹Gß‚ð‰z‚¦‚½–l‚ç‚Í", 288},
+	{u8"¡‚Æ‚Ä‚à‹P‚¢‚Ä‚¢‚é‚æ", 252},
+	{u8"‚»‚ê‚¼‚ê•`‚­", 144},
+	{u8"K‚¹‚Ì‚©‚½‚¿‚Íd‚È‚è", 288},
+	{u8"¡‘å‚«‚Èˆ¤‚É‚È‚é", 216},
+	{u8"‚¸‚Á‚Æ‚Ó‚½‚è‚Å¶‚«‚Ä‚ä‚±‚¤", 396},
+	{u8"", 108},
+	{u8"•S”Næ‚àˆ¤‚ð¾‚¤‚æ", 288},
+	{u8"ŒN‚Í–l‚Ì‘S‚Ä‚³", 288},
+	{u8"M‚¶‚Ä‚¢‚é‚½‚¾M‚¶‚Ä‚é", 288},
+	{u8"“¯‚¶ŽžŠÔ‚ð‚Þl‚Ö", 288},
+	{u8"‚Ç‚ñ‚ÈŒN‚à‚Ç‚ñ‚È–l‚Å‚à", 288},
+	{u8"‚Ð‚Æ‚Â‚Ð‚Æ‚Â‚ªˆ¤‚µ‚¢", 288},
+	{u8"ŒN‚ª‚¢‚ê‚Î‰½‚à‚¢‚ç‚È‚¢", 288},
+	{u8"‚«‚Á‚ÆK‚¹‚É‚·‚é‚©‚ç", 288},
+	{u8"", 900},
+	{u8"‰J‚Ì’†‚ÅŒN‚ð‘Ò‚Á‚Ä‚½", 288},
+	{u8"—D‚µ‚³‚ÌˆÓ–¡‚³‚¦’m‚ç‚¸", 288},
+	{u8"‚·‚êˆá‚¢‚É‚Â‚¢‚½–é", 288},
+	{u8"‚»‚ê‚Å‚à‚±‚±‚Ü‚Å—ˆ‚½‚ñ‚¾", 252},
+	{u8"‚©‚¯‚ª‚¦‚Ì‚È‚¢", 144},
+	{u8"oˆ§‚¢‚ÍŠïÕ‚ðŒq‚¢‚Å‚­", 288},
+	{u8"Žv‚¢od‚È‚è‡‚¤", 216},
+	{u8"‚Í‚¶‚Ü‚è‚Ì‰Ì–Â‚è‹¿‚¢‚Ä", 396},
+	{u8"", 108},
+	{u8"‚Ç‚ñ‚È‚Æ‚«‚àŽx‚¦‚Ä‚­‚ê‚½", 288},
+	{u8"Î‚¢‹ƒ‚¢‚½’‡ŠÔ‚Ö", 288},
+	{u8"Sž‚ß‚Ä‚½‚¾‚Ð‚Æ‚Â‚¾‚¯", 288},
+	{u8"‘¡‚éŒ¾—t‚Í‚ ‚è‚ª‚Æ‚¤", 270},
+	{u8"", 1314},
+	{u8"•S”Næ‚àˆ¤‚ð¾‚¤‚æ", 288},
+	{u8"ŒN‚Í–l‚Ì‘S‚Ä‚³", 288},
+	{u8"ˆ¤‚µ‚Ä‚¢‚é‚½‚½ˆ¤‚µ‚Ä‚é", 288},
+	{u8"“¯‚¶–¾“ú–ñ‘©‚µ‚æ‚¤", 288},
+	{u8"¢ŠE’†‚É‚½‚¾ˆêl‚¾‚¯", 288},
+	{u8"–l‚ÍŒN‚ð‘I‚ñ‚¾", 288},
+	{u8"ŒN‚Æ‚¢‚ê‚Î‚Ç‚ñ‚È–¢—ˆ‚à", 288},
+	{u8"‚¸‚Á‚Æ‹P‚¢‚Ä‚¢‚é‚©‚ç", 324},
+	{u8"", 108},
+	{u8"ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰", 288},
+	{u8"ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰", 288},
+	{u8"ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰", 288},
+	{u8"ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰ƒ‰", 288},
+	};
 }
 
 PlayerStateClear::PlayerStateClear()
@@ -47,6 +96,8 @@ void PlayerStateClear::start(Player* _pPlayer)
 	_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 	_pPlayer->m_speed = { 0.0f, 0.0f };
 	_pPlayer->m_messageController.setMessage(messages, messageSize);
+
+	_pPlayer->m_lyricsController.bindLyrics(oneLoveLyrics);
 
 	g_courseManager.destroyBridge();
 }
@@ -103,6 +154,10 @@ void PlayerStateClear::update(PlayerStateContext* _pStateContext, Player* _pPlay
 			_pPlayer->m_messageController.reset();
 			_pPlayer->m_messageController.setMessage(message2, message2Size);
 			_pPlayer->m_messageController.start();
+
+			// ‰ÌŽŒ‚ðÝ’è
+			_pPlayer->m_lyricsController.reset();
+			_pPlayer->m_lyricsController.start();
 		}
 
 		m_lastScrollMax = g_courseManager.isScrollMax();

@@ -207,8 +207,6 @@ void App::run()
 	float accumlator = 0.0f;
 
 	while (m_running) {
-		glutMainLoopEvent();
-
 		auto nowTime = std::chrono::steady_clock::now();
 		m_deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(nowTime - m_currentTime).count() / 1000000.0f;
 		m_deltaTime = std::min(m_deltaTime, 0.25f);
@@ -222,6 +220,8 @@ void App::run()
 		}
 
 		draw();
+
+		glutMainLoopEvent();
 	}
 
 	glutDestroyWindow(m_window);
