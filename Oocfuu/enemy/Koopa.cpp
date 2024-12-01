@@ -182,7 +182,7 @@ void Koopa::fire()
 			continue;
 
 		// 向いている方向にファイヤーを向ける
-		float x = isFlipX() ? m_position.x - 24.0f : m_position.x + m_size.x;
+		float x = isFlipX() ? m_position.x + m_size.x : m_position.x - 24.0f;
 		// 高さをランダムで決める(高:10%、中:10%、低:80%)
 		int r = rand() % 100;
 		FIRE_HEIGHT hight;
