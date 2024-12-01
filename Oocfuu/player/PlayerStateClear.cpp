@@ -28,8 +28,14 @@ namespace {
 		{"FROM OSHU-FUJIWARA",			vec2(96, 160),	432}
 	};
 
+	const MESSAGE message3[] =
+	{
+		{"HAPPY BIRTHDAY", vec2(72, 123), 0},
+	};
+
 	constexpr int messageSize = sizeof(messages) / sizeof(MESSAGE);
 	constexpr int message2Size = sizeof(message2) / sizeof(MESSAGE);
+	constexpr int message3Size = sizeof(message3) / sizeof(MESSAGE);
 
 	static std::vector<Lyrics> oneLoveLyrics = {
 	{u8"", 1998},
@@ -95,7 +101,7 @@ void PlayerStateClear::start(Player* _pPlayer)
 
 	_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
 	_pPlayer->m_speed = { 0.0f, 0.0f };
-	_pPlayer->m_messageController.setMessage(messages, messageSize);
+	_pPlayer->m_messageController.setMessage(message3, message3Size);
 
 	_pPlayer->m_lyricsController.bindLyrics(oneLoveLyrics);
 
