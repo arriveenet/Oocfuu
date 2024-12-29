@@ -1,5 +1,6 @@
 #include "Course.h"
 #include "Part.h"
+#include "CourseManager.h"
 #include "sound/Bgm.h"
 
 #include <glm/glm.hpp>
@@ -20,6 +21,7 @@ Course::Course()
 	, m_startPosition(0, 0)
 	, m_nextWorld()
 	, m_isLoaded(false)
+	, m_quadsDirty(true)
 {
 }
 
@@ -50,7 +52,7 @@ Course::~Course()
  */
 void Course::create()
 {
-
+	updateTotalQuads();
 }
 
 /**
@@ -98,10 +100,7 @@ void Course::update()
 		return;
 
 	m_coins.clear();
-	m_quads.clear();
-
-	// ボスステージの橋を更新
-	m_bridgeController.update();
+	//m_quads.clear();
 
 	// 叩いたときのブロックを追加する
 	QUAD hitBlock;
@@ -109,7 +108,10 @@ void Course::update()
 		m_quads.push_back(hitBlock);
 	}
 
-	// 描画するパーツを更新
+	// ボスステージの橋を更新
+	m_bridgeController.update();
+
+
 	for (int y = 0; y < m_height; y++) {
 		for (int x = 0; x < m_width; x++) {
 			int part = m_pParts[y][x];
@@ -121,7 +123,13 @@ void Course::update()
 
 			switch (part) {
 			case PART_COIN_0:
+			{
 				m_coins.push_back(ivec2(x, y));
+				int animationTable[] = { 0,1,2,2,1,0 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
+			}
+			break;
 			case PART_QUESTION0:
 			case PART_AXE_0:
 			{
@@ -146,27 +154,12 @@ void Course::update()
 			}
 			break;
 			}
-
-			// パーツを追加する
-			float x2 = (float)x * PART_SIZE;
-			float y2 = (float)y * PART_SIZE;
-			QUAD quad = {};
-			const vec2 positions[4] =
-			{
-				{ x2, y2 },
-				{ x2, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 + PART_SIZE },
-				{ x2 + PART_SIZE, y2 },
-			};
-			vec2* texCoords = g_partManager.getTexCoords(textureIndex);
-
-			for (int i = 0; i < 4; i++) {
-				quad.vertices[i].position = positions[i];
-				quad.vertices[i].texCoord = texCoords[i];
-			}
-			m_quads.push_back(quad);
 		}
 	}
+
+	updateTotalQuads();
+
+	updateParts();
 }
 
 /**
@@ -190,7 +183,7 @@ void Course::draw()
 	glTexCoordPointer(2, GL_FLOAT, sizeof(VERTEX), &m_quads[0].vertices[0].texCoord);
 
 	g_textureManager.setTexture(m_texture);
-	glDrawArrays(GL_QUADS, 0, GLsizei(m_quads.size() * 4));
+	glDrawElements(GL_TRIANGLES, GLsizei(m_indices.size()), GL_UNSIGNED_SHORT, m_indices.data());
 	g_textureManager.unbindTexture();
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -235,3 +228,100 @@ void Course::setType(const std::string _typeName)
 		assert(false);
 	}
 }
+
+void Course::setPart(int x, int y, int part)
+{
+	if ((x < 0) || (x >= m_width)
+		|| (y < 0) || (y >= m_height)) {
+		return;
+	}
+
+	m_pParts[y][x] = part;
+	m_quadsDirty = true;
+}
+
+void Course::updateTotalQuads()
+{
+	if (m_quadsDirty) {
+		m_partToQuadIndex.clear();
+		m_quads.resize(size_t(m_width * m_height));
+		m_indices.resize(6 * size_t(m_width * m_height));
+		m_partToQuadIndex.resize(size_t(m_width * m_height));
+
+		int quadIndex = 0;
+		for (int y = 0; y < m_height; y++) {
+			for (int x = 0; x < m_width; x++) {
+				int part = m_pParts[y][x];
+				int partIndex = getPartIndexByPos(x, y);
+
+				if (part == PART_NONE)
+					continue;
+
+				m_partToQuadIndex[partIndex] = quadIndex;
+
+				auto& quad = m_quads[quadIndex];
+
+				float left, right, top, bottom;
+
+				left = static_cast<float>(x * PART_SIZE);
+				right = static_cast<float>(left + PART_SIZE);
+				top = static_cast<float>(y * PART_SIZE);
+				bottom = static_cast<float>(top + PART_SIZE);
+
+				quad.vertices[0].position = { left,  top    };
+				quad.vertices[1].position = { left,  bottom };
+				quad.vertices[2].position = { right, bottom };
+				quad.vertices[3].position = { right, top    };
+
+				const glm::vec2 textureSize = g_partManager.getTextureSize();
+
+				Rect tileTexture = g_partManager.getRect(part);
+
+				left = tileTexture.m_position.x / textureSize.x;
+				right = left + (tileTexture.m_size.x / textureSize.x);
+				top = tileTexture.m_position.y / textureSize.y;
+				bottom = top + (tileTexture.m_size.y / textureSize.y);
+
+				float ptx = static_cast<float>(1.0 / (textureSize.x * PART_SIZE));
+				float pty = static_cast<float>(1.0 / (textureSize.y * PART_SIZE));
+
+				quad.vertices[0].texCoord = { left  + ptx, top    + pty };
+				quad.vertices[1].texCoord = { left  + ptx, bottom - pty };
+				quad.vertices[2].texCoord = { right - ptx, bottom - pty };
+				quad.vertices[3].texCoord = { right - ptx, top    + pty };
+
+				quadIndex++;
+			}
+		}
+	}
+
+	m_quadsDirty = false;
+}
+
+void Course::updateParts()
+{
+	const float scroll = g_courseManager.getScroll();
+
+	int yBegin = 0;
+	int yEnd = SCREEN_HEIGHT / PART_SIZE;
+	int xBegin = static_cast<int>(scroll / PART_SIZE);
+	int xEnd = static_cast<int>(ceil((scroll + SCREEN_WIDTH) / PART_SIZE));
+
+	for (int y = yBegin; y < yEnd; y++) {
+		for (int x = xBegin; x < xEnd; x++) {
+			int partIndex = getPartIndexByPos(x, y);
+			if (m_pParts[y][x] == PART_NONE)
+				continue;
+
+			auto quadIndex = m_partToQuadIndex[partIndex];
+
+			m_indices[(size_t)quadIndex * 6 + 0] = quadIndex * 4 + 0;
+			m_indices[(size_t)quadIndex * 6 + 1] = quadIndex * 4 + 1;
+			m_indices[(size_t)quadIndex * 6 + 2] = quadIndex * 4 + 2;
+			m_indices[(size_t)quadIndex * 6 + 3] = quadIndex * 4 + 3;
+			m_indices[(size_t)quadIndex * 6 + 4] = quadIndex * 4 + 0;
+			m_indices[(size_t)quadIndex * 6 + 5] = quadIndex * 4 + 2;
+		}
+	}
+}
+

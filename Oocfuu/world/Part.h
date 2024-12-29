@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "Rect.h"
 
 #define PART_SIZE	16
 
@@ -98,7 +99,11 @@ public:
 
 	bool init();
 	glm::vec2* getTexCoords(int _index);
+	Rect getRect(int _index) const;
+	const glm::vec2& getTextureSize() const { return m_textureSize; }
 
+private:
+	glm::vec2 m_textureSize;
 };
 
 extern Part g_parts[PART_MAX];

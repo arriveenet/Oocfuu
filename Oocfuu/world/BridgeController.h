@@ -7,7 +7,7 @@ class BridgeController {
 private:
 	std::vector<glm::ivec2> m_parts;
 	glm::ivec2 m_ChainPosition;
-	bool m_destroy;
+	mutable bool m_destroy;
 	bool m_exist;
 
 public:
@@ -19,7 +19,7 @@ public:
 	void clear();
 	void add(int _x, int _y);
 	void setChain(int _x, int _y);
-	void destroy();
-	bool isDestroyed();
+	void destroy() const;
+	bool isDestroyed() const;
 	RANGE getRange();
 };

@@ -89,6 +89,7 @@ PartManager g_partManager;
 /** コンストラクタ
 */
 PartManager::PartManager()
+	: m_textureSize(0.0f)
 {
 }
 
@@ -105,6 +106,7 @@ PartManager::~PartManager()
 bool PartManager::init()
 {
 	vec2 textureSize = g_textureManager.getSize(TEXTURE_PARTS_OVERWORLD);
+	m_textureSize = textureSize;
 
 	// テクスチャのサイズがゼロベクトルか判定する
 	if (length(textureSize) == 0) {
@@ -139,4 +141,15 @@ vec2* PartManager::getTexCoords(int _index)
 	assert(_index >= 0 && _index < PART_MAX);
 
 	return &g_parts[_index].m_texCoords[0];
+}
+
+Rect PartManager::getRect(int _index) const
+{
+	Rect rect;
+	rect.m_size = { PART_SIZE ,PART_SIZE };
+
+	rect.m_position.x = static_cast<float>((_index % PART_SIZE) * PART_SIZE);
+	rect.m_position.y = static_cast<float>((_index / PART_SIZE) * PART_SIZE);
+
+	return rect;
 }

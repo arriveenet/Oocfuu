@@ -38,9 +38,9 @@ void Bgm::play()
 	if (m_bgmType == Unknown)
 		return;
 
-	m_isPlaying = true;
-	g_pSound->repeat(m_soundType);
-	g_pSound->play(m_soundType);
+	//m_isPlaying = true;
+	//g_pSound->repeat(m_soundType);
+	//g_pSound->play(m_soundType);
 }
 
 /**

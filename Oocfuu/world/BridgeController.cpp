@@ -49,13 +49,13 @@ void BridgeController::setChain(int _x, int _y)
 	m_ChainPosition = { _x, _y };
 }
 
-void BridgeController::destroy()
+void BridgeController::destroy() const
 {
 	m_destroy = true;
 	g_courseManager.setParts(m_ChainPosition, PART_NONE);
 }
 
-bool BridgeController::isDestroyed()
+bool BridgeController::isDestroyed() const
 {
 	return m_exist && m_parts.empty();
 }

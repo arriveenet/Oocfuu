@@ -82,15 +82,7 @@ bool CourseManager::isScrollMax()
 
 void CourseManager::setParts(ivec2 const& _point, int _parts)
 {
-	if (
-		(_point.x < 0)
-		|| (_point.x >= m_currentCourse.getWidth())
-		|| (_point.y < 0)
-		|| (_point.y >= m_currentCourse.getHeight())
-		)
-		return;
-
-	m_currentCourse.m_pParts[_point.y][_point.x] = _parts;
+	m_currentCourse.setPart(_point.x, _point.y, _parts);
 }
 
 int CourseManager::getParts(int _x, int _y)
