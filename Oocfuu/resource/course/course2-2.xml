@@ -13,19 +13,19 @@
 		<dr>                                                                    c0c1c1c2                          g0                        </dr>
 		<dr>                                                                    c3c4c4c5                          g1  c0c1c2                </dr>
 		<dr>                                                                                                      g1  c3c4c5                </dr>
-		<dr>                                                                                  b1b1                g1                        </dr>
-		<dr>                                                                                b1b1b1                g1                        </dr>
-		<dr>                                                                              b1b1b1b1                g1                        </dr>
-		<dr>                  b2          b2                                            b1b1b1b1b1                g1        f0f0f0          </dr>
-		<dr>                    b2b2b2b2b2                                            b1b1b1b1b1b1                g1        f1f2f3          </dr>
-		<dr>                                                                        b1b1b1b1b1b1b1        m0      g1      f0f4f4f4f0        </dr>
-		<dr>                                            b2                  p0p1  b1b1b1b1b1b1b1b1      m1m2m3    g1      f2f2f5f2f2    m0  </dr>
-		<dr>                                            b2                  p2p3b1b1b1b1b1b1b1b1b1    m1m2m4m5m3  b1      f2f2f6b2f2t2m1m2m3</dr>
+		<dr>                                                                                  b2b2                g1                        </dr>
+		<dr>                                                                                b2b2b2                g1                        </dr>
+		<dr>                                                                              b2b2b2b2                g1                        </dr>
+		<dr>                                                                            b2b2b2b2b2                g1        f0f0f0          </dr>
+		<dr>                    b2b2b2b2b2                                            b2b2b2b2b2b2                g1        f1f2f3          </dr>
+		<dr>                                                                        b2b2b2b2b2b2b2        m0      g1      f0f4f4f4f0        </dr>
+		<dr>                                            b2                  p0p1  b2b2b2b2b2b2b2b2      m1m2m3    g1      f2f2f5f2f2    m0  </dr>
+		<dr>                                            b2                  p2p3b2b2b2b2b2b2b2b2b2    m1m2m4m5m3  b2      f2f2f6b2f2t2m1m2m3</dr>
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 	</data>
 	<enemy>
-		<kuribo x="192" y="128"/>
+		<red-nokonoko x="192" y="128"/>
 		<nokonoko x="384" y="192"/>
 		<nokonoko x="416" y="192"/>
 	</enemy>

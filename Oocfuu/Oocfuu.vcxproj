@@ -180,6 +180,7 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClCompile Include="common\FrameCounter.cpp" />
     <ClCompile Include="common\Lyrics.cpp" />
     <ClCompile Include="common\Message.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="enemy\Enemy.cpp" />
     <ClCompile Include="enemy\EnemyManager.cpp" />
     <ClCompile Include="enemy\Koopa.cpp" />
@@ -253,8 +254,10 @@ xcopy /y /d "..\third_party\freeglut\dll\freeglut.dll" "$(OutDir)"</Command>
     <ClInclude Include="common\State.h" />
     <ClInclude Include="common\StateMachine.h" />
     <ClInclude Include="common\Subject.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="enemy\Enemy.h" />
     <ClInclude Include="enemy\EnemyManager.h" />
+    <ClInclude Include="enemy\Factory.h" />
     <ClInclude Include="enemy\Koopa.h" />
     <ClInclude Include="enemy\KoopaFire.h" />
     <ClInclude Include="enemy\KoopaStates.h" />

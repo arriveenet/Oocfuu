@@ -89,6 +89,13 @@ protected:
 inline void Enemy::turn()
 {
 	m_speed.x = -m_speed.x;
+
+	if (m_speed.x >= 0.0f) {
+		setFlip(RECT_FLIP_HORIZONTAL);
+	}
+	else {
+		setFlip(RECT_FLIP_NONE);
+	}
 }
 
 /**

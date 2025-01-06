@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 class Game;
+class Component;
 
 class Actor {
 public:
@@ -30,6 +31,13 @@ public:
 
 	void removeChild(Actor* pActor);
 
+	void addComponent(Component* pComponent);
+
+	void removeComponent(Component* pComponent);
+
+protected:
+	void updateComponent();
+
 protected:
 	glm::vec2 m_position;
 	glm::vec2 m_size;
@@ -39,5 +47,6 @@ protected:
 	Game* m_pGame;
 
 	std::vector<Actor*> m_children;
+	std::vector<Component*> m_componets;
 };
 
