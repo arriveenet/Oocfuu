@@ -13,7 +13,7 @@
 #include "world/CourseLoader.h"
 #include "score/Voyager.h"
 
-#include <freeglut.h>
+#include <GL/freeglut.h>
 
 void GoodbyeOocfuuScreen::init()
 {

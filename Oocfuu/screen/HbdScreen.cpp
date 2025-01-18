@@ -10,7 +10,7 @@
 #include "world/CourseManager.h"
 #include "world/CourseLoader.h"
 
-#include <freeglut.h> 
+#include <GL/freeglut.h> 
 
 using namespace glm;
 

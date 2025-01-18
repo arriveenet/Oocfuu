@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include <stdio.h>
-#include "freeglut.h"
+#include <GL/freeglut.h>
 
 const char channelNames[][9] = {
 	{"PULSE0"},

@@ -8,7 +8,7 @@
 #include "score/Canon.h"
 #include "score/OneLove.h"
 
-#include <glut.h>
+#include <GL/glut.h>
 
 Music g_music;
 

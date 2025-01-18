@@ -9,7 +9,7 @@
 #include "world/CourseManager.h"
 #include "common/FrameCounter.h"
 
-#include <freeglut.h>
+#include <GL/freeglut.h>
 
 #define SCREEN_WIDTH	256
 #define SCREEN_HEIGHT	240

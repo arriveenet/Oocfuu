@@ -2,7 +2,7 @@
 #include "Part.h"
 #include "TextureManager.h"
 
-#include "glut.h"
+#include <gl/glut.h>
 
 using namespace glm;
 

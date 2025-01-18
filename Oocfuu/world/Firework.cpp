@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include "sound/Sound.h"
 
-#include <freeglut.h>
+#include <GL/freeglut.h>
 #include <al.h>
 
 #define FIREWORK_COUNT_MAX	60

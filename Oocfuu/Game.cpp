@@ -16,7 +16,7 @@
 #include "sound/Bgm.h"
 
 #include <algorithm>
-#include <freeglut.h>
+#include <GL/freeglut.h>
 
 Game* Game::m_pSharedInstance = nullptr;
 
