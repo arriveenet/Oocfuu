@@ -3,6 +3,7 @@
 #include "player/Player.h"
 #include "animation/Animation.h"
 #include "sound/Sound.h"
+#include "world/CourseManager.h"
 #include "common/common.h"
 #include <glm/glm.hpp>
 
@@ -26,11 +27,24 @@ void NokonokoStateRun::enter(Nokonoko* _pNokonoko)
 	_pNokonoko->m_size = NOKONOKO_RUN_SIZE;
 	_pNokonoko->m_speed = { -ENEMY_SPEED, 0.0f };
 	_pNokonoko->setFlip(RECT_FLIP_NONE);
-	_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
+	if (_pNokonoko->getType() == Nokonoko::Type::Green) {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
+	}
+	else {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_RED_NOKONOKO_RUN);
+	}
 }
 
 void NokonokoStateRun::execute(Nokonoko* _pNokonoko)
 {
+	if (_pNokonoko->getType() == Nokonoko::Type::Red) {
+		for (int i = 0; i < ENEMY_BOTTOM_COUNT; i++) {
+			if (g_courseManager.intersect(_pNokonoko->m_bottomPoints[i])) {
+				_pNokonoko->turn();
+			}
+		}
+	}
+
 	// スピードの影響を与える
 	_pNokonoko->m_position += _pNokonoko->m_speed;
 
@@ -60,7 +74,13 @@ void NokonokoStateShell::enter(Nokonoko* _pNokonoko)
 	_pNokonoko->m_size = NOKONOKO_SHELL_SIZE;
 	_pNokonoko->m_speed = { 0.0f, 0.0f };
 	//_pNokonoko->m_position += vec2(0.f, 8.f);
-	_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_SHELL);
+	
+	if (_pNokonoko->getType() == Nokonoko::Type::Green) {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_SHELL);
+	}
+	else {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_RED_NOKONOKO_SHELL);
+	}
 
 	g_pSound->play(SOUND_TYPE_SE_SQUISH);
 }
@@ -118,25 +138,9 @@ void NokonokoStateSpin::execute(Nokonoko* _pNokonoko)
 	// 親クラスの更新をする
 	_pNokonoko->Enemy::update();
 
-	// クリボーとの当たり判定
-	vector<Kuribo>& kuriboes = g_enemyManager.getAllKuribo();
-	for (vector<Kuribo>::iterator iter = kuriboes.begin();
-		iter != kuriboes.end();
-		++iter) {
-		if (_pNokonoko->intersect(*iter)
-			&& (iter->getState() != KURIBO_STATE_DEAD))
-		{
-			iter->kill();
-			break;
-		}
-	}
-
-	// ノコノコとの当たり判定
-	for (auto& nokonoko : g_enemyManager.getAllNokonoko()) {
-		if (_pNokonoko->intersect(nokonoko)
-			&& (nokonoko.getState() != NOKONOKO_STATE_DEAD)
-			&& (!_pNokonoko->compare(nokonoko))) {
-			nokonoko.kill();
+	for (const auto& enemy : g_enemyManager.getAllEnemy()) {
+		if (_pNokonoko->intersect(*enemy) && !_pNokonoko->compare(*enemy) && enemy->isAlive()) {
+			enemy->kill();
 			break;
 		}
 	}
@@ -159,7 +163,13 @@ NokonokoStateReturn* NokonokoStateReturn::instance()
 void NokonokoStateReturn::enter(Nokonoko* _pNokonoko)
 {
 	_pNokonoko->m_state = NOKONOKO_STATE_RETURN;
-	_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_RETURN);
+
+	if (_pNokonoko->getType() == Nokonoko::Type::Green) {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_NOKONOKO_RETURN);
+	}
+	else {
+		_pNokonoko->m_animationController.setAnimation(ANIMATION_RED_NOKONOKO_RETURN);
+	}
 }
 
 void NokonokoStateReturn::execute(Nokonoko* _pNokonoko)

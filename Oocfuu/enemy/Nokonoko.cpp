@@ -23,6 +23,7 @@ Nokonoko::Nokonoko(glm::vec2 _position)
 
 Nokonoko::Nokonoko(float _x, float _y)
 	: m_state(NOKONOKO_STATE_RUN)
+	, m_type(Nokonoko::Type::Green)
 	, m_counter(0)
 	, m_pStateMachine(nullptr)
 	, m_topPoint(0.0f, 0.0f)
@@ -33,7 +34,12 @@ Nokonoko::Nokonoko(float _x, float _y)
 	m_pStateMachine = new StateMachine<Nokonoko>(this);
 	m_pStateMachine->setCurrentState(NokonokoStateRun::instance());
 
-	m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
+	if (m_type == Type::Green) {
+		m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
+	}
+	else {
+		m_animationController.setAnimation(ANIMATION_RED_NOKONOKO_RUN);
+	}
 }
 
 Nokonoko::Nokonoko(const Nokonoko& _nokonoko)
@@ -98,4 +104,16 @@ void Nokonoko::draw()
 void Nokonoko::kill()
 {
 	m_pStateMachine->changeState(NokonokoStateDie::instance());
+}
+
+void Nokonoko::setType(Type type)
+{
+	m_type = type;
+
+	if (m_type == Type::Green) {
+		m_animationController.setAnimation(ANIMATION_NOKONOKO_RUN);
+	}
+	else {
+		m_animationController.setAnimation(ANIMATION_RED_NOKONOKO_RUN);
+	}
 }

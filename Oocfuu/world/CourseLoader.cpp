@@ -348,16 +348,19 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 {
 	assert(_pEnemyManager);
 
+	auto EnemyFactory = _pEnemyManager->getFactory();
+
 	// クリボーを読み込む
 	tinyxml2::XMLElement* pKuriboElement = _pEnemyElement->FirstChildElement("kuribo");
 	if (pKuriboElement) {
 		for (tinyxml2::XMLElement* pElement = pKuriboElement;
 			pElement != nullptr;
 			pElement = pElement->NextSiblingElement("kuribo")) {
+			Enemy* pEnemy = EnemyFactory->create("kuribo");
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
-			Kuribo enemy(x, y);
-			_pEnemyManager->addEnemy(enemy);
+			pEnemy->setPosition(x, y);
+			_pEnemyManager->addEnemy(pEnemy);
 		}
 	}
 
@@ -367,10 +370,26 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 		for (tinyxml2::XMLElement* pElement = pNokonokoElement;
 			pElement != nullptr;
 			pElement = pElement->NextSiblingElement("nokonoko")) {
+			Enemy* pEnemy = EnemyFactory->create("nokonoko");
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
-			Nokonoko enemy(x, y);
-			_pEnemyManager->addEnemy(enemy);
+			pEnemy->setPosition(x, y);
+			_pEnemyManager->addEnemy(pEnemy);
+		}
+	}
+
+	// 赤ノコノコを読み込む
+	tinyxml2::XMLElement* pRedNokonokoElement = _pEnemyElement->FirstChildElement("red-nokonoko");
+	if (pRedNokonokoElement) {
+		for (tinyxml2::XMLElement* pElement = pRedNokonokoElement;
+			pElement != nullptr;
+			pElement = pElement->NextSiblingElement("red-nokonoko")) {
+			Nokonoko* pEnemy = static_cast<Nokonoko*>(EnemyFactory->create("nokonoko"));
+			float x = pElement->FloatAttribute("x");
+			float y = pElement->FloatAttribute("y");
+			pEnemy->setPosition(x, y);
+			pEnemy->setType(Nokonoko::Type::Red);
+			_pEnemyManager->addEnemy(pEnemy);
 		}
 	}
 
@@ -380,10 +399,11 @@ bool CourseLoader::parseEnemy(EnemyManager* _pEnemyManager, tinyxml2::XMLElement
 		for (tinyxml2::XMLElement* pElement = pKoopaElement;
 			pElement != nullptr;
 			pElement = pElement->NextSiblingElement("koopa")) {
+			Enemy* pEnemy = EnemyFactory->create("koopa");
 			float x = pElement->FloatAttribute("x");
 			float y = pElement->FloatAttribute("y");
-			Koopa enemy(vec2(x, y));
-			_pEnemyManager->addEnemy(enemy);
+			pEnemy->setPosition(x, y);
+			_pEnemyManager->addEnemy(pEnemy);
 
 			RANGE range = _pCourse->m_bridgeController.getRange();
 			g_enemyManager.setKoopaRange(range);

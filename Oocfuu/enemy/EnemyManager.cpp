@@ -10,66 +10,78 @@ using namespace std;
 EnemyManager g_enemyManager;
 
 EnemyManager::EnemyManager()
-	: m_enemyFlag(0)
+	: m_pFactory(nullptr)
 {
 }
 
 EnemyManager::~EnemyManager()
 {
+	delete m_pFactory;
+	m_pFactory = nullptr;
+
 	clear();
 }
 
-void EnemyManager::addEnemy(Enemy& _enemy)
+bool EnemyManager::init()
 {
-	switch (_enemy.getEnemyType()) {
-	// クリボー
-	case EnemyType::Kuribo:
-		m_kuriboes.push_back(dynamic_cast<Kuribo&>(_enemy));
-		break;
-	// ノコノコ
-	case EnemyType::Nokonoko:
-		m_nokonokoes.push_back(dynamic_cast<Nokonoko&>(_enemy));
-		break;
-	// クッパ
-	case EnemyType::Koopa:
-		m_enemyFlag |= ENEMYFLAG_KOOPA;
-		m_koopa.setPosition(_enemy.getPosition());
-		break;
-	default:
-		assert(false);
-		break;
-	}
+	m_pFactory = new Factory<Enemy>();
+
+	m_pFactory->registerEntity("kuribo", new Creator<Kuribo, Enemy>);
+	m_pFactory->registerEntity("nokonoko", new Creator<Nokonoko, Enemy>);
+	m_pFactory->registerEntity("koopa", new Creator<Koopa, Enemy>);
+
+	return true;
+}
+
+Factory<Enemy>* EnemyManager::getFactory()
+{
+	return m_pFactory;
+}
+
+void EnemyManager::addEnemy(Enemy* _pEnemy)
+{
+	if (_pEnemy == nullptr)
+		return;
+
+	m_enemies.emplace_back(_pEnemy);
 }
 
 void EnemyManager::clear()
 {
-	// すべてのクリボーをクリア
-	m_kuriboes.clear();
-	m_kuriboes.shrink_to_fit();
-
-	// すべてのノコノコをクリア
-	m_nokonokoes.clear();
-	m_nokonokoes.shrink_to_fit();
-
-	m_koopa.reset();
-
-	m_enemyFlag = 0;
+	while (!m_enemies.empty()) {
+		delete m_enemies.back();
+		m_enemies.pop_back();
+	}
 }
 
 void EnemyManager::koopaKill()
 {
-	if (m_enemyFlag & ENEMYFLAG_KOOPA)
-		m_koopa.kill();
+	auto result = std::find_if(m_enemies.begin(), m_enemies.end(),
+				  [](Enemy* pEnemy) { return pEnemy->getEnemyType() == EnemyType::Koopa; });
+	if (result != m_enemies.end()) {
+		(*result)->kill();
+	}
 }
 
 bool EnemyManager::koopaIsDead()
 {
-	return m_koopa.isDead();
+	auto result = std::find_if(m_enemies.begin(), m_enemies.end(),
+				  [](Enemy* pEnemy) { return pEnemy->getEnemyType() == EnemyType::Koopa; });
+	if (result != m_enemies.end()) {
+		return (*result)->isDead();
+	}
+
+	return false;
 }
 
 void EnemyManager::setKoopaRange(const RANGE& _range)
 {
-	m_koopa.setActionRange(_range);
+	auto result = std::find_if(m_enemies.begin(), m_enemies.end(),
+		[](Enemy* pEnemy) { return pEnemy->getEnemyType() == EnemyType::Koopa; });
+	if (result != m_enemies.end()) {
+		Koopa* koopa = static_cast<Koopa*>(*result);
+		koopa->setActionRange(_range);
+	}
 }
 
 void EnemyManager::hitBlock(const glm::ivec2& _point)
@@ -77,76 +89,41 @@ void EnemyManager::hitBlock(const glm::ivec2& _point)
 	vec2 point = _point * PART_SIZE;
 	Rect block(vec2(PART_SIZE, PART_SIZE), point);
 
-	for (vector<Kuribo>::iterator iter = m_kuriboes.begin();
-		iter != m_kuriboes.end();
-		++iter) {
-		if (iter->intersect(block)) {
-			iter->kill();
+	for (const auto& enemy : m_enemies) {
+		if (enemy->intersect(block)) {
+			enemy->kill();
 		}
 	}
-
 }
 
+std::vector<Kuribo> EnemyManager::getAllKuribo()
+{
+	// TODO: return ステートメントをここに挿入します
+	std::vector<Kuribo> a;
+	return a;
+}
+
+std::vector<Nokonoko> EnemyManager::getAllNokonoko()
+{
+	// TODO: return ステートメントをここに挿入します
+	std::vector<Nokonoko> a;
+	return a;
+}
 
 void EnemyManager::update()
 {
 	prepare();
 
-	for (vector<Enemy*>::iterator enemy = m_enemies.begin();
-		enemy != m_enemies.end();
-		++enemy) {
-		(*enemy)->update();
+	for (const auto& enemy : m_updateEnemies) {
+		enemy->update();
 	}
-
-	//// クリボーを更新
-	//for (vector<Kuribo>::iterator iter = m_kuriboes.begin();
-	//	iter != m_kuriboes.end();
-	//	++iter) {
-	//	iter->update();
-	//	iter->intersectEnemy(m_kuriboes);
-	//}
-
-	//// ノコノコを更新
-	//for (vector<Nokonoko>::iterator iter = m_nokonokoes.begin();
-	//	iter != m_nokonokoes.end();
-	//	++iter) {
-	//	iter->update();
-	//}
-
-
-	// クッパを更新
-	if(m_enemyFlag & ENEMYFLAG_KOOPA)
-		m_koopa.update();
-
 }
 
 void EnemyManager::draw()
 {
-	prepare();
-
-	for (vector<Enemy*>::iterator enemy = m_enemies.begin();
-		enemy != m_enemies.end();
-		++enemy) {
-		(*enemy)->draw();
+	for (const auto& enemy : m_updateEnemies) {
+		enemy->draw();
 	}
-
-	//// クリボーを描画
-	//for (vector<Kuribo>::iterator iter = m_kuriboes.begin();
-	//	iter != m_kuriboes.end();
-	//	iter++) {
-	//	iter->draw();
-	//}
-
-	//// ノコノコを描画
-	//for (vector<Nokonoko>::iterator iter = m_nokonokoes.begin();
-	//	iter != m_nokonokoes.end();
-	//	iter++) {
-	//	iter->draw();
-	//}
-
-	// クッパを描画
-	if (m_enemyFlag & ENEMYFLAG_KOOPA)
-		m_koopa.draw();
 }
 
 /**
@@ -156,26 +133,12 @@ void EnemyManager::draw()
 void EnemyManager::prepare()
 {
 	// 敵キャラクターの配列をクリア
-	m_enemies.clear();
+	m_updateEnemies.clear();
 
-	// 更新するクリボーを取得する
-	for (vector<Kuribo>::iterator kuribo = m_kuriboes.begin();
-		kuribo != m_kuriboes.end();
-		++kuribo) {
+	for (auto& enemy : m_enemies) {
 		// 画面内かつ生きている場合追加する
-		if (g_courseManager.isInScreen(kuribo->getRect()) && kuribo->isAlive()) {
-			m_enemies.push_back((Enemy*)&(*kuribo));
+		if (g_courseManager.isInScreen(enemy->getRect()) && enemy->isAlive()) {
+			m_updateEnemies.emplace_back(enemy);
 		}
 	}
-
-	// 更新するノコノコーを取得する
-	for (vector<Nokonoko>::iterator nokonoko = m_nokonokoes.begin();
-		nokonoko != m_nokonokoes.end();
-		++nokonoko) {
-		// 画面内かつ生きている場合追加する
-		if (g_courseManager.isInScreen(nokonoko->getRect()) && nokonoko->isAlive()) {
-			m_enemies.push_back((Enemy*)&(*nokonoko));
-		}
-	}
-
 }

@@ -54,6 +54,11 @@ static TEX texs[] =
 	{{"enemy\\Nokonoko_Run_1.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_NOKONOKO_RUN_1,
 	{{"enemy\\Nokonoko_Run_2.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_NOKONOKO_RUN_2,
 	{{"enemy\\Nokonoko_Squish.bmp"},		RGB(0xff, 0x00, 0xff)},	// TEXTURE_NOKONOKO_SQUISH,
+	{{"enemy\\Red_Nokonoko_Return.bmp"},	RGB(0xff, 0x00, 0xff)},// TEXTURE_RED_NOKONOKO_RETURN
+	{{"enemy\\Red_Nokonoko_Run_1.bmp"},		RGB(0xff, 0x00, 0xff)},	//TEXTURE_RED_NOKONOKO_RUN_1
+	{{"enemy\\Red_Nokonoko_Run_2.bmp"},		RGB(0xff, 0x00, 0xff)},	//TEXTURE_RED_NOKONOKO_RUN_2
+	{{"enemy\\Red_Nokonoko_Squish.bmp"},	RGB(0xff, 0x00, 0xff)},// TEXTURE_RED_NOKONOKO_SQUISH
+
 };
 
 TextureManager::TextureManager()

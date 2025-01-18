@@ -15,6 +15,7 @@
 #include "animation\Animation.h"
 #include "animation\AnimationController.h"
 #include "Player/Player.h"
+#include "enemy/EnemyManager.h"
 #include "util/ZipUtils.h"
 
 #include <stdio.h>
@@ -93,6 +94,10 @@ bool App::init()
 
 	// アニメーションを初期化
 	if (!printInit(g_animations->initAll(), "Animation init"))
+		return false;
+
+	// 敵マネージャを初期化
+	if (!printInit(g_enemyManager.init(), "EnemyManager init"))
 		return false;
 
 	// ゲームを初期化

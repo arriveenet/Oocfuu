@@ -18,7 +18,7 @@ enum NOKONOKO_STATE {
 	NOKONOKO_STATE_MAX
 };
 
-class Nokonoko : public Enemy{
+class Nokonoko : public Enemy {
 private:
 	friend class NokonokoStateRun;
 	friend class NokonokoStateShell;
@@ -27,6 +27,11 @@ private:
 	friend class NokonokoStateDie;
 
 public:
+	enum class Type {
+		Green,
+		Red,
+	};
+
 	// コンストラクタ
 	Nokonoko();
 	explicit Nokonoko(glm::vec2 _position);
@@ -42,9 +47,12 @@ public:
 	void draw() override;
 	void kill() override;
 	NOKONOKO_STATE getState() const { return m_state; }
+	Type getType() const { return m_type; }
+	void setType(Type type);
 
 protected:
 	NOKONOKO_STATE m_state;
+	Nokonoko::Type m_type;
 	int m_counter;
 	glm::vec2 m_topPoint;
 	StateMachine<Nokonoko>* m_pStateMachine;

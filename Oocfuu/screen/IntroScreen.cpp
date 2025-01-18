@@ -46,9 +46,9 @@ void IntroScreen::update()
 
 			// コースのファイル名を設定
 			char filePath[64];
- 			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 
-						m_pGame->m_world.world, m_pGame->m_world.stage);
-			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 2, 4);
+ 			//sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 
+			//			m_pGame->m_world.world, m_pGame->m_world.stage);
+			sprintf_s(filePath, sizeof filePath, "resource\\course\\course%d-%d.xml", 2, 2);
 
 			// コースローダーを取得し、コースを初期化
 			CourseLoader* pLoader = CourseLoader::create(&g_courseManager);

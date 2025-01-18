@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Game.h"
+#include "Component.h"
 
 Actor::Actor()
 	: m_position(0.0f, 0.0f)
@@ -74,5 +75,25 @@ void Actor::removeChild(Actor* pActor)
 	if (iter != m_children.end()) {
 		delete pActor;
 		m_children.erase(iter);
+	}
+}
+
+void Actor::addComponent(Component* pComponent)
+{
+	m_componets.emplace_back(pComponent);
+}
+
+void Actor::removeComponent(Component* pComponent)
+{
+	auto iter = std::find(m_componets.begin(), m_componets.end(), pComponent);
+	if (iter != m_componets.end()) {
+		m_componets.erase(iter);
+	}
+}
+
+void Actor::updateComponent()
+{
+	for (auto& component : m_componets) {
+		component->update();
 	}
 }
