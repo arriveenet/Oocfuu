@@ -19,6 +19,9 @@ public:
 
 	virtual void drawWire();
 
+	void setPosition(float x, float y) override;
+	void setPosition(const glm::vec2& position) override;
+
 	bool intersect(const glm::vec2& point);
 	bool intersect(const Rect& rect);
 	bool intersect(const Sprite& sprite);

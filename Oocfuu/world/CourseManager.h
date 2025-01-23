@@ -106,7 +106,7 @@ public:
 	}
 
 	// 矩形が画面内にいるか
-	bool isInScreen(const Rect& _rect);
+	bool isInScreen(const Rect& _rect) const;
 
 	// コースをインポートする
 	void import(Course* pCourse);

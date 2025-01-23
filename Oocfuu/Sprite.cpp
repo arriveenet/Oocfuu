@@ -34,6 +34,17 @@ void Sprite::drawWire()
 	m_rect.drawWire();
 }
 
+void Sprite::setPosition(float x, float y)
+{
+    setPosition(glm::vec2(x, y));
+}
+
+void Sprite::setPosition(const glm::vec2& position)
+{
+	m_rect.m_position = position;
+	Actor::setPosition(position);
+}
+
 bool Sprite::intersect(const glm::vec2& point)
 {
 	return m_rect.intersect(point);
