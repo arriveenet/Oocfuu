@@ -31,11 +31,10 @@ enum KOOPA_MOVE {
 };
 
 enum KOOPA_FLAG {
-	KOOPA_FLAG_DEAD			= 0x01,
-	KOOPA_FLAG_JUMPING		= 0x02,
-	KOOPA_FLAG_FALLING		= 0x04,
-	KOOPA_FLAG_COLLISION	= 0x08,
-	KOOPA_FLAG_ANIMATION	= 0x10,
+	KOOPA_FLAG_JUMPING		= 0x01,
+	KOOPA_FLAG_FALLING		= 0x02,
+	KOOPA_FLAG_COLLISION	= 0x04,
+	KOOPA_FLAG_ANIMATION	= 0x08,
 };
 
 class Koopa : public Enemy {
@@ -56,7 +55,6 @@ public:
 	void draw() override;
 	void fire();
 	void kill();
-	bool isDead();
 	void setActionRange(const RANGE& _range);
 
 protected:

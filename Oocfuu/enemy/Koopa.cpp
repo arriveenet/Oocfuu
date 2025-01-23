@@ -109,7 +109,7 @@ void Koopa::update()
 	}
 
 	if ((m_flag & KOOPA_FLAG_FALLING) 
-		&& !(m_flag & KOOPA_FLAG_DEAD)) {
+		&& !m_dead) {
 		m_speed.y += 0.2f;
 	}
 
@@ -145,7 +145,7 @@ void Koopa::update()
 
 void Koopa::draw()
 {
-	if (m_flag & KOOPA_FLAG_DEAD)
+	if (m_dead)
 		return;
 
 	g_textureManager.setTexture((TEXTURE)g_animations[m_animationController.m_animation].m_keys[m_animationController.m_time]);
@@ -163,7 +163,7 @@ void Koopa::draw()
 		fontColor(0x00, 0xff, 0xff);
 		fontBackgroundColor(true);
 		fontDraw("DEAD:%d JUMP:%d FALL:%d COUNT:%d\nCOLLISION:%d ANIMATION:%d\n",
-			m_flag & KOOPA_FLAG_DEAD, (m_flag & KOOPA_FLAG_JUMPING) >> 1,
+			m_dead, (m_flag & KOOPA_FLAG_JUMPING) >> 1,
 			(m_flag & KOOPA_FLAG_FALLING) >> 2,
 			m_jumpCount,
 			(m_flag & KOOPA_FLAG_COLLISION) >> 3,
@@ -204,11 +204,6 @@ void Koopa::kill()
 	if (g_player.m_clear) {
 		m_pStateMachine->changeState(KoopaStateDie::instance());
 	}
-}
-
-bool Koopa::isDead()
-{
-	return m_flag & KOOPA_FLAG_DEAD;
 }
 
 void Koopa::setActionRange(const RANGE& _range)

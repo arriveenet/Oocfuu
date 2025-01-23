@@ -148,7 +148,7 @@ void KoopaStateDie::execute(Koopa* _pKoopa)
 	}
 
 	if (_pKoopa->m_position.y > SCREEN_HEIGHT) {
-		_pKoopa->m_flag |= KOOPA_FLAG_DEAD;
+		_pKoopa->m_dead = true;
 		_pKoopa->m_speed.y = 0.0f;
 	}
 
