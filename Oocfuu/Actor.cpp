@@ -5,7 +5,7 @@
 Actor::Actor()
 	: m_position(0.0f, 0.0f)
 	, m_size(0.0f, 0.0f)
-	, m_taransform(1.0f)
+	, m_transformMatrix(1.0f)
 	, m_transformDirty(true)
 	, m_pGame(Game::getInstance())
 {
@@ -73,27 +73,31 @@ void Actor::removeChild(Actor* pActor)
 {
 	auto iter = std::find(m_children.begin(), m_children.end(), pActor);
 	if (iter != m_children.end()) {
-		delete pActor;
 		m_children.erase(iter);
+		delete pActor;
 	}
 }
 
 void Actor::addComponent(Component* pComponent)
 {
-	m_componets.emplace_back(pComponent);
+	if (pComponent == nullptr) return;
+
+	m_components.emplace_back(pComponent);
 }
 
 void Actor::removeComponent(Component* pComponent)
 {
-	auto iter = std::find(m_componets.begin(), m_componets.end(), pComponent);
-	if (iter != m_componets.end()) {
-		m_componets.erase(iter);
+	if (pComponent == nullptr) return;
+
+	auto iter = std::find(m_components.begin(), m_components.end(), pComponent);
+	if (iter != m_components.end()) {
+		m_components.erase(iter);
 	}
 }
 
 void Actor::updateComponent()
 {
-	for (auto& component : m_componets) {
+	for (auto& component : m_components) {
 		component->update();
 	}
 }

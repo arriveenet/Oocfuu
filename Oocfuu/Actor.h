@@ -41,12 +41,12 @@ protected:
 protected:
 	glm::vec2 m_position;
 	glm::vec2 m_size;
-	glm::mat4 m_taransform;
+	glm::mat4 m_transformMatrix;
 	bool m_transformDirty;
 
 	Game* m_pGame;
 
 	std::vector<Actor*> m_children;
-	std::vector<Component*> m_componets;
+	std::vector<Component*> m_components;
 };
 
