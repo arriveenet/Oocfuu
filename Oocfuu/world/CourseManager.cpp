@@ -190,8 +190,10 @@ void CourseManager::hitBlock(glm::vec2 const& _point)
 		part = endPart = PART_QUESTION3;
 		Game::getInstance()->addCoin();
 		break;
+	// 叩いたブロックが最初と最後が同じパーツ
 	case PART_SOFT_BLOCK:
-		part = endPart = PART_SOFT_BLOCK;
+	case PART_HARD_BLOCK_2:
+		part = endPart = cellPart;
 		break;
 	default:
 		g_pSound->play(SOUND_TYPE_SE_BUMP);
