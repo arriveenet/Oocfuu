@@ -25,12 +25,27 @@
 		<dr>b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0      b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0    b0b0    b0b0b0b0b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0              b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0</dr>
 	</data>
 	<enemy>
-		<kuribo x="224" y="192"/>
 		<kuribo x="240" y="192"/>
+		<kuribo x="257" y="192"/>
 		<kuribo x="480" y="192"/>
-		<kuribo x="736" y="192"/>
-		<kuribo x="768" y="192"/>
-		<kuribo x="928" y="192"/>
+		<kuribo x="992" y="192"/>
+		<kuribo x="1024" y="192"/>
+		<kuribo x="1168" y="64"/>
+		<kuribo x="1216" y="128"/>
+		<kuribo x="1248" y="128"/>
+		<kuribo x="1568" y="192"/>
+		<kuribo x="1600" y="192"/>
+		<kuribo x="1632" y="192"/>
+		<kuribo x="1808" y="192"/>
+		<kuribo x="2160" y="144"/>
+		<kuribo x="2176" y="128"/>
+
+
+		<nokonoko x="736" y="192"/>
+		<nokonoko x="768" y="192"/>
+		<nokonoko x="928" y="192"/>
+
+		<red-nokonoko x="2336" y="192"/>
 	</enemy>
 	<gimmick>
 		<lift x="2236" y="96" width="6" mode="3"/>
