@@ -21,7 +21,7 @@ namespace {
 	const MESSAGE message2[] =
 	{
 		{"HAPPY BIRTHDAY OOCFUU!",		vec2(40, 64),	0},
-		{"FEBRUARY,4,2024",				vec2(120, 88),	144},
+		{"FEBRUARY,4,2025",				vec2(120, 88),	144},
 		{"THANK YOU FOR A FUN",			vec2(56,104),	288},
 		{"LIVESTREAMING ALWAYS.",		vec2(48, 120),	288},
 		{"HOPE YOU HAVE A GREAT YEAR!",	vec2(24, 136),	432},
