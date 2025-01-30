@@ -104,6 +104,8 @@ void Nokonoko::draw()
 void Nokonoko::kill()
 {
 	m_pStateMachine->changeState(NokonokoStateDie::instance());
+
+    Enemy::kill();
 }
 
 void Nokonoko::setType(Type type)
