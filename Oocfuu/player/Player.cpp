@@ -311,11 +311,11 @@ void Player::draw()
 
 void Player::kill()
 {
-	//if (m_dead)
-	//	return;
+	if (m_dead)
+		return;
 
-	//m_dead = true;
-	//m_pStateContext->setStete(new PlayerStateDie);
+	m_dead = true;
+	m_pStateContext->setStete(new PlayerStateDie);
 }
 
 void Player::jump()
