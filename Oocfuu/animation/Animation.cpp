@@ -21,7 +21,7 @@ int Animation::initAll()
 	/* Run animation */
 	for (int i = TEXTURE_PLAYER_RUN_1; i <= TEXTURE_PLAYER_RUN_3; i++) {
 		g_animations[ANIMATION_PLAYER_RUN].m_keys.push_back(i);
-		g_animations[ANIMATION_PLAYER_RUN].m_rate = 8;
+		g_animations[ANIMATION_PLAYER_RUN].m_rate = 6;
 		g_animations[ANIMATION_PLAYER_RUN].m_next = ANIMATION_PLAYER_RUN;
 	}
 
