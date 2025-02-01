@@ -11,6 +11,7 @@ static TEX texs[] =
 {
 	{{"player\\Player_Idle.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_IDLE
 	{{"player\\Player_Jump.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_JUMP
+	{{"player\\Player_Die.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_DIE
 	{{"player\\Player_Run_1.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_1
 	{{"player\\Player_Run_2.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_2
 	{{"player\\Player_Run_3.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_3

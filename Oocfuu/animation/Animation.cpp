@@ -30,6 +30,11 @@ int Animation::initAll()
 	g_animations[ANIMATION_PLAYER_JUMP].m_rate = 15;
 	g_animations[ANIMATION_PLAYER_JUMP].m_next = ANIMATION_PLAYER_JUMP;
 
+	/* Die animation */
+	g_animations[ANIMATION_PLAYER_DIE].m_keys.push_back(TEXTURE_PLAYER_DIE);
+	g_animations[ANIMATION_PLAYER_DIE].m_rate = 15;
+	g_animations[ANIMATION_PLAYER_DIE].m_next = ANIMATION_PLAYER_DIE;
+
 	/* Flag pole animation */
 	for (int i = TEXTURE_PLAYER_FLAG_POLE_1; i <= TEXTURE_PLAYER_FLAG_POLE_2; i++) {
 		g_animations[ANIMATION_PLAYER_FLAG_POLE].m_keys.push_back(i);
