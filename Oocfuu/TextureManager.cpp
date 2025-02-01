@@ -9,12 +9,14 @@ static const char* filePath = "resource\\textures\\";
 
 static TEX texs[] =
 {
-	{{"player\\Player_Idle.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_IDLE
-	{{"player\\Player_Jump.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_JUMP
-	{{"player\\Player_Run_1.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_RUN_1
-	{{"player\\Player_Run_2.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_RUN_2
-	{{"player\\Player_Run_3.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_RUN_3
-	{{"enemy\\Kuribo_Run.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_PLAYER_RUN_1
+	{{"player\\Player_Idle.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_IDLE
+	{{"player\\Player_Jump.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_JUMP
+	{{"player\\Player_Run_1.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_1
+	{{"player\\Player_Run_2.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_2
+	{{"player\\Player_Run_3.bmp"},			RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_RUN_3
+	{{"player\\Player_Flag_pole_1.bmp"},	RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_FLAG_POLE_1
+    {{"player\\Player_Flag_pole_2.bmp"},	RGB(0x00, 0xff, 0x00)},	// TEXTURE_PLAYER_FLAG_POLE_2
+	{{"enemy\\Kuribo_Run.bmp"},				RGB(0xff, 0x00, 0xff)},	// TEXTURE_KURIBO_RUN
 	{{"enemy\\Kuribo_Squish.bmp"},			RGB(0xff, 0x00, 0xff)},	// TEXTURE_KURIBO_SQUISH
 	{{"item\\cake.bmp"},					RGB(0xff, 0x00, 0xff)},	// TEXTURE_CAKE
 	{{"item\\Kinopio.bmp"},					RGB(0xff, 0x00, 0xff)},	// TEXTURE_KINOPIO

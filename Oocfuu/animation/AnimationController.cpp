@@ -3,6 +3,8 @@
 
 void AnimationController::update()
 {
+	if (!m_isPlaying) return;
+
 	m_count++;
 	Animation& a = g_animations[m_animation];
 	m_time = m_count / a.m_rate;
@@ -21,4 +23,14 @@ void AnimationController::setAnimation(int _animation)
 	m_animation = _animation;
 	m_count = 
 	m_time = 0;
+}
+
+void AnimationController::startAnimation()
+{
+	m_isPlaying = true;
+}
+
+void AnimationController::stopAnimation()
+{
+	m_isPlaying = false;
 }

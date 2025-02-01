@@ -30,6 +30,7 @@ void PlayerStateGoal::start(Player* _pPlayer)
 	_pPlayer->m_speed.x = 0;
 	auto pos = _pPlayer->getPosition();
 	_pPlayer->setPosition(pos.x + PLAYER_POLE_OFFSET, pos.y);
+	_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_FLAG_POLE);
 
 	Bgm::stop();
 	g_pSound->play(SOUND_TYPE_SE_FLAGPOLE);
@@ -51,6 +52,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 			auto pos = _pPlayer->getPosition();
 			_pPlayer->setPosition(pos.x + PLAYER_FLIP_OFFSET, pos.y);
 			_pPlayer->m_speed.y = 0;
+            _pPlayer->m_animationController.stopAnimation();
 		} else {
   			_pPlayer->m_speed.y = PLAYER_POLE_FALL_SPEED;
 		}
@@ -62,6 +64,7 @@ void PlayerStateGoal::update(PlayerStateContext* _pStateContext, Player* _pPlaye
 			g_pSound->play(SOUND_TYPE_SE_FANFARE);
 			_pPlayer->setFlip(RECT_FLIP_NONE);
 			_pPlayer->m_animationController.setAnimation(ANIMATION_PLAYER_RUN);
+			_pPlayer->m_animationController.startAnimation();
 		}
 		break;
 	case PLAYERSTATEGOAL_MOVE:

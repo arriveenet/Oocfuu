@@ -30,6 +30,13 @@ int Animation::initAll()
 	g_animations[ANIMATION_PLAYER_JUMP].m_rate = 15;
 	g_animations[ANIMATION_PLAYER_JUMP].m_next = ANIMATION_PLAYER_JUMP;
 
+	/* Flag pole animation */
+	for (int i = TEXTURE_PLAYER_FLAG_POLE_1; i <= TEXTURE_PLAYER_FLAG_POLE_2; i++) {
+		g_animations[ANIMATION_PLAYER_FLAG_POLE].m_keys.push_back(i);
+		g_animations[ANIMATION_PLAYER_FLAG_POLE].m_rate = 8;
+		g_animations[ANIMATION_PLAYER_FLAG_POLE].m_next = ANIMATION_PLAYER_FLAG_POLE;
+	}
+
 	/* Koopa animation */
 	for (int i = TEXTURE_KOOPA_IDLE_1; i <= TEXTURE_KOOPA_IDLE_2; i++) {
 		g_animations[ANIMATION_KOOPA].m_keys.push_back(i);
