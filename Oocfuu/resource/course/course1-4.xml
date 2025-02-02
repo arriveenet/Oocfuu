@@ -38,6 +38,7 @@
 		<firebar x="1412" y="68" rotate="0"/>
 	</gimmick>
 	<object>
-		<kinopio x="2432" y="184"/>
+		<cake x="2416" y="176"/>
+		<!-- <kinopio x="2432" y="184"/> -->
 	</object>
 </course>
