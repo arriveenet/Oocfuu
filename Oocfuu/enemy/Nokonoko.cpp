@@ -26,7 +26,7 @@ Nokonoko::Nokonoko(float _x, float _y)
 	, m_type(Nokonoko::Type::Green)
 	, m_counter(0)
 	, m_pStateMachine(nullptr)
-	, m_topPoint(0.0f, 0.0f)
+	, m_topPoints{}
 	, Enemy(NOKONOKO_RUN_SIZE, vec2(_x, _y))
 {
 	m_enemyType = EnemyType::Nokonoko;
@@ -64,17 +64,9 @@ void Nokonoko::update()
 	m_pStateMachine->update();
 
 	// 当たり判定用のポイントを設定
-	m_topPoint = m_position + vec2(8, 0);
-
-	if (g_player.intersect(m_topPoint)) {
-		m_pStateMachine->changeState(NokonokoStateShell::instance());
-		g_player.jump();
-	}
-
-	//if (g_player.intersect(m_leftPoint)
-	//	|| g_player.intersect(m_rightPoint)) {
-	//	g_player.kill();
-	//}
+	m_topPoints[0] = m_position;
+	m_topPoints[1] = m_position + vec2(8, 0);
+	m_topPoints[2] = m_position + vec2(16, 0);
 }
 
 void Nokonoko::draw()
@@ -91,7 +83,9 @@ void Nokonoko::draw()
 		glEnableClientState(GL_VERTEX_ARRAY);// GLenum array
 		
 		glBegin(GL_POINTS);
-		glVertex2fv((GLfloat*)&m_topPoint);
+		for (const auto& points : m_topPoints) {
+			glVertex2fv((GLfloat*)&points);
+		}
 		glEnd();
 
 		glPopAttrib();
@@ -105,7 +99,7 @@ void Nokonoko::kill()
 {
 	m_pStateMachine->changeState(NokonokoStateDie::instance());
 
-    Enemy::kill();
+	Enemy::kill();
 }
 
 void Nokonoko::setType(Type type)

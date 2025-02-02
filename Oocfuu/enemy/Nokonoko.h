@@ -8,6 +8,7 @@
 
 constexpr glm::vec2 NOKONOKO_RUN_SIZE{ 16.0f, 24.0f };
 constexpr glm::vec2 NOKONOKO_SHELL_SIZE{ 16.0f, 16.0f };
+constexpr int NOKONOKO_TOP_POINT_COUNT = 3;
 
 enum NOKONOKO_STATE {
 	NOKONOKO_STATE_RUN,
@@ -54,6 +55,6 @@ protected:
 	NOKONOKO_STATE m_state;
 	Nokonoko::Type m_type;
 	int m_counter;
-	glm::vec2 m_topPoint;
+	glm::vec2 m_topPoints[NOKONOKO_TOP_POINT_COUNT];
 	StateMachine<Nokonoko>* m_pStateMachine;
 };

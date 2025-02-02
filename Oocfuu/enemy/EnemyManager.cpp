@@ -52,6 +52,8 @@ void EnemyManager::clear()
 		delete m_enemies.back();
 		m_enemies.pop_back();
 	}
+
+	m_updateEnemies.clear();
 }
 
 void EnemyManager::koopaKill()

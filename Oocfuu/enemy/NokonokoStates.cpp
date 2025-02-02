@@ -48,6 +48,23 @@ void NokonokoStateRun::execute(Nokonoko* _pNokonoko)
 	// スピードの影響を与える
 	_pNokonoko->m_position += _pNokonoko->m_speed;
 
+	// トップポイントがプレイヤーと当たればシェル状態に移行
+	if (!g_player.m_dead) {
+		for (const auto& topPoints : _pNokonoko->m_topPoints) {
+			if (g_player.intersect(topPoints)) {
+				_pNokonoko->m_speed = { 0.0f, 0.0f };
+				_pNokonoko->m_pStateMachine->changeState(NokonokoStateShell::instance());
+				g_player.jump();
+				return;
+			}
+		}
+	}
+
+	// プレイヤーとの当たり判定
+	if (_pNokonoko->intersect(g_player)) {
+		g_player.kill();
+	}
+
 	// 親クラスの更新をする
 	_pNokonoko->Enemy::update();
 	_pNokonoko->Enemy::intersectEnemy();
@@ -143,6 +160,24 @@ void NokonokoStateSpin::execute(Nokonoko* _pNokonoko)
 			enemy->kill();
 			break;
 		}
+	}
+
+	// トップポイントがプレイヤーと当たればシェル状態に移行
+	if (!g_player.m_dead) {
+		for (const auto& topPoints : _pNokonoko->m_topPoints) {
+			if (g_player.intersect(topPoints)) {
+				_pNokonoko->m_speed = { 0.0f, 0.0f };
+				_pNokonoko->m_pStateMachine->changeState(NokonokoStateShell::instance());
+				g_player.jump();
+				return;
+			}
+		}
+	}
+
+	// プレイヤーとの当たり判定
+	if (g_player.intersect(_pNokonoko->m_leftPoint)
+		|| g_player.intersect(_pNokonoko->m_rightPoint)) {
+		g_player.kill();
 	}
 }
 
