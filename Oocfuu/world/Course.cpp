@@ -1,6 +1,7 @@
 #include "Course.h"
 #include "Part.h"
 #include "sound/Bgm.h"
+#include "world/CourseManager.h"
 
 #include <glm/glm.hpp>
 
@@ -109,9 +110,12 @@ void Course::update()
 		m_quads.push_back(hitBlock);
 	}
 
+	const int startX = static_cast<int>(g_courseManager.getScroll()) / PART_SIZE;
+	const int endX = std::min(startX + SCREEN_WIDTH / PART_SIZE + 1, m_width);
+
 	// 描画するパーツを更新
 	for (int y = 0; y < m_height; y++) {
-		for (int x = 0; x < m_width; x++) {
+		for (int x = startX; x < endX; x++) {
 			int part = m_pParts[y][x];
 
 			if (part == PART_NONE)
@@ -121,7 +125,13 @@ void Course::update()
 
 			switch (part) {
 			case PART_COIN_0:
+			{
 				m_coins.push_back(ivec2(x, y));
+				int animationTable[] = { 0,1,2,2,1,0 };
+				int animationTableLength = sizeof(animationTable) / sizeof(int);
+				textureIndex += animationTable[(Game::m_count / 8) % animationTableLength];
+			}
+			break;
 			case PART_QUESTION0:
 			case PART_AXE_0:
 			{
