@@ -94,6 +94,10 @@ void Enemy::update()
 			break;
 		}
 	}
+
+	if (!g_courseManager.isInScreen(m_rect)) {
+		m_dead = true;
+	}
 }
 
 /**

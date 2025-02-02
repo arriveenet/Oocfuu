@@ -134,10 +134,20 @@ void EnemyManager::draw()
 */
 void EnemyManager::prepare()
 {
-	// 敵キャラクターの配列をクリア
-	m_updateEnemies.clear();
-
+	// 画面内の敵キャラクターを取得
 	for (auto& enemy : m_enemies) {
+
+		const auto iter = std::find(m_updateEnemies.begin(), m_updateEnemies.end(), enemy);
+
+		// すでに更新リストにある場合
+		if (iter != m_updateEnemies.end()) {
+			// 死亡している場合は削除する
+			if (enemy->isDead()) {
+				m_updateEnemies.erase(iter);
+			}
+			continue;
+		}
+
 		// 画面内かつ生きている場合追加する
 		if (g_courseManager.isInScreen(enemy->getRect()) && enemy->isAlive()) {
 			m_updateEnemies.emplace_back(enemy);

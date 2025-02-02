@@ -73,13 +73,6 @@ void KuriboStateRun::execute(Kuribo* _pKuribo)
 	_pKuribo->m_topPoints[1] = _pKuribo->m_position + vec2(2, 5);
 	_pKuribo->m_topPoints[2] = _pKuribo->m_position + vec2(14, 5);
 
-	//if (g_courseManager.intersect(_pKuribo->m_rightPoint)) {
-	//	_pKuribo->turn();
-	//}
-
-	//if (g_courseManager.intersect(_pKuribo->m_leftPoint)) {
-	//	_pKuribo->turn();
-	//}
 
 	_pKuribo->Enemy::update();
 	_pKuribo->Enemy::intersectEnemy();
