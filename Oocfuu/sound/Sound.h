@@ -40,6 +40,7 @@ public:
 
 	void play(SoundType _sid);
 	void stop(SoundType _sid);
+	void pause(SoundType _sid);
 	void repeat(SoundType _sid, bool _enable = true);
 	void setGain(SoundType _source, float _gain);
 	ALint getState(SoundType _source);

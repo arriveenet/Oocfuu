@@ -26,6 +26,9 @@ public:
 	// BGM‚ğ’â~
 	static void stop();
 
+	// BGM‚ğˆê’â~
+	static void pause();
+
 	// BGM‚ªÄ¶’†‚©”»’è
 	static bool isPlaying();
 

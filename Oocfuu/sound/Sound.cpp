@@ -155,6 +155,12 @@ void Sound::stop(SoundType _sid)
 		alSourceStop(m_sids[_sid]);
 }
 
+void Sound::pause(SoundType _sid)
+{
+	if (m_sids)
+		alSourcePause(m_sids[_sid]);
+}
+
 void Sound::repeat(SoundType _sid, bool _enable)
 {
 	alSourcei(

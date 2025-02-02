@@ -101,12 +101,11 @@ void Game::release()
 
 void Game::update()
 {
-	if (m_pause)
-		return;
-
 	m_count++;
 
-	m_timer.update();
+	if (!m_pause) {
+		m_timer.update();
+	}
 
 	m_pCurrentScreen->update();
 }
@@ -176,6 +175,13 @@ void Game::pause()
 		return;
 
 	m_pause = m_pause ? false : true;
+
+	if (m_pause) {
+		Bgm::pause();
+	} else {
+		Bgm::play();
+	}
+
 	g_pSound->play(SOUND_TYPE_SE_PAUSE);
 }
 

@@ -56,6 +56,18 @@ void Bgm::stop()
 }
 
 /**
+ * @brief BGM‚ğˆê’â~‚·‚é
+ *
+ * @return ‚È‚µ
+ *
+ */
+void Bgm::pause()
+{
+	m_isPlaying = false;
+	g_pSound->pause(m_soundType);
+}
+
+/**
  * @brief BGM‚ªÄ¶’†‚©”»’è
  *
  * @return Ä¶’†FtrueA’â~’†Ffalse

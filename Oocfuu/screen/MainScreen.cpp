@@ -35,6 +35,10 @@ void MainScreen::update()
 	if (Keyboard::m_nowPressed[KEYBOARD_KEY_F3])
 		Game::m_debugInfo = Game::m_debugInfo ? false : true;
 
+	if (Keyboard::m_nowPressed['m']) {
+		Bgm::isPlaying() ? Bgm::pause() : Bgm::play();
+	}
+
 	if (Keyboard::m_nowPressed['p'] && !g_player.m_goal)
 		m_pGame->pause();
 
